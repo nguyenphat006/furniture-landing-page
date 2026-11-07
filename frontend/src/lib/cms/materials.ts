@@ -1,20 +1,17 @@
 import "server-only";
-import { materialSlugs, type MaterialSlug } from "@/data/catalog/taxonomy";
+import type { MaterialSlug } from "@/data/catalog/taxonomy";
 import type { MaterialPage, MaterialSummary } from "@/data/catalog/types";
 import { cmsGet } from "./client";
 import type { components } from "./schema";
 
 /*
  * Vật liệu từ CMS (GET /catalog/materials, /catalog/materials/<slug>), đổi sang kiểu của UI.
- * Slug lạ (chưa khai báo ở taxonomy.ts) bị bỏ qua. Ảnh CMS còn trống thì dùng `placeholder(slug)`:
+ * Mọi vật liệu CMS trả về đều có trang (2026-11-07). Ảnh CMS còn trống thì dùng `placeholder(slug)`:
  * tên file cần chụp, để khung kẻ sọc vẫn ghi rõ chỗ đó cần ảnh gì.
  */
 
 type Schemas = components["schemas"];
 type Image = Schemas["Image"] | null;
-
-const isMaterial = (s: string): s is MaterialSlug =>
-  (materialSlugs as readonly string[]).includes(s);
 
 export type Placeholders = (slug: MaterialSlug) => {
   img: string;
@@ -46,9 +43,7 @@ export async function fetchMaterials(
   const items =
     (await cmsGet<Schemas["Material"][]>("catalog/materials", { locale })) ??
     [];
-  return items.flatMap((m) =>
-    isMaterial(m.slug) ? [summary(m, m.slug, placeholder)] : [],
-  );
+  return items.map((m) => summary(m, m.slug, placeholder));
 }
 
 export async function fetchMaterial(

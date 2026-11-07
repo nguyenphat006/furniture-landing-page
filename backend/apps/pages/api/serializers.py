@@ -16,6 +16,8 @@ from wagtail.blocks import StreamValue, StructValue
 from wagtail.images.models import AbstractImage
 from wagtail.rich_text import RichText, expand_db_html
 
+from apps.core.media_url import absolute_url
+
 from ..blocks import CODED_SECTIONS, LABEL_SIDES, export_country_choices, parse_position
 from ..models import ContentPage, SharedSection
 from ..selectors import live_section
@@ -27,8 +29,7 @@ RENDITION_OG = "fill-1200x630|format-jpeg|jpegquality-85"
 
 
 def _abs(context: Mapping[str, Any], url: str) -> str:
-    request = context.get("request")
-    return request.build_absolute_uri(url) if request is not None else url
+    return absolute_url(context, url)
 
 
 def image_data(
@@ -107,6 +108,14 @@ def body_data(body: StreamValue, context: Mapping[str, Any]) -> list[dict[str, A
     for child in body:
         if child.block_type == "shared":
             section: SharedSection | None = live_section(child.value)
+            # Đang xem trước section dùng chung: thay bằng bản đang sửa
+            preview = context.get("preview_section")
+            if (
+                preview is not None
+                and child.value is not None
+                and child.value.translation_key == preview.translation_key
+            ):
+                section = preview
             if section is None:
                 continue
             out.extend(
@@ -271,3 +280,13 @@ class ContentPageSerializer(serializers.Serializer[ContentPage]):
     @extend_schema_field(PAGE_BLOCK)
     def get_body(self, obj: ContentPage) -> list[dict[str, Any]]:
         return body_data(obj.body, self.context)
+
+
+class PreviewSerializer(serializers.Serializer[object]):
+    """Bản nháp: data cùng định dạng API công khai (ContentPage hoặc ProductDetail)."""
+
+    kind = serializers.ChoiceField(choices=["page", "product"])
+    key = serializers.CharField(help_text="Khoá trang (home, privacy...) hoặc slug sản phẩm")
+    locale = serializers.CharField()
+    path = serializers.CharField(help_text="Đường dẫn trên web, đã có tiền tố ngôn ngữ")
+    content = serializers.JSONField(source="payload")

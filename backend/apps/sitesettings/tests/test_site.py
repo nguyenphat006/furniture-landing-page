@@ -102,6 +102,11 @@ def test_site_api_follows_locale(api_client: APIClient, assets: Path) -> None:
     }
     assert en["social"] == [{"network": "facebook", "url": "https://facebook.com/bfc"}]
     assert en["seo"]["title"] == "BFC EN"
+    assert en["analytics"] == {
+        "ga_measurement_id": "",
+        "google_site_verification": "",
+        "bing_site_verification": "",
+    }
 
 
 def test_site_api_works_before_any_setup(api_client: APIClient) -> None:
@@ -125,6 +130,88 @@ def test_maps_embed_only_accepts_google_maps(url: str) -> None:
     site.maps_embed_url = url
     with pytest.raises(ValidationError):
         site.full_clean()
+
+
+def test_ga_measurement_id_in_api_and_validated(api_client: APIClient) -> None:
+    site = SiteSettings.load()
+    site.ga_measurement_id = "G-AB12CD34EF"
+    site.full_clean()
+    site.save()
+    assert _get(api_client)["analytics"]["ga_measurement_id"] == "G-AB12CD34EF"
+
+    # Chỉ nhận đúng dạng GA4: web chèn mã vào script
+    for bad in ["UA-123456-1", "g-ab12cd", "G-AB12'); alert(1)//"]:
+        site.ga_measurement_id = bad
+        with pytest.raises(ValidationError):
+            site.full_clean()
+
+
+def test_site_verification_accepts_meta_tag_or_token(api_client: APIClient) -> None:
+    site = SiteSettings.load()
+    site.google_site_verification = (
+        '<meta name="google-site-verification" content="abcDEF123_-xyz456789" />'
+    )
+    site.bing_site_verification = "  0123456789ABCDEF0123456789ABCDEF "
+    site.full_clean()
+    site.save()
+    data = _get(api_client)["analytics"]
+    assert data["google_site_verification"] == "abcDEF123_-xyz456789"
+    assert data["bing_site_verification"] == "0123456789ABCDEF0123456789ABCDEF"
+
+    site.google_site_verification = 'abc" onload="x'
+    with pytest.raises(ValidationError):
+        site.full_clean()
+
+
+def test_floating_actions_resolve_links_and_hide_empty(api_client: APIClient) -> None:
+    from apps.sitesettings.models import FloatingAction
+    from apps.sitesettings.services import ensure_default_floating
+
+    site = SiteSettings.load()
+    site.phone = "+84 914 642 008"
+    site.email = "office@example.com"
+    site.save()
+    ensure_default_floating(site)
+    site.save()
+    FloatingAction.objects.create(
+        settings=site,
+        kind="link",
+        url="/catalog",
+        label="Catalog",
+        label_en="Catalogue",
+        sort_order=10,
+    )
+    FloatingAction.objects.create(settings=site, kind="quote", visible=False, sort_order=11)
+
+    en = _get(api_client, locale="en")["floating"]
+    # WhatsApp, Zalo chưa có link ở tab Liên hệ: ẩn; nút ẩn không trả về
+    assert en == [
+        {"kind": "search", "label": "", "url": ""},
+        {"kind": "phone", "label": "", "url": "tel:+84914642008"},
+        {"kind": "email", "label": "", "url": "mailto:office@example.com"},
+        {"kind": "link", "label": "Catalogue", "url": "/catalog"},
+    ]
+    # Chạy lại không thêm trùng
+    ensure_default_floating(site)
+    assert site.floating_actions.count() == 7
+
+
+@pytest.mark.parametrize(
+    ("fields", "error_field"),
+    [
+        ({"kind": "messenger"}, "url"),
+        ({"kind": "link", "url": "/x"}, "label"),
+        ({"kind": "search", "url": "/search"}, "url"),
+        ({"kind": "link", "url": "javascript:alert(1)", "label": "x"}, "url"),
+    ],
+)
+def test_floating_action_validation(fields: dict[str, str], error_field: str) -> None:
+    from apps.sitesettings.models import FloatingAction
+
+    action = FloatingAction(settings=SiteSettings.load(), **fields)
+    with pytest.raises(ValidationError) as exc:
+        action.full_clean()
+    assert error_field in exc.value.message_dict
 
 
 def test_nav_item_validation() -> None:

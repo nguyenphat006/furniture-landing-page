@@ -9,7 +9,7 @@ from django.db import transaction
 
 from apps.catalog.services import get_or_create_image
 
-from .models import NavItem, SiteSettings
+from .models import FloatingAction, NavItem, SiteSettings
 
 TEXT_FIELDS = (
     "name",
@@ -36,6 +36,18 @@ TEXT_FIELDS = (
     "seo_description_en",
 )
 IMAGE_FIELDS = ("logo", "logo_on_dark", "favicon", "og_image")
+
+# Cụm nút nổi mặc định khi chưa có nút nào (link lấy từ tab Liên hệ)
+DEFAULT_FLOATING = ("search", "phone", "whatsapp", "zalo", "email")
+
+
+def ensure_default_floating(obj: SiteSettings) -> None:
+    """Tạo cụm nút nổi mặc định nếu admin chưa có nút nào. Không đụng nút đã có."""
+    if obj.pk and obj.floating_actions.exists():
+        return
+    obj.floating_actions.set(
+        [FloatingAction(kind=kind, sort_order=order) for order, kind in enumerate(DEFAULT_FLOATING)]
+    )
 
 
 @transaction.atomic
@@ -74,5 +86,6 @@ def import_site(data: dict[str, Any], *, assets_dir: Path) -> list[str]:
                 for order, item in enumerate(data["nav"])
             ]
         )
+    ensure_default_floating(obj)
     obj.save()
     return missing

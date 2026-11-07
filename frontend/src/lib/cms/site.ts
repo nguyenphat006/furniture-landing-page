@@ -58,5 +58,15 @@ export async function fetchSite(
       links: s.footer.links.map((l) => ({ label: l.label, href: l.url })),
     },
     seo: s.seo,
+    gaMeasurementId: s.analytics.ga_measurement_id || null,
+    floating: s.floating.map((f) => ({
+      kind: f.kind,
+      label: f.label,
+      href: f.url,
+    })),
+    verification: {
+      google: s.analytics.google_site_verification,
+      bing: s.analytics.bing_site_verification,
+    },
   };
 }

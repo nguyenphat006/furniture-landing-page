@@ -61,6 +61,7 @@ export function ProductGallery({
           key={images[active]}
           label={images[active]}
           sizes="(min-width: 1024px) 58vw, 100vw"
+          priority={active === 0}
           className="ease-out-soft transition-transform duration-(--duration-slow) group-hover/zoom:scale-[1.02] [&_img]:object-contain"
         />
       </button>

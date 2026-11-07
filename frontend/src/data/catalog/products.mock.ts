@@ -1,7 +1,8 @@
+import { productTypes } from "./taxonomy";
 import type { Product } from "./types";
 
-/** Kiểu cũ của mock, giữ tên để code cũ không phải đổi */
-export type MockProduct = Product;
+/** Mock khai báo loại, nhóm tính từ productTypes */
+export type MockProduct = Omit<Product, "category">;
 
 /*
  * Mock sản phẩm và ảnh bìa nhóm. Chờ DB riêng của landing page.
@@ -14,7 +15,7 @@ export type MockProduct = Product;
  * Slug: <tên-mẫu>-<loại số ít>, duy nhất toàn site.
  */
 
-export const mockProducts: MockProduct[] = [
+const mockList: MockProduct[] = [
   {
     slug: "colette-teak-wicker-chaise-lounger-sunlounger",
     name: "Colette Teak & Wicker Chaise Lounger",
@@ -823,3 +824,8 @@ export const mockProducts: MockProduct[] = [
     images: ["/products/baiona-towel-rack.webp"],
   },
 ];
+
+export const mockProducts: Product[] = mockList.map((p) => ({
+  ...p,
+  category: productTypes[p.type as keyof typeof productTypes],
+}));

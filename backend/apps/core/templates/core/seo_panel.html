@@ -1,0 +1,8 @@
+{% load i18n wagtailadmin_tags %}
+{% panel id="bfc-seo" heading=_("Rà soát SEO") classname="w-panel--dashboard" %}
+    <p class="bfc-seo-summary">
+        <a href="{{ url }}?level=error"><span class="bfc-seo-badge bfc-seo-badge--error">{{ counts.error }}</span> {% trans "lỗi" %}</a>
+        <a href="{{ url }}?level=warning"><span class="bfc-seo-badge bfc-seo-badge--warning">{{ counts.warning }}</span> {% trans "cần xem" %}</a>
+        <a href="{{ url }}?level=ok"><span class="bfc-seo-badge bfc-seo-badge--ok">{{ counts.ok }}</span> {% trans "ổn" %}</a>
+    </p>
+{% endpanel %}

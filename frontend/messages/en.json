@@ -1019,7 +1019,8 @@
     },
     "craftKicker": "BFC workshops",
     "careKicker": "Care guide",
-    "productsKicker": "Applications"
+    "productsKicker": "Applications",
+    "productsViewAll": "View all products"
   },
   "AboutPage": {
     "metaTitle": "About us | BINH BFC",
@@ -1258,5 +1259,21 @@
   "Legal": {
     "updated": "Last updated {date}",
     "contents": "Contents"
+  },
+  "Preview": {
+    "label": "Viewing a draft.",
+    "note": "Visitors cannot see this content yet.",
+    "exit": "Exit preview"
+  },
+  "FloatingActions": {
+    "label": "Quick contact",
+    "search": "Search",
+    "phone": "Call us",
+    "whatsapp": "WhatsApp",
+    "zalo": "Zalo",
+    "email": "Email us",
+    "messenger": "Messenger",
+    "quote": "Request a quote",
+    "link": "Open link"
   }
 }

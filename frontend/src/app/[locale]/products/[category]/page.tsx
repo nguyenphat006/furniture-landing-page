@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
-import { pageAlternates, withSeo } from "@/lib/seo";
+import { pageLinks, withSeo } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { SiteFooter } from "@/components/layout/site-footer";
@@ -9,7 +9,7 @@ import { ImagePlaceholder } from "@/components/shared/image-placeholder";
 import { PageHeader } from "@/components/shared/page-header";
 import { Container, Section } from "@/components/shared/section";
 import { navHref } from "@/config/navigation";
-import { categories, categoryCover, type CategorySlug } from "@/data/catalog";
+import { categoryCover } from "@/data/catalog";
 import { getTaxonomy } from "@/data/catalog/taxonomy-source";
 import { getCategorySeo, getProductsInCategory } from "@/data/catalog/products";
 import { CtaSection } from "@/features/home";
@@ -23,14 +23,22 @@ import { ProductBrowser, ProductGrid } from "@/features/products";
  * (2026-11-06) Bỏ heading section "Mẫu tham khảo" theo yêu cầu: danh sách nằm ngay dưới đầu trang.
  */
 
-export function generateStaticParams() {
-  return categories.map((category) => ({ category }));
+export async function generateStaticParams({
+  params,
+}: {
+  params: { locale: string };
+}) {
+  return (await getTaxonomy(params.locale)).categories.map((c) => ({
+    category: c.slug,
+  }));
 }
 
-export const dynamicParams = false;
+// Nhóm thêm trong CMS sau khi build vẫn có trang; nhóm lạ trả 404
+export const dynamicParams = true;
 
-const isCategory = (s: string): s is CategorySlug =>
-  (categories as readonly string[]).includes(s);
+async function isCategory(slug: string, locale: string): Promise<boolean> {
+  return (await getTaxonomy(locale)).categories.some((c) => c.slug === slug);
+}
 
 export async function generateMetadata({
   params,
@@ -38,7 +46,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string; category: string }>;
 }): Promise<Metadata> {
   const { locale, category } = await params;
-  if (!isCategory(category)) return {};
+  if (!(await isCategory(category, locale))) return {};
   const tc = await getTranslations({ locale, namespace: "Common" });
   const th = await getTranslations({
     locale,
@@ -47,10 +55,18 @@ export async function generateMetadata({
 
   return {
     ...withSeo(
-      { title: tc(`products.${category}`), description: th(category) },
+      {
+        title: tc(`products.${category}`),
+        description: th.has(category) ? th(category) : "",
+      },
       await getCategorySeo(category, locale),
     ),
-    alternates: pageAlternates(`/products/${category}`, locale),
+    ...(await pageLinks(
+      `/products/${category}`,
+      locale,
+      (await getTaxonomy(locale)).categories.find((c) => c.slug === category)
+        ?.cover,
+    )),
   };
 }
 
@@ -61,7 +77,7 @@ export default async function ProductCategoryPage({
 }) {
   const { locale, category } = await params;
   setRequestLocale(locale);
-  if (!isCategory(category)) notFound();
+  if (!(await isCategory(category, locale))) notFound();
 
   const tc = await getTranslations("Common");
   const th = await getTranslations("HomePage.products.items");
@@ -82,12 +98,13 @@ export default async function ProductCategoryPage({
           parents={[{ label: tc("nav.products"), href: navHref.products }]}
           current={name}
           title={name}
-          lede={th(category)}
+          lede={th.has(category) ? th(category) : undefined}
           aside={
             <div className="bg-surface-stone relative aspect-[4/3] overflow-hidden">
               <ImagePlaceholder
                 label={cover}
                 sizes="(min-width: 1280px) 608px, (min-width: 1024px) 448px, (min-width: 640px) 320px, 100vw"
+                priority
               />
             </div>
           }

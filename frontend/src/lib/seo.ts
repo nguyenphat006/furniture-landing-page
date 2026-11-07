@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
+import { getSite } from "@/data/site";
 import { routing } from "@/i18n/routing";
 
 /*
@@ -61,5 +62,47 @@ export function withSeo(
     title: seo?.title || auto.title,
     description: seo?.description || auto.description,
     ...(seo?.noindex ? { robots: { index: false, follow: true } } : {}),
+  };
+}
+
+/** og:locale theo ngôn ngữ trang */
+const OG_LOCALE: Record<string, string> = { vi: "vi_VN", en: "en_US" };
+
+/** Ảnh chia sẻ khi cả trang lẫn Cài đặt CMS đều chưa có ảnh (public/og-default.jpg, 1200×630) */
+export const DEFAULT_OG_IMAGE = "/og-default.jpg";
+
+/** URL ảnh dùng được: URL CMS hoặc đường dẫn trong public; tên file ảnh còn thiếu thì bỏ */
+function usableImage(url: string | null | undefined): url is string {
+  return Boolean(url) && /^(https?:\/\/|\/)/.test(url as string);
+}
+
+/**
+ * canonical + hreflang + Open Graph của trang (QC 07/11). Mỗi trang gọi trong generateMetadata.
+ * openGraph của trang thay hẳn của layout (Next không gộp sâu), nên ghi đủ: tên site, og:url,
+ * og:locale, ảnh. Ảnh: ảnh riêng của trang (sản phẩm, vật liệu, ảnh bìa nhóm, ảnh nhập ở CMS),
+ * rồi ảnh mặc định ở Cài đặt CMS, rồi ảnh tĩnh của site.
+ */
+export async function pageLinks(
+  path: string,
+  locale: string,
+  image?: string | null,
+): Promise<Pick<Metadata, "alternates" | "openGraph">> {
+  const site = await getSite(locale);
+  const own = usableImage(image) ? image : null;
+  const fallback = usableImage(site.ogImage) ? site.ogImage : DEFAULT_OG_IMAGE;
+  return {
+    alternates: pageAlternates(path, locale),
+    openGraph: {
+      type: "website",
+      siteName: site.name,
+      url: localePath(path, locale),
+      locale: OG_LOCALE[locale] ?? locale,
+      alternateLocale: routing.locales
+        .filter((l) => l !== locale)
+        .map((l) => OG_LOCALE[l] ?? l),
+      images: own
+        ? [{ url: own }]
+        : [{ url: fallback, width: 1200, height: 630 }],
+    },
   };
 }

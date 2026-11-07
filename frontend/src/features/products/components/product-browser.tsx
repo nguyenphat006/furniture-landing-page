@@ -5,12 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { ChevronLeft, ChevronRight, LayoutGrid, List } from "lucide-react";
 import { useTaxonomy } from "@/components/providers/site-provider";
-import {
-  categoryOf,
-  materialSlugs,
-  type MaterialSlug,
-  type Product,
-} from "@/data/catalog";
+import type { MaterialSlug, Product } from "@/data/catalog";
 import { cn } from "@/lib/utils";
 import { ProductCard, ProductRow } from "./product-card";
 
@@ -36,7 +31,7 @@ type Facet = "category" | "type";
 type View = "grid" | "list";
 
 const facetOf = (facet: Facet, p: Product): string =>
-  facet === "category" ? categoryOf(p.type) : p.type;
+  facet === "category" ? p.category : p.type;
 
 export function ProductGrid({ products }: { products: Product[] }) {
   return (
@@ -81,9 +76,7 @@ export function ProductBrowser({
   const [materials, setMaterials] = useState<MaterialSlug[]>(() =>
     (params.get("material") ?? "")
       .split(",")
-      .filter((m): m is MaterialSlug =>
-        (materialSlugs as readonly string[]).includes(m),
-      ),
+      .filter((m) => taxonomy.materials.includes(m)),
   );
   const [view, setView] = useState<View>(() =>
     params.get("view") === "list" ? "list" : "grid",
@@ -178,7 +171,7 @@ export function ProductBrowser({
   return (
     <div ref={topRef} className="scroll-mt-[calc(80px+1.5rem)]">
       {/* Bộ lọc: hàng chip */}
-      <div className="border-line grid gap-5 border-y py-6">
+      <div className="border-line grid grid-cols-1 gap-5 border-y py-6">
         <ChipRow label={facet === "category" ? t("category") : t("type")}>
           <Chip
             pressed={primary === null}

@@ -1,15 +1,19 @@
 # BFC Landing Page — Frontend
 
 Next.js 16 (App Router) + TypeScript + Tailwind CSS v4 + shadcn/ui + next-intl.
+Nội dung đọc từ CMS (`../backend`) khi có `CMS_API_URL`, không thì dùng dữ liệu mẫu trong `src/data`.
+Triển khai: [../deploy/README.md](../deploy/README.md) (image từ `Dockerfile`, bản `output: "standalone"`).
 
 ## Chạy dự án
 
 ```bash
 npm install
-npm run dev        # http://localhost:3000
-npm run build      # build production
+cp .env.example .env.local   # tuỳ chọn: nối CMS, captcha (giải thích trong file)
+npm run dev        # http://localhost:4000
+npm run build      # build production (có CMS_API_URL thì CMS phải đang chạy)
 npm run lint       # kiểm tra ESLint
 npm run format     # format code bằng Prettier
+npm run cms:types  # sinh lại src/lib/cms/schema.d.ts sau khi backend đổi openapi.yaml
 ```
 
 ## Đa ngôn ngữ (next-intl)

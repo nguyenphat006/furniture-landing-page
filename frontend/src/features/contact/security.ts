@@ -142,9 +142,12 @@ export function rateLimited(ip: string) {
 }
 
 export function clientIp(h: Headers) {
-  // Sau proxy / CDN: lấy IP đầu tiên trong x-forwarded-for (proxy phải ghi đè header này)
-  const fwd = h.get("x-forwarded-for")?.split(",")[0]?.trim();
-  return fwd || h.get("x-real-ip") || "unknown";
+  // Sau Nginx (deploy/): X-Real-IP = $remote_addr, khách không giả được. Không lấy phần tử đầu
+  // x-forwarded-for vì khách tự gửi header đó để lách giới hạn theo IP (QC 07/11); chỉ dùng phần tử
+  // cuối (do proxy gần nhất thêm) khi không có X-Real-IP.
+  const real = h.get("x-real-ip")?.trim();
+  const fwd = h.get("x-forwarded-for")?.split(",").at(-1)?.trim();
+  return real || fwd || "unknown";
 }
 
 /** Gửi quá nhanh sau khi trang tải (< 3 giây) gần như chắc chắn là bot */

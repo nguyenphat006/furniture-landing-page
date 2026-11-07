@@ -1,7 +1,7 @@
 # BFC CMS (backend)
 
 CMS cho landing page BFC: Django 5.2 LTS + Wagtail 8.0, API DRF cho Next.js (`frontend/`).
-Hiện chỉ chạy local. Quyết định kiến trúc: [docs/adr](docs/adr). Kế hoạch tổng: [../docs/cms-plan.md](../docs/cms-plan.md).
+Triển khai server và vận hành: [../deploy/README.md](../deploy/README.md). Quyết định kiến trúc: [docs/adr](docs/adr). Kế hoạch tổng: [../docs/cms-plan.md](../docs/cms-plan.md).
 
 ## Cài đặt lần đầu (Windows, Git Bash)
 
@@ -66,6 +66,20 @@ scripts/           export_frontend_mock.mjs: xuất mock frontend ra apps/catalo
 
 Mỗi app: `models/` · `services.py` (ghi) · `selectors.py` (đọc) · `api/` · `tests/` (xem ADR 0002).
 
-## Production (sau này)
+## Production
 
-Docker Compose trên server, image từ `Dockerfile` (xem ADR 0006). Máy dev không dùng Docker.
+Docker Compose trên server, image từ `Dockerfile`, settings `config/settings/prod.py` (ADR 0006). Cách dựng,
+cập nhật, sao lưu, xử lý sự cố: [../deploy/README.md](../deploy/README.md). Máy dev không dùng Docker.
+
+| Lệnh quản trị (`python manage.py <lệnh>`) | Việc |
+| --- | --- |
+| `bootstrap` | Locale vi/en, nhóm Quản trị (lần đầu) |
+| `import_site` | Thông tin chung, menu, footer từ dữ liệu frontend (lần đầu) |
+| `sync_taxonomy` | Tạo nhóm / loại / chất liệu / tính năng từ dữ liệu frontend (lần đầu, không ghi đè) |
+| `import_mock` | 50 sản phẩm mẫu + ảnh (lần đầu) |
+| `import_pages` | Tạo trang nội dung còn thiếu, không ghi đè trang đã sửa (mỗi lần deploy) |
+| `publish_scheduled` | Xuất bản / gỡ nội dung hẹn giờ (cron 5 phút) |
+| `scan_attachments` | Quét virus lại tệp đính kèm chưa quét được (cron 15 phút) |
+
+`CMS_PUBLIC_URL` (production: `https://<CMS_DOMAIN>`) làm link ảnh trong API là địa chỉ công khai, kể cả khi
+web gọi API qua địa chỉ nội bộ `http://cms:8000`.

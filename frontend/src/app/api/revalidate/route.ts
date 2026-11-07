@@ -65,6 +65,9 @@ export async function POST(request: Request) {
     return Response.json({ error: "invalid_tags" }, { status: 400 });
   }
 
-  for (const tag of tags as string[]) revalidateTag(tag, "max");
+  // Hết hạn ngay (không stale-while-revalidate): lần mở sau lấy bản mới luôn. Quan trọng khi nội
+  // dung bị xoá / gỡ: Next chỉ lưu cache khi CMS trả 200, nên với "max" lần nạp lại nhận 404 không
+  // ghi đè được bản cũ và trang đã xoá vẫn hiện mãi (docs Next: webhook dùng { expire: 0 }).
+  for (const tag of tags as string[]) revalidateTag(tag, { expire: 0 });
   return Response.json({ revalidated: tags });
 }

@@ -68,6 +68,7 @@ def test_openapi_only_contains_public_api() -> None:
         "/api/v1/catalog/taxonomy",
         "/api/v1/inquiries",
         "/api/v1/meta",
+        "/api/v1/pages/preview/{token}",
         "/api/v1/pages/{key}",
         "/api/v1/site",
     ]

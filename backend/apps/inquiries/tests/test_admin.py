@@ -111,6 +111,7 @@ def test_settings_page_renders_and_saves(client: Client, staff: User) -> None:
     res = client.get(url, follow=True)
     assert res.status_code == 200
     assert "Chống spam" in res.content.decode()
+    assert "Email cảm ơn người gửi" in res.content.decode()
     url = res.redirect_chain[-1][0]
 
     form = {
@@ -120,9 +121,14 @@ def test_settings_page_renders_and_saves(client: Client, staff: User) -> None:
         "email_limit": "on",
         "max_per_email_per_hour": "5",
         "max_links": "2",
+        "auto_reply_subject": "Thanks {name}",
+        "auto_reply_body": "Dear {name}, thank you.",
     }
     assert client.post(url, form).status_code == 302
     config = InquirySettings.load()
     assert config.recipients() == ["sales@example.com"]
     assert config.duplicate_minutes == 15
     assert config.link_filter is False
+    # Bỏ tick ô gửi email cảm ơn thì tắt
+    assert config.auto_reply is False
+    assert config.auto_reply_subject == "Thanks {name}"

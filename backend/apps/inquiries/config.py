@@ -1,11 +1,14 @@
 """Cài đặt vận hành của form Liên hệ, sửa trong admin: Cài đặt → Liên hệ (2026-11-07).
 
-Chỉ chứa thứ nhân viên tự đổi được: email nhận thông báo, bật / tắt và ngưỡng chống spam.
+Chỉ chứa thứ nhân viên tự đổi được: email nhận thông báo, email cảm ơn người gửi, bật / tắt và
+ngưỡng chống spam.
 Cấu hình hạ tầng và bảo mật (khoá bí mật, máy quét virus, bắt buộc quét) vẫn ở biến môi trường,
 để người có tài khoản admin không xem được khoá hay tắt được quét virus (docs/adr/0008).
 """
 
 from __future__ import annotations
+
+import re
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -32,6 +35,41 @@ def validate_email_list(value: str) -> None:
     if invalid:
         raise ValidationError(
             _("Email không hợp lệ: %(emails)s"), params={"emails": ", ".join(invalid)}
+        )
+
+
+# Email cảm ơn gửi cho khách, mặc định tiếng Anh (khách chủ yếu nước ngoài). Không lặp lại nội dung
+# khách viết, để form không bị dùng gửi thư tuỳ ý tới địa chỉ người khác dưới tên BFC.
+AUTO_REPLY_SUBJECT = "We have received your request | {company}"
+AUTO_REPLY_BODY = (
+    "Dear {name},\n"
+    "\n"
+    "Thank you for contacting {company}. We have received your request and our team will "
+    "review it and reply to this email address.\n"
+    "\n"
+    "Your request\n"
+    "Purpose: {purpose}\n"
+    "Model codes: {model_codes}\n"
+    "\n"
+    "If you would like to add details or drawings, simply reply to this email.\n"
+    "\n"
+    "Best regards,\n"
+    "{company}\n"
+    "{website}\n"
+)
+AUTO_REPLY_PLACEHOLDERS = ("name", "company", "purpose", "model_codes", "website")
+
+
+def validate_placeholders(value: str) -> None:
+    """Chỉ cho các chỗ chèn đã biết, để gõ nhầm không gửi ra chữ {xyz} cho khách."""
+    unknown = sorted(set(re.findall(r"\{(\w*)\}", value)) - set(AUTO_REPLY_PLACEHOLDERS))
+    if unknown:
+        raise ValidationError(
+            _("Chỗ chèn không hỗ trợ: %(names)s. Dùng: %(allowed)s"),
+            params={
+                "names": ", ".join(f"{{{n}}}" for n in unknown),
+                "allowed": ", ".join(f"{{{n}}}" for n in AUTO_REPLY_PLACEHOLDERS),
+            },
         )
 
 
@@ -69,6 +107,25 @@ class InquirySettings(BaseGenericSetting):  # type: ignore[misc]  # wagtail.cont
         validators=[MinValueValidator(1), MaxValueValidator(100)],
     )
 
+    auto_reply = models.BooleanField(
+        _("gửi email cảm ơn người gửi"),
+        default=True,
+        help_text=_("Gửi ngay sau khi nhận yêu cầu. Yêu cầu bị đánh dấu Rác thì không gửi."),
+    )
+    auto_reply_subject = models.CharField(
+        _("tiêu đề"), max_length=200, default=AUTO_REPLY_SUBJECT, validators=[validate_placeholders]
+    )
+    auto_reply_body = models.TextField(
+        _("nội dung"),
+        default=AUTO_REPLY_BODY,
+        validators=[validate_placeholders],
+        help_text=_(
+            "Chữ thuần. Chỗ chèn: {name} tên khách, {company} tên công ty (Thông tin chung), "
+            "{purpose} mục đích, {model_codes} mã mẫu, {website} địa chỉ web. Khách bấm Trả lời "
+            "thì thư về email công ty ở Thông tin chung."
+        ),
+    )
+
     link_filter = models.BooleanField(
         _("tự đánh dấu Rác khi nhiều link"),
         default=True,
@@ -85,6 +142,14 @@ class InquirySettings(BaseGenericSetting):  # type: ignore[misc]  # wagtail.cont
 
     panels = [
         FieldPanel("notify_emails"),
+        MultiFieldPanel(
+            [
+                FieldPanel("auto_reply"),
+                FieldPanel("auto_reply_subject"),
+                FieldPanel("auto_reply_body"),
+            ],
+            heading=_("Email cảm ơn người gửi (tiếng Anh)"),
+        ),
         MultiFieldPanel(
             [
                 FieldPanel("duplicate_check"),

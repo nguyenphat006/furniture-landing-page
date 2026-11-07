@@ -20,6 +20,7 @@ import {
   MODEL_MAX,
   PURPOSES,
   isAllowedFile,
+  isPurpose,
   type InquiryState,
   type Purpose,
 } from "../inquiry";
@@ -63,6 +64,37 @@ export function ContactForm({
 
 const initialState: InquiryState = { status: "idle" };
 
+/** Server action ném lỗi thay vì trả state (body quá lớn, mất mạng): giữ chữ đã nhập, báo lỗi chung */
+async function submitSafely(
+  prev: InquiryState,
+  formData: FormData,
+): Promise<InquiryState> {
+  try {
+    return await submitInquiry(prev, formData);
+  } catch {
+    const s = (key: string) => {
+      const v = formData.get(key);
+      return typeof v === "string" ? v : "";
+    };
+    const purpose = formData.get("purpose");
+    return {
+      status: "error",
+      values: {
+        purpose: isPurpose(purpose) ? purpose : "quote",
+        name: s("name"),
+        email: s("email"),
+        company: s("company"),
+        country: s("country"),
+        phone: s("phone"),
+        model: s("model"),
+        message: s("message"),
+      },
+      fieldErrors: {},
+      formError: "generic",
+    };
+  }
+}
+
 function InquiryForm({
   defaultPurpose,
   defaultModel,
@@ -76,7 +108,7 @@ function InquiryForm({
 }) {
   const t = useTranslations("ContactPage.form");
   const [state, formAction, pending] = useActionState(
-    submitInquiry,
+    submitSafely,
     initialState,
   );
   const locale = useLocale();

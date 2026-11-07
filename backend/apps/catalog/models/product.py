@@ -17,6 +17,7 @@ from django.contrib.contenttypes.fields import GenericRelation
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.forms import CheckboxSelectMultiple
+from django.http import HttpRequest, HttpResponse
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
@@ -32,7 +33,13 @@ from wagtail.admin.panels import (
     TabbedInterface,
 )
 from wagtail.fields import RichTextField
-from wagtail.models import DraftStateMixin, Orderable, RevisionMixin, TranslatableMixin
+from wagtail.models import (
+    DraftStateMixin,
+    Orderable,
+    PreviewableMixin,
+    RevisionMixin,
+    TranslatableMixin,
+)
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
@@ -128,6 +135,7 @@ class ProductForm(WagtailAdminModelForm):
 class Product(
     TranslatableMixin,
     DraftStateMixin,
+    PreviewableMixin,
     RevisionMixin,
     index.Indexed,
     SpecFields,
@@ -257,6 +265,28 @@ class Product(
 
     def __str__(self) -> str:
         return self.name
+
+    def serve_preview(self, request: HttpRequest, mode_name: str) -> HttpResponse:
+        """Xem trước trang chi tiết trên web Next.js với bản đang sửa (apps/pages/preview.py)."""
+        from django.conf import settings
+
+        from apps.catalog.api.serializers import ProductDetailSerializer
+        from apps.pages.preview import preview_response
+
+        language = self.locale.language_code
+        prefix = "" if language == settings.LANGUAGE_CODE else f"/{language}"
+        path = f"{prefix}/products/{self.product_type.category.slug}/{self.slug}"
+        # Thuộc tính annotate ở selectors.live_products; bản đang sửa luôn là bản của chính nó
+        self.__dict__["is_fallback"] = False
+        context = {"request": request, "locale": self.locale, "language": language}
+        return preview_response(
+            request,
+            kind="product",
+            key=self.slug,
+            locale=language,
+            path=path,
+            data=dict(ProductDetailSerializer(self, context=context).data),
+        )
 
     def clean(self) -> None:
         super().clean()

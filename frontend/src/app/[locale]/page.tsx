@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { pageAlternates, withSeo } from "@/lib/seo";
+import { pageLinks, withSeo } from "@/lib/seo";
 import { getMaterials } from "@/data/catalog/materials";
 import { getTaxonomy } from "@/data/catalog/taxonomy-source";
 import { getHomePage } from "@/data/pages/home";
 import { getSite } from "@/data/site";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { OrganizationJsonLd } from "@/components/shared/organization-json-ld";
 // Section đang ẩn nằm ở @/components/archive/home (xem README trong đó), import thẳng từ đó khi dùng lại.
 import { HomeBlocks, homeAnchors, SectionDots } from "@/features/home";
 
@@ -40,29 +41,23 @@ export async function generateMetadata({
       // Bản tiếng Anh chưa dịch đang hiện tiếng Việt: không cho Google lập chỉ mục
       noindex: page.seo.noindex || page.isFallback,
     }),
-    ...(page.seo.ogImage
-      ? {
-          openGraph: {
-            siteName: site.name,
-            images: [{ url: page.seo.ogImage, width: 1200, height: 630 }],
-          },
-        }
-      : {}),
-    alternates: pageAlternates("/", locale),
+    ...(await pageLinks("/", locale, page.seo.ogImage)),
   };
 }
 
 export default async function HomePage({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const [page, materials, { categories }] = await Promise.all([
+  const [page, materials, { categories }, site] = await Promise.all([
     getHomePage(locale),
     getMaterials(locale),
     getTaxonomy(locale),
+    getSite(locale),
   ]);
 
   return (
     <>
+      <OrganizationJsonLd site={site} locale={locale} />
       <SiteHeader />
       <SectionDots anchors={homeAnchors(page.blocks)} />
       <main className="flex-1">

@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
-import { metaText, pageAlternates, withSeo } from "@/lib/seo";
+import { metaText, pageLinks, withSeo } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
-import { categories, categoryOf, type Product } from "@/data/catalog";
+import type { Product } from "@/data/catalog";
 import { getMaterials } from "@/data/catalog/materials";
-import { getProduct, getProductsInCategory } from "@/data/catalog/products";
+import {
+  getProduct,
+  getProducts,
+  getRelatedProducts,
+} from "@/data/catalog/products";
 import { routing } from "@/i18n/routing";
 import { CtaSection } from "@/features/home";
 import { ProductDetail, ProductHero } from "@/features/products";
@@ -21,14 +25,10 @@ import { ProductDetail, ProductHero } from "@/features/products";
  */
 
 export async function generateStaticParams() {
-  const products = await Promise.all(
-    categories.map(async (category) =>
-      (await getProductsInCategory(category, routing.defaultLocale)).map(
-        (p) => ({ category, slug: p.slug }),
-      ),
-    ),
-  );
-  return products.flat();
+  return (await getProducts(routing.defaultLocale)).map((p) => ({
+    category: p.category,
+    slug: p.slug,
+  }));
 }
 
 export const dynamicParams = true;
@@ -39,7 +39,7 @@ async function resolve(
   locale: string,
 ): Promise<Product | undefined> {
   const product = await getProduct(slug, locale);
-  return product && categoryOf(product.type) === category ? product : undefined;
+  return product && product.category === category ? product : undefined;
 }
 
 export async function generateMetadata({
@@ -75,7 +75,11 @@ export async function generateMetadata({
     ...((product.isFallback && product.descriptionHtml) || product.seo?.noindex
       ? { robots: { index: false, follow: true } }
       : {}),
-    alternates: pageAlternates(`/products/${category}/${product.slug}`, locale),
+    ...(await pageLinks(
+      `/products/${category}/${product.slug}`,
+      locale,
+      product.images[0],
+    )),
   };
 }
 
@@ -88,11 +92,8 @@ export default async function ProductDetailPage({
   setRequestLocale(locale);
   const product = await resolve(category, slug, locale);
   if (!product) notFound();
-  const related = (
-    await getProductsInCategory(categoryOf(product.type), locale)
-  )
-    .filter((p) => p.slug !== product.slug)
-    .slice(0, 6);
+  // Carousel chuyển trang nên lấy nhiều hơn một hàng
+  const related = await getRelatedProducts(product, locale, 18);
   const materials = (await getMaterials(locale)).filter((m) =>
     product.materials.includes(m.slug),
   );

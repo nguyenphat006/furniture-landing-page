@@ -8,7 +8,7 @@ import { Container, Section } from "@/components/shared/section";
 import { legalHref, type LegalKey } from "@/config/navigation";
 import { getLegalPage } from "@/data/pages/legal";
 import { getSite } from "@/data/site";
-import { pageAlternates, withSeo } from "@/lib/seo";
+import { pageLinks, withSeo } from "@/lib/seo";
 import { LegalToc } from "./legal-toc";
 
 /*
@@ -40,7 +40,7 @@ export async function legalMetadata(
         noindex: page.seo.noindex || page.isFallback,
       },
     ),
-    alternates: pageAlternates(legalHref[key], locale),
+    ...(await pageLinks(legalHref[key], locale, page.seo.ogImage)),
   };
 }
 

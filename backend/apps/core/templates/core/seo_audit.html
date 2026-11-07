@@ -1,0 +1,61 @@
+{% extends "wagtailadmin/generic/base.html" %}
+{% load i18n %}
+{% block main_content %}
+    <p class="help-block">
+        {% blocktrans trimmed %}
+            Mỗi dòng là một trang ở một ngôn ngữ, chấm theo đúng thứ web sẽ hiện (SEO riêng, trống thì tự tạo từ nội dung).
+            Tiêu đề nên tối đa {{ title_max }} ký tự, mô tả từ {{ description_min }} đến {{ description_max }}.
+        {% endblocktrans %}
+    </p>
+    <nav class="bfc-seo-filters" aria-label="{% trans 'Lọc theo mức' %}">
+        {% for item in filters %}
+            <a href="?level={{ item.key }}" class="button button-small{% if item.key != level %} button-secondary{% endif %}">{{ item.label }} ({{ item.count }})</a>
+        {% endfor %}
+    </nav>
+    {% if rows %}
+        <table class="listing bfc-seo-table">
+            <thead>
+                <tr>
+                    <th>{% trans "Mức" %}</th>
+                    <th>{% trans "Trang" %}</th>
+                    <th>{% trans "Ngôn ngữ" %}</th>
+                    <th>{% trans "Cần sửa" %}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                    <tr>
+                        <td><span class="bfc-seo-badge bfc-seo-badge--{{ row.level }}">{{ row.level_label }}</span></td>
+                        <td>
+                            <div class="bfc-seo-kind">{{ row.kind }}</div>
+                            <a href="{{ row.edit_url }}">{{ row.name }}</a>
+                        </td>
+                        <td>{{ row.language|upper }}</td>
+                        <td>
+                            {% if row.level == "hidden" %}
+                                {% trans "Đang ẩn khỏi Google, không chấm." %}
+                            {% else %}
+                                <ul class="bfc-seo-issues">
+                                    {% for issue in row.issues %}
+                                        <li class="bfc-seo-issue--{{ issue.level }}">{{ issue.text }}</li>
+                                    {% empty %}
+                                        <li>{% trans "Ổn" %}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </td>
+                        <td class="bfc-seo-actions">
+                            <a href="{{ row.edit_url }}" class="button button-small button-secondary">{% trans "Sửa" %}</a>
+                            {% if frontend_url %}
+                                <a href="{{ frontend_url }}{{ row.path }}" target="_blank" rel="noopener" class="button button-small button-secondary">{% trans "Xem trên web" %}</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>{% trans "Không có trang nào ở mức này." %}</p>
+    {% endif %}
+{% endblock %}

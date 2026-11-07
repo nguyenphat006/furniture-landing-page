@@ -13,7 +13,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { navHref } from "@/config/navigation";
 import {
   catalogHref,
-  categoryOf,
   containerTypes,
   type Assembly,
   type Dimensions,
@@ -23,7 +22,7 @@ import {
   type SetItem,
 } from "@/data/catalog";
 import { Link } from "@/i18n/navigation";
-import { ProductGrid } from "./product-browser";
+import { ProductCarousel } from "./product-carousel";
 import { ProductGallery } from "./product-gallery";
 
 /*
@@ -123,7 +122,7 @@ function SpecList({ rows, className }: { rows: Row[]; className?: string }) {
 export function ProductHero({ product }: { product: Product }) {
   const t = useTranslations("ProductsPage.detail");
   const tc = useTranslations("Common");
-  const category = categoryOf(product.type);
+  const category = product.category;
   const dims = dimText(t, product.dimensions);
 
   const rows: Row[] = [
@@ -138,7 +137,10 @@ export function ProductHero({ product }: { product: Product }) {
     {
       label: t("type"),
       value: (
-        <Link href={catalogHref.type(product.type)} className={linkCls}>
+        <Link
+          href={catalogHref.type(product.category, product.type)}
+          className={linkCls}
+        >
           {tc(`productTypes.${product.type}`)}
         </Link>
       ),
@@ -325,7 +327,7 @@ export function ProductDetail({
   const t = useTranslations("ProductsPage.detail");
   const tc = useTranslations("Common");
   const th = useTranslations("HomePage.products.items");
-  const category = categoryOf(product.type);
+  const category = product.category;
   const d = product.dimensions;
   const dimKeys = dimKeysOf(d);
   const customize = t.raw("customizeItems") as string[];
@@ -335,7 +337,7 @@ export function ProductDetail({
     : packingRows(t, product, { loadingFallback: true });
   const description = product.description
     ? product.description.split(/\n{2,}/)
-    : [th(category), t("oem")];
+    : [...(th.has(category) ? [th(category)] : []), t("oem")];
 
   return (
     <>
@@ -475,7 +477,7 @@ export function ProductDetail({
                 </ButtonLink>
               }
             />
-            <ProductGrid products={related} />
+            <ProductCarousel products={related} label={t("related")} />
           </Container>
         </Section>
       )}

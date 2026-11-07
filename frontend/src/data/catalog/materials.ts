@@ -10,7 +10,8 @@ import type { MaterialPage, MaterialSummary } from "./types";
 /*
  * Đọc vật liệu (CHỈ phía server). Nguồn: CMS khi đặt CMS_API_URL, nếu không thì mock:
  * chữ ở messages/*.json (MaterialsPage.items, MaterialDetail.items), ảnh ở features/materials/data.ts.
- * Thứ tự: CMS theo thứ tự trong admin, mock theo materialSlugs.
+ * Thứ tự: CMS theo thứ tự trong admin, mock theo materialSlugs. Có CMS thì danh sách vật liệu cũng
+ * theo CMS (thêm vật liệu trong admin là có trang); vật liệu mới chưa có ảnh mock thì khung trống.
  */
 
 const placeholder = (slug: MaterialSlug) => {
@@ -60,9 +61,10 @@ export const getMaterials = cache(
 /** Nội dung trang /materials/<slug>; slug lạ hoặc CMS không có thì undefined */
 export const getMaterial = cache(
   async (slug: string, locale: string): Promise<MaterialPage | undefined> => {
-    if (!isMaterial(slug)) return undefined;
+    // Có CMS: slug nào CMS có là có trang (thêm trong admin là vào được)
     if (cmsEnabled())
       return (await fetchMaterial(slug, locale, placeholder)) ?? undefined;
+    if (!isMaterial(slug)) return undefined;
     return getMaterialCard(slug) ? mockMaterial(slug, locale) : undefined;
   },
 );

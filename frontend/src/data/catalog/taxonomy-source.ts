@@ -3,6 +3,7 @@ import { cache } from "react";
 import { cmsEnabled } from "@/lib/cms/client";
 import { fetchTaxonomy, type ApiTaxonomy } from "@/lib/cms/catalog";
 import { categoryCovers } from "./covers";
+import { categoryCover } from "./index";
 import {
   categorySlugs,
   featureSlugs,
@@ -13,10 +14,10 @@ import {
 import type { Taxonomy } from "./types";
 
 /*
- * Phân loại đang dùng (CHỈ phía server): thứ tự, ảnh bìa nhóm và tên hiển thị.
- * - Slug và trang có sẵn vẫn do frontend khai báo (taxonomy.ts); CMS quyết định thứ tự, tên, mô tả,
- *   ảnh bìa (docs/adr/0012 phía backend). Slug CMS có mà frontend chưa khai báo bị bỏ qua; slug
- *   frontend có mà CMS chưa có (chưa chạy sync_taxonomy) xếp cuối, dùng dữ liệu mặc định.
+ * Phân loại đang dùng (CHỈ phía server): danh sách, thứ tự, ảnh bìa nhóm và tên hiển thị.
+ * - (2026-11-07) Có CMS thì CMS là nguồn duy nhất: nhóm, loại, chất liệu, tính năng thêm trong admin
+ *   là có trang / menu / bộ lọc ngay, không khai báo gì ở frontend. Không có CMS thì dùng mock
+ *   taxonomy.ts. Ảnh bìa nhóm CMS còn trống thì lấy ảnh mặc định (covers.ts) nếu có.
  * - Tên và mô tả đi qua messages: i18n/request.ts đè nhãn từ CMS lên Common.products, productTypes,
  *   materials, features và HomePage.products.items, nên mọi chỗ gọi t(...) tự đổi theo admin.
  */
@@ -26,14 +27,6 @@ export const getCmsTaxonomy = cache(
   async (locale: string): Promise<ApiTaxonomy | null> =>
     cmsEnabled() ? fetchTaxonomy(locale) : null,
 );
-
-/** Slug đã khai báo theo thứ tự CMS, slug CMS chưa có xếp sau theo thứ tự frontend */
-function ordered<T extends string>(known: readonly T[], cms: string[]): T[] {
-  const fromCms = [...new Set(cms)].filter((s): s is T =>
-    (known as readonly string[]).includes(s),
-  );
-  return [...fromCms, ...known.filter((s) => !fromCms.includes(s))];
-}
 
 const allTypes = Object.keys(productTypes) as ProductTypeSlug[];
 
@@ -52,28 +45,15 @@ function mockTaxonomy(): Taxonomy {
 export const getTaxonomy = cache(async (locale: string): Promise<Taxonomy> => {
   const cms = await getCmsTaxonomy(locale);
   if (!cms) return mockTaxonomy();
-  const covers = new Map(cms.categories.map((c) => [c.slug, c.cover?.url]));
   return {
-    categories: ordered(
-      categorySlugs,
-      cms.categories.map((c) => c.slug),
-    ).map((slug) => ({
-      slug,
-      cover: covers.get(slug) || categoryCovers[slug],
+    categories: cms.categories.map((c) => ({
+      slug: c.slug,
+      cover: c.cover?.url || categoryCover(c.slug),
     })),
-    // Loại nằm trong nhóm của nó (productTypes), nên thứ tự loại theo nhóm rồi theo CMS
-    types: ordered(
-      allTypes,
-      cms.categories.flatMap((c) => c.types.map((t) => t.slug)),
-    ),
-    materials: ordered(
-      materialSlugs,
-      cms.materials.map((m) => m.slug),
-    ),
-    features: ordered(
-      featureSlugs,
-      cms.features.map((f) => f.slug),
-    ),
+    // Loại theo nhóm rồi theo thứ tự trong nhóm
+    types: cms.categories.flatMap((c) => c.types.map((t) => t.slug)),
+    materials: cms.materials.map((m) => m.slug),
+    features: cms.features.map((f) => f.slug),
   };
 });
 

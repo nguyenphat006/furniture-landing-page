@@ -16,6 +16,8 @@ export const CMS_TAG = "cms";
 /** Lưới an toàn khi webhook lỗi: dữ liệu cũ tối đa 1 giờ */
 const REVALIDATE_SECONDS = 3600;
 // Lần đầu CMS có thể phải tạo ảnh WebP (rendition) nên cho chờ lâu hơn bình thường
+/** Số lần thử lại khi lỗi mạng (không thử lại khi CMS đã trả lời, kể cả lỗi 5xx) */
+const RETRIES = 2;
 const TIMEOUT_MS = 30_000;
 
 export class CmsError extends Error {
@@ -62,15 +64,20 @@ export async function cmsGet<T>(
   if (!base) throw new CmsError("CMS_API_URL chưa được đặt");
 
   const url = buildUrl(base, path, query);
-  let res: Response;
-  try {
-    res = await fetch(url, {
-      headers: { Accept: "application/json" },
-      next: { tags: [CMS_TAG], revalidate: REVALIDATE_SECONDS },
-      signal: AbortSignal.timeout(TIMEOUT_MS),
-    });
-  } catch (err) {
-    throw new CmsError(`Không gọi được CMS (${url}): ${String(err)}`);
+  let res: Response | undefined;
+  // Lỗi mạng (CMS đang khởi động lại, quá tải lúc build dựng nhiều trang cùng lúc): thử lại 2 lần
+  for (let attempt = 0; !res; attempt++) {
+    try {
+      res = await fetch(url, {
+        headers: { Accept: "application/json" },
+        next: { tags: [CMS_TAG], revalidate: REVALIDATE_SECONDS },
+        signal: AbortSignal.timeout(TIMEOUT_MS),
+      });
+    } catch (err) {
+      if (attempt >= RETRIES)
+        throw new CmsError(`Không gọi được CMS (${url}): ${String(err)}`);
+      await new Promise((r) => setTimeout(r, 500 * 2 ** attempt));
+    }
   }
   if (res.status === 404) return null;
   if (!res.ok)
@@ -111,6 +118,37 @@ export function cmsSharedSecret(): string | null {
   return secret || null;
 }
 
+/**
+ * GET có ký HMAC (body rỗng), không cache: dữ liệu riêng tư như bản nháp xem trước.
+ * 404 trả null; chưa đặt bí mật hoặc lỗi khác ném CmsError.
+ */
+export async function cmsGetSigned<T>(path: string): Promise<T | null> {
+  const base = cmsApiUrl();
+  const secret = cmsSharedSecret();
+  if (!base || !secret)
+    throw new CmsError("Chưa đặt CMS_API_URL / CMS_SHARED_SECRET");
+  const url = buildUrl(base, path, {});
+  const timestamp = Math.floor(Date.now() / 1000).toString();
+  let res: Response;
+  try {
+    res = await fetch(url, {
+      headers: {
+        Accept: "application/json",
+        "X-BFC-Timestamp": timestamp,
+        "X-BFC-Signature": signBody(secret, timestamp, new Uint8Array()),
+      },
+      cache: "no-store",
+      signal: AbortSignal.timeout(TIMEOUT_MS),
+    });
+  } catch (err) {
+    throw new CmsError(`Không gọi được CMS (${url}): ${String(err)}`);
+  }
+  if (res.status === 404) return null;
+  if (!res.ok)
+    throw new CmsError(`CMS trả lỗi ${res.status} (${url})`, res.status);
+  return (await res.json()) as T;
+}
+
 /** hex(HMAC-SHA256(secret, "<timestamp>.<body>")), cùng định dạng apps/core/revalidate.py */
 export function signBody(secret: string, timestamp: string, body: Uint8Array) {
   return createHmac("sha256", secret)
@@ -136,9 +174,8 @@ export async function cmsPostForm<T>(path: string, form: FormData): Promise<T> {
   const timestamp = String(Math.floor(Date.now() / 1000));
 
   const url = buildUrl(base, path, {});
-  let res: Response;
-  try {
-    res = await fetch(url, {
+  const send = () =>
+    fetch(url, {
       method: "POST",
       body,
       headers: {
@@ -150,8 +187,17 @@ export async function cmsPostForm<T>(path: string, form: FormData): Promise<T> {
       cache: "no-store",
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });
-  } catch (err) {
-    throw new CmsError(`Không gọi được CMS (${url}): ${String(err)}`);
+  let res: Response;
+  try {
+    res = await send();
+  } catch {
+    // Lỗi mạng (kết nối keep-alive bị đóng...): thử lại 1 lần. CMS chặn bản gửi trùng nên không
+    // sinh 2 yêu cầu nếu lần đầu thực ra đã tới nơi (QC 07/11).
+    try {
+      res = await send();
+    } catch (err) {
+      throw new CmsError(`Không gọi được CMS (${url}): ${String(err)}`);
+    }
   }
   if (!res.ok) {
     throw new CmsError(`CMS trả lỗi ${res.status} (${url})`, res.status);

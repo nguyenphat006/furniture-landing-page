@@ -1,7 +1,8 @@
 /*
  * Phân loại sản phẩm của landing page (chốt 2026-11-04).
- * Đây là mock tĩnh, sau này thay bằng bảng trong DB riêng của landing page,
- * nên slug ở đây chính là khoá ổn định của từng bản ghi.
+ * (2026-11-07) Phân loại là dữ liệu: khi nối CMS, danh sách nhóm / loại / chất liệu / tính năng lấy
+ * từ CMS (taxonomy-source.ts), thêm trong admin là có trang, menu, bộ lọc, sitemap. Các danh sách
+ * dưới đây chỉ là MOCK khi chạy không có CMS. Kiểu slug vì thế là string, không còn union cố định.
  *
  * Quy tắc slug (áp dụng cho mọi bảng, kể cả khi lên DB):
  *  - chữ thường ASCII, nối bằng "-", không dấu, không khoảng trắng: ^[a-z0-9]+(-[a-z0-9]+)*$
@@ -25,7 +26,7 @@ export const categorySlugs = [
   "accessories",
 ] as const;
 
-export type CategorySlug = (typeof categorySlugs)[number];
+export type CategorySlug = string;
 
 /** Tầng 2. Khoá là slug loại, giá trị là nhóm chứa nó */
 export const productTypes = {
@@ -59,7 +60,7 @@ export const productTypes = {
   covers: "accessories",
 } as const satisfies Record<string, CategorySlug>;
 
-export type ProductTypeSlug = keyof typeof productTypes;
+export type ProductTypeSlug = string;
 
 /** Loại có sản phẩm là một bộ nhiều món (sản phẩm thuộc loại này khai báo setItems) */
 export const setTypeSlugs = [
@@ -79,7 +80,7 @@ export const materialSlugs = [
   "ceramic",
 ] as const;
 
-export type MaterialSlug = (typeof materialSlugs)[number];
+export type MaterialSlug = string;
 
 /** Bộ lọc tính năng (ERP để swivel/rocking là loại, ở đây là thuộc tính) */
 export const featureSlugs = [
@@ -90,7 +91,7 @@ export const featureSlugs = [
   "adjustable",
 ] as const;
 
-export type FeatureSlug = (typeof featureSlugs)[number];
+export type FeatureSlug = string;
 
 /**
  * Nhóm hiển thị trong menu Vật liệu (2026-11-05): nhóm cha in hoa, bên dưới là loại con nếu có.

@@ -8,9 +8,8 @@ import {
 } from "@/components/shared/section";
 import {
   catalogHref,
-  categories,
+  categorySlugs as categories,
   categoryCover,
-  categoryOf,
   typesInCategory,
   type CategorySlug,
 } from "@/data/catalog";
@@ -19,7 +18,7 @@ import { Link } from "@/i18n/navigation";
 
 // Component đang ẩn (archive): đếm theo mock, không gọi CMS
 const mockCount = (c: CategorySlug) =>
-  mockProducts.filter((p) => categoryOf(p.type) === c).length;
+  mockProducts.filter((p) => p.category === c).length;
 
 /*
  * Trang tổng /products (2026-11-06): lưới 6 nhóm sản phẩm, 3 cột từ lg, 2 cột từ sm.

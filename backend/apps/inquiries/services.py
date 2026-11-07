@@ -2,15 +2,18 @@
 
 from __future__ import annotations
 
+import re
 from typing import TYPE_CHECKING, Any
 
 import structlog
 from django.conf import settings
 from django.core.files.uploadedfile import UploadedFile
-from django.core.mail import EmailMessage
+from django.core.mail import BadHeaderError, EmailMessage
 from django.db import transaction
 from django.urls import reverse
 from django.utils import timezone
+
+from apps.sitesettings.models import SiteSettings
 
 from . import spam
 from .config import InquirySettings
@@ -70,6 +73,7 @@ def create_inquiry(data: dict[str, Any], attachment: UploadedFile[Any] | None = 
     )
     if inquiry.status != Inquiry.Status.SPAM:
         transaction.on_commit(lambda: notify_staff(inquiry))
+        transaction.on_commit(lambda: thank_sender(inquiry))
     return inquiry
 
 
@@ -157,8 +161,55 @@ def notify_staff(inquiry: Inquiry) -> bool:
     )
     try:
         message.send()
-    except OSError as exc:
+    except (OSError, BadHeaderError) as exc:
         log.warning("inquiry_notify_failed", inquiry=str(inquiry.public_id), error=str(exc))
+        return False
+    return True
+
+
+# Mục đích bằng tiếng Anh cho email gửi khách (nhãn trong admin là tiếng Việt)
+PURPOSE_EN: dict[str, str] = {
+    Inquiry.Purpose.QUOTE: "Quotation",
+    Inquiry.Purpose.OEM: "OEM / ODM",
+    Inquiry.Purpose.VISIT: "Factory visit",
+    Inquiry.Purpose.OTHER: "Other",
+}
+
+
+def _fill(template: str, values: dict[str, str]) -> str:
+    """Thay {chỗ chèn} bằng giá trị; không dùng str.format để chữ khách nhập không thành mẫu."""
+    return re.sub(r"\{(\w+)\}", lambda m: values.get(m.group(1), m.group(0)), template)
+
+
+def thank_sender(inquiry: Inquiry) -> bool:
+    """Email cảm ơn tới khách (Cài đặt → Liên hệ), tiếng Anh, chữ thuần.
+
+    - Chỉ gửi tới email khách vừa nhập, sau khi qua captcha và chống spam (create_inquiry).
+    - Không lặp lại nội dung khách viết; Reply-To là email công ty ở Thông tin chung.
+    - Lỗi gửi chỉ ghi log.
+    """
+    config = InquirySettings.load()
+    if not config.auto_reply:
+        return False
+    site = SiteSettings.load()
+    values = {
+        "name": inquiry.name,
+        "company": site.name,
+        "purpose": PURPOSE_EN.get(inquiry.purpose, inquiry.get_purpose_display()),
+        "model_codes": inquiry.model_codes or "-",
+        "website": settings.FRONTEND_URL,
+    }
+    subject = " ".join(_fill(config.auto_reply_subject, values).split())
+    message = EmailMessage(
+        subject=subject[:200],
+        body=_fill(config.auto_reply_body, values),
+        to=[inquiry.email],
+        reply_to=[site.email] if site.email else config.recipients()[:1] or None,
+    )
+    try:
+        message.send()
+    except (OSError, BadHeaderError) as exc:
+        log.warning("inquiry_thank_failed", inquiry=str(inquiry.public_id), error=str(exc))
         return False
     return True
 

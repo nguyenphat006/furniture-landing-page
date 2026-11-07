@@ -130,6 +130,8 @@ AXES_FAILURE_LIMIT = 5
 AXES_COOLOFF_TIME = 1
 AXES_LOCKOUT_PARAMETERS = [["username", "ip_address"]]
 AXES_RESET_ON_SUCCESS = True
+# Trang báo khoá bằng tiếng Việt thay trang chữ trơn mặc định (QC 07/11)
+AXES_LOCKOUT_TEMPLATE = "core/lockout.html"
 
 # ------------------------------------------------------------------ ngôn ngữ
 LANGUAGE_CODE = "vi"
@@ -179,15 +181,26 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024
 # ------------------------------------------------------------------ Wagtail
 WAGTAIL_SITE_NAME = "BFC CMS"
 WAGTAILADMIN_BASE_URL = env.str("WAGTAILADMIN_BASE_URL", default="http://127.0.0.1:9000")
+# Địa chỉ công khai của CMS cho URL ảnh trong API (apps/core/media_url.py). Trống: theo host.
+CMS_PUBLIC_URL = env.str("CMS_PUBLIC_URL", default="")
 WAGTAILSEARCH_BACKENDS = {"default": {"BACKEND": "wagtail.search.backends.database"}}
 WAGTAIL_ENABLE_UPDATE_CHECK = False
+# Một vai trò, xuất bản trực tiếp (ADR 0004): tắt quy trình duyệt, bỏ nút "gửi duyệt" thừa (QC 07/11)
+WAGTAIL_WORKFLOW_ENABLED = False
 WAGTAILIMAGES_FORMAT_CONVERSIONS = {"bmp": "png", "tiff": "png"}
 
 # ------------------------------------------------------------------ API
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
-    "DEFAULT_PARSER_CLASSES": ["rest_framework.parsers.JSONParser"],
+    # Form + multipart: màn Dịch của wagtail-localize (view DRF) gửi chuỗi dịch dạng multipart, chỉ
+    # JSON thì báo 415 và không lưu được bản dịch nào (QC 07/11). API công khai chỉ GET; API ghi
+    # form Liên hệ tự đặt parser và kiểm chữ ký.
+    "DEFAULT_PARSER_CLASSES": [
+        "rest_framework.parsers.JSONParser",
+        "rest_framework.parsers.FormParser",
+        "rest_framework.parsers.MultiPartParser",
+    ],
     "DEFAULT_AUTHENTICATION_CLASSES": [],
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.AllowAny"],
     "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
@@ -227,6 +240,11 @@ SECURE_REFERRER_POLICY = "same-origin"
 CMS_SHARED_SECRET = env.str("CMS_SHARED_SECRET", default="")
 # Webhook làm mới cache của frontend khi xuất bản (apps/core/revalidate.py). Trống = không gọi.
 FRONTEND_REVALIDATE_URL = env.str("FRONTEND_REVALIDATE_URL", default="")
+# Địa chỉ web Next.js, dùng cho nút Xem trước (apps/pages/preview.py). Trống thì lấy gốc của
+# FRONTEND_REVALIDATE_URL (vd http://localhost:4000).
+FRONTEND_URL = env.str("FRONTEND_URL", default="") or (
+    "/".join(FRONTEND_REVALIDATE_URL.split("/")[:3]) if FRONTEND_REVALIDATE_URL else ""
+)
 
 # Email nhận thông báo khi có yêu cầu liên hệ mới (apps/inquiries). Trống = không gửi email,
 # yêu cầu vẫn lưu và xem trong admin.

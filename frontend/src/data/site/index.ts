@@ -71,6 +71,19 @@ async function mockSite(locale: string): Promise<Site> {
       links: [],
     },
     seo: { title: tm("title"), description: tm("description") },
+    gaMeasurementId: null,
+    verification: { google: "", bing: "" },
+    // Chưa có CMS: gọi điện, WhatsApp, Zalo, email theo siteConfig (mục trống thì bỏ)
+    floating: (
+      [
+        ["phone", siteConfig.phoneHref],
+        ["whatsapp", siteConfig.whatsappUrl],
+        ["zalo", siteConfig.zaloUrl],
+        ["email", siteConfig.emailHref],
+      ] as const
+    )
+      .filter(([, href]) => Boolean(href))
+      .map(([kind, href]) => ({ kind, label: "", href: href ?? "" })),
   };
 }
 

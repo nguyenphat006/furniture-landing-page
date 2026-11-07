@@ -281,6 +281,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ContentPage'
           description: ''
+  /api/v1/pages/preview/{token}:
+    get:
+      operationId: pages_preview_retrieve
+      description: Bản nháp cho draft mode của frontend (docs/adr/0014). Chỉ nhận
+        request đã ký.
+      parameters:
+      - in: path
+        name: token
+        schema:
+          type: string
+        required: true
+      tags:
+      - pages
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Preview'
+          description: ''
   /api/v1/site:
     get:
       operationId: site_retrieve
@@ -308,6 +328,22 @@ paths:
           description: ''
 components:
   schemas:
+    Analytics:
+      type: object
+      properties:
+        ga_measurement_id:
+          type: string
+          description: Mã GA4 (G-...); rỗng = không gắn
+        google_site_verification:
+          type: string
+          description: Nội dung thẻ meta google-site-verification; rỗng = không gắn
+        bing_site_verification:
+          type: string
+          description: Nội dung thẻ meta msvalidate.01; rỗng = không gắn
+      required:
+      - bing_site_verification
+      - ga_measurement_id
+      - google_site_verification
     AssemblyEnum:
       type: string
       enum:
@@ -1163,6 +1199,43 @@ components:
       - lede
       - points
       - title
+    FloatingAction:
+      type: object
+      properties:
+        kind:
+          $ref: '#/components/schemas/FloatingActionKindEnum'
+        label:
+          type: string
+          readOnly: true
+          description: 'Rỗng: dùng tên có sẵn theo loại'
+        url:
+          type: string
+          readOnly: true
+          description: Link đã lấy từ Liên hệ khi cần; rỗng với search và quote
+      required:
+      - kind
+      - label
+      - url
+    FloatingActionKindEnum:
+      enum:
+      - search
+      - phone
+      - whatsapp
+      - zalo
+      - email
+      - messenger
+      - quote
+      - link
+      type: string
+      description: |-
+        * `search` - Tìm kiếm
+        * `phone` - Gọi điện
+        * `whatsapp` - WhatsApp
+        * `zalo` - Zalo
+        * `email` - Email
+        * `messenger` - Messenger
+        * `quote` - Báo giá (form Liên hệ)
+        * `link` - Link khác
     Footer:
       type: object
       properties:
@@ -1702,6 +1775,36 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ProductList'
+    Preview:
+      type: object
+      description: 'Bản nháp: data cùng định dạng API công khai (ContentPage hoặc
+        ProductDetail).'
+      properties:
+        kind:
+          $ref: '#/components/schemas/PreviewKindEnum'
+        key:
+          type: string
+          description: Khoá trang (home, privacy...) hoặc slug sản phẩm
+        locale:
+          type: string
+        path:
+          type: string
+          description: Đường dẫn trên web, đã có tiền tố ngôn ngữ
+        content: {}
+      required:
+      - content
+      - key
+      - kind
+      - locale
+      - path
+    PreviewKindEnum:
+      enum:
+      - page
+      - product
+      type: string
+      description: |-
+        * `page` - page
+        * `product` - product
     ProductDetail:
       type: object
       properties:
@@ -2044,10 +2147,21 @@ components:
           $ref: '#/components/schemas/Footer'
         seo:
           $ref: '#/components/schemas/Seo'
+        analytics:
+          $ref: '#/components/schemas/Analytics'
+        floating:
+          type: array
+          items:
+            $ref: '#/components/schemas/FloatingAction'
+          readOnly: true
+          description: Cụm nút nổi sát mép phải, theo thứ tự; chỉ nút đang hiện và
+            có link
       required:
+      - analytics
       - branding
       - company
       - contact
+      - floating
       - footer
       - nav
       - seo

@@ -15,6 +15,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from apps.catalog import selectors
+from apps.catalog.models import Product
 
 from .serializers import (
     MaterialDetailSerializer,
@@ -78,9 +79,14 @@ class ProductListView(ListAPIView[Any]):
     serializer_class = ProductListSerializer
 
     def get_serializer_context(self) -> dict[str, Any]:
+        if getattr(self, "swagger_fake_view", False):
+            return {**super().get_serializer_context()}
         return {**super().get_serializer_context(), **_context(self.request)}
 
     def get_queryset(self) -> Any:
+        # drf-spectacular dựng schema bằng view giả: không truy vấn database (CI chạy trên DB trống)
+        if getattr(self, "swagger_fake_view", False):
+            return Product.objects.none()
         params = ProductQuerySerializer(
             data={
                 **self.request.query_params.dict(),

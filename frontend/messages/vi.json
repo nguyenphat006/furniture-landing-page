@@ -1019,7 +1019,8 @@
     },
     "craftKicker": "Xưởng BFC",
     "careKicker": "Hướng dẫn",
-    "productsKicker": "Ứng dụng"
+    "productsKicker": "Ứng dụng",
+    "productsViewAll": "Xem tất cả sản phẩm"
   },
   "AboutPage": {
     "metaTitle": "Về chúng tôi | BINH BFC",
@@ -1258,5 +1259,21 @@
   "Legal": {
     "updated": "Cập nhật ngày {date}",
     "contents": "Nội dung"
+  },
+  "Preview": {
+    "label": "Đang xem bản nháp.",
+    "note": "Khách truy cập chưa thấy nội dung này.",
+    "exit": "Thoát xem trước"
+  },
+  "FloatingActions": {
+    "label": "Liên hệ nhanh",
+    "search": "Tìm kiếm",
+    "phone": "Gọi điện",
+    "whatsapp": "WhatsApp",
+    "zalo": "Zalo",
+    "email": "Gửi email",
+    "messenger": "Messenger",
+    "quote": "Yêu cầu báo giá",
+    "link": "Mở link"
   }
 }

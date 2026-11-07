@@ -72,7 +72,7 @@ export type LegalPage = {
   isFallback: boolean;
   /** Ngày cập nhật dạng YYYY-MM-DD, null = không hiện */
   updatedOn: string | null;
-  seo: PageSeo;
+  seo: PageSeo & { ogImage: string | null };
   sections: LegalSection[];
 };
 

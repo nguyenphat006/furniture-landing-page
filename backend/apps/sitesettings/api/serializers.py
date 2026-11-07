@@ -9,7 +9,9 @@ from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 from wagtail.images.models import AbstractImage
 
-from ..models import FooterLink, NavItem, SiteSettings, SocialLink, localized
+from apps.core.media_url import absolute_url
+
+from ..models import FloatingAction, FooterLink, NavItem, SiteSettings, SocialLink, localized
 
 # Logo giữ PNG (nền trong suốt, nét sắc); favicon vuông; ảnh chia sẻ đúng khung 1200 x 630
 RENDITION_LOGO = "max-480x480|format-png"
@@ -24,9 +26,7 @@ def _language(context: Mapping[str, Any]) -> str:
 def _url(context: Mapping[str, Any], image: AbstractImage | None, spec: str) -> str | None:
     if image is None:
         return None
-    url: str = image.get_rendition(spec).url
-    request = context.get("request")
-    return request.build_absolute_uri(url) if request is not None else url
+    return absolute_url(context, image.get_rendition(spec).url)
 
 
 class CompanySerializer(serializers.Serializer[SiteSettings]):
@@ -132,6 +132,42 @@ class SeoSerializer(serializers.Serializer[SiteSettings]):
         return localized(obj, "seo_description", _language(self.context))
 
 
+class AnalyticsSerializer(serializers.Serializer[SiteSettings]):
+    ga_measurement_id = serializers.CharField(help_text="Mã GA4 (G-...); rỗng = không gắn")
+    google_site_verification = serializers.CharField(
+        help_text="Nội dung thẻ meta google-site-verification; rỗng = không gắn"
+    )
+    bing_site_verification = serializers.CharField(
+        help_text="Nội dung thẻ meta msvalidate.01; rỗng = không gắn"
+    )
+
+
+class FloatingActionSerializer(serializers.Serializer[FloatingAction]):
+    kind = serializers.ChoiceField(choices=FloatingAction.Kind.choices)
+    label = serializers.SerializerMethodField(  # type: ignore[assignment]
+        help_text="Rỗng: dùng tên có sẵn theo loại"
+    )
+    url = serializers.SerializerMethodField(
+        help_text="Link đã lấy từ Liên hệ khi cần; rỗng với search và quote"
+    )
+
+    def get_label(self, obj: FloatingAction) -> str:
+        return localized(obj, "label", _language(self.context))
+
+    def get_url(self, obj: FloatingAction) -> str:
+        return obj.resolved_url(self.context["site"])
+
+
+def _floating(obj: SiteSettings, context: Mapping[str, Any]) -> list[dict[str, Any]]:
+    """Nút đang hiện và có link dùng được (search, quote không cần link)."""
+    items = []
+    for action in obj.floating_actions.filter(visible=True):
+        data = FloatingActionSerializer(action, context={**context, "site": obj}).data
+        if data["url"] or action.kind in FloatingAction.BUILT_IN:
+            items.append(dict(data))
+    return items
+
+
 class SiteSerializer(serializers.Serializer[SiteSettings]):
     company = CompanySerializer(source="*")
     contact = ContactSerializer(source="*")
@@ -142,3 +178,11 @@ class SiteSerializer(serializers.Serializer[SiteSettings]):
     )
     footer = FooterSerializer(source="*")
     seo = SeoSerializer(source="*")
+    analytics = AnalyticsSerializer(source="*")
+    floating = serializers.SerializerMethodField(
+        help_text="Cụm nút nổi sát mép phải, theo thứ tự; chỉ nút đang hiện và có link"
+    )
+
+    @extend_schema_field(FloatingActionSerializer(many=True))
+    def get_floating(self, obj: SiteSettings) -> list[dict[str, Any]]:
+        return _floating(obj, self.context)

@@ -17,6 +17,11 @@ from apps.inquiries.services import InquiryRateLimited, create_inquiry
 pytestmark = pytest.mark.django_db(transaction=True)
 
 
+def staff_mails() -> list[Any]:
+    """Thư báo nhân viên (bỏ thư cảm ơn gửi khách)."""
+    return [m for m in mail.outbox if m.to != ["jane@example.com"]]
+
+
 @pytest.fixture(autouse=True)
 def _notify(settings: Any) -> None:
     settings.INQUIRY_NOTIFY_EMAILS = ["office@example.com"]
@@ -37,7 +42,7 @@ def test_duplicate_within_window_returns_existing() -> None:
     again = create_inquiry(data(email="JANE@example.com"))
     assert again.pk == first.pk
     assert Inquiry.objects.count() == 1
-    assert len(mail.outbox) == 1
+    assert len(staff_mails()) == 1
 
 
 def test_same_message_after_window_is_new() -> None:
@@ -76,7 +81,7 @@ def test_email_limit_resets_after_window() -> None:
 def test_spammy_content_is_saved_as_spam_without_email(overrides: dict[str, Any]) -> None:
     inquiry = create_inquiry(data(**overrides))
     assert inquiry.status == Inquiry.Status.SPAM
-    assert mail.outbox == []
+    assert staff_mails() == []
 
 
 def test_a_few_links_are_fine() -> None:
@@ -84,7 +89,7 @@ def test_a_few_links_are_fine() -> None:
         data(message="Our site https://acme.example and catalogue https://acme.example/cat.pdf")
     )
     assert inquiry.status == Inquiry.Status.NEW
-    assert len(mail.outbox) == 1
+    assert len(staff_mails()) == 1
 
 
 def configure(**fields: Any) -> InquirySettings:

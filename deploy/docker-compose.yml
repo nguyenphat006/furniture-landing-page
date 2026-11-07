@@ -1,0 +1,110 @@
+# Toàn bộ website BFC trên một server: web Next.js + CMS Wagtail + Postgres + ClamAV + Nginx (HTTPS).
+# Cách dùng, thứ tự deploy, backup: deploy/README.md. Biến môi trường: deploy/.env và deploy/.env.cms
+# (mẫu .env.example, .env.cms.example). Ghim phiên bản image chính xác. Chỉ Nginx mở cổng ra ngoài.
+
+name: bfc-web
+
+# Log container giữ tối đa 5 file x 10 MB mỗi dịch vụ (mặc định Docker không xoay vòng, đầy ổ đĩa)
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "5"
+
+services:
+  postgres:
+    image: postgres:17.6
+    restart: unless-stopped
+    logging: *logging
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-bfc_cms}
+      POSTGRES_USER: ${POSTGRES_USER:-bfc}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Dat POSTGRES_PASSWORD trong deploy/.env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  clamav:
+    # Quét virus tệp đính kèm form Liên hệ (backend/docs/adr/0009). Lần đầu tải dữ liệu virus mất vài phút
+    image: clamav/clamav:1.4.3
+    restart: unless-stopped
+    logging: *logging
+    volumes:
+      - clamav-db:/var/lib/clamav
+
+  cms:
+    build: ../backend
+    image: bfc-cms:latest
+    restart: unless-stopped
+    logging: *logging
+    env_file: .env.cms
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER:-bfc}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-bfc_cms}
+      CLAMAV_URL: tcp://clamav:3310
+      CMS_PUBLIC_URL: https://${CMS_DOMAIN}
+      WAGTAILADMIN_BASE_URL: https://${CMS_DOMAIN}
+      FRONTEND_URL: https://${WEB_DOMAIN}
+      FRONTEND_REVALIDATE_URL: http://web:3000/api/revalidate
+      DJANGO_ALLOWED_HOSTS: ${CMS_DOMAIN},cms,localhost
+      DJANGO_CSRF_TRUSTED_ORIGINS: https://${CMS_DOMAIN}
+      CMS_SHARED_SECRET: ${CMS_SHARED_SECRET:?Dat CMS_SHARED_SECRET trong deploy/.env}
+    volumes:
+      - media:/app/media
+      - private:/app/private
+    depends_on:
+      postgres:
+        condition: service_healthy
+      clamav:
+        condition: service_started
+
+  web:
+    build:
+      context: ../frontend
+      args:
+        # Lúc build Next gọi CMS qua domain công khai (CMS phải chạy trước, deploy.sh lo thứ tự)
+        CMS_API_URL: https://${CMS_DOMAIN}/api/v1
+        CMS_ADMIN_ORIGIN: https://${CMS_DOMAIN}
+        SITE_URL: https://${WEB_DOMAIN}
+        NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${TURNSTILE_SITE_KEY:?Dat TURNSTILE_SITE_KEY trong deploy/.env}
+    image: bfc-web:latest
+    restart: unless-stopped
+    logging: *logging
+    environment:
+      # Lúc chạy gọi CMS nội bộ, không ra Internet
+      CMS_API_URL: http://cms:8000/api/v1
+      CMS_SHARED_SECRET: ${CMS_SHARED_SECRET}
+      TURNSTILE_SECRET_KEY: ${TURNSTILE_SECRET_KEY:?Dat TURNSTILE_SECRET_KEY trong deploy/.env}
+      SITE_URL: https://${WEB_DOMAIN}
+    depends_on:
+      - cms
+
+  nginx:
+    image: nginx:1.28.0-alpine
+    restart: unless-stopped
+    logging: *logging
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      WEB_DOMAIN: ${WEB_DOMAIN:?Dat WEB_DOMAIN trong deploy/.env}
+      CMS_DOMAIN: ${CMS_DOMAIN:?Dat CMS_DOMAIN trong deploy/.env}
+    volumes:
+      - ./nginx/templates:/etc/nginx/templates:ro
+      # Chứng chỉ Let's Encrypt do certbot trên server cấp (README, mục HTTPS)
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - /var/www/certbot:/var/www/certbot:ro
+      # Ảnh công khai phục vụ thẳng từ Nginx; private/ (tệp đính kèm) KHÔNG gắn vào đây
+      - media:/srv/media:ro
+    depends_on:
+      - web
+      - cms
+
+volumes:
+  pgdata:
+  media:
+  private:
+  clamav-db:

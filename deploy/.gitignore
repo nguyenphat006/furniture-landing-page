@@ -1,0 +1,6 @@
+# Bí mật thật trên server, chỉ commit file mẫu *.example
+.env
+.env.cms
+.env.*
+!.env.example
+!.env.cms.example

@@ -1,0 +1,26 @@
+{% load static %}<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Tạm khoá đăng nhập · BFC CMS</title>
+<style>
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #f5f3ef; color: #1f2420; font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 440px; margin: 16px; padding: 40px 32px; background: #fff; border-radius: 8px; box-shadow: 0 10px 30px rgb(0 0 0 / .08); text-align: center; }
+  img { width: 72px; height: 72px; }
+  h1 { font-size: 20px; margin: 20px 0 8px; }
+  p { margin: 8px 0; color: #4a514c; }
+  a { color: #32764a; font-weight: 600; }
+</style>
+</head>
+<body>
+<main>
+  <img src="{% static 'core/img/logo.png' %}" alt="BFC">
+  <h1>Tạm khoá đăng nhập</h1>
+  <p>Tài khoản {% if username %}<strong>{{ username }}</strong> {% endif %}đã đăng nhập sai {{ failure_limit }} lần nên bị khoá tạm thời.</p>
+  <p>Thử lại sau 1 giờ, hoặc nhờ quản trị viên mở khoá ngay.</p>
+  <p><a href="/admin/login/">Về trang đăng nhập</a></p>
+</main>
+</body>
+</html>

@@ -1,0 +1,45 @@
+# Kiểm tra bộ triển khai (deploy/): cú pháp compose, cấu hình Nginx, script shell. Không deploy thật.
+name: deploy-config
+
+on:
+  push:
+    branches: [main]
+    paths: ["deploy/**", ".github/workflows/deploy.yml"]
+  pull_request:
+    paths: ["deploy/**", ".github/workflows/deploy.yml"]
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    working-directory: deploy
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: docker-compose.yml hợp lệ
+        run: |
+          cp .env.example .env
+          cp .env.cms.example .env.cms
+          sed -i 's/^POSTGRES_PASSWORD=.*/POSTGRES_PASSWORD=ci/; s/^CMS_SHARED_SECRET=.*/CMS_SHARED_SECRET=ci/; s/^TURNSTILE_SITE_KEY=.*/TURNSTILE_SITE_KEY=ci/; s/^TURNSTILE_SECRET_KEY=.*/TURNSTILE_SECRET_KEY=ci/' .env
+          docker compose config --quiet
+
+      - name: Nginx nạp được cấu hình (chứng chỉ tự ký cho domain mẫu)
+        run: |
+          for d in example.com www.example.com cms.example.com; do
+            mkdir -p "/tmp/le/live/$d"
+            openssl req -x509 -nodes -newkey rsa:2048 -days 1 -subj "/CN=$d" \
+              -keyout "/tmp/le/live/$d/privkey.pem" -out "/tmp/le/live/$d/fullchain.pem" 2>/dev/null
+          done
+          docker run --rm \
+            -e WEB_DOMAIN=example.com -e CMS_DOMAIN=cms.example.com \
+            -v "$PWD/nginx/templates:/etc/nginx/templates:ro" \
+            -v /tmp/le:/etc/letsencrypt:ro \
+            nginx:1.28.0-alpine nginx -t
+
+      - name: Script shell (shellcheck)
+        run: shellcheck deploy.sh backup.sh restore.sh

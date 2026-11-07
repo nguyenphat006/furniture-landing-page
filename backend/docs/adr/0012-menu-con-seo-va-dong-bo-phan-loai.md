@@ -44,3 +44,12 @@ phẩm vẫn đọc tên, thứ tự, ảnh bìa trong code.
 ## Hệ quả
 - Màn Menu vật liệu thêm một chỗ phải nhớ khi thêm vật liệu (sync chỉ tạo menu lần đầu).
 - Bảng điều khiển SEO (trang thiếu mô tả, tiêu đề quá dài) để G5, khi có thêm trang nội dung.
+
+## Bổ sung (07/11/2026): phân loại động hoàn toàn
+- Có CMS thì danh sách nhóm, loại, chất liệu, tính năng lấy hết từ CMS: thêm trong admin là có trang
+  `/products/<nhóm>`, `/materials/<slug>`, menu, bộ lọc, sitemap; không khai báo gì ở frontend
+  (`dynamicParams = true`, slug lạ vẫn 404). Danh sách trong `taxonomy.ts` chỉ còn là mock khi chạy
+  không có CMS. Sản phẩm mang sẵn `category` từ API, URL không tra bảng loại → nhóm ở frontend nữa.
+- Webhook `/api/revalidate` cho cache hết hạn ngay (`revalidateTag(tag, { expire: 0 })`) thay vì
+  stale-while-revalidate: Next chỉ lưu cache khi CMS trả 200, nên nội dung bị xoá / gỡ trước đây vẫn
+  hiện mãi bản cũ.

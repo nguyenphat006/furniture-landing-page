@@ -10,6 +10,7 @@ import { codedSections, type CodedSection } from "@/features/home/page-content";
 import { routing } from "@/i18n/routing";
 import { localePath } from "@/lib/seo";
 import { cmsGet } from "./client";
+import { previewContent } from "./preview";
 import type { components } from "./schema";
 
 /*
@@ -101,9 +102,7 @@ export async function fetchPage(
   key: "home",
   locale: string,
 ): Promise<ContentPage | null> {
-  const page = await cmsGet<Schemas["ContentPage"]>(`pages/${key}`, {
-    locale,
-  });
+  const page = await getContentPage(key, locale);
   if (!page) return null;
   return {
     title: page.title,
@@ -111,6 +110,17 @@ export async function fetchPage(
     seo: seoOf(page),
     blocks: page.body.map(block).filter((b): b is PageBlock => b !== null),
   };
+}
+
+/** Trang đã xuất bản, hoặc bản nháp khi admin đang xem trước đúng trang này */
+async function getContentPage(
+  key: string,
+  locale: string,
+): Promise<Schemas["ContentPage"] | null> {
+  return (
+    (await previewContent<Schemas["ContentPage"]>("page", key, locale)) ??
+    cmsGet<Schemas["ContentPage"]>(`pages/${key}`, { locale })
+  );
 }
 
 function seoOf(page: Schemas["ContentPage"]): ContentPage["seo"] {
@@ -157,9 +167,7 @@ export async function fetchLegalPage(
   key: LegalKey,
   locale: string,
 ): Promise<LegalPage | null> {
-  const page = await cmsGet<Schemas["ContentPage"]>(`pages/${key}`, {
-    locale,
-  });
+  const page = await getContentPage(key, locale);
   if (!page) return null;
   return {
     title: page.title,

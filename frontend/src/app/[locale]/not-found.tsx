@@ -1,5 +1,4 @@
 import { useTranslations } from "next-intl";
-import { getTranslations } from "next-intl/server";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { ButtonLink } from "@/components/shared/button-link";
@@ -13,11 +12,9 @@ import { navHref } from "@/config/navigation";
  * khối 404 căn giữa, không breadcrumb, cao gần hết màn hình để footer không bị kéo lên.
  */
 
-export async function generateMetadata() {
-  const t = await getTranslations("NotFound");
-  // Next tự chèn noindex cho trang trả 404
-  return { title: t("metaTitle") };
-}
+// Không có generateMetadata: trang này không nhận params nên lấy ngôn ngữ qua header, mà trang chi tiết
+// dựng tĩnh theo yêu cầu (dynamicParams) cấm đọc header lúc chạy, gọi notFound() sẽ thành lỗi 500
+// (QC 2026-11-07). Tiêu đề tab dùng tiêu đề mặc định của layout; Next tự chèn noindex cho trang 404.
 
 export default function NotFound() {
   const t = useTranslations("NotFound");

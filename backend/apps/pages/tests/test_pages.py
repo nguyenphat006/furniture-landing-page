@@ -309,7 +309,11 @@ def test_legal_pages(api_client: APIClient, admin_client: Client, assets: Path) 
         assert res.status_code == 302
         assert res["Location"] == f"/admin/pages/{pk}/edit/"
     assert admin_client.get("/admin/noi-dung-trang/khong-co/").status_code == 404
-    assert "/admin/noi-dung-trang/home/" in admin_client.get("/admin/").content.decode()
+    # Menu đang tạm ẩn khỏi sidebar (SHOW_PAGE_MENU); hàm dựng menu vẫn đủ 3 trang
+    assert "/admin/noi-dung-trang/home/" not in admin_client.get("/admin/").content.decode()
+    from apps.pages.wagtail_hooks import register_page_menu
+
+    assert len(register_page_menu().menu.initial_menu_items) == 3
 
 
 def test_page_menu_without_pages(admin_client: Client) -> None:

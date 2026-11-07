@@ -5,20 +5,18 @@ import {
   Section,
   SectionHeading,
 } from "@/components/shared/section";
-import {
-  catalogHref,
-  type CategoryEntry,
-  type MaterialPage,
-} from "@/data/catalog";
-import { Link } from "@/i18n/navigation";
+import { ButtonLink } from "@/components/shared/button-link";
+import { navHref } from "@/config/navigation";
+import type { MaterialPage, Product } from "@/data/catalog";
+import { ProductCarousel } from "@/features/products";
 
 /*
  * Nội dung trang chi tiết vật liệu (2026-11-05), bám bố cục trang vật liệu của Gloster:
  *   1. Đặc tính: chữ | ảnh cận dọc 2:3 (detailImage, khác ảnh đại diện ở đầu trang) | ảnh ứng dụng ngang 4:3 (ba cột từ lg)
  *   2. Gia công tại BFC: ảnh xưởng lớn 3:2 bên trái, chữ bên phải
  *   3. Bảo quản (nền stone): tiêu đề lớn bên trái, các đoạn chữ cỡ lớn bên phải
- *   4. Sản phẩm dùng vật liệu: lưới ô vuông các nhóm sản phẩm có vật liệu này (suy từ catalog);
- *      ẩn nếu chưa có nhóm nào
+ *   4. Sản phẩm dùng vật liệu (2026-11-07): carousel một hàng chuyển theo trang các sản phẩm có
+ *      vật liệu này (ProductCarousel), nút xem tất cả mở /products lọc sẵn vật liệu; ẩn nếu chưa có
  * Đầu trang (PageHeader) và footer dùng component chung ở page.tsx.
  */
 
@@ -26,16 +24,18 @@ const textCol = "text-ink-soft space-y-5 leading-relaxed";
 
 export function MaterialDetail({
   material,
-  categories,
+  products,
 }: {
   material: MaterialPage;
-  /** Nhóm có sản phẩm dùng vật liệu này (trang lấy từ catalog) */
-  categories: CategoryEntry[];
+  /** Sản phẩm dùng vật liệu này (trang lấy từ catalog) */
+  products: Product[];
 }) {
   const t = useTranslations("MaterialDetail");
-  const tc = useTranslations("Common");
   const locale = useLocale();
   const { name } = material;
+  const productsTitle = t("products", {
+    name: locale === "vi" ? name.toLocaleLowerCase("vi") : name,
+  });
 
   return (
     <>
@@ -118,36 +118,21 @@ export function MaterialDetail({
       </Section>
 
       {/* 4. Sản phẩm dùng vật liệu */}
-      {categories.length > 0 ? (
+      {products.length > 0 ? (
         <Section id="products">
           <Container>
             <SectionHeading
               eyebrow={t("productsKicker")}
-              title={t("products", {
-                name: locale === "vi" ? name.toLocaleLowerCase("vi") : name,
-              })}
+              title={productsTitle}
+              action={
+                <ButtonLink
+                  href={`${navHref.products}?material=${encodeURIComponent(material.slug)}`}
+                >
+                  {t("productsViewAll")}
+                </ButtonLink>
+              }
             />
-            <ul className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
-              {categories.map((c) => (
-                <li key={c.slug}>
-                  <Link
-                    href={catalogHref.category(c.slug)}
-                    className="group/cat block hover:no-underline"
-                  >
-                    <div className="bg-surface-stone relative aspect-square overflow-hidden">
-                      <ImagePlaceholder
-                        label={c.cover}
-                        sizes="(min-width: 1024px) 20vw, (min-width: 640px) 33vw, 50vw"
-                        className="ease-out-soft transition-transform duration-(--duration-slow) group-hover/cat:scale-[1.04]"
-                      />
-                    </div>
-                    <p className="text-ink mt-3 text-sm font-medium tracking-[.06em] uppercase">
-                      {tc(`products.${c.slug}`)}
-                    </p>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <ProductCarousel products={products} label={productsTitle} />
           </Container>
         </Section>
       ) : null}

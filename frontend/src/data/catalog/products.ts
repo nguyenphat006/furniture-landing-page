@@ -8,9 +8,9 @@ import {
 } from "@/lib/cms/catalog";
 import type { PageSeo } from "@/lib/seo";
 import { mockProducts } from "./products.mock";
-import { productTypes, type CategorySlug, type MaterialSlug } from "./taxonomy";
+import type { CategorySlug, MaterialSlug } from "./taxonomy";
 import { getTaxonomy } from "./taxonomy-source";
-import type { CategoryEntry, Product } from "./types";
+import type { Product } from "./types";
 
 /*
  * Đọc sản phẩm (CHỈ phía server: page, generateMetadata, generateStaticParams).
@@ -25,18 +25,14 @@ export const getProducts = cache(async (locale: string): Promise<Product[]> => {
     cmsEnabled() ? fetchProducts(locale) : mockProducts,
     getTaxonomy(locale),
   ]);
-  return categories.flatMap((c) =>
-    list.filter((p) => productTypes[p.type] === c.slug),
-  );
+  return categories.flatMap((c) => list.filter((p) => p.category === c.slug));
 });
 
 export async function getProductsInCategory(
   category: CategorySlug,
   locale: string,
 ): Promise<Product[]> {
-  return (await getProducts(locale)).filter(
-    (p) => productTypes[p.type] === category,
-  );
+  return (await getProducts(locale)).filter((p) => p.category === category);
 }
 
 /** Chi tiết sản phẩm (đủ quy cách, món trong bộ, ảnh cỡ lớn); không có thì undefined */
@@ -58,17 +54,34 @@ export async function getMaterialsInCategory(
   return (await getTaxonomy(locale)).materials.filter((m) => used.has(m));
 }
 
-/** Các nhóm có sản phẩm dùng chất liệu `material` (mục "Sản phẩm dùng ..." ở trang vật liệu) */
-export async function getCategoriesUsingMaterial(
+/** Sản phẩm dùng chất liệu `material` (mục "Sản phẩm dùng ..." ở trang vật liệu), theo thứ tự catalog */
+export async function getProductsWithMaterial(
   material: MaterialSlug,
   locale: string,
-): Promise<CategoryEntry[]> {
-  const products = await getProducts(locale);
-  return (await getTaxonomy(locale)).categories.filter((c) =>
-    products.some(
-      (p) => productTypes[p.type] === c.slug && p.materials.includes(material),
-    ),
+): Promise<Product[]> {
+  return (await getProducts(locale)).filter((p) =>
+    p.materials.includes(material),
   );
+}
+
+/**
+ * Mẫu khác cho trang sản phẩm (2026-11-07): cùng nhóm, bỏ chính nó; cùng loại xếp trước, rồi tới
+ * mẫu chung nhiều chất liệu hơn; cùng điểm thì giữ thứ tự catalog.
+ */
+export async function getRelatedProducts(
+  product: Product,
+  locale: string,
+  limit: number,
+): Promise<Product[]> {
+  const score = (p: Product) =>
+    (p.type === product.type ? 100 : 0) +
+    p.materials.filter((m) => product.materials.includes(m)).length;
+  return (await getProductsInCategory(product.category, locale))
+    .filter((p) => p.slug !== product.slug)
+    .map((p, i) => ({ p, i, s: score(p) }))
+    .sort((a, b) => b.s - a.s || a.i - b.i)
+    .slice(0, limit)
+    .map(({ p }) => p);
 }
 
 /** SEO riêng của nhóm sản phẩm nhập trong CMS; mock không có */

@@ -22,6 +22,7 @@ from apps.catalog.models import (
 )
 from apps.catalog.models.taxonomy import TaxonomyBase, paragraphs
 from apps.catalog.renditions import RENDITION_LARGE, RENDITION_THUMB
+from apps.core.media_url import absolute_url
 
 
 def _language(context: Mapping[str, Any]) -> str:
@@ -29,8 +30,7 @@ def _language(context: Mapping[str, Any]) -> str:
 
 
 def _abs(context: Mapping[str, Any], url: str) -> str:
-    request = context.get("request")
-    return request.build_absolute_uri(url) if request is not None else url
+    return absolute_url(context, url)
 
 
 def _number(value: Any) -> float | int:

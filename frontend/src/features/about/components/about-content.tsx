@@ -40,8 +40,9 @@ export function AboutContent() {
         <Container>
           <div className="bg-surface-stone relative aspect-[4/3] overflow-hidden sm:aspect-[16/9] lg:aspect-[21/9]">
             <ImagePlaceholder
-              label="Slideshow_1_7.jpg"
+              label="Slideshow_1_1.png"
               sizes="(min-width: 1440px) 1350px, 100vw"
+              priority
             />
           </div>
         </Container>

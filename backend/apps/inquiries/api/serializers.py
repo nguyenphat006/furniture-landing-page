@@ -26,6 +26,17 @@ class InquiryCreateSerializer(serializers.Serializer[Any]):
     locale = serializers.ChoiceField(choices=[code for code, _ in settings.LANGUAGES], default="vi")
     file = serializers.FileField(required=False, max_length=200, allow_empty_file=False)
 
+    # Trường một dòng: gộp xuống dòng và khoảng trắng thừa. Tên, công ty nằm trong tiêu đề email,
+    # xuống dòng ở đó làm gửi email lỗi (QC 07/11).
+    def validate_name(self, value: str) -> str:
+        return " ".join(value.split())
+
+    def validate_company(self, value: str) -> str:
+        return " ".join(value.split())
+
+    def validate_phone(self, value: str) -> str:
+        return " ".join(value.split())
+
     def validate_message(self, value: str) -> str:
         # Multipart (trình duyệt, FormData) gửi xuống dòng dạng CRLF
         return value.replace("\r\n", "\n").replace("\r", "\n")

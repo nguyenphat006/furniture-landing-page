@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { pageAlternates } from "@/lib/seo";
+import { pageLinks } from "@/lib/seo";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -23,7 +23,7 @@ export async function generateMetadata({
   return {
     title: t("metaTitle"),
     description: t("metaDescription"),
-    alternates: pageAlternates("/materials", locale),
+    ...(await pageLinks("/materials", locale)),
   };
 }
 

@@ -43,8 +43,5 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
     CMD ["python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/healthz', timeout=4).status == 200 else 1)"]
 
-# Migration chạy bằng lệnh riêng khi deploy, rồi tạo phân loại mới (không ghi đè, ADR 0012):
-#   docker compose run --rm cms python manage.py migrate
-#   docker compose run --rm cms python manage.py sync_taxonomy
-#   docker compose run --rm cms python manage.py import_pages   (chỉ tạo trang chưa có)
+# Migration và nhập dữ liệu chạy bằng lệnh riêng khi deploy: deploy/deploy.sh (xem deploy/README.md)
 CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3", "--access-logfile", "-", "--forwarded-allow-ips", "*"]

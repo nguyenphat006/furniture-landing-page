@@ -6,19 +6,35 @@ Site công khai là Next.js nên CMS không render trang; frontend đọc qua /a
 
 from __future__ import annotations
 
+from typing import Any
+
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
+from django.http import HttpRequest, HttpResponse
 from django.utils.translation import gettext_lazy as _
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import StreamField
-from wagtail.models import DraftStateMixin, Page, RevisionMixin, TranslatableMixin
+from wagtail.models import (
+    DraftStateMixin,
+    Page,
+    PreviewableMixin,
+    RevisionMixin,
+    TranslatableMixin,
+)
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from .blocks import legal_blocks, page_blocks, section_blocks
 
 
-class SharedSection(TranslatableMixin, DraftStateMixin, RevisionMixin, index.Indexed, models.Model):
+class SharedSection(
+    TranslatableMixin,
+    DraftStateMixin,
+    PreviewableMixin,
+    RevisionMixin,
+    index.Indexed,
+    models.Model,
+):
     """Một section chèn được vào nhiều trang; sửa một lần, mọi trang đang chèn cùng đổi."""
 
     name = models.CharField(
@@ -44,6 +60,44 @@ class SharedSection(TranslatableMixin, DraftStateMixin, RevisionMixin, index.Ind
 
     def __str__(self) -> str:
         return self.name
+
+    def serve_preview(self, request: HttpRequest, mode_name: str) -> HttpResponse:
+        """Xem trước trên Trang chủ cùng ngôn ngữ, với section này thay bằng bản đang sửa."""
+        from .api.serializers import ContentPageSerializer
+        from .preview import preview_response
+        from .rich_text import frontend_path
+
+        home = HomePage.objects.filter(locale=self.locale).first()
+        if home is None:
+            return HttpResponse("Chưa có Trang chủ để xem trước section.")
+        context = {"request": request, "is_fallback": False, "preview_section": self}
+        return preview_response(
+            request,
+            kind="page",
+            key="home",
+            locale=self.locale.language_code,
+            path=frontend_path(home) or "/",
+            data=dict(ContentPageSerializer(home, context=context).data),
+        )
+
+
+class Preview(models.Model):
+    """Bản nháp tạm cho nút Xem trước (apps/pages/preview.py), tự xoá khi hết hạn."""
+
+    token = models.CharField(max_length=64, unique=True)
+    kind = models.CharField(max_length=16)
+    key = models.CharField(max_length=200)
+    locale = models.CharField(max_length=8)
+    path = models.CharField(max_length=300)
+    payload = models.JSONField()
+    expires_at = models.DateTimeField(db_index=True)
+
+    class Meta:
+        verbose_name = _("bản xem trước")
+        verbose_name_plural = _("bản xem trước")
+
+    def __str__(self) -> str:
+        return f"{self.kind}:{self.key} ({self.locale})"
 
 
 class ContentPage(Page):
@@ -81,11 +135,26 @@ class ContentPage(Page):
     ]
     override_translatable_fields = [SynchronizedField("og_image"), SynchronizedField("noindex")]
 
-    # Không có giao diện HTML phía CMS (headless); xem trước bằng draft mode ở bước sau
-    preview_modes: list[tuple[str, str]] = []
-
     class Meta:
         abstract = True
+
+    def serve_preview(self, request: HttpRequest, mode_name: str) -> HttpResponse:
+        """Headless: chuyển sang web Next.js ở draft mode với bản đang sửa (preview.py)."""
+        from .api.serializers import ContentPageSerializer
+        from .preview import preview_response
+        from .rich_text import frontend_path
+        from .selectors import PAGE_MODELS
+
+        key = next(k for k, model in PAGE_MODELS.items() if isinstance(self, model))
+        context: dict[str, Any] = {"request": request, "is_fallback": False}
+        return preview_response(
+            request,
+            kind="page",
+            key=key,
+            locale=self.locale.language_code,
+            path=frontend_path(self) or "/",
+            data=dict(ContentPageSerializer(self, context=context).data),
+        )
 
 
 class HomePage(ContentPage):

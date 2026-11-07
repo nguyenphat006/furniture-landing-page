@@ -26,6 +26,17 @@ export function HeroSection({
   const titleLines = content.title.split("\n");
   const reduce = useReducedMotion();
   const [index, setIndex] = useState(0);
+  // Slide đã tải: lúc đầu chỉ slide 0 (ảnh LCP), slide kế tiếp tải sau khi trang đã hiện (QC 07/11)
+  const [loaded, setLoaded] = useState<ReadonlySet<number>>(() => new Set([0]));
+  useEffect(() => {
+    if (slides.length < 2) return;
+    const next = (index + 1) % slides.length;
+    const id = setTimeout(
+      () => setLoaded((s) => (s.has(next) ? s : new Set(s).add(next))),
+      2000,
+    );
+    return () => clearTimeout(id);
+  }, [index, slides.length]);
 
   // Tự chuyển slide; đổi slide thủ công sẽ reset đồng hồ. Reduced-motion → đứng yên slide đầu
   useEffect(() => {
@@ -62,14 +73,19 @@ export function HeroSection({
             }}
             className="absolute inset-0"
           >
-            <Image
-              src={src}
-              alt=""
-              fill
-              priority={i === 0}
-              sizes="100vw"
-              className="object-cover"
-            />
+            {loaded.has(i) || active ? (
+              <Image
+                src={src}
+                alt=""
+                fill
+                {...(i === 0
+                  ? { loading: "eager", fetchPriority: "high" }
+                  : {})}
+                sizes="100vw"
+                quality={60}
+                className="object-cover"
+              />
+            ) : null}
           </motion.div>
         );
       })}

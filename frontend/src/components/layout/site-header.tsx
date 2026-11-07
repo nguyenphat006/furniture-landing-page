@@ -43,6 +43,47 @@ export function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const headerRef = useRef<HTMLElement>(null);
+  const burgerRef = useRef<HTMLButtonElement>(null);
+  // Mở dropdown bằng bàn phím: đưa focus vào link đầu của panel (panel nằm cuối header trong DOM,
+  // Tab tự nhiên sẽ đi qua các mục menu khác trước). QC 07/11.
+  const focusPanel = useRef(false);
+  useEffect(() => {
+    if (!openMenu || !focusPanel.current) return;
+    focusPanel.current = false;
+    const id = requestAnimationFrame(() =>
+      document.querySelector<HTMLElement>(`#dd-${openMenu} a[href]`)?.focus(),
+    );
+    return () => cancelAnimationFrame(id);
+  }, [openMenu]);
+
+  /** Tab ra khỏi panel: đóng, Shift+Tab ở link đầu về nút ▾, Tab ở link cuối sang mục menu kế tiếp */
+  const onPanelKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key !== "Tab" || !openMenu) return;
+    const links = [
+      ...e.currentTarget.querySelectorAll<HTMLElement>("a[href], button"),
+    ];
+    const first = links[0];
+    const last = links.at(-1);
+    const toggle = document.querySelector<HTMLElement>(
+      `[data-dropdown-toggle="${openMenu}"]`,
+    );
+    if (!toggle) return;
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      setOpenMenu(null);
+      toggle.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      const items = [
+        ...(headerRef.current?.querySelectorAll<HTMLElement>(
+          "a[href], button",
+        ) ?? []),
+      ].filter((el) => !e.currentTarget.contains(el) && el.offsetParent);
+      const next = items[items.indexOf(toggle) + 1];
+      e.preventDefault();
+      setOpenMenu(null);
+      (next ?? toggle).focus();
+    }
+  };
 
   const cancelClose = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -70,6 +111,8 @@ export function SiteHeader() {
           )
           ?.focus();
       }
+      // Panel mobile: trả focus về nút hamburger
+      if (mobileOpen) burgerRef.current?.focus();
       setOpenMenu(null);
       setMobileOpen(false);
     };
@@ -137,8 +180,10 @@ export function SiteHeader() {
             aria-expanded={open}
             aria-controls={`dd-${dropdown}`}
             aria-label={t("menu.toggleSubmenu", { label })}
-            onClick={() => {
+            onClick={(e) => {
               cancelClose();
+              // detail 0: bấm bằng Enter / Space
+              focusPanel.current = !open && e.detail === 0;
               setOpenMenu(open ? null : dropdown);
             }}
             className="text-ink -mr-1 flex size-6 cursor-pointer items-center justify-center"
@@ -242,6 +287,7 @@ export function SiteHeader() {
 
             {/* Hamburger (dưới xl): 3 vạch, mở thì thành dấu × */}
             <button
+              ref={burgerRef}
               type="button"
               aria-label={t(mobileOpen ? "closeMenu" : "openMenu")}
               aria-expanded={mobileOpen}
@@ -282,6 +328,7 @@ export function SiteHeader() {
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={openMenu}
+                  onKeyDown={onPanelKeyDown}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}

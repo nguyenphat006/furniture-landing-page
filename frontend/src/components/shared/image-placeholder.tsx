@@ -24,6 +24,10 @@ type ImagePlaceholderProps = {
   labelPosition?: "center" | "top" | "top-left";
   /** Kích thước gợi ý cho next/image (mặc định phù hợp ảnh chiếm nửa màn hình) */
   sizes?: string;
+  /** Ảnh lớn nhất phía trên màn hình (LCP): tải ngay, ưu tiên cao thay vì tải lười */
+  priority?: boolean;
+  /** Chất lượng nén next/image (có trong images.qualities của next.config.ts) */
+  quality?: number;
 };
 
 /**
@@ -38,13 +42,23 @@ export function ImagePlaceholder({
   labelClassName,
   labelPosition = "center",
   sizes = "(max-width: 1024px) 100vw, 50vw",
+  priority = false,
+  quality,
 }: ImagePlaceholderProps) {
   const src = resolveAsset(label);
 
   if (src) {
     return (
       <div className={cn("absolute inset-0 overflow-hidden", className)}>
-        <Image src={src} alt="" fill sizes={sizes} className="object-cover" />
+        <Image
+          src={src}
+          alt=""
+          fill
+          sizes={sizes}
+          quality={quality}
+          {...(priority ? { loading: "eager", fetchPriority: "high" } : {})}
+          className="object-cover"
+        />
       </div>
     );
   }

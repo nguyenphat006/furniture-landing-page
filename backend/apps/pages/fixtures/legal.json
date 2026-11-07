@@ -72,7 +72,7 @@
           "value": {
             "heading": "Cookie",
             "paragraphs": [
-              "Website chỉ dùng cookie cần thiết, ví dụ ghi nhớ ngôn ngữ bạn chọn. Cloudflare Turnstile có thể dùng cookie hoặc kỹ thuật tương tự để chống gửi tự động. Website không dùng cookie quảng cáo."
+              "Website dùng cookie cần thiết, ví dụ ghi nhớ ngôn ngữ bạn chọn. Cloudflare Turnstile có thể dùng cookie hoặc kỹ thuật tương tự để chống gửi tự động. Website dùng Google Analytics để thống kê lượt truy cập ẩn danh (trang được xem, thiết bị, quốc gia), giúp cải thiện nội dung; bạn có thể chặn bằng cài đặt trình duyệt hoặc tiện ích chặn theo dõi. Website không dùng cookie quảng cáo."
             ]
           }
         },
@@ -182,7 +182,7 @@
           "value": {
             "heading": "Cookies",
             "paragraphs": [
-              "The website only uses necessary cookies, for example to remember your language. Cloudflare Turnstile may use cookies or similar techniques to block automated submissions. The website does not use advertising cookies."
+              "The website uses necessary cookies, for example to remember your language. Cloudflare Turnstile may use cookies or similar techniques to block automated submissions. The website uses Google Analytics to count visits anonymously (pages viewed, device, country) so we can improve the content; you can block it in your browser settings or with a tracking blocker. The website does not use advertising cookies."
             ]
           }
         },

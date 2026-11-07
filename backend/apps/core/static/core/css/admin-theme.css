@@ -31,3 +31,60 @@
   width: 88px;
   height: auto;
 }
+
+/* Rà soát SEO (apps/core/seo_audit.py) */
+.bfc-seo-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0 1.5rem;
+}
+.bfc-seo-table td {
+  vertical-align: top;
+}
+.bfc-seo-kind {
+  font-size: 0.75rem;
+  color: var(--w-color-text-meta);
+}
+.bfc-seo-issues {
+  margin: 0;
+  padding-left: 1rem;
+}
+.bfc-seo-issue--error {
+  color: var(--w-color-critical-200);
+}
+.bfc-seo-actions {
+  white-space: nowrap;
+}
+.bfc-seo-badge {
+  display: inline-block;
+  min-width: 1.75rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+  color: #fff;
+  background: var(--w-color-grey-400);
+}
+.bfc-seo-badge--error {
+  background: var(--w-color-critical-200);
+}
+.bfc-seo-badge--warning {
+  background: #b7791f;
+}
+.bfc-seo-badge--ok {
+  background: #32764a;
+}
+.bfc-seo-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0 1.75rem 1.5rem;
+}
+.bfc-seo-summary a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}

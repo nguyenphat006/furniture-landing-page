@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl";
 import { ImagePlaceholder } from "@/components/shared/image-placeholder";
 import { ArrowRight } from "lucide-react";
-import { catalogHref, categoryOf, type Product } from "@/data/catalog";
+import { catalogHref, type Product } from "@/data/catalog";
 import { Link } from "@/i18n/navigation";
 
 /*
@@ -57,7 +57,7 @@ export function ProductRow({ product }: { product: Product }) {
   const tc = useTranslations("Common");
   const t = useTranslations("ProductsPage");
   const info: [string, string][] = [
-    [t("detail.category"), tc(`products.${categoryOf(product.type)}`)],
+    [t("detail.category"), tc(`products.${product.category}`)],
     [
       t("detail.materials"),
       product.materials.map((m) => tc(`materials.${m}`)).join(" · ") ||

@@ -15,12 +15,20 @@ import time
 from typing import Any
 
 from django.conf import settings
+from django.core.exceptions import RequestDataTooBig
+from rest_framework.exceptions import APIException
 from rest_framework.permissions import BasePermission
 from rest_framework.request import Request
 
 from apps.core.revalidate import sign
 
 MAX_SKEW_SECONDS = 300
+
+
+class PayloadTooLarge(APIException):
+    status_code = 413
+    default_detail = "Request quá lớn."
+    default_code = "payload_too_large"
 
 
 def valid_signature(secret: str, timestamp: str, body: bytes, signature: str) -> bool:
@@ -37,7 +45,11 @@ class SignedByFrontend(BasePermission):
         if not secret:
             return False
         # Đọc raw body trước khi DRF parse (permission chạy trước khi truy cập request.data)
-        body = request._request.body
+        try:
+            body = request._request.body
+        except RequestDataTooBig as exc:
+            # Quá DATA_UPLOAD_MAX_MEMORY_SIZE: trả 413 thay vì 500 (QC 07/11)
+            raise PayloadTooLarge from exc
         return valid_signature(
             secret,
             request.headers.get("X-BFC-Timestamp", ""),

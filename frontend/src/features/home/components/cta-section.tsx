@@ -31,6 +31,7 @@ export function CtaSection({ content }: { content?: CtaContent }) {
         <ImagePlaceholder
           label={content ? (content.image ?? undefined) : DEFAULT_IMAGE}
           sizes="100vw"
+          quality={50}
           className="opacity-25 grayscale"
         />
         <div className="bg-forest/80 absolute inset-0" />

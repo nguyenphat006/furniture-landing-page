@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from django.conf import settings
+from django.utils import timezone
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework.exceptions import NotFound
 from rest_framework.request import Request
@@ -10,9 +11,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from apps.catalog.api.views import LOCALE_PARAM, LocaleQuerySerializer
+from apps.core.api.permissions import SignedByFrontend
 
 from .. import selectors
-from .serializers import ContentPageSerializer
+from ..models import Preview
+from .serializers import ContentPageSerializer, PreviewSerializer
 
 
 class ContentPageView(APIView):
@@ -38,3 +41,17 @@ class ContentPageView(APIView):
             raise NotFound
         context = {"request": request, "is_fallback": found.is_fallback}
         return Response(ContentPageSerializer(found.page, context=context).data)
+
+
+class PreviewView(APIView):
+    """Bản nháp cho draft mode của frontend (docs/adr/0014). Chỉ nhận request đã ký."""
+
+    permission_classes = [SignedByFrontend]
+    authentication_classes: list[type] = []
+
+    @extend_schema(responses=PreviewSerializer, operation_id="pages_preview_retrieve")
+    def get(self, request: Request, token: str) -> Response:
+        preview = Preview.objects.filter(token=token, expires_at__gte=timezone.now()).first()
+        if preview is None:
+            raise NotFound
+        return Response(PreviewSerializer(preview).data)

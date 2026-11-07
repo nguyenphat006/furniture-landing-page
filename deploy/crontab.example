@@ -1,0 +1,14 @@
+# Lịch chạy định kỳ trên server (crontab -e của user chạy Docker). Sửa đường dẫn /opt/bfc-web cho đúng.
+# Giờ theo múi giờ của server.
+
+# Xuất bản / gỡ nội dung đã hẹn giờ trong admin (Wagtail cần lệnh này chạy định kỳ)
+*/5 * * * *  cd /opt/bfc-web/deploy && docker compose exec -T cms python manage.py publish_scheduled >/dev/null 2>&1
+
+# Quét virus lại tệp đính kèm chưa quét / quét lỗi (vd ClamAV đang cập nhật lúc khách gửi)
+*/15 * * * * cd /opt/bfc-web/deploy && docker compose exec -T cms python manage.py scan_attachments >> /var/log/bfc-web-scan.log 2>&1
+
+# Sao lưu database + ảnh + tệp đính kèm lúc 2 giờ sáng
+0 2 * * *    /opt/bfc-web/deploy/backup.sh >> /var/log/bfc-web-backup.log 2>&1
+
+# Gia hạn chứng chỉ HTTPS (certbot), nạp lại Nginx nếu có chứng chỉ mới
+30 3 * * *   certbot renew --quiet --webroot -w /var/www/certbot --deploy-hook "cd /opt/bfc-web/deploy && docker compose exec -T nginx nginx -s reload"

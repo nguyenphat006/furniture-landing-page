@@ -60,7 +60,7 @@ export function CapacityBand() {
                   </>
                 )}
               </dd>
-              <dd className="order-3 mt-2 max-w-[32ch] text-sm leading-relaxed text-white/65">
+              <dd className="order-3 mt-2 max-w-[32ch] text-sm leading-relaxed text-white/85">
                 {t(`items.${s.key}.desc`)}
               </dd>
             </div>

@@ -1,0 +1,88 @@
+# Nginx cho website BFC. Image nginx tự thay ${WEB_DOMAIN}, ${CMS_DOMAIN} khi khởi động
+# (envsubst chỉ thay biến có trong môi trường; $host, $request_uri... của Nginx giữ nguyên).
+
+# Tệp đính kèm form Liên hệ tối đa 10 MB + phần chữ (backend DATA_UPLOAD_MAX_MEMORY_SIZE = 12 MB)
+client_max_body_size 12m;
+server_tokens off;
+
+# Phân giải tên container lúc có request (DNS nội bộ Docker), để Nginx khởi động được cả khi web chưa
+# build xong (deploy.sh bật Nginx + CMS trước rồi mới build web)
+resolver 127.0.0.11 valid=10s ipv6=off;
+
+# ---------------------------------------------------------------- HTTP: cấp chứng chỉ + chuyển HTTPS
+server {
+    listen 80;
+    server_name ${WEB_DOMAIN} www.${WEB_DOMAIN} ${CMS_DOMAIN};
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+# ---------------------------------------------------------------- www → không www
+server {
+    listen 443 ssl;
+    http2 on;
+    server_name www.${WEB_DOMAIN};
+    ssl_certificate /etc/letsencrypt/live/${WEB_DOMAIN}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/${WEB_DOMAIN}/privkey.pem;
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+    return 301 https://${WEB_DOMAIN}$request_uri;
+}
+
+# ---------------------------------------------------------------- web (Next.js)
+server {
+    listen 443 ssl;
+    http2 on;
+    server_name ${WEB_DOMAIN};
+    ssl_certificate /etc/letsencrypt/live/${WEB_DOMAIN}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/${WEB_DOMAIN}/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    # HSTS cho web (Django chỉ đặt cho domain CMS)
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+
+    location / {
+        set $web_upstream http://web:3000;
+        proxy_pass $web_upstream;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        # Ghi đè, không nối: khách tự gửi X-Forwarded-For để giả IP (QC 07/11)
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+
+# ---------------------------------------------------------------- CMS (admin + API + ảnh)
+server {
+    listen 443 ssl;
+    http2 on;
+    server_name ${CMS_DOMAIN};
+    ssl_certificate /etc/letsencrypt/live/${CMS_DOMAIN}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/${CMS_DOMAIN}/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+
+    # Ảnh đã đăng (ảnh gốc + bản thu nhỏ). Tệp đính kèm riêng tư nằm ở volume private, không gắn vào
+    # Nginx nên không thể lộ qua đây.
+    location /media/ {
+        alias /srv/media/;
+        expires 30d;
+        add_header Cache-Control "public";
+        add_header X-Content-Type-Options "nosniff";
+    }
+
+    location / {
+        set $cms_upstream http://cms:8000;
+        proxy_pass $cms_upstream;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        # Ghi đè, không nối: khách tự gửi X-Forwarded-For để giả IP (QC 07/11)
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_read_timeout 120s;
+    }
+}

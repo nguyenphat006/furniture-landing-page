@@ -152,7 +152,7 @@ export function SiteFooter({
               {/* Dải chứng nhận nhỏ: chỉ mục đã xác nhận, bấm để xem chi tiết ở trang Năng lực */}
               {confirmedCertifications.length > 0 ? (
                 <div className="flex items-center gap-3">
-                  <span className="text-[11px] tracking-[.14em] text-white/40 uppercase">
+                  <span className="text-[11px] tracking-[.14em] text-white/65 uppercase">
                     {tf("certsLabel")}
                   </span>
                   {confirmedCertifications.map((c) => (

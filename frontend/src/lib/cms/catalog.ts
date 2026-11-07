@@ -1,25 +1,18 @@
 import "server-only";
 import {
-  featureSlugs,
-  materialSlugs,
-  productTypes,
-  type FeatureSlug,
-  type MaterialSlug,
-  type ProductTypeSlug,
-} from "@/data/catalog/taxonomy";
-import {
   containerTypes,
   type Loading,
   type Product,
   type SetItem,
 } from "@/data/catalog/types";
 import { cmsGet, cmsGetAll } from "./client";
+import { previewContent } from "./preview";
 import type { components } from "./schema";
 
 /*
  * Catalog từ CMS: kiểu dữ liệu API sinh từ backend/openapi.yaml (schema.d.ts; backend đổi API thì chạy
  * `npm run cms:types`, TypeScript sẽ báo chỗ phải sửa) và hàm đổi sang kiểu Product của UI.
- * Phân loại dùng slug cố định ở taxonomy.ts (nhãn trong messages/*.json): slug lạ từ CMS (chưa khai báo ở frontend) bị bỏ qua, sản phẩm thuộc loại lạ không hiển thị.
+ * Phân loại là dữ liệu CMS (2026-11-07): sản phẩm mang sẵn nhóm, loại, chất liệu; nhãn hiển thị CMS đè lên messages.
  */
 
 type Schemas = components["schemas"];
@@ -39,12 +32,6 @@ type ApiProductBase = Omit<Schemas["ProductList"], "image">;
 type ApiProductListItem = Schemas["ProductList"];
 type ApiProductDetail = Schemas["ProductDetail"];
 
-const isType = (s: string): s is ProductTypeSlug => s in productTypes;
-const isMaterial = (s: string): s is MaterialSlug =>
-  (materialSlugs as readonly string[]).includes(s);
-const isFeature = (s: string): s is FeatureSlug =>
-  (featureSlugs as readonly string[]).includes(s);
-
 function loading(value: Loading | null): Loading | undefined {
   if (!value) return undefined;
   const out: Loading = {};
@@ -59,28 +46,27 @@ function spec(item: ApiSpec) {
     pcsPerBox: item.pcs_per_box ?? undefined,
     carton: item.carton ?? undefined,
     loading: loading(item.loading),
-    materials: item.materials.filter(isMaterial),
-    features: item.features.filter(isFeature),
+    materials: item.materials,
+    features: item.features,
   };
 }
 
-function base(p: ApiProductBase, images: string[]): Product | null {
-  if (!isType(p.type)) return null;
+function base(p: ApiProductBase, images: string[]): Product {
   return {
     slug: p.slug,
     name: p.name,
     code: p.code || undefined,
     type: p.type,
-    materials: p.materials.filter(isMaterial),
-    features: p.features.filter(isFeature),
+    category: p.category,
+    materials: p.materials,
+    features: p.features,
     isFallback: p.is_fallback,
     noindex: p.noindex,
     images,
   };
 }
 
-function setItem(item: ApiSetItem): SetItem | null {
-  if (!isType(item.type)) return null;
+function setItem(item: ApiSetItem): SetItem {
   return {
     type: item.type,
     qty: item.qty,
@@ -94,28 +80,26 @@ export async function fetchProducts(locale: string): Promise<Product[]> {
   const items = await cmsGetAll<ApiProductListItem>("catalog/products", {
     locale,
   });
-  return items
-    .map((p) => base(p, p.image ? [p.image.thumb] : []))
-    .filter((p): p is Product => p !== null);
+  return items.map((p) => base(p, p.image ? [p.image.thumb] : []));
 }
 
 export async function fetchProduct(
   slug: string,
   locale: string,
 ): Promise<Product | null> {
-  const p = await cmsGet<ApiProductDetail>(
-    `catalog/products/${encodeURIComponent(slug)}`,
-    { locale },
-  );
+  // Admin đang xem trước sản phẩm này: dùng bản đang sửa
+  const p =
+    (await previewContent<ApiProductDetail>("product", slug, locale)) ??
+    (await cmsGet<ApiProductDetail>(
+      `catalog/products/${encodeURIComponent(slug)}`,
+      { locale },
+    ));
   if (!p) return null;
   const product = base(
     p,
     p.images.map((i) => i.url),
   );
-  if (!product) return null;
-  const setItems = p.set_items
-    .map(setItem)
-    .filter((i): i is SetItem => i !== null);
+  const setItems = p.set_items.map(setItem);
   return {
     ...product,
     ...spec(p),

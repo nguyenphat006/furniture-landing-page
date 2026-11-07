@@ -54,7 +54,11 @@ def register_admin_urls() -> list[Any]:
     return [path("noi-dung-trang/<slug:key>/", edit_page_by_key, name="pages_edit_by_key")]
 
 
-@hooks.register("register_admin_menu_item")
+# Tạm ẩn menu "Nội dung trang" khỏi sidebar (2026-11-07, theo yêu cầu); trang vẫn sửa được trong
+# cây Pages, link /admin/noi-dung-trang/<khoá>/ vẫn chạy. Bật lại: đặt True.
+SHOW_PAGE_MENU = False
+
+
 def register_page_menu() -> SubmenuMenuItem:
     items = [
         MenuItem(label, reverse_lazy("pages_edit_by_key", args=[key]), icon_name=icon)
@@ -63,6 +67,10 @@ def register_page_menu() -> SubmenuMenuItem:
     return SubmenuMenuItem(
         _("Nội dung trang"), Menu(items=items), icon_name="doc-full-inverse", order=140
     )
+
+
+if SHOW_PAGE_MENU:
+    hooks.register("register_admin_menu_item", register_page_menu)
 
 
 class SharedSectionViewSet(SnippetViewSet):

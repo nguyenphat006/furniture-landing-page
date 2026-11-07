@@ -4,9 +4,12 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Geist_Mono, Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { SiteProvider } from "@/components/providers/site-provider";
+import { FloatingActions } from "@/components/layout/floating-actions";
+import { GoogleAnalytics } from "@/components/shared/google-analytics";
 import { ScrollToTop } from "@/components/shared/scroll-to-top";
+import { PreviewBanner } from "@/features/preview/preview-banner";
 import { getSite } from "@/data/site";
-import { siteUrl } from "@/lib/seo";
+import { DEFAULT_OG_IMAGE, siteUrl } from "@/lib/seo";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
@@ -32,18 +35,25 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Metadata" });
   // SEO mặc định, tên site, favicon, ảnh chia sẻ: sửa ở CMS (Cài đặt → Thông tin chung)
-  const { seo, name, favicon, ogImage } = await getSite(locale);
+  const { seo, name, favicon, ogImage, verification } = await getSite(locale);
 
   return {
     metadataBase: siteUrl(),
     title: seo.title || t("title"),
     description: seo.description || t("description"),
     ...(favicon ? { icons: { icon: favicon } } : {}),
-    openGraph: {
-      siteName: name,
-      ...(ogImage
-        ? { images: [{ url: ogImage, width: 1200, height: 630 }] }
+    // Thẻ meta xác minh Search Console / Bing (Cài đặt → Thông tin chung → SEO)
+    verification: {
+      ...(verification.google ? { google: verification.google } : {}),
+      ...(verification.bing
+        ? { other: { "msvalidate.01": verification.bing } }
         : {}),
+    },
+    openGraph: {
+      type: "website",
+      siteName: name,
+      locale: locale === "vi" ? "vi_VN" : "en_US",
+      images: [{ url: ogImage || DEFAULT_OG_IMAGE, width: 1200, height: 630 }],
     },
   };
 }
@@ -70,9 +80,12 @@ export default async function LocaleLayout({
         <NextIntlClientProvider>
           <SiteProvider site={site}>
             {children}
+            <FloatingActions items={site.floating} />
             <ScrollToTop />
+            <PreviewBanner />
           </SiteProvider>
         </NextIntlClientProvider>
+        <GoogleAnalytics id={site.gaMeasurementId} />
       </body>
     </html>
   );

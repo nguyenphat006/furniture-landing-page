@@ -162,6 +162,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/pages/preview/{token}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Bản nháp cho draft mode của frontend (docs/adr/0014). Chỉ nhận request đã ký. */
+        get: operations["pages_preview_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/site": {
         parameters: {
             query?: never;
@@ -183,6 +200,14 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        Analytics: {
+            /** @description Mã GA4 (G-...); rỗng = không gắn */
+            ga_measurement_id: string;
+            /** @description Nội dung thẻ meta google-site-verification; rỗng = không gắn */
+            google_site_verification: string;
+            /** @description Nội dung thẻ meta msvalidate.01; rỗng = không gắn */
+            bing_site_verification: string;
+        };
         /** @enum {string} */
         AssemblyEnum: "kd" | "fa";
         /** @description URL ảnh; null = chưa đặt, frontend dùng ảnh có sẵn. */
@@ -669,6 +694,25 @@ export interface components {
             points: string[];
             button_label: string;
         };
+        FloatingAction: {
+            kind: components["schemas"]["FloatingActionKindEnum"];
+            /** @description Rỗng: dùng tên có sẵn theo loại */
+            readonly label: string;
+            /** @description Link đã lấy từ Liên hệ khi cần; rỗng với search và quote */
+            readonly url: string;
+        };
+        /**
+         * @description * `search` - Tìm kiếm
+         *     * `phone` - Gọi điện
+         *     * `whatsapp` - WhatsApp
+         *     * `zalo` - Zalo
+         *     * `email` - Email
+         *     * `messenger` - Messenger
+         *     * `quote` - Báo giá (form Liên hệ)
+         *     * `link` - Link khác
+         * @enum {string}
+         */
+        FloatingActionKindEnum: "search" | "phone" | "whatsapp" | "zalo" | "email" | "messenger" | "quote" | "link";
         Footer: {
             readonly blurb: string;
             links: components["schemas"]["FooterLink"][];
@@ -896,6 +940,22 @@ export interface components {
             total_pages: number;
             results: components["schemas"]["ProductList"][];
         };
+        /** @description Bản nháp: data cùng định dạng API công khai (ContentPage hoặc ProductDetail). */
+        Preview: {
+            kind: components["schemas"]["PreviewKindEnum"];
+            /** @description Khoá trang (home, privacy...) hoặc slug sản phẩm */
+            key: string;
+            locale: string;
+            /** @description Đường dẫn trên web, đã có tiền tố ngôn ngữ */
+            path: string;
+            content: unknown;
+        };
+        /**
+         * @description * `page` - page
+         *     * `product` - product
+         * @enum {string}
+         */
+        PreviewKindEnum: "page" | "product";
         ProductDetail: {
             slug: string;
             name: string;
@@ -1035,6 +1095,9 @@ export interface components {
             nav: components["schemas"]["NavItem"][];
             footer: components["schemas"]["Footer"];
             seo: components["schemas"]["Seo"];
+            analytics: components["schemas"]["Analytics"];
+            /** @description Cụm nút nổi sát mép phải, theo thứ tự; chỉ nút đang hiện và có link */
+            readonly floating: components["schemas"]["FloatingAction"][];
         };
         SocialLink: {
             network: components["schemas"]["NetworkEnum"];
@@ -1285,6 +1348,27 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ContentPage"];
+                };
+            };
+        };
+    };
+    pages_preview_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                token: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Preview"];
                 };
             };
         };

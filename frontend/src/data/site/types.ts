@@ -25,6 +25,25 @@ export type Submenus = { products: SubmenuGroup[]; materials: SubmenuGroup[] };
 export type SocialNetwork =
   "facebook" | "linkedin" | "youtube" | "instagram" | "tiktok" | "pinterest";
 
+/** Loại nút trong cụm nút nổi sát mép phải (CMS: Cài đặt → Thông tin chung → Nút nổi) */
+export type FloatingKind =
+  | "search"
+  | "phone"
+  | "whatsapp"
+  | "zalo"
+  | "email"
+  | "messenger"
+  | "quote"
+  | "link";
+
+export type FloatingAction = {
+  kind: FloatingKind;
+  /** Rỗng: dùng tên có sẵn theo loại (messages FloatingActions) */
+  label: string;
+  /** Link đã sẵn (tel:, mailto:, https://, /path); rỗng với search, quote */
+  href: string;
+};
+
 export type Site = {
   name: string;
   /** Dòng nhỏ dưới tên cạnh logo */
@@ -54,4 +73,10 @@ export type Site = {
   taxonomy: Taxonomy;
   footer: { blurb: string; links: { label: string; href: string }[] };
   seo: { title: string; description: string };
+  /** Mã Google Analytics 4 (G-...), null = không gắn */
+  gaMeasurementId: string | null;
+  /** Mã xác minh Search Console / Bing (thẻ meta), rỗng = không gắn */
+  verification: { google: string; bing: string };
+  /** Cụm nút nổi, theo thứ tự, chỉ nút đang hiện */
+  floating: FloatingAction[];
 };

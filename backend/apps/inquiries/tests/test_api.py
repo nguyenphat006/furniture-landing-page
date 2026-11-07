@@ -21,6 +21,11 @@ PDF = b"%PDF-1.7\n1 0 obj << /Type /Catalog >> endobj\n%%EOF"
 pytestmark = pytest.mark.django_db(transaction=True)
 
 
+def staff_mails() -> list[Any]:
+    """Thư báo nhân viên (bỏ thư cảm ơn gửi khách)."""
+    return [m for m in mail.outbox if m.to != ["jane@example.com"]]
+
+
 @pytest.fixture(autouse=True)
 def _settings(settings: Any) -> None:
     settings.CMS_SHARED_SECRET = SECRET
@@ -75,7 +80,7 @@ def test_signed_request_creates_inquiry_and_emails_staff(api_client: APIClient) 
     assert inquiry.locale == "en"
     assert inquiry.message == "Please quote 2 containers.\nThanks"
 
-    assert len(mail.outbox) == 1
+    assert len(staff_mails()) == 1
     sent = mail.outbox[0]
     assert sent.to == ["office@example.com"]
     assert sent.reply_to == ["jane@example.com"]
@@ -152,7 +157,7 @@ def test_rejects_unsafe_attachment(api_client: APIClient, name: str, content: by
 def test_no_email_when_recipients_unset(api_client: APIClient, settings: Any) -> None:
     settings.INQUIRY_NOTIFY_EMAILS = []
     assert post(api_client, payload()).status_code == 201
-    assert mail.outbox == []
+    assert staff_mails() == []
 
 
 def test_email_rate_limit_returns_429(api_client: APIClient) -> None:
@@ -161,3 +166,22 @@ def test_email_rate_limit_returns_429(api_client: APIClient) -> None:
     res = post(api_client, payload(message="One more"))
     assert res.status_code == 429
     assert res.json()["error"]["code"] == "throttled"
+
+
+def test_line_breaks_in_single_line_fields_are_collapsed(api_client: APIClient) -> None:
+    # Tên nằm trong tiêu đề email: xuống dòng ở đó làm gửi email lỗi (QC 07/11)
+    res = post(api_client, payload(name="Jane\r\nBcc: x@evil.test", company="Acme\nLtd"))
+
+    assert res.status_code == 201, res.content
+    inquiry = Inquiry.objects.get(public_id=res.json()["id"])
+    assert inquiry.name == "Jane Bcc: x@evil.test"
+    assert inquiry.company == "Acme Ltd"
+    assert len(staff_mails()) == 1
+
+
+def test_body_over_upload_limit_is_413(api_client: APIClient, settings: Any) -> None:
+    settings.DATA_UPLOAD_MAX_MEMORY_SIZE = 100
+    res = post(api_client, payload(message="x" * 500))
+
+    assert res.status_code == 413
+    assert not Inquiry.objects.exists()

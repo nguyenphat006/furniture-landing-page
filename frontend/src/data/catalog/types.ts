@@ -43,6 +43,8 @@ export type Product = {
   slug: string;
   name: string;
   type: ProductTypeSlug;
+  /** Nhóm chứa loại `type` (CMS trả sẵn; mock tính từ productTypes) */
+  category: CategorySlug;
   materials: MaterialSlug[];
   features: FeatureSlug[];
   /** Mã mẫu (product base) của BFC */

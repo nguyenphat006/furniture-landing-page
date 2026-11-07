@@ -32,6 +32,8 @@ export function BrandLogo({
         alt={site.name}
         width={240}
         height={240}
+        // Hiển thị 52 đến 104px: không tải bản 640px (QC 07/11)
+        sizes={large ? "104px" : "64px"}
         className={cn(
           "ease-out-soft rounded-full object-contain transition-[width,height,background-color,box-shadow] duration-(--duration-slow)",
           badge && "bg-white shadow-[0_6px_24px_rgba(0,0,0,.28)]",
