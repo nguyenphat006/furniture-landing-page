@@ -1,0 +1,29 @@
+{
+  "reference": "reference/chair-right.png",
+  "secondaryReferences": ["reference/chair-left.png"],
+  "catalogueIdentity": "BFC SKU 3BFC1514 (from source filename), swivel lounge chair from a 4-piece deep-seating set",
+  "verdict": "conditional",
+  "passCriteriaMet": [
+    "one obvious target object after cropping the set photo to a single chair",
+    "object occupies ~85% of the crop",
+    "strong silhouette against a studio white background",
+    "all three major materials (teak, rope, cushion fabric) are visible",
+    "bilateral symmetry + a mirrored twin gives two rear 3/4 azimuths",
+    "every macro part approximates with procedural primitives (boxes, extrusions, torus, lofted cushion)"
+  ],
+  "conditionalReasons": [
+    "source image is a scene of 4 pieces; resolved by cropping, sofa corner and table edge remain as clutter at the crop margins",
+    "front face is hidden in both available views (seat front, front posts' inner faces, possible front apron); inferred by symmetry and class convention",
+    "swivel mechanism under the seat box is hidden; inferred",
+    "rope lattice is fine surface detail represented procedurally (instanced strand geometry), not strand-exact"
+  ],
+  "rejectCheck": {
+    "laceRule": "not triggered: the weave is a coarse lattice of ~15-20 mm braided rope with openings of several centimetres, a repeat geometric field that instancing can build; it is not fine lace",
+    "manufacturingGradeDimensions": "not requested; output is a real-time web prop"
+  },
+  "betterInputThatWouldRaiseFidelity": [
+    "a front 3/4 view of the same chair",
+    "a pure side elevation for recline and splay angles",
+    "a close-up of the rear panel weave to resolve its motif"
+  ]
+}

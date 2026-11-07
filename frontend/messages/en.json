@@ -1,0 +1,1262 @@
+{
+  "Metadata": {
+    "title": "BINH BFC - Outdoor Furniture Manufacturer in Vietnam | Wood, Aluminum, Rope & Wicker",
+    "description": "OEM/ODM outdoor furniture manufacturer since 2010. 370 employees, 28,000 m² factory in Dong Nai, Vietnam. FSC-certified teak, in-house aluminum fabrication, rope and resin wicker weaving."
+  },
+  "Common": {
+    "tagline": "Outdoor Furniture Manufacturer · Dong Nai, Vietnam",
+    "breadcrumbHome": "Home",
+    "requestQuote": "Request a Quote",
+    "requestQuoteShort": "Request a quote",
+    "homeAria": "BINH BFC, home",
+    "mainNavAria": "Main menu",
+    "secondaryNavAria": "Secondary menu",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "menuTitle": "Menu",
+    "languageLabel": "Language",
+    "languages": {
+      "vi": "Tiếng Việt",
+      "en": "English"
+    },
+    "nav": {
+      "about": "About",
+      "capabilities": "Capabilities",
+      "materials": "Materials",
+      "products": "Products",
+      "projects": "Projects",
+      "contact": "Contact"
+    },
+    "products": {
+      "sunloungers-daybeds": "Sunloungers & Daybeds",
+      "sofas-sectionals": "Sofas & Sectionals",
+      "dining": "Dining & Bar",
+      "lounge-chairs": "Lounge Chairs",
+      "tables": "Coffee & Side Tables",
+      "accessories": "Outdoor Accessories"
+    },
+    "materials": {
+      "wood": "Wood",
+      "aluminum": "Aluminum",
+      "rope": "Rope",
+      "wicker": "Resin Wicker",
+      "steel": "Steel",
+      "fabric": "Fabric",
+      "glass": "Glass",
+      "ceramic": "Ceramic"
+    },
+    "materialTypes": {
+      "metal": "Metal",
+      "teak": "Teak",
+      "acacia": "Acacia",
+      "eucalyptus": "Eucalyptus",
+      "stainless-steel": "Stainless steel"
+    },
+    "productTypes": {
+      "sunloungers": "Sunloungers",
+      "daybeds": "Daybeds",
+      "sofas": "Sofas",
+      "loveseats": "Loveseats",
+      "sectional-modules": "Sectional Modules",
+      "ottomans": "Ottomans",
+      "lounge-sets": "Lounge Sets",
+      "dining-tables": "Dining Tables",
+      "dining-chairs": "Dining Chairs",
+      "dining-sets": "Dining Sets",
+      "bar-tables": "Bar Tables",
+      "bar-stools": "Bar Stools",
+      "lounge-chairs": "Lounge Chairs",
+      "benches": "Benches",
+      "coffee-tables": "Coffee Tables",
+      "side-tables": "Side Tables",
+      "umbrellas": "Umbrellas",
+      "fire-pits": "Fire Pits",
+      "storage": "Storage",
+      "carts": "Carts",
+      "shelving": "Shelving",
+      "covers": "Covers"
+    },
+    "features": {
+      "swivel": "Swivel",
+      "rocking": "Rocking",
+      "stackable": "Stackable",
+      "modular": "Modular",
+      "adjustable": "Adjustable Back"
+    },
+    "backToTop": "Back to top",
+    "menu": {
+      "viewAllProducts": "View all products",
+      "viewAllMaterials": "Explore materials",
+      "toggleSubmenu": "Open {label} submenu",
+      "productsByCategory": "By product family",
+      "materialsIntro": "Frame, top and weave materials BFC works in house."
+    }
+  },
+  "Footer": {
+    "blurb": "Outdoor furniture manufacturer since 2010.",
+    "companyTitle": "Company",
+    "productsTitle": "Products",
+    "contactTitle": "Contact",
+    "address": "Lot C7+D1, Thanh Phu - Thien Tan Industrial Complex, Thien Tan Commune, Vinh Cuu District, Dong Nai, Vietnam",
+    "mapsLink": "View on Google Maps",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use",
+    "cross": {
+      "about": "Who we are",
+      "capabilities": "How we build",
+      "materials": "What we build with",
+      "products": "What we make",
+      "projects": "Where our furniture lives",
+      "contact": "Talk to us about your program"
+    },
+    "certsLabel": "Certified",
+    "certsAria": "View the {name} certificate on the Capabilities page"
+  },
+  "HomePage": {
+    "hero": {
+      "kicker": "Outdoor Furniture Manufacturer",
+      "title": "From frame to weave,<br></br> all under one roof",
+      "lede": "Built to your drawings or developed together with you for hotels, resorts and furniture brands, from the first prototype to full container orders.",
+      "materials": "Wood · Aluminum · Rope · Resin Wicker",
+      "ctaQuote": "Request a Quote",
+      "ctaCapabilities": "View Capabilities",
+      "scrollNext": "Scroll to next section"
+    },
+    "intro": {
+      "quote": "Outdoor furniture that lasts is made one weld, one joint and one strand at a time.",
+      "title": "The BINH BFC story",
+      "body": "Founded in 2010 in Dong Nai, BINH BFC makes outdoor furniture for resorts, hotels and distributors. Our 28,000 m² factory and 370 people handle every step in house, from aluminum, steel and teak frames to rope and wicker weaving and cushion sewing. That keeps quality and lead times under our control at every stage, on every order.",
+      "cta": "More about us"
+    },
+    "stats": {
+      "aria": "BINH BFC in numbers",
+      "years": "Years of experience",
+      "employees": "Employees",
+      "area": "m² factory",
+      "workshops": "In-house workshops"
+    },
+    "about": {
+      "title": "Beautiful and durable outdoor furniture",
+      "p1": "BINH BFC are created with a goal to make beautiful and durable outdoor furniture. Our strength is to mix and match different medium such as teak, aluminum, steel, resin wicker and rope to achieve the desirable aesthetic that customers require.",
+      "p2": "We have a total of 370 employees with rich experiences in metalworking, woodworking, and weaving. Our total factory area is around 28,000 m².",
+      "cta": "Read our story",
+      "stats": {
+        "years": "Years of experience",
+        "employees": "Employees",
+        "area": "m² factory area",
+        "containers": "Containers per year",
+        "markets": "Export markets"
+      }
+    },
+    "products": {
+      "title": "Six families, built to live outdoors",
+      "lede": "Every piece is made in our own factory, from frame to weave to finish.",
+      "viewAll": "View all products",
+      "viewMore": "View more",
+      "eyebrow": "Products",
+      "modelsPlaceholder": "NULL models",
+      "items": {
+        "sunloungers-daybeds": "Resin wicker and teak, woven on aluminum frames.",
+        "sofas-sectionals": "Rope and teak, in single seats or modular runs.",
+        "dining": "Dining tables, chairs and bar seating in FSC teak or aluminum.",
+        "lounge-chairs": "Fixed, swivel and rocking frames, hand-woven.",
+        "tables": "Aluminum frames with sintered stone or teak tops.",
+        "accessories": "Umbrellas, fire pits, storage, shelving and covers."
+      }
+    },
+    "capabilities": {
+      "title": "Everything under one roof",
+      "lede": "From raw material to packed container, every stage happens in our own factory.",
+      "cta": "View Capabilities",
+      "items": {
+        "woodworking": {
+          "name": "Woodworking",
+          "desc": "Kiln-dried teak processing and precision joinery on 5-axis CNC and rip saws."
+        },
+        "aluminum": {
+          "name": "Aluminum Fabrication",
+          "desc": "In-house cutting, bending and welding: automatic laser cutting and robotic welding."
+        },
+        "weaving": {
+          "name": "Weaving",
+          "desc": "Rope and resin wicker woven by hand onto teak and aluminum frames."
+        },
+        "powderCoating": {
+          "name": "Powder Coating",
+          "desc": "Six-stage pre-treatment: alkaline degreasing, two rinses, nano-zincofin, rinse, dry, coat."
+        },
+        "upholstery": {
+          "name": "Upholstery",
+          "desc": "Cushion making and outdoor fabric work for seats, backs and covers."
+        },
+        "packing": {
+          "name": "Packing & Export",
+          "desc": "In-house packing and container loading at our own yard."
+        }
+      }
+    },
+    "materials": {
+      "kicker": "Materials",
+      "photosAria": "{name} photographs",
+      "prevPhoto": "Previous {name} photo",
+      "nextPhoto": "Next {name} photo",
+      "bands": {
+        "wood": {
+          "name": "Wood",
+          "tagline": "FSC-certified plantation teak from Costa Rica and Brazil.",
+          "body": "Our teak furniture is crafted from premium, FSC-certified teak sourced from Costa Rica and Brazil. Each piece is carefully selected and finished to the highest standards.",
+          "cta": "Explore wood"
+        },
+        "aluminum": {
+          "name": "Aluminum",
+          "tagline": "In-house fabrication with a six-stage pre-treatment line.",
+          "body": "Our aluminum furniture is expertly crafted in-house using advanced semi-automatic processes. Frames pass through a six-stage pre-treatment line before powder coating, producing a surface highly resistant to scratches and corrosion.",
+          "cta": "Explore aluminum"
+        },
+        "rope": {
+          "name": "Rope",
+          "tagline": "Outdoor-grade polypropylene, hand-woven in house.",
+          "body": "Our rope is made of outdoor-grade polypropylene fibre, resistant to UV, mould and weather. It is hand-woven onto teak or powder-coated aluminum frames by our own weavers.",
+          "cta": "Explore rope"
+        },
+        "wicker": {
+          "name": "Resin Wicker",
+          "tagline": "Extruded polyethylene fibre, kiln-dried for colour hold.",
+          "body": "Woven onto pre-treated, powder-coated aluminum frames. Standard warranty is two years, extendable beyond five years on customer request.",
+          "cta": "Explore resin wicker"
+        },
+        "steel": {
+          "name": "Steel",
+          "tagline": "NULL - awaiting confirmation (Q10)",
+          "body": "NULL",
+          "cta": "Explore steel"
+        }
+      }
+    },
+    "process": {
+      "title": "From enquiry to container",
+      "lede": "One team follows your programme from first drawing to loaded container.",
+      "cta": "See the full process",
+      "steps": {
+        "step1": {
+          "name": "Enquiry & Drawings",
+          "desc": "You send drawings, references or samples."
+        },
+        "step2": {
+          "name": "Quotation & Technical Review",
+          "desc": "Engineering checks feasibility, then we quote.",
+          "lead": "NULL days"
+        },
+        "step3": {
+          "name": "Sampling",
+          "desc": "Prototype built in our own sample workshop.",
+          "lead": "NULL weeks"
+        },
+        "step4": {
+          "name": "Client Approval",
+          "desc": "You review and sign off the sample."
+        },
+        "step5": {
+          "name": "Mass Production",
+          "desc": "Run scheduled across our six workshops.",
+          "lead": "NULL weeks"
+        },
+        "step6": {
+          "name": "QC & Container Loading",
+          "desc": "Inspection to your standard, then loading."
+        }
+      }
+    },
+    "projects": {
+      "kicker": "Projects",
+      "title": "Where our furniture lives",
+      "viewAll": "View all projects",
+      "filterAria": "Filter by venue type",
+      "empty": "No projects in this category yet.",
+      "prev": "Previous project",
+      "next": "Next project",
+      "projectAria": "Project {current} of {total}",
+      "filters": {
+        "all": "All",
+        "resorts": "Resorts",
+        "hotels": "Hotels",
+        "residential": "Residential",
+        "restaurants": "Restaurants"
+      },
+      "discover": "Discover",
+      "countries": {
+        "it": "Italy",
+        "es": "Spain",
+        "fr": "France",
+        "gr": "Greece",
+        "pt": "Portugal",
+        "de": "Germany"
+      },
+      "meta": "{city}, {country} · {year} · {items} pieces"
+    },
+    "materialsShowcase": {
+      "kicker": "Materials",
+      "title": "The materials behind BFC furniture",
+      "viewAll": "View all materials",
+      "prev": "Previous material",
+      "next": "Next material",
+      "cardAria": "{name}, material {current} of {total}",
+      "discover": "Discover",
+      "lede": "Wood, metal, rope, resin wicker, fabric, glass and ceramic. Each one is treated and cared for in its own way."
+    },
+    "certifications": {
+      "title": "Verified materials and processes",
+      "lede": "Independent certification of what we buy and how we build.",
+      "cta": "More about the company",
+      "fscNote": "FSC-certified teak sourced from Costa Rica and Brazil.",
+      "pendingNote": "NULL - awaiting confirmation (Q11)"
+    },
+    "dots": {
+      "aria": "Section progress",
+      "top": "Home",
+      "intro": "Introduction",
+      "stats": "In numbers",
+      "about": "About",
+      "products": "Products",
+      "capabilities": "Capabilities",
+      "materials": "Materials",
+      "process": "How we work",
+      "projects": "Projects",
+      "factory": "Factory",
+      "contact": "Contact"
+    },
+    "factory": {
+      "eyebrow": "Capabilities & factory",
+      "title": "Inside the BFC factory",
+      "lede": "From drawing to container: the workshops, the team and the process behind every order.",
+      "viewAll": "View capabilities",
+      "chips": {
+        "since": "Manufacturing since 2010",
+        "oem": "OEM / ODM to your drawings",
+        "visit": "Factory visits welcome"
+      },
+      "feature": {
+        "eyebrow": "Our factory",
+        "title": "What our factory can do",
+        "cta": "Explore capabilities"
+      },
+      "tiles": {
+        "inhouse": "In-house processes",
+        "process": "From prototype to container"
+      }
+    },
+    "cta": {
+      "kicker": "Start a project",
+      "title": "Send your drawings, get a factory quote",
+      "quote": "Request a quote",
+      "visit": "Book a factory visit"
+    },
+    "export": {
+      "kicker": "Export",
+      "title": "BFC furniture ships to 20+ countries",
+      "mapLabel": "Map of BFC export markets",
+      "hubLabel": "BFC · Dong Nai",
+      "stats": [
+        {
+          "value": "20+",
+          "label": "Importing countries"
+        },
+        {
+          "value": "100+",
+          "label": "Containers per month"
+        },
+        {
+          "value": "2010",
+          "label": "Exporting since"
+        }
+      ],
+      "countries": {
+        "GBR": "United Kingdom",
+        "ESP": "Spain",
+        "NLD": "Netherlands",
+        "USA": "United States",
+        "CHN": "China",
+        "JPN": "Japan",
+        "KOR": "South Korea",
+        "AUS": "Australia"
+      }
+    }
+  },
+  "CapabilitiesPage": {
+    "metaTitle": "Manufacturing Capabilities - Six In-House Workshops | BINH BFC",
+    "metaDescription": "Every part of our furniture is made in-house: woodworking with 5-axis CNC, aluminum laser cutting and robotic welding, hand weaving, a six-stage powder coating line, upholstery and our own container loading.",
+    "hero": {
+      "kicker": "Capabilities",
+      "title": "Manufacturing capabilities",
+      "lede": "Woodworking, aluminium, weaving, powder coating, upholstery and packing all happen in six BFC workshops. One closed process keeps quality consistent and lead times in our own hands."
+    },
+    "capacity": {
+      "aria": "BINH BFC in numbers",
+      "items": {
+        "years": {
+          "label": "Years of experience",
+          "desc": "Making outdoor furniture for export markets since 2010."
+        },
+        "area": {
+          "label": "Factory area",
+          "desc": "Six workshops on one site in Dong Nai, from raw timber to the container yard."
+        },
+        "employees": {
+          "label": "People",
+          "desc": "Woodworkers, welders, weavers and upholsterers working on site."
+        },
+        "containers": {
+          "label": "Containers per month",
+          "desc": "Average shipping capacity, loaded at our own container yard."
+        }
+      }
+    },
+    "madeHere": {
+      "title": "Every part of this chair",
+      "lede": "Scroll to take the swivel chair apart. Every part passes through one of our workshops before it is assembled into the chair.",
+      "note": "Frame, swivel base, rope weave and cushions are all finished in our own workshops. The only bought-in components are the fabric and the weaving fibre.",
+      "noteLink": "See what we do and don't",
+      "dragHint": "Drag to rotate",
+      "loading": "Loading 3D model",
+      "loadError": "3D view isn't supported in this browser",
+      "canvasAria": "3D model of a teak and rope swivel chair, separating into its parts",
+      "callouts": {
+        "cushion": {
+          "part": "Outdoor cushion",
+          "shop": "Upholstery"
+        },
+        "teakFrame": {
+          "part": "Teak frame",
+          "shop": "Woodworking"
+        },
+        "rope": {
+          "part": "Hand-woven rope",
+          "shop": "Weaving"
+        },
+        "swivelBase": {
+          "part": "Swivel base",
+          "shop": "Woodworking"
+        }
+      }
+    },
+    "workshops": {
+      "kicker": "Workshops",
+      "title": "What happens inside, and what each shop hands over",
+      "lede": "Quality is lost at handovers. Ours never leave the site.",
+      "receivesLabel": "Receives from",
+      "insideLabel": "Inside the workshop",
+      "machinesLabel": "Main machines",
+      "noMachinesLabel": "No machines",
+      "capacityLabel": "Capacity",
+      "handsOverLabel": "Hands over to",
+      "items": {
+        "woodworking": {
+          "name": "Woodworking",
+          "receives": "Imported teak (Costa Rica & Brazil)",
+          "summary": "Blanks are grain-matched, dried to target moisture and shaped on CNC into raw frames.",
+          "ops": [
+            "Select and grain-match the blanks",
+            "Rip to dimension",
+            "Check moisture at 8-12%",
+            "Shape on 5-axis CNC",
+            "Cut and fit joinery",
+            "Sand coarse to fine"
+          ],
+          "machines": "5-axis CNC, rip saw, moulder, sanders",
+          "handoverTo": "Upholstery / finishing",
+          "handoverState": "Bare frame, at moisture, surface untreated"
+        },
+        "aluminum": {
+          "name": "Aluminum Fabrication",
+          "receives": "Extruded aluminium profiles",
+          "summary": "Tubes are laser-cut, bent to radius and welded into frames that match the drawing.",
+          "ops": [
+            "Laser-cut to drawing",
+            "Bend tube to radius",
+            "Robot-weld the main joints",
+            "Hand-weld the hidden joints",
+            "Grind welds flat"
+          ],
+          "machines": "Automatic laser cutter, bender, welding robot, TIG sets",
+          "handoverTo": "Coating line",
+          "handoverState": "Raw frame, welds ground, still oily from welding"
+        },
+        "powderCoating": {
+          "name": "Powder Coating",
+          "receives": "Aluminum Fabrication",
+          "summary": "Aluminium frames go through 6 pre-treatment stages, then powder coating and oven curing.",
+          "ops": [
+            "Six-stage pre-treatment (detailed below)",
+            "Electrostatic powder coat",
+            "Oven cure"
+          ],
+          "machines": "Pre-treatment line, coating booth, curing oven",
+          "handoverTo": "Weaving",
+          "handoverState": "Coated frame, surface hard enough to tension fibre without scratching"
+        },
+        "weaving": {
+          "name": "Weaving",
+          "receives": "Coating line (aluminum) or Woodworking (teak)",
+          "summary": "Weavers tension every strand of rope and resin wicker onto the frame, entirely by hand.",
+          "ops": [
+            "Fix the frame on the jig",
+            "Weave to the master pattern",
+            "Even the tension by hand",
+            "Lock and hide the fibre ends"
+          ],
+          "machines": "Woven entirely by hand: skilled handwork no machine can replace",
+          "handoverTo": "Upholstery, or straight to Packing",
+          "handoverState": "Woven piece, tension checked, ends locked"
+        },
+        "upholstery": {
+          "name": "Upholstery",
+          "receives": "Woodworking / Weaving",
+          "summary": "Outdoor fabric and foam are cut to pattern, sewn and shaped into finished cushions.",
+          "ops": [
+            "Cut fabric to pattern",
+            "Sew the cushion covers",
+            "Cut foam to template",
+            "Fill and shape",
+            "Close the seams"
+          ],
+          "machines": "Fabric cutter, industrial sewing machines",
+          "handoverTo": "Packing",
+          "handoverState": "Finished piece with cushions fitted"
+        },
+        "packing": {
+          "name": "Packing & Export",
+          "receives": "All workshops",
+          "summary": "Each piece gets a final check, then is boxed and loaded into containers on site.",
+          "ops": [
+            "Final check before packing",
+            "Scratch-protection wrap",
+            "Cartons made on site",
+            "Containers loaded in our own yard"
+          ],
+          "machines": "Carton-making area, container yard",
+          "handoverTo": "The shipping line",
+          "handoverState": "Container sealed at the factory"
+        }
+      }
+    },
+    "surface": {
+      "kicker": "Surface treatment",
+      "title": "Six stages before a single drop of paint",
+      "lede": "Every aluminum frame is pre-treated before powder coating.",
+      "result": "The result is a high-quality surface finish that is strongly resistant to scratches and corrosion, and easy to clean.",
+      "warrantyLabel": "Warranty",
+      "warranty": "Woven furniture carries a standard 2-year warranty, extendable beyond 5 years on request.",
+      "stages": {
+        "1": {
+          "name": "Alkaline degreasing",
+          "desc": "Removes all oil and grease left from welding."
+        },
+        "2": {
+          "name": "Water rinse x2",
+          "desc": "Two-step water rinse."
+        },
+        "3": {
+          "name": "Nano-zincofin layer",
+          "desc": "Strengthens coating adhesion."
+        },
+        "4": {
+          "name": "Final water rinse",
+          "desc": "Last rinse before drying."
+        },
+        "5": {
+          "name": "Drying",
+          "desc": "Frames are fully dried."
+        },
+        "6": {
+          "name": "Powder coating",
+          "desc": "Electrostatic coat, oven-cured."
+        }
+      },
+      "imageCaption": "Aluminium frame after powder coating"
+    },
+    "inhouse": {
+      "title": "Straight answers save everyone time",
+      "lede": "Every factory promises everything. Here is exactly where our line sits.",
+      "inhouseLabel": "Made in-house",
+      "boughtLabel": "Bought in",
+      "unconfirmedTag": "NULL, to confirm",
+      "madeItems": [
+        "Kiln-drying and timber machining",
+        "Aluminum cutting, bending and welding",
+        "Six-stage powder coating",
+        "Hand weaving of rope and resin wicker",
+        "Cushion making",
+        "Cartons and container loading"
+      ],
+      "boughtItems": {
+        "fabric": "Outdoor fabric (Sunbrella and similar)",
+        "profile": "Extruded aluminum profile",
+        "timber": "Timber growing (imported from Costa Rica & Brazil)",
+        "foam": "Foam",
+        "stone": "Sintered stone tops",
+        "fittings": "Stainless fittings"
+      },
+      "unclassifiedLabel": "Deliberately unclassified",
+      "unclassified": "Weaving fibre and rope: whether extrusion happens in-house is awaiting confirmation. If it does, it moves to the left column and becomes a headline strength."
+    },
+    "process": {
+      "title": "From enquiry to loaded container",
+      "lede": "What happens at each step, and what we need from you.",
+      "prepareLabel": "You prepare",
+      "steps": {
+        "step1": {
+          "name": "Enquiry & Drawings",
+          "needs": "Technical drawings, reference photos or a sample; target materials; estimated volumes"
+        },
+        "step2": {
+          "name": "Quotation & Technical Review",
+          "time": "NULL days"
+        },
+        "step3": {
+          "name": "Sampling",
+          "needs": "Confirmed materials and finish colours",
+          "time": "NULL weeks"
+        },
+        "step4": {
+          "name": "Client Approval",
+          "needs": "Feedback on the physical sample"
+        },
+        "step5": {
+          "name": "Mass Production",
+          "needs": "Purchase order",
+          "time": "NULL weeks"
+        },
+        "step6": {
+          "name": "QC & Container Loading",
+          "needs": "Third-party inspector nomination, if any"
+        }
+      }
+    },
+    "qc": {
+      "kicker": "Quality control",
+      "title": "Checked at every handover, not just at the end",
+      "items": {
+        "1": {
+          "name": "Incoming material check",
+          "desc": "Timber, aluminum and fabric are inspected on arrival, before they enter any workshop."
+        },
+        "2": {
+          "name": "In-process checks",
+          "desc": "Each time work moves on to the next workshop, it is checked before the receiving team accepts it."
+        },
+        "3": {
+          "name": "Final inspection",
+          "desc": "Every piece is inspected against the order specification before packing."
+        }
+      },
+      "customTitle": "Customer-specific standards",
+      "customDesc": "Each customer's own standard is applied end to end, not a generic checklist.",
+      "thirdPartyTitle": "Third-party inspection",
+      "thirdPartyDesc": "We work with third-party inspection agencies on request.",
+      "agencies": "Agencies: NULL",
+      "certs": {
+        "title": "Certifications",
+        "lede": "Certificate numbers, issuing bodies and PDFs so your sourcing team can verify each one.",
+        "numberLabel": "Number",
+        "issuerLabel": "Issued by",
+        "validLabel": "Valid until",
+        "download": "Download certificate (PDF)",
+        "downloadPending": "PDF: pending",
+        "pendingName": "NULL",
+        "pendingScope": "Certification pending BFC confirmation",
+        "items": {
+          "fsc": {
+            "name": "FSC",
+            "scope": "FSC certified teak"
+          },
+          "iso9001": {
+            "name": "ISO 9001",
+            "scope": "Quality management system"
+          },
+          "iso14001": {
+            "name": "ISO 14001",
+            "scope": "Environmental management system"
+          }
+        },
+        "sample": "Sample",
+        "kicker": "Certifications",
+        "heading": "Independently verified"
+      },
+      "chips": {
+        "custom": "Each customer's own standard applied",
+        "thirdParty": "Third-party inspection on request"
+      }
+    },
+    "oem": {
+      "kicker": "OEM / ODM",
+      "title": "Your design, our factory",
+      "p1": "Send us drawings, reference photos or a physical sample. We build a first sample, you review it in person, and we revise until it matches.",
+      "p2": "We also develop from a brief when you have a direction but not a drawing.",
+      "samplingLabel": "Typical sampling time:",
+      "samplingValue": "NULL",
+      "cta": "Start a sample request"
+    },
+    "oemProcess": {
+      "kicker": "OEM / ODM",
+      "title": "From your drawing to a loaded container",
+      "lede": "Six clear steps from the first enquiry to goods leaving the factory.",
+      "cta": "Request a sample",
+      "steps": {
+        "1": {
+          "name": "Send your brief",
+          "desc": "Drawings, reference photos or a physical sample, with target materials and volumes."
+        },
+        "2": {
+          "name": "Quote & review",
+          "desc": "Our engineers review structure and materials, then quote with any suggested changes."
+        },
+        "3": {
+          "name": "Sampling",
+          "desc": "The first sample is built in the same workshops that will run production."
+        },
+        "4": {
+          "name": "Sample approval",
+          "desc": "You review the real sample and we refine it until it matches."
+        },
+        "5": {
+          "name": "Production",
+          "desc": "Work moves through six workshops and is checked at every handover."
+        },
+        "6": {
+          "name": "QC & loading",
+          "desc": "Final inspection against the order spec, packing and loading at our own container yard."
+        }
+      },
+      "phaseLabel": "Phase",
+      "owner": {
+        "you": "You",
+        "bfc": "BFC"
+      },
+      "ownerAria": {
+        "you": "Done by you",
+        "bfc": "Done by BFC"
+      },
+      "phases": {
+        "quote": "Brief & quote",
+        "sample": "Sample development",
+        "production": "Production & shipping"
+      }
+    },
+    "faq": {
+      "kicker": "FAQ",
+      "title": "Common questions",
+      "more": "Not finding what you need?",
+      "contact": "Contact us",
+      "items": {
+        "moq": {
+          "q": "What is the minimum order quantity (MOQ)?",
+          "a": "MOQ depends on the design, materials and finish. We confirm the exact MOQ together with the quote."
+        },
+        "sample": {
+          "q": "How long does sampling take?",
+          "a": "It depends on the complexity and materials of the piece. Sampling time is stated in the quote so you can plan your review."
+        },
+        "drawing": {
+          "q": "Do you build to our own drawings or designs?",
+          "a": "Yes. We build from your drawings, photos or samples, and can also develop a design from a brief when you have a direction but no drawings yet."
+        },
+        "inspection": {
+          "q": "Can we appoint a third-party inspector?",
+          "a": "Yes. You appoint the inspection company and we coordinate the inspection before container loading."
+        }
+      }
+    }
+  },
+  "ContactPage": {
+    "metaTitle": "Contact | BINH BFC",
+    "metaDescription": "Send drawings, request a quote or book a visit to the BFC outdoor furniture factory in Dong Nai, Vietnam.",
+    "hero": {
+      "title": "Contact",
+      "lede": "Send drawings, reference photos or a quote request. The BFC sales team will reply by email."
+    },
+    "channels": {
+      "title": "Get in touch",
+      "phone": "Phone",
+      "email": "Email",
+      "whatsapp": "WhatsApp",
+      "zalo": "Zalo",
+      "hours": "Office hours",
+      "address": "Factory",
+      "directions": "Directions on Google Maps"
+    },
+    "form": {
+      "title": "Send an enquiry",
+      "purposeLabel": "I need",
+      "purposes": {
+        "quote": "A quote",
+        "oem": "OEM / sampling",
+        "visit": "A factory visit",
+        "other": "Something else"
+      },
+      "fields": {
+        "name": "Full name",
+        "email": "Work email",
+        "company": "Company",
+        "country": "Country",
+        "phone": "Phone / WhatsApp",
+        "message": "Message",
+        "model": "Model code"
+      },
+      "messagePlaceholder": "Products, materials, estimated quantities, target delivery...",
+      "required": "required",
+      "attach": "Attach drawings or photos",
+      "attachHint": "PDF, DWG, DXF, JPG or PNG, up to 10 MB",
+      "attachRemove": "Remove file",
+      "submit": "Send enquiry",
+      "sending": "Sending...",
+      "privacy": "Your details are used only to answer this enquiry. See our <link>Privacy Policy</link>.",
+      "errors": {
+        "name": "Please enter your name.",
+        "email": "Please enter a valid email.",
+        "message": "Please tell us what you need.",
+        "file": "The file is over 10 MB, not a supported type, or contains unsafe content.",
+        "generic": "We could not send this. Please try again or email us directly.",
+        "rateLimited": "You have sent several enquiries in a short time. Please try again in a few minutes.",
+        "captcha": "We could not verify you are human. Please try again."
+      },
+      "success": {
+        "title": "We have your enquiry",
+        "body": "Thank you. We will reply to {email}.",
+        "again": "Send another enquiry"
+      },
+      "modelPlaceholder": "e.g. 2BFC2636, separate several codes with commas",
+      "countryPlaceholder": "Select a country",
+      "countryMain": "Main markets",
+      "countryAll": "All countries"
+    },
+    "visit": {
+      "kicker": "Factory visit",
+      "title": "See the workshops and samples in person",
+      "body": "We welcome factory tours, audits and inspections by appointment.",
+      "cta": "Book a factory visit",
+      "mapTitle": "Map of the BFC factory"
+    }
+  },
+  "MaterialsPage": {
+    "metaTitle": "Materials | BINH BFC",
+    "metaDescription": "FSC teak, aluminium, steel, rope, resin wicker, fabric, glass and ceramic: the materials BFC uses for outdoor furniture.",
+    "hero": {
+      "title": "Materials",
+      "lede": "Teak, aluminium, steel, rope, resin wicker, fabric, glass and ceramic: the materials behind BFC outdoor furniture. Choose a material to see the details."
+    },
+    "readMore": "Read more",
+    "items": {
+      "wood": {
+        "name": "Teak"
+      },
+      "aluminum": {
+        "name": "Aluminium"
+      },
+      "rope": {
+        "name": "Rope"
+      },
+      "wicker": {
+        "name": "Resin wicker"
+      },
+      "steel": {
+        "name": "Steel"
+      },
+      "fabric": {
+        "name": "Fabric"
+      },
+      "glass": {
+        "name": "Glass"
+      },
+      "ceramic": {
+        "name": "Ceramic"
+      }
+    }
+  },
+  "MaterialDetail": {
+    "metaTitle": "{name} | Materials | BINH BFC",
+    "properties": "Characteristics",
+    "craft": "Made at BFC",
+    "care": "Care",
+    "products": "Products in {name}",
+    "allMaterials": "All materials",
+    "items": {
+      "wood": {
+        "lede": "Plantation teak with FSC certification, sourced from Costa Rica and Brazil. Its natural oils let teak stand up to sun, rain and humidity outdoors, which is why it is BFC's core material.",
+        "properties": [
+          "Teak is rich in natural oils and resins, so it absorbs little water, resists warping and keeps insects away without heavy chemical treatment.",
+          "Left outdoors, the surface gradually turns from honey brown to silver grey. This natural patina does not affect the strength of the wood. Indoors or under cover, teak keeps its brown tone for longer."
+        ],
+        "craft": [
+          "Blanks are selected and grain matched, dried to 8-12% moisture and shaped on 5-axis CNC. Joints are cut and fitted precisely before sanding from coarse to fine.",
+          "All woodworking happens inside the factory, alongside weaving, upholstery and packing, so a teak frame never leaves the site before it becomes a finished piece."
+        ],
+        "care": [
+          "Teak is an oily wood, so it should not be painted or varnished. Any coating will flake over time as the natural oils rise to the surface.",
+          "Clean regularly with warm water, mild soap and a soft brush, working along the grain, then let it dry naturally. Do not use a pressure washer.",
+          "To keep the honey tone of new teak, use a dedicated teak oil or protector following the maker's instructions.",
+          "When storing through the rainy season or winter, keep furniture somewhere dry and ventilated. Avoid airtight covers, which trap moisture."
+        ]
+      },
+      "aluminum": {
+        "lede": "Extruded aluminium, fabricated and powder coated in our own factory. Light, rustproof and able to hold the slim lines that wood cannot.",
+        "properties": [
+          "Aluminium is light, so pieces are easy to move, stack and ship. It does not rust like iron based metals, which suits hot, humid climates and coastal sites.",
+          "Powder coating gives an even colour that resists scratches and is easy to clean. Aluminium frames are also the base for our rope and wicker."
+        ],
+        "craft": [
+          "Tubes are laser cut to drawing, bent to radius, robot welded at main joints and hand welded at hidden ones, then the welds are ground flush.",
+          "Before coating, every frame passes a 6-stage pretreatment line: alkaline degreasing, two water rinses, a nano-zincofin layer, a final rinse and drying. The frame is then powder coated and oven cured."
+        ],
+        "care": [
+          "Wipe with a soft cloth, water and a neutral soap, rinse with clean water and dry.",
+          "Avoid strong detergents, solvents and abrasive pads, which can dull or scratch the coating.",
+          "Near the sea, rinse off salt deposits more often to keep the coating durable.",
+          "If the coating is deeply scratched, touch it up early with matching paint to protect the surrounding surface."
+        ]
+      },
+      "rope": {
+        "lede": "Outdoor grade polypropylene rope, hand woven by our weavers onto teak or powder coated aluminium frames.",
+        "properties": [
+          "The rope resists UV, mould and weather, staying soft and holding its colour outdoors.",
+          "A woven rope surface has a gentle give, feels soft and breathes, and makes a piece look lighter than a solid frame."
+        ],
+        "craft": [
+          "The frame is fixed on a jig, and weavers pull each strand to a standard pattern, adjusting the tension by hand. Ends are locked and hidden for a clean finish.",
+          "Rope weaving is entirely manual, a skill no machine can replace. Tension is checked before the piece moves on to upholstery or packing."
+        ],
+        "care": [
+          "Brush off dust and leaves regularly. When needed, clean with warm water, mild soap and a soft brush, then rinse with clean water.",
+          "Let the rope dry fully before adding cushions or a cover, to prevent mould.",
+          "Avoid strong detergents and pressure washers, which can fray the fibres.",
+          "Store somewhere dry and ventilated when not in use for long periods."
+        ]
+      },
+      "wicker": {
+        "lede": "Extruded polyethylene fibre, kiln dried to hold its colour, woven onto pretreated, powder coated aluminium frames.",
+        "properties": [
+          "Resin wicker keeps the warmth of natural rattan without rotting, cracking or absorbing water outdoors.",
+          "Woven pieces carry a standard 2-year warranty, extendable beyond 5 years on request."
+        ],
+        "craft": [
+          "Frames are powder coated first, so the surface is hard enough to take tension without scratching. Weavers pull the fibre to pattern, adjust tension and lock the ends by hand.",
+          "From dense, closed weaves to open patterns that show the frame, weaves can be developed to each customer's drawings."
+        ],
+        "care": [
+          "Dust regularly. When needed, clean with warm water, mild soap and a soft brush, then rinse with clean water.",
+          "Let the weave dry fully before adding cushions or a cover.",
+          "Avoid strong detergents, solvents and sharp objects on the weave.",
+          "Store somewhere dry and ventilated when not in use for long periods."
+        ]
+      },
+      "steel": {
+        "lede": "Steel is used where parts need high stiffness and load capacity, such as bases, table frames and connecting members.",
+        "properties": [
+          "Steel's stiffness allows slim bases and frames that stay stable, well suited to tables with stone, ceramic or glass tops.",
+          "Outdoors, steel needs the right surface protection. The finish determines how well a piece stands up to moisture and weather."
+        ],
+        "craft": [
+          "Steel parts are cut, welded and ground to drawing, then surface treated and finished before assembly.",
+          "Material specifications and finishing processes are agreed with each customer at the quotation and sampling stage."
+        ],
+        "care": [
+          "Wipe with a soft cloth, water and a neutral soap, then dry completely.",
+          "Check spots where water can collect, such as bases and joints. If the finish is scratched, treat it early to stop rust spreading.",
+          "Near the sea, rinse off salt deposits more often.",
+          "Avoid acidic cleaners and abrasive pads."
+        ]
+      },
+      "fabric": {
+        "lede": "Outdoor fabric for seat cushions, back cushions and pillows, cut and sewn in the factory's upholstery workshop.",
+        "properties": [
+          "Outdoor fabrics are made to withstand sun, dry quickly and resist mould, holding colour better than standard indoor fabrics.",
+          "Colours and fabric types can follow a collection or a customer's own specification."
+        ],
+        "craft": [
+          "Fabric and foam are cut to pattern, sewn into covers, filled and shaped before the final seams are closed.",
+          "The upholstery workshop sits next to the woodworking and weaving shops, so cushions are fitted to their frames inside the factory."
+        ],
+        "care": [
+          "Brush off dust and treat stains early with warm water and mild soap, blotting rather than scrubbing.",
+          "Stand cushions on their edge after rain so water drains quickly, and let them dry fully before storing.",
+          "When not in use, store cushions somewhere dry or in a breathable storage bag.",
+          "Check each fabric's care label before washing covers."
+        ]
+      },
+      "glass": {
+        "lede": "Glass for dining, coffee and side table tops, paired with aluminium, steel or teak frames.",
+        "properties": [
+          "A glass top is flat, non absorbent and easy to clean, making an outdoor space feel open and light.",
+          "Glass lets the eye travel down to the base, so it is often chosen to show off the frame beneath."
+        ],
+        "craft": [
+          "Glass tops are ordered to drawing, and edges and surfaces are checked on arrival before fitting to the frame.",
+          "Pads and fixings between glass and frame are specified so the top sits firmly without touching metal directly."
+        ],
+        "care": [
+          "Wipe with a soft cloth and clean water or glass cleaner, avoiding abrasive pads.",
+          "Do not place hot items directly on the glass, and avoid hard knocks to the edges.",
+          "Check the pads between glass and frame regularly and replace them if they age.",
+          "When storing, lay the top on a flat surface with nothing heavy stacked on it."
+        ]
+      },
+      "ceramic": {
+        "lede": "Ceramic tops for outdoor dining and coffee tables, with the look of natural stone and easier care.",
+        "properties": [
+          "Ceramic has a hard surface that resists heat and scratches, stains little and does not absorb water.",
+          "A wide range of patterns and colours, from stone veining to plain surfaces, pairs easily with aluminium, steel or teak frames."
+        ],
+        "craft": [
+          "Ceramic tops are checked on arrival, then fitted to the table frame with suitable pads and fixings.",
+          "Size, thickness and edge profile are agreed to each project's drawings."
+        ],
+        "care": [
+          "Wipe with a damp cloth and neutral soap, then dry.",
+          "Wipe up oil, wine or coffee promptly so they leave no marks.",
+          "Avoid hard knocks to edges and corners.",
+          "Avoid strong acidic cleaners and abrasive pads."
+        ]
+      }
+    },
+    "craftKicker": "BFC workshops",
+    "careKicker": "Care guide",
+    "productsKicker": "Applications"
+  },
+  "AboutPage": {
+    "metaTitle": "About us | BINH BFC",
+    "metaDescription": "BINH BFC has made outdoor furniture in Dong Nai, Vietnam since 2010: a 28,000 m² factory and 370 people working wood, aluminum, steel, rope, resin wicker and upholstery in house.",
+    "hero": {
+      "title": "About BINH BFC",
+      "lede": "An outdoor furniture manufacturer in Dong Nai, Vietnam since 2010. We build to your drawings and co-develop designs for hotels, resorts and furniture brands."
+    },
+    "story": {
+      "title": "Our story",
+      "lead": "Lasting outdoor furniture is made of every weld, every grain of wood and every strand of weave. BINH BFC was founded to do all of that under one roof.",
+      "paragraphs": [
+        "Founded in 2010 in Dong Nai, BINH BFC started with a clear aim: outdoor furniture that looks good and stands up to sun, rain and humidity all year round. Since then our clients have been resorts, hotels, distributors and furniture brands that need a factory to build exactly to drawing and on schedule.",
+        "Our strength is combining materials in a single piece: teak, aluminum, steel, resin wicker, rope and outdoor fabric. Each material has its own workshop on the same site, so a chair can move from aluminum frame to powder coating, to the weaving floor and on to upholstery without leaving the factory.",
+        "Working in house means we see the product at every step. When something needs fixing, the people before and after that step stand in the same place to solve it, instead of waiting on feedback across several suppliers.",
+        "Today our 28,000 m² factory and 370 people keep that way of working: carpenters, welders, weavers and upholsterers work directly on each client's product, from the first prototype to the last container."
+      ],
+      "factsAria": "BINH BFC at a glance",
+      "facts": {
+        "founded": {
+          "label": "Founded",
+          "value": "2010"
+        },
+        "location": {
+          "label": "Factory",
+          "value": "Dong Nai, Vietnam"
+        },
+        "area": {
+          "label": "Site area",
+          "value": "28,000 m²"
+        },
+        "employees": {
+          "label": "People",
+          "value": "370"
+        },
+        "workshops": {
+          "label": "In-house workshops",
+          "value": "6"
+        }
+      },
+      "kicker": "Since 2010"
+    },
+    "values": {
+      "title": "What we hold to",
+      "lede": "Four principles that shape how BINH BFC handles every order.",
+      "items": {
+        "inhouse": {
+          "name": "Made in house",
+          "desc": "Wood, metal, weaving, coating, upholstery and packing all sit on one site. We control quality and schedule instead of relying on outside subcontractors."
+        },
+        "materials": {
+          "name": "Knowing each material",
+          "desc": "Every material has its own workshop and team. Knowing how wood moves and how aluminum must be treated is what lets us combine them so they last."
+        },
+        "partner": {
+          "name": "Built to your drawings",
+          "desc": "We manufacture for our clients' brands. Drawings, samples and specifications are kept exactly as approved, with engineering feedback when it helps."
+        },
+        "outdoor": {
+          "name": "Made for outdoors",
+          "desc": "Every choice of material, joint and finish serves one goal: furniture that holds up for years in sun, rain and salt air."
+        }
+      },
+      "kicker": "Values"
+    },
+    "people": {
+      "title": "The people in our workshops",
+      "body": [
+        "Behind every piece is a team of 370, most of them working on the factory floor. Many steps, such as rope weaving, wicker weaving and wood finishing, still need the hands and eye of a skilled maker.",
+        "We invest in machines where precision must repeat, such as 5-axis CNC for wood and laser cutting and robotic welding for metal, so our makers can spend their time on the details machines cannot do."
+      ],
+      "kicker": "Our team"
+    },
+    "export": {
+      "title": "From Dong Nai to your project",
+      "body": [
+        "The factory has its own container yard on site. Goods are inspected, packed and loaded right here, so we control the last step before anything leaves the factory.",
+        "Every order has one contact who follows it from the first drawing to shipping day, so you always know which stage your products are at."
+      ],
+      "cta": "See our capabilities",
+      "kicker": "Export"
+    },
+    "history": {
+      "kicker": "History",
+      "title": "Our journey",
+      "prev": "Previous milestone",
+      "next": "Next milestone",
+      "items": [
+        {
+          "year": "2010",
+          "title": "Founded in Dong Nai",
+          "desc": "BINH BFC starts making outdoor furniture for export markets."
+        },
+        {
+          "year": "2016",
+          "title": "Metal workshop expansion",
+          "desc": "Investment in welding and aluminium and steel frame fabrication in house."
+        },
+        {
+          "year": "2019",
+          "title": "Powder coating line",
+          "desc": "A powder coating line comes online, bringing frame finishing in house."
+        },
+        {
+          "year": "now",
+          "title": "A 28,000 m² factory",
+          "desc": "370 people and 6 workshops serving outdoor furniture brands across many markets."
+        }
+      ]
+    }
+  },
+  "NotFound": {
+    "metaTitle": "Page not found | BINH BFC",
+    "kicker": "Error 404",
+    "title": "Page not found",
+    "lede": "The page you are looking for may have moved or no longer exists. Go back to the home page or contact us and we will help.",
+    "home": "Back to home",
+    "contact": "Contact us",
+    "linksKicker": "Suggestions",
+    "linksTitle": "You may be looking for"
+  },
+  "ErrorPage": {
+    "kicker": "Loading error",
+    "title": "This page could not load",
+    "lede": "Our system is busy or having a temporary problem. Please try again in a few minutes, or contact us directly.",
+    "retry": "Try again",
+    "contact": "Contact us",
+    "reference": "Error reference: {digest}"
+  },
+  "ProductsPage": {
+    "metaTitle": "Outdoor furniture products",
+    "metaDescription": "Six outdoor furniture ranges BFC makes to OEM orders in Dong Nai, Vietnam: sunloungers, sofas, dining, lounge chairs, tables and accessories.",
+    "hero": {
+      "title": "Products",
+      "lede": "Six outdoor furniture ranges, built to your drawings or developed together with you. The models below show styles and materials for reference."
+    },
+    "browser": {
+      "type": "Type",
+      "material": "Material",
+      "all": "All",
+      "reset": "Clear filters",
+      "empty": "No models match these filters yet.",
+      "count": "{count, plural, one {# model} other {# models}}",
+      "category": "Range",
+      "view": "View",
+      "grid": "Grid",
+      "list": "List",
+      "pagination": "Pagination",
+      "prev": "Previous page",
+      "next": "Next page",
+      "page": "Page {page}",
+      "viewDetail": "View details"
+    },
+    "detail": {
+      "metaTitle": "{name} | {type}",
+      "eyebrow": "Details",
+      "specs": "Specifications",
+      "category": "Range",
+      "type": "Type",
+      "materials": "Materials",
+      "features": "Features",
+      "setItems": "Set includes",
+      "setItem": "{qty} × {type}",
+      "none": "To be updated",
+      "oem": "Size, materials, weave colour and cushions can all be adjusted to your order.",
+      "quote": "Request a quote",
+      "relatedEyebrow": "Same range",
+      "related": "Other models",
+      "code": "Model code",
+      "dimensions": "Dimensions",
+      "dims": {
+        "length": "Length",
+        "width": "Width",
+        "height": "Height",
+        "diameter": "Diameter"
+      },
+      "unit": "cm",
+      "dimNote": "Reference dimensions, adjustable to your order.",
+      "details": "Details",
+      "materialsSection": "Materials",
+      "materialMore": "View material",
+      "customize": "Made to your order",
+      "customizeItems": [
+        "Size and proportions to your drawings or project space.",
+        "Wood species, aluminium or steel frame, and powder coat colour.",
+        "Weave pattern, rope or wicker colour.",
+        "Fabric and cushion thickness, with fire retardant options."
+      ],
+      "quoteNote": "Send the model code and quantity, and the BFC team will reply with a quote and lead time.",
+      "gallery": "Product images",
+      "galleryThumb": "Show image {n}",
+      "viewAll": "View all",
+      "zoom": "Enlarge image",
+      "lightbox": {
+        "previous": "Previous image",
+        "next": "Next image",
+        "close": "Close",
+        "zoomIn": "Zoom in",
+        "zoomOut": "Zoom out",
+        "enterFullscreen": "Enter fullscreen",
+        "exitFullscreen": "Exit fullscreen",
+        "lightbox": "Product image viewer",
+        "carousel": "Image carousel",
+        "slide": "Image",
+        "thumbnails": "Thumbnails",
+        "slideOf": "{index} of {total}"
+      },
+      "tabs": {
+        "description": "Description",
+        "specifications": "Specifications"
+      },
+      "setSection": "Set components",
+      "setPieceQty": "{qty} pcs",
+      "dimsBySet": "Per piece in the set",
+      "packing": "Packing and container loading",
+      "assembly": "Packing type",
+      "assemblyValue": {
+        "kd": "Knock-down (KD)",
+        "fa": "Fully assembled (FA)"
+      },
+      "pcsPerBox": "Quantity / carton",
+      "pcsPerBoxValue": "{n} pcs / carton",
+      "carton": "Carton dimensions",
+      "loading": "Quantity / container",
+      "loadingValue": "{n} pcs",
+      "packingBySet": "The set ships in several cartons; packing is listed per piece under Set components.",
+      "packingNote": "Packing and container loading are confirmed again with the quote."
+    },
+    "categories": {
+      "eyebrow": "Categories",
+      "title": "Choose a range"
+    },
+    "viewMore": "View more",
+    "modelCount": "{count, plural, one {# model} other {# models}}"
+  },
+  "Legal": {
+    "updated": "Last updated {date}",
+    "contents": "Contents"
+  }
+}

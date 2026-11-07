@@ -1,0 +1,88 @@
+{
+  "ok": true,
+  "verdict": "pass",
+  "confidence": 0.751,
+  "estimatedFidelity": 0.751,
+  "targetThreshold": 0.7,
+  "materialId": "teak-satin",
+  "sourceImage": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-crops\\teak-rear-top-rail.png",
+  "outDir": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\teak-satin",
+  "palette": [
+    "#9F6941",
+    "#9A653F",
+    "#A16C44",
+    "#A46F46",
+    "#925E3B"
+  ],
+  "maps": {
+    "albedo": {
+      "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\teak-satin\\teak-satin_albedo.png",
+      "url": "teak-satin_albedo.png",
+      "channel": "albedo",
+      "source": "reference-pixel-extraction"
+    },
+    "roughness": {
+      "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\teak-satin\\teak-satin_roughness.png",
+      "url": "teak-satin_roughness.png",
+      "channel": "roughness",
+      "source": "reference-pixel-extraction"
+    },
+    "height": {
+      "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\teak-satin\\teak-satin_height.png",
+      "url": "teak-satin_height.png",
+      "channel": "height",
+      "source": "reference-pixel-extraction"
+    },
+    "normal": {
+      "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\teak-satin\\teak-satin_normal.png",
+      "url": "teak-satin_normal.png",
+      "channel": "normal",
+      "source": "reference-pixel-extraction"
+    },
+    "ao": {
+      "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\teak-satin\\teak-satin_ao.png",
+      "url": "teak-satin_ao.png",
+      "channel": "ao",
+      "source": "reference-pixel-extraction"
+    }
+  },
+  "diagnostics": {
+    "sourceWidth": 160,
+    "sourceHeight": 36,
+    "mapSize": 1024,
+    "cropBBoxPixels": {
+      "x": 0,
+      "y": 0,
+      "width": 160,
+      "height": 36
+    },
+    "mask": {
+      "backgroundColor": "#A16C43",
+      "backgroundNoise": 7.81,
+      "transparentPixelFraction": 0.0,
+      "foregroundCoverage": 1.0
+    },
+    "mapStats": {
+      "valueRange": 0.08,
+      "heightP90Gradient": 0.04661,
+      "roughnessBase": 0.733,
+      "roughnessVariation": 0.084,
+      "normalStrength": 0.211,
+      "blurRadius": 21
+    },
+    "palette": [
+      "#9F6941",
+      "#9A653F",
+      "#A16C44",
+      "#A46F46",
+      "#925E3B"
+    ]
+  },
+  "warnings": [
+    "image is not clearly isolated from background; using most pixels as material evidence",
+    "object/background separation is weak",
+    "single-image inverse rendering cannot prove true physical PBR; confidence is capped",
+    "low value range weakens height/roughness inference"
+  ],
+  "limitation": "single-image PBR extraction is an estimate; 70%+ extraction confidence still needs render screenshot review"
+}

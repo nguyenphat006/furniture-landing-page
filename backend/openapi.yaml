@@ -1,0 +1,2101 @@
+openapi: 3.0.3
+info:
+  title: BFC CMS API
+  version: 1.0.0
+  description: API nội bộ cho landing page BFC (Next.js gọi phía server).
+paths:
+  /api/v1/catalog/materials:
+    get:
+      operationId: catalog_materials_list
+      description: 'Chất liệu theo thứ tự trong CMS (trang Vật liệu). Không phân trang:
+        ít mục.'
+      parameters:
+      - in: query
+        name: locale
+        schema:
+          type: string
+          enum:
+          - en
+          - vi
+        description: Ngôn ngữ nội dung, mặc định tiếng Việt
+      tags:
+      - catalog
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Material'
+          description: ''
+  /api/v1/catalog/materials/{slug}:
+    get:
+      operationId: catalog_materials_retrieve
+      parameters:
+      - in: query
+        name: locale
+        schema:
+          type: string
+          enum:
+          - en
+          - vi
+        description: Ngôn ngữ nội dung, mặc định tiếng Việt
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - catalog
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MaterialDetail'
+          description: ''
+  /api/v1/catalog/menu:
+    get:
+      operationId: catalog_menu
+      description: 'Menu con của header: Sản phẩm (nhóm → loại) và Vật liệu (nhóm
+        menu → mục con).'
+      parameters:
+      - in: query
+        name: locale
+        schema:
+          type: string
+          enum:
+          - en
+          - vi
+        description: Ngôn ngữ nội dung, mặc định tiếng Việt
+      tags:
+      - catalog
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Menu'
+          description: ''
+  /api/v1/catalog/products:
+    get:
+      operationId: catalog_products_list
+      description: |-
+        Sản phẩm đang xuất bản.
+
+        Lọc nhiều chất liệu / tính năng: lặp tham số (?material=a&material=b), sản phẩm phải có đủ.
+      parameters:
+      - in: query
+        name: category
+        schema:
+          type: string
+        description: Slug nhóm
+      - in: query
+        name: feature
+        schema:
+          type: array
+          items:
+            type: string
+        description: Slug tính năng, lặp được
+      - in: query
+        name: locale
+        schema:
+          type: string
+          enum:
+          - en
+          - vi
+        description: Ngôn ngữ nội dung, mặc định tiếng Việt
+      - in: query
+        name: material
+        schema:
+          type: array
+          items:
+            type: string
+        description: Slug chất liệu, lặp được
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: type
+        schema:
+          type: string
+        description: Slug loại
+      tags:
+      - catalog
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProductListList'
+          description: ''
+  /api/v1/catalog/products/{slug}:
+    get:
+      operationId: catalog_products_retrieve
+      parameters:
+      - in: query
+        name: locale
+        schema:
+          type: string
+          enum:
+          - en
+          - vi
+        description: Ngôn ngữ nội dung, mặc định tiếng Việt
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - catalog
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDetail'
+          description: ''
+  /api/v1/catalog/taxonomy:
+    get:
+      operationId: catalog_taxonomy
+      description: Nhóm (kèm loại), chất liệu, tính năng với tên theo ngôn ngữ.
+      parameters:
+      - in: query
+        name: locale
+        schema:
+          type: string
+          enum:
+          - en
+          - vi
+        description: Ngôn ngữ nội dung, mặc định tiếng Việt
+      tags:
+      - catalog
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Taxonomy'
+          description: ''
+  /api/v1/inquiries:
+    post:
+      operationId: inquiries_create
+      parameters:
+      - in: header
+        name: X-BFC-Signature
+        schema:
+          type: string
+        required: true
+      - in: header
+        name: X-BFC-Timestamp
+        schema:
+          type: string
+        required: true
+      tags:
+      - inquiries
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/InquiryCreateRequest'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InquiryCreated'
+          description: ''
+        '429':
+          description: No response body
+  /api/v1/meta:
+    get:
+      operationId: meta_retrieve
+      description: 'Thông tin chung cho frontend: các ngôn ngữ nội dung đang bật.'
+      tags:
+      - meta
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Meta'
+          description: ''
+  /api/v1/pages/{key}:
+    get:
+      operationId: pages_retrieve
+      description: |-
+        Trang theo khoá (home...).
+
+        Chưa có bản dịch đã xuất bản thì trả bản gốc, is_fallback = true.
+      parameters:
+      - in: path
+        name: key
+        schema:
+          type: string
+          enum:
+          - home
+          - privacy
+          - terms
+        required: true
+      - in: query
+        name: locale
+        schema:
+          type: string
+          enum:
+          - en
+          - vi
+        description: Ngôn ngữ nội dung, mặc định tiếng Việt
+      tags:
+      - pages
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentPage'
+          description: ''
+  /api/v1/site:
+    get:
+      operationId: site_retrieve
+      description: Chữ song ngữ theo cột `_en`, không qua bảng Locale của Wagtail
+        (docs/adr/0011).
+      parameters:
+      - in: query
+        name: locale
+        schema:
+          type: string
+          enum:
+          - en
+          - vi
+        description: Ngôn ngữ nội dung, mặc định tiếng Việt
+      tags:
+      - site
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Site'
+          description: ''
+components:
+  schemas:
+    AssemblyEnum:
+      type: string
+      enum:
+      - kd
+      - fa
+    Branding:
+      type: object
+      description: URL ảnh; null = chưa đặt, frontend dùng ảnh có sẵn.
+      properties:
+        logo:
+          type: string
+          nullable: true
+          readOnly: true
+        logo_on_dark:
+          type: string
+          nullable: true
+          readOnly: true
+        favicon:
+          type: string
+          nullable: true
+          readOnly: true
+        og_image:
+          type: string
+          nullable: true
+          readOnly: true
+      required:
+      - favicon
+      - logo
+      - logo_on_dark
+      - og_image
+    Category:
+      type: object
+      properties:
+        slug:
+          type: string
+        name:
+          type: string
+          readOnly: true
+        description:
+          type: string
+          readOnly: true
+        cover:
+          allOf:
+          - $ref: '#/components/schemas/Image'
+          nullable: true
+          readOnly: true
+        types:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductType'
+          readOnly: true
+        seo:
+          allOf:
+          - $ref: '#/components/schemas/PageSeo'
+          readOnly: true
+      required:
+      - cover
+      - description
+      - name
+      - seo
+      - slug
+      - types
+    CodeEnum:
+      enum:
+      - SAU
+      - AFG
+      - EGY
+      - ALB
+      - DZA
+      - AGO
+      - AUT
+      - ARG
+      - ARM
+      - AZE
+      - IND
+      - POL
+      - BHS
+      - BGD
+      - MKD
+      - BLR
+      - BLZ
+      - BEN
+      - BMU
+      - BTN
+      - BEL
+      - BOL
+      - BIH
+      - BWA
+      - PRT
+      - BRA
+      - BRN
+      - BGR
+      - BFA
+      - BDI
+      - ARE
+      - CMR
+      - KHM
+      - CAN
+      - TCD
+      - CHL
+      - COL
+      - COG
+      - COD
+      - CRI
+      - DOM
+      - CAF
+      - CIV
+      - HRV
+      - CUB
+      - DJI
+      - TWN
+      - DNK
+      - HKG
+      - DEU
+      - ECU
+      - SLV
+      - ERI
+      - EST
+      - SWZ
+      - ETH
+      - FJI
+      - GAB
+      - GMB
+      - GEO
+      - GHA
+      - GRL
+      - GTM
+      - GUF
+      - GIN
+      - GNQ
+      - GNB
+      - GUY
+      - NLD
+      - HTI
+      - KOR
+      - USA
+      - HND
+      - HUN
+      - GRC
+      - ISL
+      - IDN
+      - IRN
+      - IRQ
+      - IRL
+      - ISR
+      - ITA
+      - JAM
+      - JOR
+      - KAZ
+      - KEN
+      - KWT
+      - KGZ
+      - PSE
+      - LAO
+      - LVA
+      - LSO
+      - LBN
+      - LBR
+      - LBY
+      - LTU
+      - LUX
+      - MAR
+      - MDG
+      - MWI
+      - MYS
+      - MLI
+      - MLT
+      - MRT
+      - MEX
+      - MDA
+      - MNE
+      - MOZ
+      - MNG
+      - MMR
+      - NOR
+      - ZAF
+      - SSD
+      - NAM
+      - NPL
+      - NCL
+      - NZL
+      - RUS
+      - JPN
+      - NIC
+      - NER
+      - NGA
+      - OMN
+      - PAK
+      - PAN
+      - PNG
+      - PRY
+      - PER
+      - FRA
+      - FIN
+      - PHL
+      - PRI
+      - QAT
+      - FLK
+      - SLB
+      - ROU
+      - RWA
+      - CZE
+      - SEN
+      - SRB
+      - SLE
+      - SGP
+      - CYP
+      - SVK
+      - SVN
+      - SOM
+      - LKA
+      - SDN
+      - SUR
+      - SYR
+      - TJK
+      - TZA
+      - ESP
+      - ESH
+      - THA
+      - TUR
+      - SWE
+      - CHE
+      - TLS
+      - TGO
+      - PRK
+      - TTO
+      - CHN
+      - TUN
+      - TKM
+      - AUS
+      - UGA
+      - UKR
+      - URY
+      - UZB
+      - VUT
+      - VEN
+      - VNM
+      - GBR
+      - YEM
+      - ZMB
+      - ZWE
+      type: string
+      description: |-
+        * `SAU` - SAU
+        * `AFG` - AFG
+        * `EGY` - EGY
+        * `ALB` - ALB
+        * `DZA` - DZA
+        * `AGO` - AGO
+        * `AUT` - AUT
+        * `ARG` - ARG
+        * `ARM` - ARM
+        * `AZE` - AZE
+        * `IND` - IND
+        * `POL` - POL
+        * `BHS` - BHS
+        * `BGD` - BGD
+        * `MKD` - MKD
+        * `BLR` - BLR
+        * `BLZ` - BLZ
+        * `BEN` - BEN
+        * `BMU` - BMU
+        * `BTN` - BTN
+        * `BEL` - BEL
+        * `BOL` - BOL
+        * `BIH` - BIH
+        * `BWA` - BWA
+        * `PRT` - PRT
+        * `BRA` - BRA
+        * `BRN` - BRN
+        * `BGR` - BGR
+        * `BFA` - BFA
+        * `BDI` - BDI
+        * `ARE` - ARE
+        * `CMR` - CMR
+        * `KHM` - KHM
+        * `CAN` - CAN
+        * `TCD` - TCD
+        * `CHL` - CHL
+        * `COL` - COL
+        * `COG` - COG
+        * `COD` - COD
+        * `CRI` - CRI
+        * `DOM` - DOM
+        * `CAF` - CAF
+        * `CIV` - CIV
+        * `HRV` - HRV
+        * `CUB` - CUB
+        * `DJI` - DJI
+        * `TWN` - TWN
+        * `DNK` - DNK
+        * `HKG` - HKG
+        * `DEU` - DEU
+        * `ECU` - ECU
+        * `SLV` - SLV
+        * `ERI` - ERI
+        * `EST` - EST
+        * `SWZ` - SWZ
+        * `ETH` - ETH
+        * `FJI` - FJI
+        * `GAB` - GAB
+        * `GMB` - GMB
+        * `GEO` - GEO
+        * `GHA` - GHA
+        * `GRL` - GRL
+        * `GTM` - GTM
+        * `GUF` - GUF
+        * `GIN` - GIN
+        * `GNQ` - GNQ
+        * `GNB` - GNB
+        * `GUY` - GUY
+        * `NLD` - NLD
+        * `HTI` - HTI
+        * `KOR` - KOR
+        * `USA` - USA
+        * `HND` - HND
+        * `HUN` - HUN
+        * `GRC` - GRC
+        * `ISL` - ISL
+        * `IDN` - IDN
+        * `IRN` - IRN
+        * `IRQ` - IRQ
+        * `IRL` - IRL
+        * `ISR` - ISR
+        * `ITA` - ITA
+        * `JAM` - JAM
+        * `JOR` - JOR
+        * `KAZ` - KAZ
+        * `KEN` - KEN
+        * `KWT` - KWT
+        * `KGZ` - KGZ
+        * `PSE` - PSE
+        * `LAO` - LAO
+        * `LVA` - LVA
+        * `LSO` - LSO
+        * `LBN` - LBN
+        * `LBR` - LBR
+        * `LBY` - LBY
+        * `LTU` - LTU
+        * `LUX` - LUX
+        * `MAR` - MAR
+        * `MDG` - MDG
+        * `MWI` - MWI
+        * `MYS` - MYS
+        * `MLI` - MLI
+        * `MLT` - MLT
+        * `MRT` - MRT
+        * `MEX` - MEX
+        * `MDA` - MDA
+        * `MNE` - MNE
+        * `MOZ` - MOZ
+        * `MNG` - MNG
+        * `MMR` - MMR
+        * `NOR` - NOR
+        * `ZAF` - ZAF
+        * `SSD` - SSD
+        * `NAM` - NAM
+        * `NPL` - NPL
+        * `NCL` - NCL
+        * `NZL` - NZL
+        * `RUS` - RUS
+        * `JPN` - JPN
+        * `NIC` - NIC
+        * `NER` - NER
+        * `NGA` - NGA
+        * `OMN` - OMN
+        * `PAK` - PAK
+        * `PAN` - PAN
+        * `PNG` - PNG
+        * `PRY` - PRY
+        * `PER` - PER
+        * `FRA` - FRA
+        * `FIN` - FIN
+        * `PHL` - PHL
+        * `PRI` - PRI
+        * `QAT` - QAT
+        * `FLK` - FLK
+        * `SLB` - SLB
+        * `ROU` - ROU
+        * `RWA` - RWA
+        * `CZE` - CZE
+        * `SEN` - SEN
+        * `SRB` - SRB
+        * `SLE` - SLE
+        * `SGP` - SGP
+        * `CYP` - CYP
+        * `SVK` - SVK
+        * `SVN` - SVN
+        * `SOM` - SOM
+        * `LKA` - LKA
+        * `SDN` - SDN
+        * `SUR` - SUR
+        * `SYR` - SYR
+        * `TJK` - TJK
+        * `TZA` - TZA
+        * `ESP` - ESP
+        * `ESH` - ESH
+        * `THA` - THA
+        * `TUR` - TUR
+        * `SWE` - SWE
+        * `CHE` - CHE
+        * `TLS` - TLS
+        * `TGO` - TGO
+        * `PRK` - PRK
+        * `TTO` - TTO
+        * `CHN` - CHN
+        * `TUN` - TUN
+        * `TKM` - TKM
+        * `AUS` - AUS
+        * `UGA` - UGA
+        * `UKR` - UKR
+        * `URY` - URY
+        * `UZB` - UZB
+        * `VUT` - VUT
+        * `VEN` - VEN
+        * `VNM` - VNM
+        * `GBR` - GBR
+        * `YEM` - YEM
+        * `ZMB` - ZMB
+        * `ZWE` - ZWE
+    Company:
+      type: object
+      properties:
+        name:
+          type: string
+        tagline:
+          type: string
+          readOnly: true
+        legal_name:
+          type: string
+          readOnly: true
+        tax_code:
+          type: string
+        address:
+          type: string
+          readOnly: true
+      required:
+      - address
+      - legal_name
+      - name
+      - tagline
+      - tax_code
+    Contact:
+      type: object
+      properties:
+        phone:
+          type: string
+        phone_href:
+          type: string
+          description: tel:+84...; rỗng nếu chưa có số
+        email:
+          type: string
+        whatsapp_url:
+          type: string
+        zalo_url:
+          type: string
+        hours:
+          type: string
+          readOnly: true
+        maps_url:
+          type: string
+        maps_embed_url:
+          type: string
+      required:
+      - email
+      - hours
+      - maps_embed_url
+      - maps_url
+      - phone
+      - phone_href
+      - whatsapp_url
+      - zalo_url
+    ContentPage:
+      type: object
+      properties:
+        title:
+          type: string
+        is_fallback:
+          type: boolean
+          readOnly: true
+        updated_on:
+          type: string
+          format: date
+          nullable: true
+          readOnly: true
+        seo:
+          allOf:
+          - $ref: '#/components/schemas/ContentPageSeo'
+          readOnly: true
+        body:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageBlock'
+          readOnly: true
+      required:
+      - body
+      - is_fallback
+      - seo
+      - title
+      - updated_on
+    ContentPageSeo:
+      type: object
+      description: Rỗng = frontend tự tạo từ nội dung, rồi tới SEO mặc định (docs/adr/0012).
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        noindex:
+          type: boolean
+        og_image:
+          type: string
+          nullable: true
+      required:
+      - description
+      - noindex
+      - og_image
+      - title
+    CtaPageBlock:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/CtaValue'
+        type:
+          $ref: '#/components/schemas/CtaPageBlockTypeEnum'
+        id:
+          type: string
+      required:
+      - id
+      - type
+      - value
+    CtaPageBlockTypeEnum:
+      enum:
+      - cta
+      type: string
+      description: '* `cta` - cta'
+    CtaValue:
+      type: object
+      properties:
+        kicker:
+          type: string
+        title:
+          type: string
+        image:
+          allOf:
+          - $ref: '#/components/schemas/ImageData'
+          nullable: true
+        quote_label:
+          type: string
+        visit_label:
+          type: string
+      required:
+      - image
+      - kicker
+      - quote_label
+      - title
+      - visit_label
+    ExportMarket:
+      type: object
+      properties:
+        code:
+          allOf:
+          - $ref: '#/components/schemas/CodeEnum'
+          description: |-
+            Mã ISO3
+
+            * `SAU` - SAU
+            * `AFG` - AFG
+            * `EGY` - EGY
+            * `ALB` - ALB
+            * `DZA` - DZA
+            * `AGO` - AGO
+            * `AUT` - AUT
+            * `ARG` - ARG
+            * `ARM` - ARM
+            * `AZE` - AZE
+            * `IND` - IND
+            * `POL` - POL
+            * `BHS` - BHS
+            * `BGD` - BGD
+            * `MKD` - MKD
+            * `BLR` - BLR
+            * `BLZ` - BLZ
+            * `BEN` - BEN
+            * `BMU` - BMU
+            * `BTN` - BTN
+            * `BEL` - BEL
+            * `BOL` - BOL
+            * `BIH` - BIH
+            * `BWA` - BWA
+            * `PRT` - PRT
+            * `BRA` - BRA
+            * `BRN` - BRN
+            * `BGR` - BGR
+            * `BFA` - BFA
+            * `BDI` - BDI
+            * `ARE` - ARE
+            * `CMR` - CMR
+            * `KHM` - KHM
+            * `CAN` - CAN
+            * `TCD` - TCD
+            * `CHL` - CHL
+            * `COL` - COL
+            * `COG` - COG
+            * `COD` - COD
+            * `CRI` - CRI
+            * `DOM` - DOM
+            * `CAF` - CAF
+            * `CIV` - CIV
+            * `HRV` - HRV
+            * `CUB` - CUB
+            * `DJI` - DJI
+            * `TWN` - TWN
+            * `DNK` - DNK
+            * `HKG` - HKG
+            * `DEU` - DEU
+            * `ECU` - ECU
+            * `SLV` - SLV
+            * `ERI` - ERI
+            * `EST` - EST
+            * `SWZ` - SWZ
+            * `ETH` - ETH
+            * `FJI` - FJI
+            * `GAB` - GAB
+            * `GMB` - GMB
+            * `GEO` - GEO
+            * `GHA` - GHA
+            * `GRL` - GRL
+            * `GTM` - GTM
+            * `GUF` - GUF
+            * `GIN` - GIN
+            * `GNQ` - GNQ
+            * `GNB` - GNB
+            * `GUY` - GUY
+            * `NLD` - NLD
+            * `HTI` - HTI
+            * `KOR` - KOR
+            * `USA` - USA
+            * `HND` - HND
+            * `HUN` - HUN
+            * `GRC` - GRC
+            * `ISL` - ISL
+            * `IDN` - IDN
+            * `IRN` - IRN
+            * `IRQ` - IRQ
+            * `IRL` - IRL
+            * `ISR` - ISR
+            * `ITA` - ITA
+            * `JAM` - JAM
+            * `JOR` - JOR
+            * `KAZ` - KAZ
+            * `KEN` - KEN
+            * `KWT` - KWT
+            * `KGZ` - KGZ
+            * `PSE` - PSE
+            * `LAO` - LAO
+            * `LVA` - LVA
+            * `LSO` - LSO
+            * `LBN` - LBN
+            * `LBR` - LBR
+            * `LBY` - LBY
+            * `LTU` - LTU
+            * `LUX` - LUX
+            * `MAR` - MAR
+            * `MDG` - MDG
+            * `MWI` - MWI
+            * `MYS` - MYS
+            * `MLI` - MLI
+            * `MLT` - MLT
+            * `MRT` - MRT
+            * `MEX` - MEX
+            * `MDA` - MDA
+            * `MNE` - MNE
+            * `MOZ` - MOZ
+            * `MNG` - MNG
+            * `MMR` - MMR
+            * `NOR` - NOR
+            * `ZAF` - ZAF
+            * `SSD` - SSD
+            * `NAM` - NAM
+            * `NPL` - NPL
+            * `NCL` - NCL
+            * `NZL` - NZL
+            * `RUS` - RUS
+            * `JPN` - JPN
+            * `NIC` - NIC
+            * `NER` - NER
+            * `NGA` - NGA
+            * `OMN` - OMN
+            * `PAK` - PAK
+            * `PAN` - PAN
+            * `PNG` - PNG
+            * `PRY` - PRY
+            * `PER` - PER
+            * `FRA` - FRA
+            * `FIN` - FIN
+            * `PHL` - PHL
+            * `PRI` - PRI
+            * `QAT` - QAT
+            * `FLK` - FLK
+            * `SLB` - SLB
+            * `ROU` - ROU
+            * `RWA` - RWA
+            * `CZE` - CZE
+            * `SEN` - SEN
+            * `SRB` - SRB
+            * `SLE` - SLE
+            * `SGP` - SGP
+            * `CYP` - CYP
+            * `SVK` - SVK
+            * `SVN` - SVN
+            * `SOM` - SOM
+            * `LKA` - LKA
+            * `SDN` - SDN
+            * `SUR` - SUR
+            * `SYR` - SYR
+            * `TJK` - TJK
+            * `TZA` - TZA
+            * `ESP` - ESP
+            * `ESH` - ESH
+            * `THA` - THA
+            * `TUR` - TUR
+            * `SWE` - SWE
+            * `CHE` - CHE
+            * `TLS` - TLS
+            * `TGO` - TGO
+            * `PRK` - PRK
+            * `TTO` - TTO
+            * `CHN` - CHN
+            * `TUN` - TUN
+            * `TKM` - TKM
+            * `AUS` - AUS
+            * `UGA` - UGA
+            * `UKR` - UKR
+            * `URY` - URY
+            * `UZB` - UZB
+            * `VUT` - VUT
+            * `VEN` - VEN
+            * `VNM` - VNM
+            * `GBR` - GBR
+            * `YEM` - YEM
+            * `ZMB` - ZMB
+            * `ZWE` - ZWE
+        label:
+          type: array
+          items:
+            type: number
+            format: double
+          nullable: true
+          description: Vị trí cờ [x, y] theo đơn vị bản đồ; null = ngay tại nước
+          maxItems: 2
+          minItems: 2
+        side:
+          $ref: '#/components/schemas/SideEnum'
+      required:
+      - code
+      - label
+      - side
+    ExportPageBlock:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/ExportValue'
+        type:
+          $ref: '#/components/schemas/ExportPageBlockTypeEnum'
+        id:
+          type: string
+      required:
+      - id
+      - type
+      - value
+    ExportPageBlockTypeEnum:
+      enum:
+      - export
+      type: string
+      description: '* `export` - export'
+    ExportStat:
+      type: object
+      properties:
+        value:
+          type: string
+        label:
+          type: string
+      required:
+      - label
+      - value
+    ExportValue:
+      type: object
+      properties:
+        kicker:
+          type: string
+        title:
+          type: string
+        markets:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportMarket'
+        stats:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportStat'
+      required:
+      - kicker
+      - markets
+      - stats
+      - title
+    FactoryPageBlock:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/FactoryValue'
+        type:
+          $ref: '#/components/schemas/FactoryPageBlockTypeEnum'
+        id:
+          type: string
+      required:
+      - id
+      - type
+      - value
+    FactoryPageBlockTypeEnum:
+      enum:
+      - factory
+      type: string
+      description: '* `factory` - factory'
+    FactoryValue:
+      type: object
+      properties:
+        kicker:
+          type: string
+        title:
+          type: string
+        lede:
+          type: string
+        image:
+          allOf:
+          - $ref: '#/components/schemas/ImageData'
+          nullable: true
+        detail_image:
+          allOf:
+          - $ref: '#/components/schemas/ImageData'
+          nullable: true
+        points:
+          type: array
+          items:
+            type: string
+        button_label:
+          type: string
+      required:
+      - button_label
+      - detail_image
+      - image
+      - kicker
+      - lede
+      - points
+      - title
+    Footer:
+      type: object
+      properties:
+        blurb:
+          type: string
+          readOnly: true
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/FooterLink'
+      required:
+      - blurb
+      - links
+    FooterLink:
+      type: object
+      properties:
+        label:
+          type: string
+          readOnly: true
+        url:
+          type: string
+      required:
+      - label
+      - url
+    HeroPageBlock:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/HeroValue'
+        type:
+          $ref: '#/components/schemas/HeroPageBlockTypeEnum'
+        id:
+          type: string
+      required:
+      - id
+      - type
+      - value
+    HeroPageBlockTypeEnum:
+      enum:
+      - hero
+      type: string
+      description: '* `hero` - hero'
+    HeroValue:
+      type: object
+      properties:
+        slides:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageData'
+        title:
+          type: string
+          description: Xuống dòng = ngắt dòng ở màn hình lớn
+        lede:
+          type: string
+        button_label:
+          type: string
+          description: Rỗng = nhãn mặc định trong messages
+      required:
+      - button_label
+      - lede
+      - slides
+      - title
+    Image:
+      type: object
+      properties:
+        url:
+          type: string
+          readOnly: true
+        thumb:
+          type: string
+          readOnly: true
+        width:
+          type: integer
+          readOnly: true
+        height:
+          type: integer
+          readOnly: true
+        alt:
+          type: string
+          readOnly: true
+      required:
+      - alt
+      - height
+      - thumb
+      - url
+      - width
+    ImageData:
+      type: object
+      properties:
+        url:
+          type: string
+        width:
+          type: integer
+        height:
+          type: integer
+        alt:
+          type: string
+      required:
+      - alt
+      - height
+      - url
+      - width
+    InquiryCreateRequest:
+      type: object
+      description: Dữ liệu form Liên hệ do Next.js server chuyển sang (đã làm sạch
+        một lần ở frontend).
+      properties:
+        purpose:
+          $ref: '#/components/schemas/PurposeEnum'
+        name:
+          type: string
+          minLength: 1
+          maxLength: 120
+        email:
+          type: string
+          format: email
+          minLength: 1
+          maxLength: 200
+        company:
+          type: string
+          default: ''
+          maxLength: 200
+        country:
+          oneOf:
+          - type: string
+            default: ''
+            pattern: ^[A-Z]{2}$
+          - type: string
+            maxLength: 0
+        phone:
+          type: string
+          default: ''
+          maxLength: 50
+        model:
+          type: string
+          default: ''
+          maxLength: 200
+        message:
+          type: string
+          minLength: 1
+          maxLength: 5000
+        locale:
+          allOf:
+          - $ref: '#/components/schemas/LocaleEnum'
+          default: vi
+        file:
+          type: string
+          format: binary
+      required:
+      - email
+      - message
+      - name
+      - purpose
+    InquiryCreated:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+      required:
+      - id
+    IntroPageBlock:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/IntroValue'
+        type:
+          $ref: '#/components/schemas/IntroPageBlockTypeEnum'
+        id:
+          type: string
+      required:
+      - id
+      - type
+      - value
+    IntroPageBlockTypeEnum:
+      enum:
+      - intro
+      type: string
+      description: '* `intro` - intro'
+    IntroValue:
+      type: object
+      properties:
+        heading:
+          type: string
+        quote:
+          type: string
+        body:
+          type: string
+        button_label:
+          type: string
+      required:
+      - body
+      - button_label
+      - heading
+      - quote
+    Labelled:
+      type: object
+      properties:
+        slug:
+          type: string
+        name:
+          type: string
+          readOnly: true
+      required:
+      - name
+      - slug
+    LegalPageBlock:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/LegalValue'
+        type:
+          $ref: '#/components/schemas/LegalPageBlockTypeEnum'
+        id:
+          type: string
+      required:
+      - id
+      - type
+      - value
+    LegalPageBlockTypeEnum:
+      enum:
+      - legal
+      type: string
+      description: '* `legal` - legal'
+    LegalValue:
+      type: object
+      properties:
+        heading:
+          type: string
+        body:
+          type: string
+          description: HTML (đoạn văn, danh sách, link) từ trình soạn của admin
+      required:
+      - body
+      - heading
+    Locale:
+      type: object
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+        is_default:
+          type: boolean
+      required:
+      - code
+      - is_default
+      - name
+    LocaleEnum:
+      enum:
+      - vi
+      - en
+      type: string
+      description: |-
+        * `vi` - vi
+        * `en` - en
+    Material:
+      type: object
+      description: |-
+        Thẻ vật liệu (trang Vật liệu, trang chủ, trang sản phẩm).
+
+        `name` là tên trên trang (vd "Gỗ teak"), khác nhãn ngắn của bộ lọc. Bản tiếng Anh còn trống
+        thì trả tiếng Việt, như tên phân loại.
+      properties:
+        slug:
+          type: string
+        name:
+          type: string
+          readOnly: true
+        lede:
+          type: string
+          readOnly: true
+        image:
+          allOf:
+          - $ref: '#/components/schemas/Image'
+          nullable: true
+          readOnly: true
+        noindex:
+          type: boolean
+      required:
+      - image
+      - lede
+      - name
+      - noindex
+      - slug
+    MaterialDetail:
+      type: object
+      description: |-
+        Thẻ vật liệu (trang Vật liệu, trang chủ, trang sản phẩm).
+
+        `name` là tên trên trang (vd "Gỗ teak"), khác nhãn ngắn của bộ lọc. Bản tiếng Anh còn trống
+        thì trả tiếng Việt, như tên phân loại.
+      properties:
+        slug:
+          type: string
+        name:
+          type: string
+          readOnly: true
+        lede:
+          type: string
+          readOnly: true
+        image:
+          allOf:
+          - $ref: '#/components/schemas/Image'
+          nullable: true
+          readOnly: true
+        noindex:
+          type: boolean
+        seo:
+          allOf:
+          - $ref: '#/components/schemas/PageSeo'
+          readOnly: true
+        properties:
+          type: array
+          items:
+            type: string
+          readOnly: true
+          description: Các đoạn văn
+        craft:
+          type: array
+          items:
+            type: string
+          readOnly: true
+          description: Các đoạn văn
+        care:
+          type: array
+          items:
+            type: string
+          readOnly: true
+          description: Các đoạn văn
+        detail_image:
+          allOf:
+          - $ref: '#/components/schemas/Image'
+          nullable: true
+          readOnly: true
+        use_image:
+          allOf:
+          - $ref: '#/components/schemas/Image'
+          nullable: true
+          readOnly: true
+        craft_image:
+          allOf:
+          - $ref: '#/components/schemas/Image'
+          nullable: true
+          readOnly: true
+      required:
+      - care
+      - craft
+      - craft_image
+      - detail_image
+      - image
+      - lede
+      - name
+      - noindex
+      - properties
+      - seo
+      - slug
+      - use_image
+    Menu:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/MenuCategory'
+          description: Nhóm → loại đang hiện trong menu
+        materials:
+          type: array
+          items:
+            $ref: '#/components/schemas/MenuMaterialGroup'
+          description: Nhóm menu vật liệu → mục con
+      required:
+      - materials
+      - products
+    MenuCategory:
+      type: object
+      properties:
+        slug:
+          type: string
+        name:
+          type: string
+          readOnly: true
+        types:
+          type: array
+          items:
+            $ref: '#/components/schemas/MenuType'
+          readOnly: true
+      required:
+      - name
+      - slug
+      - types
+    MenuMaterialGroup:
+      type: object
+      properties:
+        name:
+          type: string
+          readOnly: true
+        material:
+          type: string
+          nullable: true
+          readOnly: true
+          description: Slug trang vật liệu; null = không có
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/MenuMaterialItem'
+      required:
+      - items
+      - material
+      - name
+    MenuMaterialItem:
+      type: object
+      properties:
+        name:
+          type: string
+          readOnly: true
+        material:
+          type: string
+          description: Slug trang vật liệu
+      required:
+      - material
+      - name
+    MenuType:
+      type: object
+      properties:
+        slug:
+          type: string
+        name:
+          type: string
+          readOnly: true
+      required:
+      - name
+      - slug
+    Meta:
+      type: object
+      properties:
+        locales:
+          type: array
+          items:
+            $ref: '#/components/schemas/Locale'
+      required:
+      - locales
+    NavItem:
+      type: object
+      properties:
+        target:
+          allOf:
+          - $ref: '#/components/schemas/TargetEnum'
+          description: |-
+            Trang có sẵn của web, hoặc `link` (link ngoài, xem url)
+
+            * `capabilities` - Năng lực
+            * `materials` - Vật liệu (có menu con)
+            * `products` - Sản phẩm (có menu con)
+            * `about` - Về chúng tôi
+            * `projects` - Dự án
+            * `contact` - Liên hệ
+            * `link` - Link khác
+        label:
+          type: string
+          readOnly: true
+          description: 'Rỗng: dùng tên có sẵn của trang'
+        url:
+          type: string
+          description: Chỉ có khi target = link
+      required:
+      - label
+      - target
+      - url
+    NetworkEnum:
+      enum:
+      - facebook
+      - linkedin
+      - youtube
+      - instagram
+      - tiktok
+      - pinterest
+      type: string
+      description: |-
+        * `facebook` - Facebook
+        * `linkedin` - LinkedIn
+        * `youtube` - YouTube
+        * `instagram` - Instagram
+        * `tiktok` - TikTok
+        * `pinterest` - Pinterest
+    PageBlock:
+      oneOf:
+      - $ref: '#/components/schemas/HeroPageBlock'
+      - $ref: '#/components/schemas/IntroPageBlock'
+      - $ref: '#/components/schemas/ExportPageBlock'
+      - $ref: '#/components/schemas/FactoryPageBlock'
+      - $ref: '#/components/schemas/CtaPageBlock'
+      - $ref: '#/components/schemas/SectionPageBlock'
+      - $ref: '#/components/schemas/LegalPageBlock'
+      discriminator:
+        propertyName: type
+        mapping:
+          hero: '#/components/schemas/HeroPageBlock'
+          intro: '#/components/schemas/IntroPageBlock'
+          export: '#/components/schemas/ExportPageBlock'
+          factory: '#/components/schemas/FactoryPageBlock'
+          cta: '#/components/schemas/CtaPageBlock'
+          section: '#/components/schemas/SectionPageBlock'
+          legal: '#/components/schemas/LegalPageBlock'
+    PageSeo:
+      type: object
+      description: SEO riêng của trang; chuỗi rỗng = frontend tự tạo từ nội dung (docs/adr/0012).
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        noindex:
+          type: boolean
+      required:
+      - description
+      - noindex
+      - title
+    PaginatedProductListList:
+      type: object
+      required:
+      - count
+      - page
+      - page_size
+      - total_pages
+      - results
+      properties:
+        count:
+          type: integer
+        page:
+          type: integer
+        page_size:
+          type: integer
+        total_pages:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductList'
+    ProductDetail:
+      type: object
+      properties:
+        slug:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+        category:
+          type: string
+        materials:
+          type: array
+          items:
+            type: string
+          readOnly: true
+        features:
+          type: array
+          items:
+            type: string
+          readOnly: true
+        is_fallback:
+          type: boolean
+          description: 'True: chưa có bản dịch ở ngôn ngữ được hỏi, đây là bản gốc.'
+        noindex:
+          type: boolean
+          description: Quản trị viên ẩn trang khỏi Google
+        dimensions:
+          type: object
+          properties:
+            length:
+              type: number
+            width:
+              type: number
+            height:
+              type: number
+            diameter:
+              type: number
+          description: cm; trường nào trống thì không có
+          nullable: true
+          readOnly: true
+        assembly:
+          allOf:
+          - $ref: '#/components/schemas/AssemblyEnum'
+          nullable: true
+          readOnly: true
+        pcs_per_box:
+          type: integer
+          nullable: true
+        carton:
+          type: object
+          properties:
+            length:
+              type: number
+            width:
+              type: number
+            height:
+              type: number
+            diameter:
+              type: number
+          description: cm; trường nào trống thì không có
+          nullable: true
+          readOnly: true
+        loading:
+          type: object
+          properties:
+            20GP:
+              type: integer
+            40GP:
+              type: integer
+            40HC:
+              type: integer
+          description: Số pcs mỗi container; loại nào trống thì không có
+          nullable: true
+          readOnly: true
+        description:
+          type: string
+          readOnly: true
+          description: HTML; rỗng nếu chưa có
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+          readOnly: true
+        set_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SetItem'
+        seo:
+          allOf:
+          - $ref: '#/components/schemas/PageSeo'
+          readOnly: true
+      required:
+      - assembly
+      - carton
+      - category
+      - code
+      - description
+      - dimensions
+      - features
+      - images
+      - is_fallback
+      - loading
+      - materials
+      - name
+      - noindex
+      - pcs_per_box
+      - seo
+      - set_items
+      - slug
+      - type
+    ProductList:
+      type: object
+      properties:
+        slug:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+        category:
+          type: string
+        materials:
+          type: array
+          items:
+            type: string
+          readOnly: true
+        features:
+          type: array
+          items:
+            type: string
+          readOnly: true
+        is_fallback:
+          type: boolean
+          description: 'True: chưa có bản dịch ở ngôn ngữ được hỏi, đây là bản gốc.'
+        noindex:
+          type: boolean
+          description: Quản trị viên ẩn trang khỏi Google
+        image:
+          allOf:
+          - $ref: '#/components/schemas/Image'
+          nullable: true
+          readOnly: true
+      required:
+      - category
+      - code
+      - features
+      - image
+      - is_fallback
+      - materials
+      - name
+      - noindex
+      - slug
+      - type
+    ProductType:
+      type: object
+      properties:
+        slug:
+          type: string
+        name:
+          type: string
+          readOnly: true
+        is_set:
+          type: boolean
+      required:
+      - is_set
+      - name
+      - slug
+    PurposeEnum:
+      enum:
+      - quote
+      - oem
+      - visit
+      - other
+      type: string
+      description: |-
+        * `quote` - Báo giá
+        * `oem` - OEM / ODM
+        * `visit` - Thăm nhà máy
+        * `other` - Khác
+    SectionEnum:
+      enum:
+      - products
+      - materials
+      type: string
+      description: |-
+        * `products` - products
+        * `materials` - materials
+    SectionPageBlock:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/SectionValue'
+        type:
+          $ref: '#/components/schemas/SectionPageBlockTypeEnum'
+        id:
+          type: string
+      required:
+      - id
+      - type
+      - value
+    SectionPageBlockTypeEnum:
+      enum:
+      - section
+      type: string
+      description: '* `section` - section'
+    SectionValue:
+      type: object
+      properties:
+        section:
+          $ref: '#/components/schemas/SectionEnum'
+      required:
+      - section
+    Seo:
+      type: object
+      properties:
+        title:
+          type: string
+          readOnly: true
+        description:
+          type: string
+          readOnly: true
+      required:
+      - description
+      - title
+    SetItem:
+      type: object
+      properties:
+        dimensions:
+          type: object
+          properties:
+            length:
+              type: number
+            width:
+              type: number
+            height:
+              type: number
+            diameter:
+              type: number
+          description: cm; trường nào trống thì không có
+          nullable: true
+          readOnly: true
+        assembly:
+          allOf:
+          - $ref: '#/components/schemas/AssemblyEnum'
+          nullable: true
+          readOnly: true
+        pcs_per_box:
+          type: integer
+          nullable: true
+        carton:
+          type: object
+          properties:
+            length:
+              type: number
+            width:
+              type: number
+            height:
+              type: number
+            diameter:
+              type: number
+          description: cm; trường nào trống thì không có
+          nullable: true
+          readOnly: true
+        loading:
+          type: object
+          properties:
+            20GP:
+              type: integer
+            40GP:
+              type: integer
+            40HC:
+              type: integer
+          description: Số pcs mỗi container; loại nào trống thì không có
+          nullable: true
+          readOnly: true
+        materials:
+          type: array
+          items:
+            type: string
+          readOnly: true
+        features:
+          type: array
+          items:
+            type: string
+          readOnly: true
+        type:
+          type: string
+        qty:
+          type: integer
+        image:
+          allOf:
+          - $ref: '#/components/schemas/Image'
+          nullable: true
+          readOnly: true
+      required:
+      - assembly
+      - carton
+      - dimensions
+      - features
+      - image
+      - loading
+      - materials
+      - pcs_per_box
+      - qty
+      - type
+    SideEnum:
+      enum:
+      - C
+      - L
+      - R
+      type: string
+      description: |-
+        * `C` - C
+        * `L` - L
+        * `R` - R
+    Site:
+      type: object
+      properties:
+        company:
+          $ref: '#/components/schemas/Company'
+        contact:
+          $ref: '#/components/schemas/Contact'
+        social:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocialLink'
+        branding:
+          $ref: '#/components/schemas/Branding'
+        nav:
+          type: array
+          items:
+            $ref: '#/components/schemas/NavItem'
+          description: Mục menu chính đang hiện, theo thứ tự
+        footer:
+          $ref: '#/components/schemas/Footer'
+        seo:
+          $ref: '#/components/schemas/Seo'
+      required:
+      - branding
+      - company
+      - contact
+      - footer
+      - nav
+      - seo
+      - social
+    SocialLink:
+      type: object
+      properties:
+        network:
+          $ref: '#/components/schemas/NetworkEnum'
+        url:
+          type: string
+      required:
+      - network
+      - url
+    TargetEnum:
+      enum:
+      - capabilities
+      - materials
+      - products
+      - about
+      - projects
+      - contact
+      - link
+      type: string
+      description: |-
+        * `capabilities` - Năng lực
+        * `materials` - Vật liệu (có menu con)
+        * `products` - Sản phẩm (có menu con)
+        * `about` - Về chúng tôi
+        * `projects` - Dự án
+        * `contact` - Liên hệ
+        * `link` - Link khác
+    Taxonomy:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+        materials:
+          type: array
+          items:
+            $ref: '#/components/schemas/Labelled'
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/Labelled'
+      required:
+      - categories
+      - features
+      - materials

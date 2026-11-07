@@ -1,0 +1,1602 @@
+{
+  "categories": [
+    {
+      "slug": "sunloungers-daybeds",
+      "name": "Ghế nằm & Giường tắm nắng",
+      "name_en": "Sunloungers & Daybeds",
+      "description": "Mây nhựa và gỗ teak, đan trên khung nhôm.",
+      "description_en": "Resin wicker and teak, woven on aluminum frames.",
+      "cover": "Slideshow_Wicker_5.jpg"
+    },
+    {
+      "slug": "sofas-sectionals",
+      "name": "Sofa & Sofa góc",
+      "name_en": "Sofas & Sectionals",
+      "description": "Dây đan và gỗ teak, ghế đơn hoặc module ghép.",
+      "description_en": "Rope and teak, in single seats or modular runs.",
+      "cover": "Slideshow_Rope_4.jpg"
+    },
+    {
+      "slug": "dining",
+      "name": "Bàn ghế ăn & Bar",
+      "name_en": "Dining & Bar",
+      "description": "Bàn ăn, ghế ăn và ghế bar, gỗ teak FSC hoặc khung nhôm.",
+      "description_en": "Dining tables, chairs and bar seating in FSC teak or aluminum.",
+      "cover": "Slideshow_Teak_1.png"
+    },
+    {
+      "slug": "lounge-chairs",
+      "name": "Ghế thư giãn",
+      "name_en": "Lounge Chairs",
+      "description": "Khung cố định, xoay và bập bênh, đan thủ công.",
+      "description_en": "Fixed, swivel and rocking frames, hand-woven.",
+      "cover": "Slideshow_Wicker_4.jpg"
+    },
+    {
+      "slug": "tables",
+      "name": "Bàn cà phê & Bàn phụ",
+      "name_en": "Coffee & Side Tables",
+      "description": "Khung nhôm với mặt đá sintered hoặc gỗ teak.",
+      "description_en": "Aluminum frames with sintered stone or teak tops.",
+      "cover": "Slideshow_Alu_4.jpg"
+    },
+    {
+      "slug": "accessories",
+      "name": "Phụ kiện ngoài trời",
+      "name_en": "Outdoor Accessories",
+      "description": "Dù, lò sưởi, tủ, kệ và áo phủ.",
+      "description_en": "Umbrellas, fire pits, storage, shelving and covers.",
+      "cover": "Slideshow_1_9.jpg"
+    }
+  ],
+  "types": [
+    {
+      "slug": "sunloungers",
+      "category": "sunloungers-daybeds",
+      "is_set": false,
+      "name": "Ghế tắm nắng",
+      "name_en": "Sunloungers"
+    },
+    {
+      "slug": "daybeds",
+      "category": "sunloungers-daybeds",
+      "is_set": false,
+      "name": "Giường ngoài trời",
+      "name_en": "Daybeds"
+    },
+    {
+      "slug": "sofas",
+      "category": "sofas-sectionals",
+      "is_set": false,
+      "name": "Sofa",
+      "name_en": "Sofas"
+    },
+    {
+      "slug": "loveseats",
+      "category": "sofas-sectionals",
+      "is_set": false,
+      "name": "Sofa đôi",
+      "name_en": "Loveseats"
+    },
+    {
+      "slug": "sectional-modules",
+      "category": "sofas-sectionals",
+      "is_set": false,
+      "name": "Module sofa góc",
+      "name_en": "Sectional Modules"
+    },
+    {
+      "slug": "ottomans",
+      "category": "sofas-sectionals",
+      "is_set": false,
+      "name": "Đôn",
+      "name_en": "Ottomans"
+    },
+    {
+      "slug": "lounge-sets",
+      "category": "sofas-sectionals",
+      "is_set": true,
+      "name": "Bộ sofa",
+      "name_en": "Lounge Sets"
+    },
+    {
+      "slug": "dining-tables",
+      "category": "dining",
+      "is_set": false,
+      "name": "Bàn ăn",
+      "name_en": "Dining Tables"
+    },
+    {
+      "slug": "dining-chairs",
+      "category": "dining",
+      "is_set": false,
+      "name": "Ghế ăn",
+      "name_en": "Dining Chairs"
+    },
+    {
+      "slug": "dining-sets",
+      "category": "dining",
+      "is_set": true,
+      "name": "Bộ bàn ăn",
+      "name_en": "Dining Sets"
+    },
+    {
+      "slug": "bar-tables",
+      "category": "dining",
+      "is_set": false,
+      "name": "Bàn bar",
+      "name_en": "Bar Tables"
+    },
+    {
+      "slug": "bar-stools",
+      "category": "dining",
+      "is_set": false,
+      "name": "Ghế bar",
+      "name_en": "Bar Stools"
+    },
+    {
+      "slug": "lounge-chairs",
+      "category": "lounge-chairs",
+      "is_set": false,
+      "name": "Ghế thư giãn",
+      "name_en": "Lounge Chairs"
+    },
+    {
+      "slug": "benches",
+      "category": "lounge-chairs",
+      "is_set": false,
+      "name": "Băng ghế",
+      "name_en": "Benches"
+    },
+    {
+      "slug": "coffee-tables",
+      "category": "tables",
+      "is_set": false,
+      "name": "Bàn cà phê",
+      "name_en": "Coffee Tables"
+    },
+    {
+      "slug": "side-tables",
+      "category": "tables",
+      "is_set": false,
+      "name": "Bàn phụ",
+      "name_en": "Side Tables"
+    },
+    {
+      "slug": "umbrellas",
+      "category": "accessories",
+      "is_set": false,
+      "name": "Dù",
+      "name_en": "Umbrellas"
+    },
+    {
+      "slug": "fire-pits",
+      "category": "accessories",
+      "is_set": false,
+      "name": "Lò sưởi",
+      "name_en": "Fire Pits"
+    },
+    {
+      "slug": "storage",
+      "category": "accessories",
+      "is_set": false,
+      "name": "Tủ",
+      "name_en": "Storage"
+    },
+    {
+      "slug": "carts",
+      "category": "accessories",
+      "is_set": false,
+      "name": "Xe đẩy",
+      "name_en": "Carts"
+    },
+    {
+      "slug": "shelving",
+      "category": "accessories",
+      "is_set": false,
+      "name": "Kệ",
+      "name_en": "Shelving"
+    },
+    {
+      "slug": "covers",
+      "category": "accessories",
+      "is_set": false,
+      "name": "Áo phủ",
+      "name_en": "Covers"
+    }
+  ],
+  "materials": [
+    {
+      "slug": "wood",
+      "name": "Gỗ",
+      "name_en": "Wood",
+      "heading": "Gỗ teak",
+      "heading_en": "Teak",
+      "lede": "Gỗ teak rừng trồng đạt chứng nhận FSC, nhập từ Costa Rica và Brazil. Dầu tự nhiên trong gỗ giúp teak chịu được nắng, mưa và độ ẩm ngoài trời, nên đây là vật liệu chủ lực của BFC.",
+      "lede_en": "Plantation teak with FSC certification, sourced from Costa Rica and Brazil. Its natural oils let teak stand up to sun, rain and humidity outdoors, which is why it is BFC's core material.",
+      "properties": "Teak chứa nhiều dầu và nhựa tự nhiên, giúp gỗ hạn chế hút nước, ít cong vênh và chống mối mọt mà không cần xử lý hóa chất nặng.\n\nĐể ngoài trời, bề mặt teak chuyển dần từ màu nâu mật sang xám bạc. Đây là lớp patina tự nhiên, không ảnh hưởng đến độ bền của gỗ. Đặt trong nhà hoặc dưới mái che, gỗ giữ màu nâu lâu hơn.",
+      "properties_en": "Teak is rich in natural oils and resins, so it absorbs little water, resists warping and keeps insects away without heavy chemical treatment.\n\nLeft outdoors, the surface gradually turns from honey brown to silver grey. This natural patina does not affect the strength of the wood. Indoors or under cover, teak keeps its brown tone for longer.",
+      "craft": "Phôi gỗ được tuyển chọn và ghép vân, sấy đến độ ẩm 8-12% rồi tạo hình trên CNC 5 trục. Mộng được cắt và lắp chính xác trước khi chà nhám từ thô đến mịn.\n\nToàn bộ khâu gia công gỗ nằm trong nhà máy, cùng với đan, may nệm và đóng gói, nên khung gỗ không phải rời xưởng trước khi thành sản phẩm hoàn chỉnh.",
+      "craft_en": "Blanks are selected and grain matched, dried to 8-12% moisture and shaped on 5-axis CNC. Joints are cut and fitted precisely before sanding from coarse to fine.\n\nAll woodworking happens inside the factory, alongside weaving, upholstery and packing, so a teak frame never leaves the site before it becomes a finished piece.",
+      "care": "Teak là gỗ nhiều dầu nên không sơn hay phủ vecni. Lớp phủ sẽ bong tróc theo thời gian khi dầu tự nhiên đẩy ra bề mặt.\n\nVệ sinh định kỳ bằng nước ấm pha xà phòng nhẹ và bàn chải mềm, chải theo chiều vân gỗ rồi để khô tự nhiên. Không dùng máy xịt áp lực cao.\n\nNếu muốn giữ màu nâu mật của gỗ mới, có thể dùng dầu hoặc chất bảo vệ chuyên dụng cho teak theo hướng dẫn của nhà sản xuất.\n\nKhi cất giữ qua mùa mưa hoặc mùa đông, đặt sản phẩm ở nơi khô ráo, thông thoáng. Tránh trùm kín bằng vật liệu không thoáng khí vì dễ đọng ẩm.",
+      "care_en": "Teak is an oily wood, so it should not be painted or varnished. Any coating will flake over time as the natural oils rise to the surface.\n\nClean regularly with warm water, mild soap and a soft brush, working along the grain, then let it dry naturally. Do not use a pressure washer.\n\nTo keep the honey tone of new teak, use a dedicated teak oil or protector following the maker's instructions.\n\nWhen storing through the rainy season or winter, keep furniture somewhere dry and ventilated. Avoid airtight covers, which trap moisture.",
+      "image": "Slideshow_Teak_6.png",
+      "detail_image": "Slideshow_Teak_1.png",
+      "use_image": "Slideshow_1_10.jpg",
+      "craft_image": "Slideshow_Teak_5.JPG"
+    },
+    {
+      "slug": "aluminum",
+      "name": "Nhôm",
+      "name_en": "Aluminum",
+      "heading": "Nhôm",
+      "heading_en": "Aluminium",
+      "lede": "Nhôm định hình ép đùn, gia công và sơn tĩnh điện ngay tại nhà máy. Nhẹ, không gỉ và giữ được những đường nét mảnh mà gỗ khó làm được.",
+      "lede_en": "Extruded aluminium, fabricated and powder coated in our own factory. Light, rustproof and able to hold the slim lines that wood cannot.",
+      "properties": "Nhôm nhẹ nên sản phẩm dễ di chuyển, xếp chồng và vận chuyển. Nhôm không gỉ sét như kim loại chứa sắt, phù hợp với khí hậu nóng ẩm và khu vực gần biển.\n\nLớp sơn tĩnh điện tạo bề mặt đều màu, chống trầy xước và dễ vệ sinh. Khung nhôm cũng là nền cho dây đan và mây nhựa.",
+      "properties_en": "Aluminium is light, so pieces are easy to move, stack and ship. It does not rust like iron based metals, which suits hot, humid climates and coastal sites.\n\nPowder coating gives an even colour that resists scratches and is easy to clean. Aluminium frames are also the base for our rope and wicker.",
+      "craft": "Ống nhôm được cắt laser theo bản vẽ, uốn theo bán kính, hàn robot ở các mối chính và hàn tay ở các mối khuất, sau đó mài phẳng mối hàn.\n\nTrước khi sơn, mọi khung đi qua dây chuyền tiền xử lý 6 bước: tẩy dầu kiềm, rửa nước hai lần, phủ lớp nano-zincofin, rửa lần cuối và sấy khô. Sau đó khung được phun sơn bột tĩnh điện và sấy lò.",
+      "craft_en": "Tubes are laser cut to drawing, bent to radius, robot welded at main joints and hand welded at hidden ones, then the welds are ground flush.\n\nBefore coating, every frame passes a 6-stage pretreatment line: alkaline degreasing, two water rinses, a nano-zincofin layer, a final rinse and drying. The frame is then powder coated and oven cured.",
+      "care": "Lau bề mặt bằng khăn mềm với nước và xà phòng trung tính, rửa lại bằng nước sạch rồi lau khô.\n\nKhông dùng chất tẩy mạnh, dung môi hoặc miếng chà nhám vì có thể làm mờ hoặc trầy lớp sơn.\n\nỞ khu vực gần biển, nên rửa sạch muối bám trên bề mặt thường xuyên hơn để lớp sơn giữ được độ bền.\n\nNếu lớp sơn bị trầy sâu, xử lý sớm bằng sơn dặm cùng màu để hạn chế ảnh hưởng đến bề mặt xung quanh.",
+      "care_en": "Wipe with a soft cloth, water and a neutral soap, rinse with clean water and dry.\n\nAvoid strong detergents, solvents and abrasive pads, which can dull or scratch the coating.\n\nNear the sea, rinse off salt deposits more often to keep the coating durable.\n\nIf the coating is deeply scratched, touch it up early with matching paint to protect the surrounding surface.",
+      "image": "Slideshow_Alu_1.png",
+      "detail_image": "Slideshow_Teak_3.jpg",
+      "use_image": "Slideshow_1_4_2.jpg",
+      "craft_image": "Slideshow_Alu_2.png"
+    },
+    {
+      "slug": "rope",
+      "name": "Dây đan",
+      "name_en": "Rope",
+      "heading": "Dây đan",
+      "heading_en": "Rope",
+      "lede": "Sợi polypropylene chuyên dụng ngoài trời, được thợ của chúng tôi đan tay trên khung gỗ teak hoặc nhôm sơn tĩnh điện.",
+      "lede_en": "Outdoor grade polypropylene rope, hand woven by our weavers onto teak or powder coated aluminium frames.",
+      "properties": "Sợi dây chống tia UV, nấm mốc và thời tiết, giữ được độ mềm và màu sắc khi dùng ngoài trời.\n\nMặt dây đan có độ đàn hồi nhẹ, mềm tay và thoáng khí, đồng thời giúp sản phẩm trông nhẹ nhàng hơn so với khung đặc.",
+      "properties_en": "The rope resists UV, mould and weather, staying soft and holding its colour outdoors.\n\nA woven rope surface has a gentle give, feels soft and breathes, and makes a piece look lighter than a solid frame.",
+      "craft": "Khung được cố định lên giá, thợ đan căng từng sợi theo mẫu chuẩn và cân chỉnh độ căng bằng tay. Đầu sợi được khóa và giấu kín để bề mặt gọn gàng.\n\nĐan dây là công đoạn hoàn toàn thủ công, tay nghề mà máy móc không thể thay thế. Độ căng được kiểm tra trước khi sản phẩm chuyển sang may nệm hoặc đóng gói.",
+      "craft_en": "The frame is fixed on a jig, and weavers pull each strand to a standard pattern, adjusting the tension by hand. Ends are locked and hidden for a clean finish.\n\nRope weaving is entirely manual, a skill no machine can replace. Tension is checked before the piece moves on to upholstery or packing.",
+      "care": "Phủi bụi và lá khô thường xuyên. Khi cần, vệ sinh bằng nước ấm pha xà phòng nhẹ và bàn chải mềm, rồi rửa lại bằng nước sạch.\n\nĐể dây khô hoàn toàn trước khi đặt nệm hoặc trùm bạt để tránh nấm mốc.\n\nKhông dùng chất tẩy mạnh hoặc máy xịt áp lực cao vì có thể làm xơ sợi.\n\nCất ở nơi khô ráo, thoáng khí khi không dùng trong thời gian dài.",
+      "care_en": "Brush off dust and leaves regularly. When needed, clean with warm water, mild soap and a soft brush, then rinse with clean water.\n\nLet the rope dry fully before adding cushions or a cover, to prevent mould.\n\nAvoid strong detergents and pressure washers, which can fray the fibres.\n\nStore somewhere dry and ventilated when not in use for long periods.",
+      "image": "Slideshow_Rope_3.jpg",
+      "detail_image": "Slideshow_Rope_4.jpg",
+      "use_image": "Slideshow_Rope_1.png",
+      "craft_image": "Slideshow_Rope_2.jpg"
+    },
+    {
+      "slug": "wicker",
+      "name": "Mây nhựa",
+      "name_en": "Resin Wicker",
+      "heading": "Mây nhựa",
+      "heading_en": "Resin wicker",
+      "lede": "Sợi polyethylene ép đùn, sấy lò để giữ màu bền lâu, đan trên khung nhôm đã tiền xử lý và sơn tĩnh điện.",
+      "lede_en": "Extruded polyethylene fibre, kiln dried to hold its colour, woven onto pretreated, powder coated aluminium frames.",
+      "properties": "Mây nhựa giữ được vẻ ấm áp của mây tự nhiên nhưng không mục, nứt hay hút nước khi để ngoài trời.\n\nSản phẩm đan có bảo hành tiêu chuẩn 2 năm, có thể mở rộng trên 5 năm theo yêu cầu của khách hàng.",
+      "properties_en": "Resin wicker keeps the warmth of natural rattan without rotting, cracking or absorbing water outdoors.\n\nWoven pieces carry a standard 2-year warranty, extendable beyond 5 years on request.",
+      "craft": "Khung nhôm được sơn tĩnh điện trước nên bề mặt đủ cứng để căng sợi mà không trầy. Thợ đan căng sợi theo mẫu, cân chỉnh độ căng và khóa đầu sợi bằng tay.\n\nTừ kiểu đan dày kín đến đan thưa lộ khung, mẫu đan có thể phát triển theo bản vẽ của từng khách hàng.",
+      "craft_en": "Frames are powder coated first, so the surface is hard enough to take tension without scratching. Weavers pull the fibre to pattern, adjust tension and lock the ends by hand.\n\nFrom dense, closed weaves to open patterns that show the frame, weaves can be developed to each customer's drawings.",
+      "care": "Phủi bụi thường xuyên. Khi cần, vệ sinh bằng nước ấm pha xà phòng nhẹ và bàn chải mềm, rồi rửa lại bằng nước sạch.\n\nĐể mặt đan khô hoàn toàn trước khi đặt nệm hoặc trùm bạt.\n\nKhông dùng chất tẩy mạnh, dung môi hoặc vật sắc nhọn trên mặt đan.\n\nCất ở nơi khô ráo, thoáng khí khi không dùng trong thời gian dài.",
+      "care_en": "Dust regularly. When needed, clean with warm water, mild soap and a soft brush, then rinse with clean water.\n\nLet the weave dry fully before adding cushions or a cover.\n\nAvoid strong detergents, solvents and sharp objects on the weave.\n\nStore somewhere dry and ventilated when not in use for long periods.",
+      "image": "Slideshow_Wicker_3.png",
+      "detail_image": "Slideshow_Wicker_1.png",
+      "use_image": "Slideshow_Wicker_5.jpg",
+      "craft_image": "Slideshow_Wicker_2.png"
+    },
+    {
+      "slug": "steel",
+      "name": "Sắt thép",
+      "name_en": "Steel",
+      "heading": "Sắt thép",
+      "heading_en": "Steel",
+      "lede": "Thép dùng cho những chi tiết cần độ cứng và chịu lực cao, như chân đế, khung bàn và các cấu kiện liên kết.",
+      "lede_en": "Steel is used where parts need high stiffness and load capacity, such as bases, table frames and connecting members.",
+      "properties": "Thép có độ cứng cao, cho phép làm chân đế và khung có tiết diện nhỏ mà vẫn vững chắc, phù hợp với bàn có mặt đá, gốm hoặc kính.\n\nKhi dùng ngoài trời, thép cần lớp bảo vệ bề mặt phù hợp. Lớp hoàn thiện quyết định độ bền của sản phẩm trước độ ẩm và thời tiết.",
+      "properties_en": "Steel's stiffness allows slim bases and frames that stay stable, well suited to tables with stone, ceramic or glass tops.\n\nOutdoors, steel needs the right surface protection. The finish determines how well a piece stands up to moisture and weather.",
+      "craft": "Chi tiết thép được cắt, hàn và mài mối hàn theo bản vẽ, sau đó xử lý bề mặt và phủ hoàn thiện trước khi lắp ráp.\n\nThông số vật liệu và quy trình hoàn thiện cho từng dự án được thống nhất với khách hàng từ giai đoạn báo giá và làm mẫu.",
+      "craft_en": "Steel parts are cut, welded and ground to drawing, then surface treated and finished before assembly.\n\nMaterial specifications and finishing processes are agreed with each customer at the quotation and sampling stage.",
+      "care": "Lau bằng khăn mềm với nước và xà phòng trung tính, sau đó lau khô hoàn toàn.\n\nKiểm tra định kỳ các vị trí dễ đọng nước như chân đế và mối nối. Nếu lớp phủ bị trầy, xử lý sớm để tránh gỉ lan rộng.\n\nỞ khu vực gần biển, nên rửa sạch muối bám trên bề mặt thường xuyên hơn.\n\nKhông dùng chất tẩy có tính axit hoặc miếng chà nhám.",
+      "care_en": "Wipe with a soft cloth, water and a neutral soap, then dry completely.\n\nCheck spots where water can collect, such as bases and joints. If the finish is scratched, treat it early to stop rust spreading.\n\nNear the sea, rinse off salt deposits more often.\n\nAvoid acidic cleaners and abrasive pads.",
+      "image": "Material_Steel.jpg",
+      "detail_image": "Material_Steel_Detail.jpg",
+      "use_image": "Material_Steel_Use.jpg",
+      "craft_image": "Slideshow_1_6.jpg"
+    },
+    {
+      "slug": "fabric",
+      "name": "Vải",
+      "name_en": "Fabric",
+      "heading": "Vải",
+      "heading_en": "Fabric",
+      "lede": "Vải ngoài trời cho nệm ngồi, nệm tựa và gối, được cắt và may tại xưởng may nệm của nhà máy.",
+      "lede_en": "Outdoor fabric for seat cushions, back cushions and pillows, cut and sewn in the factory's upholstery workshop.",
+      "properties": "Vải ngoài trời được dệt để chịu nắng, nhanh khô và hạn chế nấm mốc, giữ màu tốt hơn vải nội thất thông thường.\n\nMàu và chất liệu vải có thể chọn theo bộ sưu tập hoặc theo yêu cầu riêng của khách hàng.",
+      "properties_en": "Outdoor fabrics are made to withstand sun, dry quickly and resist mould, holding colour better than standard indoor fabrics.\n\nColours and fabric types can follow a collection or a customer's own specification.",
+      "craft": "Vải và mút được cắt theo rập, may thành vỏ nệm, nhồi và tạo dáng trước khi đóng đường may.\n\nXưởng may nệm nằm cạnh các xưởng gỗ và đan, nên nệm được thử khớp với khung ngay trong nhà máy.",
+      "craft_en": "Fabric and foam are cut to pattern, sewn into covers, filled and shaped before the final seams are closed.\n\nThe upholstery workshop sits next to the woodworking and weaving shops, so cushions are fitted to their frames inside the factory.",
+      "care": "Phủi bụi và xử lý vết bẩn sớm bằng nước ấm pha xà phòng nhẹ, thấm nhẹ thay vì chà mạnh.\n\nDựng nghiêng nệm sau mưa để nước thoát nhanh, và để nệm khô hoàn toàn trước khi cất.\n\nKhi không dùng, cất nệm ở nơi khô ráo hoặc trong túi chứa thoáng khí.\n\nXem nhãn hướng dẫn của từng loại vải trước khi giặt vỏ nệm.",
+      "care_en": "Brush off dust and treat stains early with warm water and mild soap, blotting rather than scrubbing.\n\nStand cushions on their edge after rain so water drains quickly, and let them dry fully before storing.\n\nWhen not in use, store cushions somewhere dry or in a breathable storage bag.\n\nCheck each fabric's care label before washing covers.",
+      "image": "Material_Fabric.jpg",
+      "detail_image": "Material_Fabric_Detail.jpg",
+      "use_image": "Slideshow_1_4_2.jpg",
+      "craft_image": "Material_Fabric_Craft.jpg"
+    },
+    {
+      "slug": "glass",
+      "name": "Kính",
+      "name_en": "Glass",
+      "heading": "Kính",
+      "heading_en": "Glass",
+      "lede": "Kính dùng cho mặt bàn ăn, bàn cà phê và bàn phụ, kết hợp với khung nhôm, thép hoặc gỗ teak.",
+      "lede_en": "Glass for dining, coffee and side table tops, paired with aluminium, steel or teak frames.",
+      "properties": "Mặt kính phẳng, không hút nước và dễ vệ sinh, giúp không gian ngoài trời trông thoáng và nhẹ hơn.\n\nKính cho phép nhìn xuyên xuống chân bàn, nên thường được chọn khi muốn khoe kết cấu khung bên dưới.",
+      "properties_en": "A glass top is flat, non absorbent and easy to clean, making an outdoor space feel open and light.\n\nGlass lets the eye travel down to the base, so it is often chosen to show off the frame beneath.",
+      "craft": "Mặt kính được đặt theo kích thước bản vẽ, kiểm tra cạnh và bề mặt khi nhận về rồi mới lắp lên khung.\n\nĐệm và liên kết giữa kính và khung được tính toán để mặt kính nằm chắc, không tiếp xúc trực tiếp với kim loại.",
+      "craft_en": "Glass tops are ordered to drawing, and edges and surfaces are checked on arrival before fitting to the frame.\n\nPads and fixings between glass and frame are specified so the top sits firmly without touching metal directly.",
+      "care": "Lau bằng khăn mềm với nước sạch hoặc dung dịch lau kính, tránh miếng chà nhám.\n\nKhông đặt vật nóng trực tiếp lên mặt kính và tránh va đập mạnh ở cạnh kính.\n\nKiểm tra định kỳ phần đệm giữa kính và khung, thay mới nếu bị lão hóa.\n\nKhi cất giữ, đặt mặt kính ở nơi bằng phẳng và không chồng vật nặng lên trên.",
+      "care_en": "Wipe with a soft cloth and clean water or glass cleaner, avoiding abrasive pads.\n\nDo not place hot items directly on the glass, and avoid hard knocks to the edges.\n\nCheck the pads between glass and frame regularly and replace them if they age.\n\nWhen storing, lay the top on a flat surface with nothing heavy stacked on it.",
+      "image": "Material_Glass.jpg",
+      "detail_image": "Material_Glass_Detail.jpg",
+      "use_image": "Material_Glass_Use.jpg",
+      "craft_image": "Material_Glass_Craft.jpg"
+    },
+    {
+      "slug": "ceramic",
+      "name": "Gốm",
+      "name_en": "Ceramic",
+      "heading": "Gốm",
+      "heading_en": "Ceramic",
+      "lede": "Mặt gốm cho bàn ăn và bàn cà phê ngoài trời, mang vẻ đẹp của đá tự nhiên nhưng dễ chăm sóc hơn.",
+      "lede_en": "Ceramic tops for outdoor dining and coffee tables, with the look of natural stone and easier care.",
+      "properties": "Gốm có bề mặt cứng, chịu nhiệt và chống trầy tốt, ít bám bẩn và không hút nước.\n\nNhiều vân và màu khác nhau, từ vân đá đến bề mặt trơn, dễ phối với khung nhôm, thép hoặc gỗ teak.",
+      "properties_en": "Ceramic has a hard surface that resists heat and scratches, stains little and does not absorb water.\n\nA wide range of patterns and colours, from stone veining to plain surfaces, pairs easily with aluminium, steel or teak frames.",
+      "craft": "Mặt gốm được kiểm tra khi nhận về, sau đó lắp lên khung bàn với lớp đệm và liên kết phù hợp.\n\nKích thước, độ dày và kiểu cạnh của mặt gốm được thống nhất theo bản vẽ của từng dự án.",
+      "craft_en": "Ceramic tops are checked on arrival, then fitted to the table frame with suitable pads and fixings.\n\nSize, thickness and edge profile are agreed to each project's drawings.",
+      "care": "Lau bằng khăn ẩm với xà phòng trung tính, sau đó lau khô.\n\nLau sớm các vết dầu mỡ, rượu vang hoặc cà phê để không để lại vệt trên bề mặt.\n\nTránh va đập mạnh ở cạnh và góc mặt gốm.\n\nKhông dùng chất tẩy có tính axit mạnh hoặc miếng chà nhám.",
+      "care_en": "Wipe with a damp cloth and neutral soap, then dry.\n\nWipe up oil, wine or coffee promptly so they leave no marks.\n\nAvoid hard knocks to edges and corners.\n\nAvoid strong acidic cleaners and abrasive pads.",
+      "image": "Material_Ceramic.jpg",
+      "detail_image": "Material_Ceramic_Detail.jpg",
+      "use_image": "Slideshow_1_9.jpg",
+      "craft_image": "Slideshow_Alu_4.jpg"
+    }
+  ],
+  "features": [
+    {
+      "slug": "swivel",
+      "name": "Xoay",
+      "name_en": "Swivel"
+    },
+    {
+      "slug": "rocking",
+      "name": "Bập bênh",
+      "name_en": "Rocking"
+    },
+    {
+      "slug": "stackable",
+      "name": "Xếp chồng",
+      "name_en": "Stackable"
+    },
+    {
+      "slug": "modular",
+      "name": "Ghép module",
+      "name_en": "Modular"
+    },
+    {
+      "slug": "adjustable",
+      "name": "Chỉnh tựa lưng",
+      "name_en": "Adjustable Back"
+    }
+  ],
+  "material_menu": [
+    {
+      "material": "wood",
+      "name": "",
+      "name_en": "",
+      "items": [
+        {
+          "material": "wood",
+          "name": "Gỗ teak",
+          "name_en": "Teak"
+        },
+        {
+          "material": "wood",
+          "name": "Gỗ keo (acacia)",
+          "name_en": "Acacia"
+        },
+        {
+          "material": "wood",
+          "name": "Gỗ bạch đàn",
+          "name_en": "Eucalyptus"
+        }
+      ]
+    },
+    {
+      "material": null,
+      "name": "Kim loại",
+      "name_en": "Metal",
+      "items": [
+        {
+          "material": "aluminum",
+          "name": "",
+          "name_en": ""
+        },
+        {
+          "material": "steel",
+          "name": "",
+          "name_en": ""
+        },
+        {
+          "material": "steel",
+          "name": "Thép không gỉ",
+          "name_en": "Stainless steel"
+        }
+      ]
+    },
+    {
+      "material": "rope",
+      "name": "",
+      "name_en": "",
+      "items": []
+    },
+    {
+      "material": "wicker",
+      "name": "",
+      "name_en": "",
+      "items": []
+    },
+    {
+      "material": "fabric",
+      "name": "",
+      "name_en": "",
+      "items": []
+    },
+    {
+      "material": "glass",
+      "name": "",
+      "name_en": "",
+      "items": []
+    },
+    {
+      "material": "ceramic",
+      "name": "",
+      "name_en": "",
+      "items": []
+    }
+  ],
+  "products": [
+    {
+      "slug": "colette-teak-wicker-chaise-lounger-sunlounger",
+      "name": "Colette Teak & Wicker Chaise Lounger",
+      "code": "2BFC2636",
+      "type": "sunloungers",
+      "materials": [
+        "wood",
+        "aluminum",
+        "wicker"
+      ],
+      "features": [
+        "adjustable"
+      ],
+      "dimensions": {
+        "length": 216,
+        "width": 93,
+        "height": 32
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/colette-teak-wicker-chaise-lounger-sunlounger.webp"
+      ]
+    },
+    {
+      "slug": "modular-daybed-hampton-single",
+      "name": "Modular Daybed Hampton Single",
+      "code": "2BFC2113",
+      "type": "daybeds",
+      "materials": [
+        "aluminum",
+        "wicker",
+        "fabric"
+      ],
+      "features": [
+        "modular"
+      ],
+      "dimensions": {
+        "length": 99,
+        "width": 167,
+        "height": 80
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/modular-daybed-hampton-single.webp"
+      ]
+    },
+    {
+      "slug": "sunlounger-1094",
+      "name": "Sunlounger 1094",
+      "code": "2BFC1094",
+      "type": "sunloungers",
+      "materials": [
+        "wood",
+        "aluminum",
+        "wicker",
+        "fabric"
+      ],
+      "features": [
+        "adjustable"
+      ],
+      "dimensions": {
+        "length": 208,
+        "width": 79,
+        "height": 26
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/sunlounger-1094.webp"
+      ]
+    },
+    {
+      "slug": "daybed-weston-double",
+      "name": "Daybed Weston Double",
+      "code": "2BFC2000",
+      "type": "daybeds",
+      "materials": [
+        "wood",
+        "aluminum",
+        "fabric"
+      ],
+      "features": [],
+      "dimensions": {
+        "length": 216,
+        "width": 210,
+        "height": 22
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/daybed-weston-double.webp"
+      ]
+    },
+    {
+      "slug": "atlas-sunlounger",
+      "name": "Atlas Sunlounger",
+      "code": "2BFC2756",
+      "type": "sunloungers",
+      "materials": [
+        "wood",
+        "aluminum",
+        "wicker",
+        "steel",
+        "fabric"
+      ],
+      "features": [
+        "adjustable"
+      ],
+      "dimensions": {
+        "length": 77,
+        "width": 221,
+        "height": 33
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/atlas-sunlounger.webp"
+      ]
+    },
+    {
+      "slug": "carolina-wicker-teak-daybed",
+      "name": "Carolina Wicker & Teak Daybed",
+      "code": "2BFC2673",
+      "type": "daybeds",
+      "materials": [
+        "wood",
+        "aluminum",
+        "wicker"
+      ],
+      "features": [],
+      "dimensions": {
+        "length": 156,
+        "width": 157,
+        "height": 74
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/carolina-wicker-teak-daybed.webp"
+      ]
+    },
+    {
+      "slug": "sunlounger-2697",
+      "name": "Sunlounger 2697",
+      "code": "2BFC2697",
+      "type": "sunloungers",
+      "materials": [
+        "fabric"
+      ],
+      "features": [
+        "adjustable"
+      ],
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/sunlounger-2697.webp"
+      ]
+    },
+    {
+      "slug": "sofa-julian-s-loveseat",
+      "name": "Sofa Julian S",
+      "code": "2BFC1874",
+      "type": "loveseats",
+      "materials": [
+        "wood",
+        "aluminum",
+        "rope",
+        "fabric"
+      ],
+      "features": [],
+      "dimensions": {
+        "length": 194,
+        "width": 85,
+        "height": 69
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/sofa-julian-s-loveseat.webp"
+      ]
+    },
+    {
+      "slug": "modular-chair-hampton-corner-sectional-module",
+      "name": "Modular Chair Hampton Corner",
+      "code": "2BFC2220",
+      "type": "sectional-modules",
+      "materials": [
+        "aluminum",
+        "wicker",
+        "fabric"
+      ],
+      "features": [
+        "modular"
+      ],
+      "dimensions": {
+        "length": 112,
+        "width": 112,
+        "height": 80
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/modular-chair-hampton-corner-sectional-module.webp"
+      ]
+    },
+    {
+      "slug": "sofa-siderno",
+      "name": "Sofa Siderno",
+      "code": "2BFC2056",
+      "type": "sofas",
+      "materials": [
+        "aluminum",
+        "wicker",
+        "fabric"
+      ],
+      "features": [],
+      "dimensions": {
+        "length": 230,
+        "width": 126,
+        "height": 67
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/sofa-siderno.webp"
+      ]
+    },
+    {
+      "slug": "living-set-1552",
+      "name": "Living Set 1552",
+      "code": "3BFC1552",
+      "type": "lounge-sets",
+      "materials": [
+        "wood",
+        "aluminum",
+        "steel",
+        "fabric"
+      ],
+      "features": [
+        "swivel"
+      ],
+      "setItems": [
+        {
+          "type": "sofas",
+          "qty": 1,
+          "dimensions": {
+            "length": 216,
+            "width": 78,
+            "height": 68
+          },
+          "materials": [
+            "wood",
+            "aluminum",
+            "fabric"
+          ],
+          "assembly": "fa",
+          "pcsPerBox": 1
+        },
+        {
+          "type": "lounge-chairs",
+          "qty": 2,
+          "features": [
+            "swivel"
+          ],
+          "dimensions": {
+            "length": 76,
+            "width": 78,
+            "height": 68
+          },
+          "materials": [
+            "wood",
+            "aluminum",
+            "fabric"
+          ],
+          "assembly": "fa",
+          "pcsPerBox": 1
+        },
+        {
+          "type": "coffee-tables",
+          "qty": 1,
+          "dimensions": {
+            "length": 125,
+            "width": 80,
+            "height": 40
+          },
+          "materials": [
+            "wood",
+            "steel"
+          ],
+          "assembly": "kd"
+        }
+      ],
+      "images": [
+        "/products/living-set-1552.webp"
+      ]
+    },
+    {
+      "slug": "bohemian-teak-wicker-ottoman",
+      "name": "Bohemian Teak & Wicker Ottoman",
+      "code": "2BFC1378",
+      "type": "ottomans",
+      "materials": [
+        "wood",
+        "aluminum",
+        "wicker"
+      ],
+      "features": [],
+      "dimensions": {
+        "length": 60,
+        "width": 51,
+        "height": 40
+      },
+      "assembly": "kd",
+      "pcsPerBox": 2,
+      "images": [
+        "/products/bohemian-teak-wicker-ottoman.webp"
+      ]
+    },
+    {
+      "slug": "sofa-trinity-loveseat",
+      "name": "Sofa Trinity",
+      "code": "2BFC1908",
+      "type": "loveseats",
+      "materials": [
+        "wood",
+        "aluminum",
+        "wicker",
+        "fabric"
+      ],
+      "features": [],
+      "dimensions": {
+        "length": 180,
+        "width": 90,
+        "height": 77
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/sofa-trinity-loveseat.webp"
+      ]
+    },
+    {
+      "slug": "sectional-module-2782",
+      "name": "Sectional Module 2782",
+      "code": "2BFC2782",
+      "type": "sectional-modules",
+      "materials": [
+        "wood",
+        "aluminum"
+      ],
+      "features": [
+        "modular"
+      ],
+      "dimensions": {
+        "length": 79,
+        "width": 87,
+        "height": 68
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/sectional-module-2782.webp"
+      ]
+    },
+    {
+      "slug": "sofa-2049",
+      "name": "Sofa 2049",
+      "code": "2BFC2049",
+      "type": "sofas",
+      "materials": [
+        "aluminum",
+        "rope",
+        "wicker",
+        "fabric"
+      ],
+      "features": [],
+      "dimensions": {
+        "length": 220,
+        "width": 82,
+        "height": 77
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/sofa-2049.webp"
+      ]
+    },
+    {
+      "slug": "lounge-set-1543",
+      "name": "Lounge Set 1543",
+      "code": "3BFC1543",
+      "type": "lounge-sets",
+      "materials": [],
+      "features": [],
+      "images": [
+        "/products/lounge-set-1543.webp"
+      ]
+    },
+    {
+      "slug": "teak-ottoman",
+      "name": "Teak Ottoman",
+      "code": "2BFC1566",
+      "type": "ottomans",
+      "materials": [
+        "wood",
+        "aluminum",
+        "fabric"
+      ],
+      "features": [],
+      "dimensions": {
+        "length": 140,
+        "width": 70,
+        "height": 23
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/teak-ottoman.webp"
+      ]
+    },
+    {
+      "slug": "trellis-rectangular-dining-table",
+      "name": "Trellis Rectangular Dining Table",
+      "code": "1BFC1922",
+      "type": "dining-tables",
+      "materials": [
+        "aluminum",
+        "rope",
+        "ceramic"
+      ],
+      "features": [],
+      "dimensions": {
+        "length": 256,
+        "width": 97,
+        "height": 77
+      },
+      "assembly": "kd",
+      "images": [
+        "/products/trellis-rectangular-dining-table.webp"
+      ]
+    },
+    {
+      "slug": "dining-chair-san-remo",
+      "name": "Dining Chair San Remo",
+      "code": "2BFC2115",
+      "type": "dining-chairs",
+      "materials": [
+        "aluminum",
+        "wicker",
+        "fabric"
+      ],
+      "features": [],
+      "dimensions": {
+        "length": 59,
+        "width": 61,
+        "height": 73
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/dining-chair-san-remo.webp"
+      ]
+    },
+    {
+      "slug": "atlas-counter-stool",
+      "name": "Atlas Counter Stool",
+      "code": "2BFC2755",
+      "type": "bar-stools",
+      "materials": [
+        "wood",
+        "aluminum",
+        "wicker"
+      ],
+      "features": [],
+      "dimensions": {
+        "length": 51,
+        "width": 61,
+        "height": 102
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/atlas-counter-stool.webp"
+      ]
+    },
+    {
+      "slug": "dining-set-1551",
+      "name": "Dining Set 1551",
+      "code": "3BFC1551",
+      "type": "dining-sets",
+      "materials": [
+        "wood",
+        "aluminum",
+        "steel",
+        "fabric"
+      ],
+      "features": [],
+      "setItems": [
+        {
+          "type": "dining-chairs",
+          "qty": 8,
+          "dimensions": {
+            "length": 63,
+            "width": 60,
+            "height": 71
+          },
+          "materials": [
+            "wood",
+            "aluminum",
+            "fabric"
+          ],
+          "assembly": "fa",
+          "pcsPerBox": 2
+        },
+        {
+          "type": "dining-tables",
+          "qty": 1,
+          "dimensions": {
+            "length": 240,
+            "width": 100,
+            "height": 76
+          },
+          "materials": [
+            "wood",
+            "steel"
+          ],
+          "assembly": "kd",
+          "pcsPerBox": 1
+        }
+      ],
+      "images": [
+        "/products/dining-set-1551.webp"
+      ]
+    },
+    {
+      "slug": "bar-table-1705",
+      "name": "Bar Table 1705",
+      "code": "1BFC1705",
+      "type": "bar-tables",
+      "materials": [
+        "steel"
+      ],
+      "features": [],
+      "dimensions": {
+        "height": 72,
+        "diameter": 81
+      },
+      "assembly": "kd",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/bar-table-1705.webp"
+      ]
+    },
+    {
+      "slug": "trellis-round-dining-table",
+      "name": "Trellis Round Dining Table",
+      "code": "1BFC1762",
+      "type": "dining-tables",
+      "materials": [
+        "aluminum",
+        "rope",
+        "steel",
+        "ceramic"
+      ],
+      "features": [],
+      "dimensions": {
+        "height": 76,
+        "diameter": 137
+      },
+      "assembly": "kd",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/trellis-round-dining-table.webp"
+      ]
+    },
+    {
+      "slug": "dining-chair-pivetti",
+      "name": "Dining Chair Pivetti",
+      "code": "2BFC2116",
+      "type": "dining-chairs",
+      "materials": [
+        "wood",
+        "aluminum",
+        "rope"
+      ],
+      "features": [],
+      "dimensions": {
+        "length": 57,
+        "width": 57,
+        "height": 84
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/dining-chair-pivetti.webp"
+      ]
+    },
+    {
+      "slug": "mallorca-counter-arm-stool",
+      "name": "Mallorca Counter Arm Stool",
+      "code": "2BFC2787",
+      "type": "bar-stools",
+      "materials": [
+        "wood",
+        "aluminum",
+        "wicker"
+      ],
+      "features": [],
+      "dimensions": {
+        "length": 62,
+        "width": 66,
+        "height": 102
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/mallorca-counter-arm-stool.webp"
+      ]
+    },
+    {
+      "slug": "bar-table-1709",
+      "name": "Bar Table 1709",
+      "code": "1BFC1709",
+      "type": "bar-tables",
+      "materials": [
+        "steel"
+      ],
+      "features": [],
+      "dimensions": {
+        "height": 107,
+        "diameter": 81
+      },
+      "assembly": "kd",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/bar-table-1709.webp"
+      ]
+    },
+    {
+      "slug": "hydro-dipped-round-dining-table",
+      "name": "Hydro-Dipped Round Dining Table",
+      "code": "1BFC1483",
+      "type": "dining-tables",
+      "materials": [],
+      "features": [],
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/hydro-dipped-round-dining-table.webp"
+      ]
+    },
+    {
+      "slug": "dining-chair-nolan",
+      "name": "Dining Chair Nolan",
+      "code": "2BFC1876",
+      "type": "dining-chairs",
+      "materials": [
+        "aluminum",
+        "wicker",
+        "fabric"
+      ],
+      "features": [],
+      "dimensions": {
+        "length": 60,
+        "width": 62,
+        "height": 74
+      },
+      "assembly": "kd",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/dining-chair-nolan.webp"
+      ]
+    },
+    {
+      "slug": "bar-stool-2709",
+      "name": "Bar Stool 2709",
+      "code": "2BFC2709",
+      "type": "bar-stools",
+      "materials": [
+        "wood",
+        "aluminum"
+      ],
+      "features": [],
+      "dimensions": {
+        "length": 71,
+        "width": 76,
+        "height": 121
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/bar-stool-2709.webp"
+      ]
+    },
+    {
+      "slug": "heron-lounge-chair",
+      "name": "Heron Lounge Chair",
+      "code": "2BFC2674",
+      "type": "lounge-chairs",
+      "materials": [],
+      "features": [],
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/heron-lounge-chair.webp"
+      ]
+    },
+    {
+      "slug": "sydney-swivel-chair",
+      "name": "Sydney Swivel Chair",
+      "code": "2BFC2507",
+      "type": "lounge-chairs",
+      "materials": [
+        "wood",
+        "aluminum",
+        "wicker"
+      ],
+      "features": [
+        "swivel"
+      ],
+      "dimensions": {
+        "length": 81,
+        "width": 84,
+        "height": 90
+      },
+      "assembly": "kd",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/sydney-swivel-chair.webp"
+      ]
+    },
+    {
+      "slug": "heron-motion-lounge-chair",
+      "name": "Heron Motion Lounge Chair",
+      "code": "2BFC2705",
+      "type": "lounge-chairs",
+      "materials": [],
+      "features": [
+        "rocking"
+      ],
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/heron-motion-lounge-chair.webp"
+      ]
+    },
+    {
+      "slug": "lounge-chair-1360",
+      "name": "Lounge Chair 1360",
+      "code": "2BFC1360",
+      "type": "lounge-chairs",
+      "materials": [
+        "aluminum",
+        "wicker"
+      ],
+      "features": [
+        "adjustable"
+      ],
+      "dimensions": {
+        "length": 73,
+        "width": 87,
+        "height": 87
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/lounge-chair-1360.webp"
+      ]
+    },
+    {
+      "slug": "chair-julian",
+      "name": "Chair Julian",
+      "code": "2BFC1814",
+      "type": "lounge-chairs",
+      "materials": [
+        "wood",
+        "aluminum",
+        "rope",
+        "fabric"
+      ],
+      "features": [],
+      "dimensions": {
+        "length": 90,
+        "width": 85,
+        "height": 69
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/chair-julian.webp"
+      ]
+    },
+    {
+      "slug": "rocking-bench-lounge-chair",
+      "name": "Rocking Bench",
+      "code": "2BFC2269",
+      "type": "lounge-chairs",
+      "materials": [
+        "wood",
+        "rope",
+        "steel",
+        "fabric"
+      ],
+      "features": [
+        "rocking"
+      ],
+      "dimensions": {
+        "length": 127,
+        "width": 93,
+        "height": 100
+      },
+      "assembly": "fa",
+      "pcsPerBox": 2,
+      "images": [
+        "/products/rocking-bench-lounge-chair.webp"
+      ]
+    },
+    {
+      "slug": "chair-2344",
+      "name": "Chair 2344",
+      "code": "2BFC2344",
+      "type": "lounge-chairs",
+      "materials": [
+        "aluminum",
+        "wicker",
+        "fabric"
+      ],
+      "features": [],
+      "dimensions": {
+        "length": 76,
+        "width": 86,
+        "height": 76
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/chair-2344.webp"
+      ]
+    },
+    {
+      "slug": "sydney-rocking-chair",
+      "name": "Sydney Rocking Chair",
+      "code": "2BFC2508",
+      "type": "lounge-chairs",
+      "materials": [
+        "wood",
+        "aluminum",
+        "wicker"
+      ],
+      "features": [
+        "rocking"
+      ],
+      "dimensions": {
+        "length": 81,
+        "width": 92,
+        "height": 90
+      },
+      "assembly": "kd",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/sydney-rocking-chair.webp"
+      ]
+    },
+    {
+      "slug": "lounge-chair-2052",
+      "name": "Lounge Chair 2052",
+      "code": "2BFC2052",
+      "type": "lounge-chairs",
+      "materials": [
+        "aluminum",
+        "rope",
+        "wicker",
+        "fabric"
+      ],
+      "features": [
+        "swivel"
+      ],
+      "dimensions": {
+        "length": 88,
+        "width": 82,
+        "height": 77
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/lounge-chair-2052.webp"
+      ]
+    },
+    {
+      "slug": "cocktail-table-1807",
+      "name": "Cocktail Table 1807",
+      "code": "1BFC1807",
+      "type": "coffee-tables",
+      "materials": [
+        "aluminum",
+        "wicker"
+      ],
+      "features": [],
+      "dimensions": {
+        "height": 38,
+        "diameter": 128
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/cocktail-table-1807.webp"
+      ]
+    },
+    {
+      "slug": "marina-storage-side-table",
+      "name": "Marina Storage Side Table",
+      "code": "1BFC1452",
+      "type": "side-tables",
+      "materials": [
+        "wood",
+        "aluminum",
+        "wicker",
+        "fabric"
+      ],
+      "features": [],
+      "dimensions": {
+        "height": 50,
+        "diameter": 50
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/marina-storage-side-table.webp"
+      ]
+    },
+    {
+      "slug": "coffee-table-1840",
+      "name": "Coffee Table 1840",
+      "code": "1BFC1840",
+      "type": "coffee-tables",
+      "materials": [
+        "aluminum",
+        "wicker"
+      ],
+      "features": [],
+      "dimensions": {
+        "height": 38,
+        "diameter": 101
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/coffee-table-1840.webp"
+      ]
+    },
+    {
+      "slug": "bohemian-teak-wicker-storage-accent-table",
+      "name": "Bohemian Teak & Wicker Storage Accent Table",
+      "code": "1BFC1097",
+      "type": "side-tables",
+      "materials": [
+        "wood",
+        "aluminum",
+        "wicker"
+      ],
+      "features": [],
+      "dimensions": {
+        "height": 50,
+        "diameter": 63
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/bohemian-teak-wicker-storage-accent-table.webp"
+      ]
+    },
+    {
+      "slug": "bohemian-teak-wicker-coffee-table",
+      "name": "Bohemian Teak & Wicker Coffee Table",
+      "code": "1BFC1213",
+      "type": "coffee-tables",
+      "materials": [
+        "wood",
+        "aluminum",
+        "wicker"
+      ],
+      "features": [],
+      "dimensions": {
+        "height": 40,
+        "diameter": 90
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/bohemian-teak-wicker-coffee-table.webp"
+      ]
+    },
+    {
+      "slug": "sydney-side-table",
+      "name": "Sydney Side Table",
+      "code": "1BFC1851",
+      "type": "side-tables",
+      "materials": [],
+      "features": [],
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/sydney-side-table.webp"
+      ]
+    },
+    {
+      "slug": "marina-storage-coffee-table",
+      "name": "Marina Storage Coffee Table",
+      "code": "1BFC1451",
+      "type": "coffee-tables",
+      "materials": [
+        "wood",
+        "aluminum",
+        "wicker",
+        "fabric"
+      ],
+      "features": [],
+      "dimensions": {
+        "height": 40,
+        "diameter": 92
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/marina-storage-coffee-table.webp"
+      ]
+    },
+    {
+      "slug": "teak-cable-wicker-storage-accent-table",
+      "name": "Teak & Cable Wicker Storage Accent Table",
+      "code": "1BFC1330",
+      "type": "side-tables",
+      "materials": [
+        "wood",
+        "aluminum",
+        "wicker"
+      ],
+      "features": [],
+      "dimensions": {
+        "height": 50,
+        "diameter": 63
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/teak-cable-wicker-storage-accent-table.webp"
+      ]
+    },
+    {
+      "slug": "castine-waste-bin-storage",
+      "name": "Castine Waste Bin",
+      "code": "4BFC133",
+      "type": "storage",
+      "materials": [
+        "aluminum",
+        "wicker"
+      ],
+      "features": [],
+      "dimensions": {
+        "length": 45,
+        "width": 45,
+        "height": 89
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/castine-waste-bin-storage.webp"
+      ]
+    },
+    {
+      "slug": "baiona-cooler-cart",
+      "name": "Baiona Cooler Cart",
+      "code": "4BFC481",
+      "type": "carts",
+      "materials": [
+        "wood",
+        "aluminum",
+        "steel"
+      ],
+      "features": [],
+      "dimensions": {
+        "length": 107,
+        "width": 56,
+        "height": 80
+      },
+      "assembly": "kd",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/baiona-cooler-cart.webp"
+      ]
+    },
+    {
+      "slug": "everett-fire-table-dark",
+      "name": "Everett Fire Table Dark",
+      "code": "4BFC470",
+      "type": "fire-pits",
+      "materials": [
+        "aluminum",
+        "steel",
+        "ceramic"
+      ],
+      "features": [],
+      "dimensions": {
+        "length": 76,
+        "width": 76,
+        "height": 61
+      },
+      "assembly": "fa",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/everett-fire-table-dark.webp"
+      ]
+    },
+    {
+      "slug": "baiona-towel-rack",
+      "name": "Baiona Towel Rack",
+      "code": "4BFC483",
+      "type": "shelving",
+      "materials": [
+        "wood"
+      ],
+      "features": [],
+      "dimensions": {
+        "length": 90,
+        "width": 40,
+        "height": 91
+      },
+      "assembly": "kd",
+      "pcsPerBox": 1,
+      "images": [
+        "/products/baiona-towel-rack.webp"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "ok": true,
+  "verdict": "pass",
+  "confidence": 0.721,
+  "estimatedFidelity": 0.721,
+  "targetThreshold": 0.7,
+  "materialId": "cushion-fabric",
+  "sourceImage": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-crops\\cushion-back.png",
+  "outDir": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\cushion-fabric",
+  "palette": [
+    "#E8E3DD",
+    "#FEFEFE",
+    "#DFD9D2",
+    "#EFEAE4",
+    "#CDC4BD"
+  ],
+  "maps": {
+    "albedo": {
+      "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\cushion-fabric\\cushion-fabric_albedo.png",
+      "url": "cushion-fabric_albedo.png",
+      "channel": "albedo",
+      "source": "reference-pixel-extraction"
+    },
+    "roughness": {
+      "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\cushion-fabric\\cushion-fabric_roughness.png",
+      "url": "cushion-fabric_roughness.png",
+      "channel": "roughness",
+      "source": "reference-pixel-extraction"
+    },
+    "height": {
+      "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\cushion-fabric\\cushion-fabric_height.png",
+      "url": "cushion-fabric_height.png",
+      "channel": "height",
+      "source": "reference-pixel-extraction"
+    },
+    "normal": {
+      "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\cushion-fabric\\cushion-fabric_normal.png",
+      "url": "cushion-fabric_normal.png",
+      "channel": "normal",
+      "source": "reference-pixel-extraction"
+    },
+    "ao": {
+      "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\cushion-fabric\\cushion-fabric_ao.png",
+      "url": "cushion-fabric_ao.png",
+      "channel": "ao",
+      "source": "reference-pixel-extraction"
+    }
+  },
+  "diagnostics": {
+    "sourceWidth": 140,
+    "sourceHeight": 45,
+    "mapSize": 1024,
+    "cropBBoxPixels": {
+      "x": 0,
+      "y": 0,
+      "width": 140,
+      "height": 45
+    },
+    "mask": {
+      "backgroundColor": "#ECE3DC",
+      "backgroundNoise": 45.574,
+      "transparentPixelFraction": 0.0,
+      "foregroundCoverage": 1.0
+    },
+    "mapStats": {
+      "valueRange": 0.1878,
+      "heightP90Gradient": 0.06532,
+      "roughnessBase": 0.732,
+      "roughnessVariation": 0.138,
+      "normalStrength": 0.233,
+      "blurRadius": 21
+    },
+    "palette": [
+      "#E8E3DD",
+      "#FEFEFE",
+      "#DFD9D2",
+      "#EFEAE4",
+      "#CDC4BD"
+    ]
+  },
+  "warnings": [
+    "foreground mask is tiny; material extraction is likely unreliable",
+    "image is not clearly isolated from background; using most pixels as material evidence",
+    "object/background separation is weak",
+    "single-image inverse rendering cannot prove true physical PBR; confidence is capped",
+    "low value range weakens height/roughness inference"
+  ],
+  "limitation": "single-image PBR extraction is an estimate; 70%+ extraction confidence still needs render screenshot review"
+}

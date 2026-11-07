@@ -1,0 +1,104 @@
+# CI cho CMS (backend/). Chạy khi có thay đổi trong backend/ hoặc file này.
+name: backend
+
+on:
+  push:
+    branches: [main]
+    paths: ["backend/**", ".github/workflows/backend.yml"]
+  pull_request:
+    paths: ["backend/**", ".github/workflows/backend.yml"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: backend-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: backend
+
+env:
+  UV_VERSION: "0.13.5"
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:17.6
+        env:
+          POSTGRES_USER: bfc
+          POSTGRES_PASSWORD: bfc
+          POSTGRES_DB: bfc_cms
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U bfc"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgres://bfc:bfc@localhost:5432/bfc_cms
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10
+        with:
+          version: ${{ env.UV_VERSION }}
+          python-version: "3.12"
+          enable-cache: true
+          cache-dependency-glob: backend/uv.lock
+
+      - name: Cài thư viện (đúng uv.lock)
+        run: uv sync --locked --group prod
+
+      - name: Lint
+        run: |
+          uv run ruff check .
+          uv run ruff format --check .
+
+      - name: Type check
+        run: uv run mypy .
+
+      - name: Thiếu migration
+        run: uv run python manage.py makemigrations --check --dry-run
+        env:
+          DJANGO_SETTINGS_MODULE: config.settings.test
+
+      - name: Test (Postgres)
+        run: uv run pytest -n auto
+
+      - name: Cấu hình production an toàn (check --deploy)
+        run: uv run python manage.py check --deploy --fail-level WARNING
+        env:
+          DJANGO_SETTINGS_MODULE: config.settings.prod
+          DJANGO_SECRET_KEY: ci-only-dummy-secret-key-for-check-deploy-xxxxxxxxxxxxxxxx
+          DJANGO_ALLOWED_HOSTS: cms.example.com
+          CLAMAV_URL: tcp://clamav:3310
+
+      - name: OpenAPI khớp với openapi.yaml
+        run: |
+          uv run python manage.py spectacular --file /tmp/openapi.yaml --validate --fail-on-warn
+          diff -u openapi.yaml /tmp/openapi.yaml
+        env:
+          DJANGO_SETTINGS_MODULE: config.settings.test
+
+      - name: Lỗ hổng thư viện (pip-audit)
+        run: |
+          uv export --locked --no-hashes --all-groups --format requirements-txt > /tmp/requirements.txt
+          uvx pip-audit==2.10.1 --strict -r /tmp/requirements.txt
+
+  docker:
+    runs-on: ubuntu-24.04
+    needs: check
+    steps:
+      - uses: actions/checkout@v7
+      - uses: docker/setup-buildx-action@v4
+      - name: Build image (không push)
+        uses: docker/build-push-action@v7
+        with:
+          context: backend
+          push: false
+          tags: bfc-cms:ci
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

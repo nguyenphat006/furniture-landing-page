@@ -1,0 +1,1362 @@
+{
+  "schemaVersion": 1,
+  "kind": "img2threejs.material-analysis",
+  "referenceId": "swivel-chair-rear-left-3q",
+  "manifest": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-regions.json",
+  "registry": "C:\\Users\\NguyenDangPhat\\.claude\\skills\\img2threejs\\docs\\materials\\material-reference.json",
+  "targetThreshold": 0.7,
+  "notObservedMaterials": [
+    {
+      "id": "metal",
+      "reason": "No exposed metal visible; the swivel bearing is hidden."
+    }
+  ],
+  "unresolvedNotObservedMaterials": [],
+  "regions": [
+    {
+      "componentId": "rear-top-rail",
+      "regionId": "teak-lit-face",
+      "materialSpecId": "teak-satin",
+      "hypothesis": {
+        "componentId": "rear-top-rail",
+        "regionId": "teak-lit-face",
+        "materialId": "wood.unfinished",
+        "family": "wood",
+        "subtype": "generic",
+        "finish": "unfinished",
+        "aliases": [],
+        "confidence": 0.751,
+        "source": "vision"
+      },
+      "assignment": {
+        "materialId": "wood.unfinished",
+        "status": "proceed",
+        "source": "vision",
+        "confidence": 1.0,
+        "method": "explicit-material-id",
+        "alternatives": [],
+        "evidence": {
+          "crop": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\00-teak-lit-face.png",
+            "bbox": {
+              "x": 0,
+              "y": 0,
+              "width": 160,
+              "height": 36
+            },
+            "sourceWidth": 160,
+            "sourceHeight": 36,
+            "loaderWarnings": [],
+            "coverage": 1.0
+          },
+          "pbr": {
+            "ok": true,
+            "verdict": "pass",
+            "confidence": 0.751,
+            "estimatedFidelity": 0.751,
+            "targetThreshold": 0.7,
+            "materialId": "teak-satin",
+            "sourceImage": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\00-teak-lit-face.png",
+            "outDir": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-00-teak-lit-face",
+            "palette": [
+              "#9F6941",
+              "#9A653F",
+              "#A16C44",
+              "#A46F46",
+              "#925E3B"
+            ],
+            "maps": {
+              "albedo": {
+                "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-00-teak-lit-face\\teak-satin_albedo.png",
+                "url": "teak-satin_albedo.png",
+                "channel": "albedo",
+                "source": "reference-pixel-extraction"
+              },
+              "roughness": {
+                "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-00-teak-lit-face\\teak-satin_roughness.png",
+                "url": "teak-satin_roughness.png",
+                "channel": "roughness",
+                "source": "reference-pixel-extraction"
+              },
+              "height": {
+                "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-00-teak-lit-face\\teak-satin_height.png",
+                "url": "teak-satin_height.png",
+                "channel": "height",
+                "source": "reference-pixel-extraction"
+              },
+              "normal": {
+                "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-00-teak-lit-face\\teak-satin_normal.png",
+                "url": "teak-satin_normal.png",
+                "channel": "normal",
+                "source": "reference-pixel-extraction"
+              },
+              "ao": {
+                "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-00-teak-lit-face\\teak-satin_ao.png",
+                "url": "teak-satin_ao.png",
+                "channel": "ao",
+                "source": "reference-pixel-extraction"
+              }
+            },
+            "diagnostics": {
+              "sourceWidth": 160,
+              "sourceHeight": 36,
+              "mapSize": 512,
+              "cropBBoxPixels": {
+                "x": 0,
+                "y": 0,
+                "width": 160,
+                "height": 36
+              },
+              "mask": {
+                "backgroundColor": "#A16C43",
+                "backgroundNoise": 7.81,
+                "transparentPixelFraction": 0.0,
+                "foregroundCoverage": 1.0
+              },
+              "mapStats": {
+                "valueRange": 0.08,
+                "heightP90Gradient": 0.08247,
+                "roughnessBase": 0.776,
+                "roughnessVariation": 0.145,
+                "normalStrength": 0.253,
+                "blurRadius": 10
+              },
+              "palette": [
+                "#9F6941",
+                "#9A653F",
+                "#A16C44",
+                "#A46F46",
+                "#925E3B"
+              ]
+            },
+            "warnings": [
+              "image is not clearly isolated from background; using most pixels as material evidence",
+              "object/background separation is weak",
+              "single-image inverse rendering cannot prove true physical PBR; confidence is capped",
+              "low value range weakens height/roughness inference"
+            ],
+            "limitation": "single-image PBR extraction is an estimate; 70%+ extraction confidence still needs render screenshot review"
+          },
+          "texture": {
+            "finishClass": "painted-metal",
+            "recipe": {
+              "metalness": 0.0,
+              "roughness": 0.5,
+              "clearcoat": 1.0,
+              "clearcoatRoughness": 0.05,
+              "transmission": 0.0,
+              "ior": 1.5,
+              "envMapIntensity": 1.0,
+              "anisotropy": 0.0,
+              "procedural": "flat-clearcoat"
+            },
+            "palette": [
+              "#A06C42",
+              "#9F6A40",
+              "#9D6840",
+              "#996440",
+              "#9D6842"
+            ],
+            "paletteHueRisk": [],
+            "gradientAxis": "horizontal",
+            "stats": {
+              "meanLum": 116.2,
+              "meanSaturation": 0.587,
+              "gradientStrength": 0.041,
+              "mottle": 0.008,
+              "streakRatio": 1.42,
+              "hueSpread": 0.0,
+              "specularFraction": 0.0
+            }
+          }
+        },
+        "profileId": "wood.unfinished",
+        "family": "wood",
+        "subtype": "generic",
+        "finish": "unfinished",
+        "renderPrior": {
+          "metalness": 0.0,
+          "roughness": 0.72,
+          "anisotropy": 0.12
+        },
+        "requiredMaps": [
+          "map",
+          "roughnessMap",
+          "normalMap"
+        ],
+        "optionalMaps": [
+          "aoMap",
+          "anisotropyMap"
+        ],
+        "validationViews": [
+          "albedo-unlit",
+          "neutral-studio",
+          "grazing"
+        ],
+        "sourceRefs": [
+          "three.mesh-standard",
+          "three.texture",
+          "adobe.pbr-guide-1",
+          "mit.material-recognition"
+        ],
+        "visualCues": [
+          "directional grain",
+          "pores and growth rings",
+          "roughness follows grain and wear"
+        ]
+      },
+      "observations": [
+        "chromatic base-colour response",
+        "single-image PBR inference requires controlled render validation"
+      ],
+      "crop": {
+        "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\00-teak-lit-face.png",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 160,
+          "height": 36
+        },
+        "sourceWidth": 160,
+        "sourceHeight": 36,
+        "loaderWarnings": [],
+        "coverage": 1.0
+      },
+      "textureAnalysis": {
+        "finishClass": "painted-metal",
+        "recipe": {
+          "metalness": 0.0,
+          "roughness": 0.5,
+          "clearcoat": 1.0,
+          "clearcoatRoughness": 0.05,
+          "transmission": 0.0,
+          "ior": 1.5,
+          "envMapIntensity": 1.0,
+          "anisotropy": 0.0,
+          "procedural": "flat-clearcoat"
+        },
+        "palette": [
+          "#A06C42",
+          "#9F6A40",
+          "#9D6840",
+          "#996440",
+          "#9D6842"
+        ],
+        "paletteHueRisk": [],
+        "gradientAxis": "horizontal",
+        "stats": {
+          "meanLum": 116.2,
+          "meanSaturation": 0.587,
+          "gradientStrength": 0.041,
+          "mottle": 0.008,
+          "streakRatio": 1.42,
+          "hueSpread": 0.0,
+          "specularFraction": 0.0
+        }
+      },
+      "pbrReport": {
+        "ok": true,
+        "verdict": "pass",
+        "confidence": 0.751,
+        "estimatedFidelity": 0.751,
+        "targetThreshold": 0.7,
+        "materialId": "teak-satin",
+        "sourceImage": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\00-teak-lit-face.png",
+        "outDir": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-00-teak-lit-face",
+        "palette": [
+          "#9F6941",
+          "#9A653F",
+          "#A16C44",
+          "#A46F46",
+          "#925E3B"
+        ],
+        "maps": {
+          "albedo": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-00-teak-lit-face\\teak-satin_albedo.png",
+            "url": "teak-satin_albedo.png",
+            "channel": "albedo",
+            "source": "reference-pixel-extraction"
+          },
+          "roughness": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-00-teak-lit-face\\teak-satin_roughness.png",
+            "url": "teak-satin_roughness.png",
+            "channel": "roughness",
+            "source": "reference-pixel-extraction"
+          },
+          "height": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-00-teak-lit-face\\teak-satin_height.png",
+            "url": "teak-satin_height.png",
+            "channel": "height",
+            "source": "reference-pixel-extraction"
+          },
+          "normal": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-00-teak-lit-face\\teak-satin_normal.png",
+            "url": "teak-satin_normal.png",
+            "channel": "normal",
+            "source": "reference-pixel-extraction"
+          },
+          "ao": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-00-teak-lit-face\\teak-satin_ao.png",
+            "url": "teak-satin_ao.png",
+            "channel": "ao",
+            "source": "reference-pixel-extraction"
+          }
+        },
+        "diagnostics": {
+          "sourceWidth": 160,
+          "sourceHeight": 36,
+          "mapSize": 512,
+          "cropBBoxPixels": {
+            "x": 0,
+            "y": 0,
+            "width": 160,
+            "height": 36
+          },
+          "mask": {
+            "backgroundColor": "#A16C43",
+            "backgroundNoise": 7.81,
+            "transparentPixelFraction": 0.0,
+            "foregroundCoverage": 1.0
+          },
+          "mapStats": {
+            "valueRange": 0.08,
+            "heightP90Gradient": 0.08247,
+            "roughnessBase": 0.776,
+            "roughnessVariation": 0.145,
+            "normalStrength": 0.253,
+            "blurRadius": 10
+          },
+          "palette": [
+            "#9F6941",
+            "#9A653F",
+            "#A16C44",
+            "#A46F46",
+            "#925E3B"
+          ]
+        },
+        "warnings": [
+          "image is not clearly isolated from background; using most pixels as material evidence",
+          "object/background separation is weak",
+          "single-image inverse rendering cannot prove true physical PBR; confidence is capped",
+          "low value range weakens height/roughness inference"
+        ],
+        "limitation": "single-image PBR extraction is an estimate; 70%+ extraction confidence still needs render screenshot review"
+      },
+      "referencePbr": {
+        "version": "1.0",
+        "sourceImage": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\00-teak-lit-face.png",
+        "extractor": "stage1_intake/extract_pbr_evidence.py",
+        "method": "single-image pixel evidence with de-lighting estimate; not photogrammetry",
+        "usable": true,
+        "verdict": "pass",
+        "confidence": 0.751,
+        "estimatedFidelity": 0.751,
+        "targetThreshold": 0.7,
+        "hardLimit": "A single image cannot uniquely recover true albedo/roughness/normal/AO; maps are reference-derived estimates.",
+        "maps": {
+          "albedo": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-00-teak-lit-face\\teak-satin_albedo.png",
+            "url": "teak-satin_albedo.png",
+            "channel": "albedo",
+            "source": "reference-pixel-extraction"
+          },
+          "roughness": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-00-teak-lit-face\\teak-satin_roughness.png",
+            "url": "teak-satin_roughness.png",
+            "channel": "roughness",
+            "source": "reference-pixel-extraction"
+          },
+          "height": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-00-teak-lit-face\\teak-satin_height.png",
+            "url": "teak-satin_height.png",
+            "channel": "height",
+            "source": "reference-pixel-extraction"
+          },
+          "normal": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-00-teak-lit-face\\teak-satin_normal.png",
+            "url": "teak-satin_normal.png",
+            "channel": "normal",
+            "source": "reference-pixel-extraction"
+          },
+          "ao": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-00-teak-lit-face\\teak-satin_ao.png",
+            "url": "teak-satin_ao.png",
+            "channel": "ao",
+            "source": "reference-pixel-extraction"
+          }
+        },
+        "diagnostics": {
+          "sourceWidth": 160,
+          "sourceHeight": 36,
+          "mapSize": 512,
+          "cropBBoxPixels": {
+            "x": 0,
+            "y": 0,
+            "width": 160,
+            "height": 36
+          },
+          "mask": {
+            "backgroundColor": "#A16C43",
+            "backgroundNoise": 7.81,
+            "transparentPixelFraction": 0.0,
+            "foregroundCoverage": 1.0
+          },
+          "mapStats": {
+            "valueRange": 0.08,
+            "heightP90Gradient": 0.08247,
+            "roughnessBase": 0.776,
+            "roughnessVariation": 0.145,
+            "normalStrength": 0.253,
+            "blurRadius": 10
+          },
+          "palette": [
+            "#9F6941",
+            "#9A653F",
+            "#A16C44",
+            "#A46F46",
+            "#925E3B"
+          ]
+        },
+        "warnings": [
+          "image is not clearly isolated from background; using most pixels as material evidence",
+          "object/background separation is weak",
+          "single-image inverse rendering cannot prove true physical PBR; confidence is capped",
+          "low value range weakens height/roughness inference"
+        ]
+      },
+      "maps": {
+        "albedo": {
+          "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-00-teak-lit-face\\teak-satin_albedo.png",
+          "url": "teak-satin_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        },
+        "roughness": {
+          "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-00-teak-lit-face\\teak-satin_roughness.png",
+          "url": "teak-satin_roughness.png",
+          "channel": "roughness",
+          "source": "reference-pixel-extraction"
+        },
+        "height": {
+          "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-00-teak-lit-face\\teak-satin_height.png",
+          "url": "teak-satin_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        },
+        "normal": {
+          "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-00-teak-lit-face\\teak-satin_normal.png",
+          "url": "teak-satin_normal.png",
+          "channel": "normal",
+          "source": "reference-pixel-extraction"
+        },
+        "ao": {
+          "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-00-teak-lit-face\\teak-satin_ao.png",
+          "url": "teak-satin_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        }
+      }
+    },
+    {
+      "componentId": "weave-rear",
+      "regionId": "rope-dense-lattice",
+      "materialSpecId": "rope-braided",
+      "hypothesis": {
+        "componentId": "weave-rear",
+        "regionId": "rope-dense-lattice",
+        "materialId": "fabric.woven-matte",
+        "family": "fabric",
+        "subtype": "woven",
+        "finish": "matte",
+        "aliases": [],
+        "confidence": 0.8,
+        "source": "vision"
+      },
+      "assignment": {
+        "materialId": "fabric.woven-matte",
+        "status": "proceed",
+        "source": "vision",
+        "confidence": 1.0,
+        "method": "explicit-material-id",
+        "alternatives": [],
+        "evidence": {
+          "crop": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\01-rope-dense-lattice.png",
+            "bbox": {
+              "x": 0,
+              "y": 0,
+              "width": 140,
+              "height": 180
+            },
+            "sourceWidth": 140,
+            "sourceHeight": 180,
+            "loaderWarnings": [],
+            "coverage": 1.0
+          },
+          "pbr": {
+            "ok": true,
+            "verdict": "pass",
+            "confidence": 0.806,
+            "estimatedFidelity": 0.806,
+            "targetThreshold": 0.7,
+            "materialId": "rope-braided",
+            "sourceImage": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\01-rope-dense-lattice.png",
+            "outDir": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-01-rope-dense-lattice",
+            "palette": [
+              "#72533E",
+              "#5B3E2C",
+              "#896A55",
+              "#43291A",
+              "#A88973"
+            ],
+            "maps": {
+              "albedo": {
+                "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-01-rope-dense-lattice\\rope-braided_albedo.png",
+                "url": "rope-braided_albedo.png",
+                "channel": "albedo",
+                "source": "reference-pixel-extraction"
+              },
+              "roughness": {
+                "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-01-rope-dense-lattice\\rope-braided_roughness.png",
+                "url": "rope-braided_roughness.png",
+                "channel": "roughness",
+                "source": "reference-pixel-extraction"
+              },
+              "height": {
+                "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-01-rope-dense-lattice\\rope-braided_height.png",
+                "url": "rope-braided_height.png",
+                "channel": "height",
+                "source": "reference-pixel-extraction"
+              },
+              "normal": {
+                "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-01-rope-dense-lattice\\rope-braided_normal.png",
+                "url": "rope-braided_normal.png",
+                "channel": "normal",
+                "source": "reference-pixel-extraction"
+              },
+              "ao": {
+                "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-01-rope-dense-lattice\\rope-braided_ao.png",
+                "url": "rope-braided_ao.png",
+                "channel": "ao",
+                "source": "reference-pixel-extraction"
+              }
+            },
+            "diagnostics": {
+              "sourceWidth": 140,
+              "sourceHeight": 180,
+              "mapSize": 512,
+              "cropBBoxPixels": {
+                "x": 0,
+                "y": 0,
+                "width": 140,
+                "height": 180
+              },
+              "mask": {
+                "backgroundColor": "#764A36",
+                "backgroundNoise": 46.152,
+                "transparentPixelFraction": 0.0,
+                "foregroundCoverage": 1.0
+              },
+              "mapStats": {
+                "valueRange": 0.3873,
+                "heightP90Gradient": 0.22794,
+                "roughnessBase": 0.888,
+                "roughnessVariation": 0.098,
+                "normalStrength": 0.423,
+                "blurRadius": 10
+              },
+              "palette": [
+                "#72533E",
+                "#5B3E2C",
+                "#896A55",
+                "#43291A",
+                "#A88973"
+              ]
+            },
+            "warnings": [
+              "image is not clearly isolated from background; using most pixels as material evidence",
+              "object/background separation is weak",
+              "single-image inverse rendering cannot prove true physical PBR; confidence is capped"
+            ],
+            "limitation": "single-image PBR extraction is an estimate; 70%+ extraction confidence still needs render screenshot review"
+          },
+          "texture": {
+            "finishClass": "painted-metal",
+            "recipe": {
+              "metalness": 0.0,
+              "roughness": 0.5,
+              "clearcoat": 1.0,
+              "clearcoatRoughness": 0.05,
+              "transmission": 0.0,
+              "ior": 1.5,
+              "envMapIntensity": 1.0,
+              "anisotropy": 0.0,
+              "procedural": "flat-clearcoat"
+            },
+            "palette": [
+              "#715340",
+              "#6E513E",
+              "#6D513E",
+              "#6C4F3C",
+              "#6D4F3B"
+            ],
+            "paletteHueRisk": [],
+            "gradientAxis": "vertical",
+            "stats": {
+              "meanLum": 88.2,
+              "meanSaturation": 0.466,
+              "gradientStrength": 0.095,
+              "mottle": 0.131,
+              "streakRatio": 1.14,
+              "hueSpread": 0.001,
+              "specularFraction": 0.0
+            }
+          }
+        },
+        "profileId": "fabric.woven-matte",
+        "family": "fabric",
+        "subtype": "woven",
+        "finish": "matte",
+        "renderPrior": {
+          "metalness": 0.0,
+          "roughness": 0.85,
+          "sheen": 0.65,
+          "sheenRoughness": 0.75
+        },
+        "requiredMaps": [
+          "map",
+          "roughnessMap",
+          "normalMap"
+        ],
+        "optionalMaps": [
+          "sheenColorMap",
+          "sheenRoughnessMap",
+          "aoMap"
+        ],
+        "validationViews": [
+          "albedo-unlit",
+          "neutral-studio",
+          "grazing",
+          "reference-beauty"
+        ],
+        "sourceRefs": [
+          "three.mesh-physical",
+          "three.texture",
+          "khronos.sheen",
+          "mit.material-recognition"
+        ],
+        "visualCues": [
+          "diffuse body with grazing-angle sheen",
+          "woven directional microstructure",
+          "soft broad highlights"
+        ]
+      },
+      "observations": [
+        "chromatic base-colour response",
+        "visible meso/micro variation",
+        "single-image PBR inference requires controlled render validation"
+      ],
+      "crop": {
+        "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\01-rope-dense-lattice.png",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 140,
+          "height": 180
+        },
+        "sourceWidth": 140,
+        "sourceHeight": 180,
+        "loaderWarnings": [],
+        "coverage": 1.0
+      },
+      "textureAnalysis": {
+        "finishClass": "painted-metal",
+        "recipe": {
+          "metalness": 0.0,
+          "roughness": 0.5,
+          "clearcoat": 1.0,
+          "clearcoatRoughness": 0.05,
+          "transmission": 0.0,
+          "ior": 1.5,
+          "envMapIntensity": 1.0,
+          "anisotropy": 0.0,
+          "procedural": "flat-clearcoat"
+        },
+        "palette": [
+          "#715340",
+          "#6E513E",
+          "#6D513E",
+          "#6C4F3C",
+          "#6D4F3B"
+        ],
+        "paletteHueRisk": [],
+        "gradientAxis": "vertical",
+        "stats": {
+          "meanLum": 88.2,
+          "meanSaturation": 0.466,
+          "gradientStrength": 0.095,
+          "mottle": 0.131,
+          "streakRatio": 1.14,
+          "hueSpread": 0.001,
+          "specularFraction": 0.0
+        }
+      },
+      "pbrReport": {
+        "ok": true,
+        "verdict": "pass",
+        "confidence": 0.806,
+        "estimatedFidelity": 0.806,
+        "targetThreshold": 0.7,
+        "materialId": "rope-braided",
+        "sourceImage": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\01-rope-dense-lattice.png",
+        "outDir": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-01-rope-dense-lattice",
+        "palette": [
+          "#72533E",
+          "#5B3E2C",
+          "#896A55",
+          "#43291A",
+          "#A88973"
+        ],
+        "maps": {
+          "albedo": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-01-rope-dense-lattice\\rope-braided_albedo.png",
+            "url": "rope-braided_albedo.png",
+            "channel": "albedo",
+            "source": "reference-pixel-extraction"
+          },
+          "roughness": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-01-rope-dense-lattice\\rope-braided_roughness.png",
+            "url": "rope-braided_roughness.png",
+            "channel": "roughness",
+            "source": "reference-pixel-extraction"
+          },
+          "height": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-01-rope-dense-lattice\\rope-braided_height.png",
+            "url": "rope-braided_height.png",
+            "channel": "height",
+            "source": "reference-pixel-extraction"
+          },
+          "normal": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-01-rope-dense-lattice\\rope-braided_normal.png",
+            "url": "rope-braided_normal.png",
+            "channel": "normal",
+            "source": "reference-pixel-extraction"
+          },
+          "ao": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-01-rope-dense-lattice\\rope-braided_ao.png",
+            "url": "rope-braided_ao.png",
+            "channel": "ao",
+            "source": "reference-pixel-extraction"
+          }
+        },
+        "diagnostics": {
+          "sourceWidth": 140,
+          "sourceHeight": 180,
+          "mapSize": 512,
+          "cropBBoxPixels": {
+            "x": 0,
+            "y": 0,
+            "width": 140,
+            "height": 180
+          },
+          "mask": {
+            "backgroundColor": "#764A36",
+            "backgroundNoise": 46.152,
+            "transparentPixelFraction": 0.0,
+            "foregroundCoverage": 1.0
+          },
+          "mapStats": {
+            "valueRange": 0.3873,
+            "heightP90Gradient": 0.22794,
+            "roughnessBase": 0.888,
+            "roughnessVariation": 0.098,
+            "normalStrength": 0.423,
+            "blurRadius": 10
+          },
+          "palette": [
+            "#72533E",
+            "#5B3E2C",
+            "#896A55",
+            "#43291A",
+            "#A88973"
+          ]
+        },
+        "warnings": [
+          "image is not clearly isolated from background; using most pixels as material evidence",
+          "object/background separation is weak",
+          "single-image inverse rendering cannot prove true physical PBR; confidence is capped"
+        ],
+        "limitation": "single-image PBR extraction is an estimate; 70%+ extraction confidence still needs render screenshot review"
+      },
+      "referencePbr": {
+        "version": "1.0",
+        "sourceImage": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\01-rope-dense-lattice.png",
+        "extractor": "stage1_intake/extract_pbr_evidence.py",
+        "method": "single-image pixel evidence with de-lighting estimate; not photogrammetry",
+        "usable": true,
+        "verdict": "pass",
+        "confidence": 0.806,
+        "estimatedFidelity": 0.806,
+        "targetThreshold": 0.7,
+        "hardLimit": "A single image cannot uniquely recover true albedo/roughness/normal/AO; maps are reference-derived estimates.",
+        "maps": {
+          "albedo": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-01-rope-dense-lattice\\rope-braided_albedo.png",
+            "url": "rope-braided_albedo.png",
+            "channel": "albedo",
+            "source": "reference-pixel-extraction"
+          },
+          "roughness": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-01-rope-dense-lattice\\rope-braided_roughness.png",
+            "url": "rope-braided_roughness.png",
+            "channel": "roughness",
+            "source": "reference-pixel-extraction"
+          },
+          "height": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-01-rope-dense-lattice\\rope-braided_height.png",
+            "url": "rope-braided_height.png",
+            "channel": "height",
+            "source": "reference-pixel-extraction"
+          },
+          "normal": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-01-rope-dense-lattice\\rope-braided_normal.png",
+            "url": "rope-braided_normal.png",
+            "channel": "normal",
+            "source": "reference-pixel-extraction"
+          },
+          "ao": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-01-rope-dense-lattice\\rope-braided_ao.png",
+            "url": "rope-braided_ao.png",
+            "channel": "ao",
+            "source": "reference-pixel-extraction"
+          }
+        },
+        "diagnostics": {
+          "sourceWidth": 140,
+          "sourceHeight": 180,
+          "mapSize": 512,
+          "cropBBoxPixels": {
+            "x": 0,
+            "y": 0,
+            "width": 140,
+            "height": 180
+          },
+          "mask": {
+            "backgroundColor": "#764A36",
+            "backgroundNoise": 46.152,
+            "transparentPixelFraction": 0.0,
+            "foregroundCoverage": 1.0
+          },
+          "mapStats": {
+            "valueRange": 0.3873,
+            "heightP90Gradient": 0.22794,
+            "roughnessBase": 0.888,
+            "roughnessVariation": 0.098,
+            "normalStrength": 0.423,
+            "blurRadius": 10
+          },
+          "palette": [
+            "#72533E",
+            "#5B3E2C",
+            "#896A55",
+            "#43291A",
+            "#A88973"
+          ]
+        },
+        "warnings": [
+          "image is not clearly isolated from background; using most pixels as material evidence",
+          "object/background separation is weak",
+          "single-image inverse rendering cannot prove true physical PBR; confidence is capped"
+        ]
+      },
+      "maps": {
+        "albedo": {
+          "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-01-rope-dense-lattice\\rope-braided_albedo.png",
+          "url": "rope-braided_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        },
+        "roughness": {
+          "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-01-rope-dense-lattice\\rope-braided_roughness.png",
+          "url": "rope-braided_roughness.png",
+          "channel": "roughness",
+          "source": "reference-pixel-extraction"
+        },
+        "height": {
+          "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-01-rope-dense-lattice\\rope-braided_height.png",
+          "url": "rope-braided_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        },
+        "normal": {
+          "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-01-rope-dense-lattice\\rope-braided_normal.png",
+          "url": "rope-braided_normal.png",
+          "channel": "normal",
+          "source": "reference-pixel-extraction"
+        },
+        "ao": {
+          "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-01-rope-dense-lattice\\rope-braided_ao.png",
+          "url": "rope-braided_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        }
+      }
+    },
+    {
+      "componentId": "cushion-back",
+      "regionId": "cushion-slub-weave",
+      "materialSpecId": "cushion-fabric",
+      "hypothesis": {
+        "componentId": "cushion-back",
+        "regionId": "cushion-slub-weave",
+        "materialId": "fabric.woven-matte",
+        "family": "fabric",
+        "subtype": "woven",
+        "finish": "matte",
+        "aliases": [],
+        "confidence": 0.721,
+        "source": "vision"
+      },
+      "assignment": {
+        "materialId": "fabric.woven-matte",
+        "status": "proceed",
+        "source": "vision",
+        "confidence": 1.0,
+        "method": "explicit-material-id",
+        "alternatives": [],
+        "evidence": {
+          "crop": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\02-cushion-slub-weave.png",
+            "bbox": {
+              "x": 0,
+              "y": 0,
+              "width": 140,
+              "height": 45
+            },
+            "sourceWidth": 140,
+            "sourceHeight": 45,
+            "loaderWarnings": [],
+            "coverage": 1.0
+          },
+          "pbr": {
+            "ok": true,
+            "verdict": "pass",
+            "confidence": 0.721,
+            "estimatedFidelity": 0.721,
+            "targetThreshold": 0.7,
+            "materialId": "cushion-fabric",
+            "sourceImage": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\02-cushion-slub-weave.png",
+            "outDir": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-02-cushion-slub-weave",
+            "palette": [
+              "#FEFEFE",
+              "#E8E3DD",
+              "#E0D9D2",
+              "#F0EAE5",
+              "#CDC4BD"
+            ],
+            "maps": {
+              "albedo": {
+                "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-02-cushion-slub-weave\\cushion-fabric_albedo.png",
+                "url": "cushion-fabric_albedo.png",
+                "channel": "albedo",
+                "source": "reference-pixel-extraction"
+              },
+              "roughness": {
+                "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-02-cushion-slub-weave\\cushion-fabric_roughness.png",
+                "url": "cushion-fabric_roughness.png",
+                "channel": "roughness",
+                "source": "reference-pixel-extraction"
+              },
+              "height": {
+                "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-02-cushion-slub-weave\\cushion-fabric_height.png",
+                "url": "cushion-fabric_height.png",
+                "channel": "height",
+                "source": "reference-pixel-extraction"
+              },
+              "normal": {
+                "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-02-cushion-slub-weave\\cushion-fabric_normal.png",
+                "url": "cushion-fabric_normal.png",
+                "channel": "normal",
+                "source": "reference-pixel-extraction"
+              },
+              "ao": {
+                "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-02-cushion-slub-weave\\cushion-fabric_ao.png",
+                "url": "cushion-fabric_ao.png",
+                "channel": "ao",
+                "source": "reference-pixel-extraction"
+              }
+            },
+            "diagnostics": {
+              "sourceWidth": 140,
+              "sourceHeight": 45,
+              "mapSize": 512,
+              "cropBBoxPixels": {
+                "x": 0,
+                "y": 0,
+                "width": 140,
+                "height": 45
+              },
+              "mask": {
+                "backgroundColor": "#ECE3DC",
+                "backgroundNoise": 45.574,
+                "transparentPixelFraction": 0.0,
+                "foregroundCoverage": 1.0
+              },
+              "mapStats": {
+                "valueRange": 0.1872,
+                "heightP90Gradient": 0.1159,
+                "roughnessBase": 0.776,
+                "roughnessVariation": 0.202,
+                "normalStrength": 0.292,
+                "blurRadius": 10
+              },
+              "palette": [
+                "#FEFEFE",
+                "#E8E3DD",
+                "#E0D9D2",
+                "#F0EAE5",
+                "#CDC4BD"
+              ]
+            },
+            "warnings": [
+              "foreground mask is tiny; material extraction is likely unreliable",
+              "image is not clearly isolated from background; using most pixels as material evidence",
+              "object/background separation is weak",
+              "single-image inverse rendering cannot prove true physical PBR; confidence is capped",
+              "low value range weakens height/roughness inference"
+            ],
+            "limitation": "single-image PBR extraction is an estimate; 70%+ extraction confidence still needs render screenshot review"
+          },
+          "texture": {
+            "finishClass": "brushed-steel",
+            "recipe": {
+              "metalness": 1.0,
+              "roughness": 0.35,
+              "clearcoat": 0.0,
+              "clearcoatRoughness": 0.0,
+              "transmission": 0.0,
+              "ior": 1.5,
+              "envMapIntensity": 1.0,
+              "anisotropy": 1.0,
+              "procedural": "brushed"
+            },
+            "palette": [
+              "#FAFAF9",
+              "#F5F3F1",
+              "#ECE8E3",
+              "#E2DCD5",
+              "#E3DCD5"
+            ],
+            "paletteHueRisk": [],
+            "gradientAxis": "vertical",
+            "stats": {
+              "meanLum": 233.3,
+              "meanSaturation": 0.038,
+              "gradientStrength": 0.113,
+              "mottle": 0.024,
+              "streakRatio": 1.6,
+              "hueSpread": 0.0,
+              "specularFraction": 0.376
+            }
+          }
+        },
+        "profileId": "fabric.woven-matte",
+        "family": "fabric",
+        "subtype": "woven",
+        "finish": "matte",
+        "renderPrior": {
+          "metalness": 0.0,
+          "roughness": 0.85,
+          "sheen": 0.65,
+          "sheenRoughness": 0.75
+        },
+        "requiredMaps": [
+          "map",
+          "roughnessMap",
+          "normalMap"
+        ],
+        "optionalMaps": [
+          "sheenColorMap",
+          "sheenRoughnessMap",
+          "aoMap"
+        ],
+        "validationViews": [
+          "albedo-unlit",
+          "neutral-studio",
+          "grazing",
+          "reference-beauty"
+        ],
+        "sourceRefs": [
+          "three.mesh-physical",
+          "three.texture",
+          "khronos.sheen",
+          "mit.material-recognition"
+        ],
+        "visualCues": [
+          "diffuse body with grazing-angle sheen",
+          "woven directional microstructure",
+          "soft broad highlights"
+        ]
+      },
+      "observations": [
+        "near-neutral colour response",
+        "single-image PBR inference requires controlled render validation"
+      ],
+      "crop": {
+        "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\02-cushion-slub-weave.png",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 140,
+          "height": 45
+        },
+        "sourceWidth": 140,
+        "sourceHeight": 45,
+        "loaderWarnings": [],
+        "coverage": 1.0
+      },
+      "textureAnalysis": {
+        "finishClass": "brushed-steel",
+        "recipe": {
+          "metalness": 1.0,
+          "roughness": 0.35,
+          "clearcoat": 0.0,
+          "clearcoatRoughness": 0.0,
+          "transmission": 0.0,
+          "ior": 1.5,
+          "envMapIntensity": 1.0,
+          "anisotropy": 1.0,
+          "procedural": "brushed"
+        },
+        "palette": [
+          "#FAFAF9",
+          "#F5F3F1",
+          "#ECE8E3",
+          "#E2DCD5",
+          "#E3DCD5"
+        ],
+        "paletteHueRisk": [],
+        "gradientAxis": "vertical",
+        "stats": {
+          "meanLum": 233.3,
+          "meanSaturation": 0.038,
+          "gradientStrength": 0.113,
+          "mottle": 0.024,
+          "streakRatio": 1.6,
+          "hueSpread": 0.0,
+          "specularFraction": 0.376
+        }
+      },
+      "pbrReport": {
+        "ok": true,
+        "verdict": "pass",
+        "confidence": 0.721,
+        "estimatedFidelity": 0.721,
+        "targetThreshold": 0.7,
+        "materialId": "cushion-fabric",
+        "sourceImage": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\02-cushion-slub-weave.png",
+        "outDir": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-02-cushion-slub-weave",
+        "palette": [
+          "#FEFEFE",
+          "#E8E3DD",
+          "#E0D9D2",
+          "#F0EAE5",
+          "#CDC4BD"
+        ],
+        "maps": {
+          "albedo": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-02-cushion-slub-weave\\cushion-fabric_albedo.png",
+            "url": "cushion-fabric_albedo.png",
+            "channel": "albedo",
+            "source": "reference-pixel-extraction"
+          },
+          "roughness": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-02-cushion-slub-weave\\cushion-fabric_roughness.png",
+            "url": "cushion-fabric_roughness.png",
+            "channel": "roughness",
+            "source": "reference-pixel-extraction"
+          },
+          "height": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-02-cushion-slub-weave\\cushion-fabric_height.png",
+            "url": "cushion-fabric_height.png",
+            "channel": "height",
+            "source": "reference-pixel-extraction"
+          },
+          "normal": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-02-cushion-slub-weave\\cushion-fabric_normal.png",
+            "url": "cushion-fabric_normal.png",
+            "channel": "normal",
+            "source": "reference-pixel-extraction"
+          },
+          "ao": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-02-cushion-slub-weave\\cushion-fabric_ao.png",
+            "url": "cushion-fabric_ao.png",
+            "channel": "ao",
+            "source": "reference-pixel-extraction"
+          }
+        },
+        "diagnostics": {
+          "sourceWidth": 140,
+          "sourceHeight": 45,
+          "mapSize": 512,
+          "cropBBoxPixels": {
+            "x": 0,
+            "y": 0,
+            "width": 140,
+            "height": 45
+          },
+          "mask": {
+            "backgroundColor": "#ECE3DC",
+            "backgroundNoise": 45.574,
+            "transparentPixelFraction": 0.0,
+            "foregroundCoverage": 1.0
+          },
+          "mapStats": {
+            "valueRange": 0.1872,
+            "heightP90Gradient": 0.1159,
+            "roughnessBase": 0.776,
+            "roughnessVariation": 0.202,
+            "normalStrength": 0.292,
+            "blurRadius": 10
+          },
+          "palette": [
+            "#FEFEFE",
+            "#E8E3DD",
+            "#E0D9D2",
+            "#F0EAE5",
+            "#CDC4BD"
+          ]
+        },
+        "warnings": [
+          "foreground mask is tiny; material extraction is likely unreliable",
+          "image is not clearly isolated from background; using most pixels as material evidence",
+          "object/background separation is weak",
+          "single-image inverse rendering cannot prove true physical PBR; confidence is capped",
+          "low value range weakens height/roughness inference"
+        ],
+        "limitation": "single-image PBR extraction is an estimate; 70%+ extraction confidence still needs render screenshot review"
+      },
+      "referencePbr": {
+        "version": "1.0",
+        "sourceImage": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\02-cushion-slub-weave.png",
+        "extractor": "stage1_intake/extract_pbr_evidence.py",
+        "method": "single-image pixel evidence with de-lighting estimate; not photogrammetry",
+        "usable": true,
+        "verdict": "pass",
+        "confidence": 0.721,
+        "estimatedFidelity": 0.721,
+        "targetThreshold": 0.7,
+        "hardLimit": "A single image cannot uniquely recover true albedo/roughness/normal/AO; maps are reference-derived estimates.",
+        "maps": {
+          "albedo": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-02-cushion-slub-weave\\cushion-fabric_albedo.png",
+            "url": "cushion-fabric_albedo.png",
+            "channel": "albedo",
+            "source": "reference-pixel-extraction"
+          },
+          "roughness": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-02-cushion-slub-weave\\cushion-fabric_roughness.png",
+            "url": "cushion-fabric_roughness.png",
+            "channel": "roughness",
+            "source": "reference-pixel-extraction"
+          },
+          "height": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-02-cushion-slub-weave\\cushion-fabric_height.png",
+            "url": "cushion-fabric_height.png",
+            "channel": "height",
+            "source": "reference-pixel-extraction"
+          },
+          "normal": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-02-cushion-slub-weave\\cushion-fabric_normal.png",
+            "url": "cushion-fabric_normal.png",
+            "channel": "normal",
+            "source": "reference-pixel-extraction"
+          },
+          "ao": {
+            "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-02-cushion-slub-weave\\cushion-fabric_ao.png",
+            "url": "cushion-fabric_ao.png",
+            "channel": "ao",
+            "source": "reference-pixel-extraction"
+          }
+        },
+        "diagnostics": {
+          "sourceWidth": 140,
+          "sourceHeight": 45,
+          "mapSize": 512,
+          "cropBBoxPixels": {
+            "x": 0,
+            "y": 0,
+            "width": 140,
+            "height": 45
+          },
+          "mask": {
+            "backgroundColor": "#ECE3DC",
+            "backgroundNoise": 45.574,
+            "transparentPixelFraction": 0.0,
+            "foregroundCoverage": 1.0
+          },
+          "mapStats": {
+            "valueRange": 0.1872,
+            "heightP90Gradient": 0.1159,
+            "roughnessBase": 0.776,
+            "roughnessVariation": 0.202,
+            "normalStrength": 0.292,
+            "blurRadius": 10
+          },
+          "palette": [
+            "#FEFEFE",
+            "#E8E3DD",
+            "#E0D9D2",
+            "#F0EAE5",
+            "#CDC4BD"
+          ]
+        },
+        "warnings": [
+          "foreground mask is tiny; material extraction is likely unreliable",
+          "image is not clearly isolated from background; using most pixels as material evidence",
+          "object/background separation is weak",
+          "single-image inverse rendering cannot prove true physical PBR; confidence is capped",
+          "low value range weakens height/roughness inference"
+        ]
+      },
+      "maps": {
+        "albedo": {
+          "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-02-cushion-slub-weave\\cushion-fabric_albedo.png",
+          "url": "cushion-fabric_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        },
+        "roughness": {
+          "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-02-cushion-slub-weave\\cushion-fabric_roughness.png",
+          "url": "cushion-fabric_roughness.png",
+          "channel": "roughness",
+          "source": "reference-pixel-extraction"
+        },
+        "height": {
+          "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-02-cushion-slub-weave\\cushion-fabric_height.png",
+          "url": "cushion-fabric_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        },
+        "normal": {
+          "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-02-cushion-slub-weave\\cushion-fabric_normal.png",
+          "url": "cushion-fabric_normal.png",
+          "channel": "normal",
+          "source": "reference-pixel-extraction"
+        },
+        "ao": {
+          "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\regions\\pbr-02-cushion-slub-weave\\cushion-fabric_ao.png",
+          "url": "cushion-fabric_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        }
+      }
+    }
+  ],
+  "status": "proceed",
+  "limitations": [
+    "PBR extraction is reference-derived inference, not inverse rendering.",
+    "A crop must be checked against the component visible footprint before accepting material scores."
+  ],
+  "artifact": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-analysis.json"
+}

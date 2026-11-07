@@ -1,0 +1,2 @@
+# Sinh tự động từ backend/openapi.yaml (npm run cms:types)
+src/lib/cms/schema.d.ts

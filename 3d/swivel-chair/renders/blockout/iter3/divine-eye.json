@@ -1,0 +1,52 @@
+{
+  "verdict": "reject",
+  "action": "refine-code",
+  "fidelity": 0.5517,
+  "fidelityTarget": 0.85,
+  "hardGateFailures": [
+    "silhouette IoU 0.565 < 0.85",
+    "scale delta 0.145 > 0.08"
+  ],
+  "maskWarnings": [],
+  "disagreementSpread": 0.816,
+  "signals": {
+    "silhouetteIoU": 0.5651,
+    "scaleDelta": 0.145,
+    "aspectRatioDelta": 0.0092,
+    "symmetryParity": 0.0,
+    "phashSimilarity": 0.7188,
+    "ssim": 0.6819,
+    "edgeOverlap": 0.3362,
+    "blowoutParity": 0.6758,
+    "flatRegionScore": 0.0656,
+    "tonalParity": 0.6057,
+    "objectness": 0.6185,
+    "hueZoneParity": 0.0
+  },
+  "specularWash": {
+    "satRatio": 1.294,
+    "hueDriftDeg": -1.3,
+    "towardCyan": false,
+    "flagged": false,
+    "advice": null
+  },
+  "reportOnlySignals": [
+    "hueZoneParity",
+    "specularWash"
+  ],
+  "reconstructionModeSuspected": false,
+  "weights": {
+    "proportion": 1.0,
+    "symmetry": 0.5,
+    "phash": 1.0,
+    "ssim": 1.5,
+    "edgeOverlap": 1.0,
+    "blowoutParity": 0.8,
+    "flatRegion": 0.8,
+    "tonalParity": 1.0,
+    "objectness": 1.5
+  },
+  "reference": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\reference\\chair-right-isolated.png",
+  "render": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\renders\\blockout\\iter3\\rear-left-3q-mapstripped.png",
+  "note": "deterministic ensemble; zero VLM/token. hueZoneParity is REPORT-ONLY (colour-aware, CIEDE2000) — not yet in the weighted fidelity; promote after corpus calibration. VLM layer (§3.4) runs only if this passes."
+}

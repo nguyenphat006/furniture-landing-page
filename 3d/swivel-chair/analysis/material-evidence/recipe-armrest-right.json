@@ -1,0 +1,16 @@
+{
+  "componentId": "armrest-right",
+  "dominantAlbedo": "rgba(157, 103, 64, 1.0)",
+  "secondaryAlbedo": "rgba(162, 109, 68, 1.0)",
+  "materialClass": "wood",
+  "materialClassConfidence": 0.6,
+  "roughnessEstimate": 0.87,
+  "metalnessEstimate": 0.0,
+  "highlightEvidence": "broad, gradually-fading highlight — supports high roughness/diffuse response",
+  "sourceCropPath": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-crops\\teak-rear-top-rail.png",
+  "labClusterMeta": {
+    "clusterCount": 3,
+    "dominantClusterSharePct": 0.457
+  },
+  "cacheHit": true
+}

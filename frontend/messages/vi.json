@@ -1,0 +1,1262 @@
+{
+  "Metadata": {
+    "title": "BINH BFC - Nhà sản xuất nội thất ngoài trời tại Việt Nam | Gỗ, Nhôm, Dây đan & Mây nhựa",
+    "description": "Nhà sản xuất nội thất ngoài trời OEM/ODM từ năm 2010. 370 nhân sự, nhà máy 28.000 m² tại Đồng Nai, Việt Nam. Gỗ teak đạt chứng nhận FSC, gia công nhôm tại chỗ, đan dây và mây nhựa thủ công."
+  },
+  "Common": {
+    "tagline": "Nhà sản xuất nội thất ngoài trời · Đồng Nai, Việt Nam",
+    "breadcrumbHome": "Trang chủ",
+    "requestQuote": "Yêu cầu báo giá",
+    "requestQuoteShort": "Yêu cầu báo giá",
+    "homeAria": "BINH BFC, về trang chủ",
+    "mainNavAria": "Menu chính",
+    "secondaryNavAria": "Menu phụ",
+    "openMenu": "Mở menu",
+    "closeMenu": "Đóng menu",
+    "menuTitle": "Menu",
+    "languageLabel": "Ngôn ngữ",
+    "languages": {
+      "vi": "Tiếng Việt",
+      "en": "English"
+    },
+    "nav": {
+      "about": "Về chúng tôi",
+      "capabilities": "Năng lực",
+      "materials": "Vật liệu",
+      "products": "Sản phẩm",
+      "projects": "Dự án",
+      "contact": "Liên hệ"
+    },
+    "products": {
+      "sunloungers-daybeds": "Ghế nằm & Giường tắm nắng",
+      "sofas-sectionals": "Sofa & Sofa góc",
+      "dining": "Bàn ghế ăn & Bar",
+      "lounge-chairs": "Ghế thư giãn",
+      "tables": "Bàn cà phê & Bàn phụ",
+      "accessories": "Phụ kiện ngoài trời"
+    },
+    "materials": {
+      "wood": "Gỗ",
+      "aluminum": "Nhôm",
+      "rope": "Dây đan",
+      "wicker": "Mây nhựa",
+      "steel": "Sắt thép",
+      "fabric": "Vải",
+      "glass": "Kính",
+      "ceramic": "Gốm"
+    },
+    "materialTypes": {
+      "metal": "Kim loại",
+      "teak": "Gỗ teak",
+      "acacia": "Gỗ keo (acacia)",
+      "eucalyptus": "Gỗ bạch đàn",
+      "stainless-steel": "Thép không gỉ"
+    },
+    "productTypes": {
+      "sunloungers": "Ghế tắm nắng",
+      "daybeds": "Giường ngoài trời",
+      "sofas": "Sofa",
+      "loveseats": "Sofa đôi",
+      "sectional-modules": "Module sofa góc",
+      "ottomans": "Đôn",
+      "lounge-sets": "Bộ sofa",
+      "dining-tables": "Bàn ăn",
+      "dining-chairs": "Ghế ăn",
+      "dining-sets": "Bộ bàn ăn",
+      "bar-tables": "Bàn bar",
+      "bar-stools": "Ghế bar",
+      "lounge-chairs": "Ghế thư giãn",
+      "benches": "Băng ghế",
+      "coffee-tables": "Bàn cà phê",
+      "side-tables": "Bàn phụ",
+      "umbrellas": "Dù",
+      "fire-pits": "Lò sưởi",
+      "storage": "Tủ",
+      "carts": "Xe đẩy",
+      "shelving": "Kệ",
+      "covers": "Áo phủ"
+    },
+    "features": {
+      "swivel": "Xoay",
+      "rocking": "Bập bênh",
+      "stackable": "Xếp chồng",
+      "modular": "Ghép module",
+      "adjustable": "Chỉnh tựa lưng"
+    },
+    "backToTop": "Về đầu trang",
+    "menu": {
+      "viewAllProducts": "Xem tất cả sản phẩm",
+      "viewAllMaterials": "Xem trang vật liệu",
+      "toggleSubmenu": "Mở danh mục {label}",
+      "productsByCategory": "Theo nhóm sản phẩm",
+      "materialsIntro": "Chất liệu khung, mặt và đan mà BFC tự gia công tại xưởng."
+    }
+  },
+  "Footer": {
+    "blurb": "Nhà sản xuất nội thất ngoài trời từ năm 2010.",
+    "companyTitle": "Công ty",
+    "productsTitle": "Sản phẩm",
+    "contactTitle": "Liên hệ",
+    "address": "Lô C7+D1, Cụm công nghiệp Thạnh Phú - Thiện Tân, xã Thiện Tân, huyện Vĩnh Cửu, Đồng Nai, Việt Nam",
+    "mapsLink": "Xem trên Google Maps",
+    "privacy": "Chính sách bảo mật",
+    "terms": "Điều khoản sử dụng",
+    "cross": {
+      "about": "Chúng tôi là ai",
+      "capabilities": "Cách chúng tôi sản xuất",
+      "materials": "Vật liệu chúng tôi sử dụng",
+      "products": "Sản phẩm chúng tôi làm ra",
+      "projects": "Nơi nội thất của chúng tôi hiện diện",
+      "contact": "Trao đổi với chúng tôi về dự án của bạn"
+    },
+    "certsLabel": "Chứng nhận",
+    "certsAria": "Xem chứng nhận {name} trên trang Năng lực"
+  },
+  "HomePage": {
+    "hero": {
+      "kicker": "Nhà sản xuất nội thất ngoài trời",
+      "title": "Từ khung nhôm đến sợi đan,<br></br> làm trọn tại xưởng",
+      "lede": "Sản xuất theo bản vẽ của bạn hoặc cùng phát triển mẫu riêng cho khách sạn, khu nghỉ dưỡng và thương hiệu nội thất, từ mẫu thử đầu tiên đến đơn hàng nguyên container.",
+      "materials": "Gỗ · Nhôm · Dây đan · Mây nhựa",
+      "ctaQuote": "Yêu cầu báo giá",
+      "ctaCapabilities": "Xem năng lực sản xuất",
+      "scrollNext": "Cuộn xuống phần tiếp theo"
+    },
+    "intro": {
+      "quote": "Một món nội thất ngoài trời bền đẹp được làm nên từ từng mối hàn, từng thớ gỗ và từng sợi đan.",
+      "title": "Câu chuyện BINH BFC",
+      "body": "Thành lập năm 2010 tại Đồng Nai, BINH BFC sản xuất nội thất ngoài trời cho các khu nghỉ dưỡng, khách sạn và nhà phân phối. Nhà máy 28.000 m² cùng 370 nhân sự tự làm trọn mọi công đoạn, từ khung nhôm, thép, gỗ teak đến đan dây, đan mây nhựa và may nệm. Nhờ vậy chúng tôi giữ được chất lượng và tiến độ ở từng bước, cho từng đơn hàng.",
+      "cta": "Tìm hiểu về chúng tôi"
+    },
+    "stats": {
+      "aria": "BINH BFC qua các con số",
+      "years": "Năm kinh nghiệm",
+      "employees": "Nhân sự",
+      "area": "m² nhà máy",
+      "workshops": "Xưởng sản xuất nội bộ"
+    },
+    "about": {
+      "title": "Nội thất ngoài trời đẹp và bền bỉ",
+      "p1": "BINH BFC ra đời với mục tiêu tạo ra những sản phẩm nội thất ngoài trời đẹp và bền bỉ. Thế mạnh của chúng tôi là phối hợp nhiều chất liệu khác nhau như gỗ teak, nhôm, thép, mây nhựa và dây đan để đạt được thẩm mỹ mà khách hàng mong muốn.",
+      "p2": "Chúng tôi có tổng cộng 370 nhân sự giàu kinh nghiệm trong gia công kim loại, gia công gỗ và đan thủ công. Tổng diện tích nhà máy khoảng 28.000 m².",
+      "cta": "Đọc câu chuyện của chúng tôi",
+      "stats": {
+        "years": "Năm kinh nghiệm",
+        "employees": "Nhân sự",
+        "area": "m² diện tích nhà máy",
+        "containers": "Container mỗi năm",
+        "markets": "Thị trường xuất khẩu"
+      }
+    },
+    "products": {
+      "title": "Sáu dòng sản phẩm, sinh ra để sống ngoài trời",
+      "lede": "Mỗi sản phẩm đều được làm tại nhà máy của chúng tôi, từ khung, đan cho đến hoàn thiện.",
+      "viewAll": "Xem tất cả sản phẩm",
+      "viewMore": "Xem thêm",
+      "eyebrow": "Sản phẩm",
+      "modelsPlaceholder": "NULL mẫu",
+      "items": {
+        "sunloungers-daybeds": "Mây nhựa và gỗ teak, đan trên khung nhôm.",
+        "sofas-sectionals": "Dây đan và gỗ teak, ghế đơn hoặc module ghép.",
+        "dining": "Bàn ăn, ghế ăn và ghế bar, gỗ teak FSC hoặc khung nhôm.",
+        "lounge-chairs": "Khung cố định, xoay và bập bênh, đan thủ công.",
+        "tables": "Khung nhôm với mặt đá sintered hoặc gỗ teak.",
+        "accessories": "Dù, lò sưởi, tủ, kệ và áo phủ."
+      }
+    },
+    "capabilities": {
+      "title": "Tất cả dưới một mái nhà",
+      "lede": "Từ nguyên liệu thô đến container đóng gói, mọi công đoạn đều diễn ra trong nhà máy của chúng tôi.",
+      "cta": "Xem năng lực sản xuất",
+      "items": {
+        "woodworking": {
+          "name": "Gia công gỗ",
+          "desc": "Xử lý gỗ teak sấy lò và ghép mộng chính xác trên máy CNC 5 trục và cưa rong."
+        },
+        "aluminum": {
+          "name": "Gia công nhôm",
+          "desc": "Cắt, uốn và hàn tại chỗ: cắt laser tự động và hàn robot."
+        },
+        "weaving": {
+          "name": "Đan thủ công",
+          "desc": "Dây đan và mây nhựa được đan tay trên khung gỗ teak và nhôm."
+        },
+        "powderCoating": {
+          "name": "Sơn tĩnh điện",
+          "desc": "Tiền xử lý 6 bước: tẩy dầu kiềm, hai lần rửa, nano-zincofin, rửa, sấy, sơn."
+        },
+        "upholstery": {
+          "name": "May nệm",
+          "desc": "May nệm và gia công vải ngoài trời cho mặt ngồi, lưng tựa và bọc phủ."
+        },
+        "packing": {
+          "name": "Đóng gói & Xuất khẩu",
+          "desc": "Đóng gói và đóng container tại bãi riêng của nhà máy."
+        }
+      }
+    },
+    "materials": {
+      "kicker": "Vật liệu",
+      "photosAria": "Hình ảnh {name}",
+      "prevPhoto": "Ảnh {name} trước",
+      "nextPhoto": "Ảnh {name} tiếp theo",
+      "bands": {
+        "wood": {
+          "name": "Gỗ",
+          "tagline": "Gỗ teak rừng trồng đạt chứng nhận FSC từ Costa Rica và Brazil.",
+          "body": "Nội thất gỗ teak của chúng tôi được chế tác từ gỗ teak cao cấp đạt chứng nhận FSC, nhập từ Costa Rica và Brazil. Mỗi sản phẩm đều được tuyển chọn kỹ lưỡng và hoàn thiện theo tiêu chuẩn cao nhất.",
+          "cta": "Khám phá gỗ"
+        },
+        "aluminum": {
+          "name": "Nhôm",
+          "tagline": "Gia công tại chỗ với dây chuyền tiền xử lý 6 bước.",
+          "body": "Nội thất nhôm được gia công tại nhà máy bằng quy trình bán tự động hiện đại. Khung nhôm đi qua dây chuyền tiền xử lý 6 bước trước khi sơn tĩnh điện, tạo bề mặt chống trầy xước và ăn mòn vượt trội.",
+          "cta": "Khám phá nhôm"
+        },
+        "rope": {
+          "name": "Dây đan",
+          "tagline": "Sợi polypropylene chuyên dụng ngoài trời, đan tay tại nhà máy.",
+          "body": "Dây đan của chúng tôi làm từ sợi polypropylene chuyên dụng ngoài trời, chống UV, nấm mốc và thời tiết. Dây được thợ của chúng tôi đan tay trên khung gỗ teak hoặc nhôm sơn tĩnh điện.",
+          "cta": "Khám phá dây đan"
+        },
+        "wicker": {
+          "name": "Mây nhựa",
+          "tagline": "Sợi polyethylene ép đùn, sấy lò để giữ màu bền lâu.",
+          "body": "Được đan trên khung nhôm đã tiền xử lý và sơn tĩnh điện. Bảo hành tiêu chuẩn hai năm, có thể mở rộng trên năm năm theo yêu cầu của khách hàng.",
+          "cta": "Khám phá mây nhựa"
+        },
+        "steel": {
+          "name": "Thép",
+          "tagline": "NULL - đang chờ xác nhận (Q10)",
+          "body": "NULL",
+          "cta": "Khám phá thép"
+        }
+      }
+    },
+    "process": {
+      "title": "Từ yêu cầu đến container",
+      "lede": "Một đội ngũ duy nhất theo sát chương trình của bạn từ bản vẽ đầu tiên đến container xuất xưởng.",
+      "cta": "Xem quy trình đầy đủ",
+      "steps": {
+        "step1": {
+          "name": "Yêu cầu & Bản vẽ",
+          "desc": "Bạn gửi bản vẽ, tài liệu tham khảo hoặc mẫu."
+        },
+        "step2": {
+          "name": "Báo giá & Thẩm định kỹ thuật",
+          "desc": "Bộ phận kỹ thuật kiểm tra tính khả thi, sau đó chúng tôi báo giá.",
+          "lead": "NULL ngày"
+        },
+        "step3": {
+          "name": "Làm mẫu",
+          "desc": "Mẫu thử được chế tác tại xưởng mẫu riêng của chúng tôi.",
+          "lead": "NULL tuần"
+        },
+        "step4": {
+          "name": "Khách hàng duyệt mẫu",
+          "desc": "Bạn xem xét và ký duyệt mẫu."
+        },
+        "step5": {
+          "name": "Sản xuất hàng loạt",
+          "desc": "Lịch sản xuất được phân bổ qua sáu xưởng của chúng tôi.",
+          "lead": "NULL tuần"
+        },
+        "step6": {
+          "name": "QC & Đóng container",
+          "desc": "Kiểm tra theo tiêu chuẩn của bạn, sau đó đóng hàng."
+        }
+      }
+    },
+    "projects": {
+      "kicker": "Dự án",
+      "title": "Nơi nội thất của chúng tôi hiện diện",
+      "viewAll": "Xem tất cả dự án",
+      "filterAria": "Lọc theo loại công trình",
+      "empty": "Chưa có dự án trong danh mục này.",
+      "prev": "Dự án trước",
+      "next": "Dự án tiếp theo",
+      "projectAria": "Dự án {current} / {total}",
+      "filters": {
+        "all": "Tất cả",
+        "resorts": "Resort",
+        "hotels": "Khách sạn",
+        "residential": "Nhà ở",
+        "restaurants": "Nhà hàng"
+      },
+      "discover": "Khám phá",
+      "countries": {
+        "it": "Ý",
+        "es": "Tây Ban Nha",
+        "fr": "Pháp",
+        "gr": "Hy Lạp",
+        "pt": "Bồ Đào Nha",
+        "de": "Đức"
+      },
+      "meta": "{city}, {country} · {year} · {items} sản phẩm"
+    },
+    "materialsShowcase": {
+      "kicker": "Vật liệu",
+      "title": "Vật liệu làm nên sản phẩm BFC",
+      "viewAll": "Xem tất cả vật liệu",
+      "prev": "Vật liệu trước",
+      "next": "Vật liệu tiếp theo",
+      "cardAria": "{name}, vật liệu {current} / {total}",
+      "discover": "Khám phá",
+      "lede": "Gỗ, kim loại, dây đan, mây nhựa, vải, kính và gốm. Mỗi vật liệu có cách xử lý và bảo quản riêng."
+    },
+    "certifications": {
+      "title": "Vật liệu và quy trình được kiểm chứng",
+      "lede": "Chứng nhận độc lập cho những gì chúng tôi mua và cách chúng tôi sản xuất.",
+      "cta": "Thêm về công ty",
+      "fscNote": "Gỗ teak đạt chứng nhận FSC từ Costa Rica và Brazil.",
+      "pendingNote": "NULL - đang chờ xác nhận (Q11)"
+    },
+    "dots": {
+      "aria": "Tiến trình các phần",
+      "top": "Trang chủ",
+      "intro": "Giới thiệu",
+      "stats": "Số liệu",
+      "about": "Về chúng tôi",
+      "products": "Sản phẩm",
+      "capabilities": "Năng lực",
+      "materials": "Vật liệu",
+      "process": "Cách chúng tôi làm việc",
+      "projects": "Dự án",
+      "factory": "Nhà máy",
+      "contact": "Liên hệ"
+    },
+    "factory": {
+      "eyebrow": "Năng lực & nhà máy",
+      "title": "Bên trong nhà máy BFC",
+      "lede": "Từ bản vẽ đến container: các xưởng, đội ngũ và quy trình đứng sau mỗi đơn hàng.",
+      "viewAll": "Xem trang năng lực",
+      "chips": {
+        "since": "Sản xuất từ năm 2010",
+        "oem": "OEM / ODM theo bản vẽ",
+        "visit": "Sẵn sàng đón khách thăm nhà máy"
+      },
+      "feature": {
+        "eyebrow": "Nhà máy",
+        "title": "Năng lực sản xuất của BFC",
+        "cta": "Xem năng lực"
+      },
+      "tiles": {
+        "inhouse": "Các công đoạn tự gia công",
+        "process": "Từ mẫu thử đến container"
+      }
+    },
+    "cta": {
+      "kicker": "Bắt đầu dự án",
+      "title": "Gửi bản vẽ, nhận báo giá từ xưởng",
+      "quote": "Yêu cầu báo giá",
+      "visit": "Đặt lịch thăm nhà máy"
+    },
+    "export": {
+      "kicker": "Xuất khẩu",
+      "title": "Hàng BFC có mặt tại hơn 20 quốc gia",
+      "mapLabel": "Bản đồ thị trường xuất khẩu của BFC",
+      "hubLabel": "BFC · Đồng Nai",
+      "stats": [
+        {
+          "value": "20+",
+          "label": "Quốc gia nhập khẩu"
+        },
+        {
+          "value": "100+",
+          "label": "Container mỗi tháng"
+        },
+        {
+          "value": "2010",
+          "label": "Xuất khẩu từ năm"
+        }
+      ],
+      "countries": {
+        "GBR": "Anh",
+        "ESP": "Tây Ban Nha",
+        "NLD": "Hà Lan",
+        "USA": "Mỹ",
+        "CHN": "Trung Quốc",
+        "JPN": "Nhật Bản",
+        "KOR": "Hàn Quốc",
+        "AUS": "Úc"
+      }
+    }
+  },
+  "CapabilitiesPage": {
+    "metaTitle": "Năng lực sản xuất - Sáu xưởng tại nhà máy | BINH BFC",
+    "metaDescription": "Mọi bộ phận của sản phẩm được làm tại nhà máy: gia công gỗ với CNC 5 trục, cắt laser và hàn robot nhôm, đan thủ công, dây chuyền sơn tĩnh điện 6 bước, may nệm và tự đóng container.",
+    "hero": {
+      "kicker": "Năng lực",
+      "title": "Năng lực sản xuất",
+      "lede": "Gỗ, nhôm, đan dây, sơn tĩnh điện, may nệm và đóng gói đều làm tại sáu xưởng của BFC. Quy trình khép kín giúp chúng tôi giữ chất lượng đồng đều và chủ động tiến độ cho từng đơn hàng."
+    },
+    "capacity": {
+      "aria": "BINH BFC qua các con số",
+      "items": {
+        "years": {
+          "label": "Năm kinh nghiệm",
+          "desc": "Sản xuất nội thất ngoài trời cho thị trường xuất khẩu từ năm 2010."
+        },
+        "area": {
+          "label": "Diện tích nhà máy",
+          "desc": "Sáu xưởng chung một khuôn viên tại Đồng Nai, từ phôi gỗ đến bãi container."
+        },
+        "employees": {
+          "label": "Nhân sự",
+          "desc": "Thợ mộc, thợ hàn, thợ đan và thợ may nệm làm việc trực tiếp tại nhà máy."
+        },
+        "containers": {
+          "label": "Container mỗi tháng",
+          "desc": "Công suất xuất hàng trung bình, đóng tại bãi container riêng của nhà máy."
+        }
+      }
+    },
+    "madeHere": {
+      "title": "Mọi bộ phận của chiếc ghế này",
+      "lede": "Cuộn để tách rời chiếc ghế xoay. Mỗi bộ phận đều đi qua một xưởng của chúng tôi trước khi được lắp lại thành ghế.",
+      "note": "Khung, đế xoay, lưới dây đan và nệm đều được hoàn thiện tại xưởng của chúng tôi. Chỉ có vải và sợi đan là mua ngoài.",
+      "noteLink": "Xem những gì chúng tôi làm và không làm",
+      "dragHint": "Kéo để xoay ghế",
+      "loading": "Đang tải mô hình 3D",
+      "loadError": "Trình duyệt không hỗ trợ hiển thị 3D",
+      "canvasAria": "Mô hình 3D ghế xoay khung teak đan dây, tách rời theo từng bộ phận",
+      "callouts": {
+        "cushion": {
+          "part": "Nệm ngoài trời",
+          "shop": "May nệm"
+        },
+        "teakFrame": {
+          "part": "Khung gỗ teak",
+          "shop": "Gia công gỗ"
+        },
+        "rope": {
+          "part": "Dây đan tay",
+          "shop": "Đan thủ công"
+        },
+        "swivelBase": {
+          "part": "Đế xoay",
+          "shop": "Gia công gỗ"
+        }
+      }
+    },
+    "workshops": {
+      "kicker": "Xưởng sản xuất",
+      "title": "Điều gì diễn ra bên trong, và mỗi xưởng bàn giao những gì",
+      "lede": "Chất lượng thường thất thoát ở các điểm bàn giao. Mọi bàn giao của chúng tôi không rời khỏi nhà máy.",
+      "receivesLabel": "Nhận từ",
+      "insideLabel": "Bên trong xưởng",
+      "machinesLabel": "Máy móc chính",
+      "noMachinesLabel": "Không dùng máy",
+      "capacityLabel": "Công suất",
+      "handsOverLabel": "Bàn giao cho",
+      "items": {
+        "woodworking": {
+          "name": "Gia công gỗ",
+          "receives": "Gỗ teak nhập khẩu (Costa Rica & Brazil)",
+          "summary": "Phôi gỗ được chọn vân, sấy đạt độ ẩm và tạo hình trên CNC trước khi thành khung mộc.",
+          "ops": [
+            "Tuyển chọn và ghép vân phôi gỗ",
+            "Xẻ theo kích thước",
+            "Kiểm tra độ ẩm 8-12%",
+            "Tạo hình trên CNC 5 trục",
+            "Cắt và lắp mộng",
+            "Chà nhám từ thô đến mịn"
+          ],
+          "machines": "CNC 5 trục, cưa rong, máy bào, máy chà nhám",
+          "handoverTo": "May nệm / hoàn thiện",
+          "handoverState": "Khung mộc, đạt độ ẩm, bề mặt chưa xử lý"
+        },
+        "aluminum": {
+          "name": "Gia công nhôm",
+          "receives": "Nhôm định hình ép đùn",
+          "summary": "Ống nhôm được cắt laser, uốn theo bán kính và hàn thành khung đúng bản vẽ.",
+          "ops": [
+            "Cắt laser theo bản vẽ",
+            "Uốn ống theo bán kính",
+            "Hàn robot các mối chính",
+            "Hàn tay các mối khuất",
+            "Mài phẳng mối hàn"
+          ],
+          "machines": "Máy cắt laser tự động, máy uốn, robot hàn, bộ hàn TIG",
+          "handoverTo": "Dây chuyền sơn",
+          "handoverState": "Khung thô, mối hàn đã mài, còn dầu từ công đoạn hàn"
+        },
+        "powderCoating": {
+          "name": "Sơn tĩnh điện",
+          "receives": "Gia công nhôm",
+          "summary": "Khung nhôm qua 6 bước tiền xử lý, rồi phun sơn bột tĩnh điện và sấy lò.",
+          "ops": [
+            "Tiền xử lý 6 bước (chi tiết bên dưới)",
+            "Phun sơn bột tĩnh điện",
+            "Sấy lò"
+          ],
+          "machines": "Dây chuyền tiền xử lý, buồng phun sơn, lò sấy",
+          "handoverTo": "Đan thủ công",
+          "handoverState": "Khung đã sơn, bề mặt đủ cứng để căng sợi mà không trầy"
+        },
+        "weaving": {
+          "name": "Đan thủ công",
+          "receives": "Dây chuyền sơn (nhôm) hoặc Gia công gỗ (teak)",
+          "summary": "Thợ đan căng từng sợi dây và mây nhựa lên khung, hoàn toàn bằng tay.",
+          "ops": [
+            "Cố định khung lên giá đan",
+            "Đan theo mẫu chuẩn",
+            "Cân chỉnh độ căng bằng tay",
+            "Khóa và giấu đầu sợi"
+          ],
+          "machines": "Đan hoàn toàn bằng tay: tay nghề mà máy móc không thể thay thế",
+          "handoverTo": "May nệm, hoặc thẳng đến Đóng gói",
+          "handoverState": "Sản phẩm đã đan, độ căng đã kiểm, đầu sợi đã khóa"
+        },
+        "upholstery": {
+          "name": "May nệm",
+          "receives": "Gia công gỗ / Đan thủ công",
+          "summary": "Vải ngoài trời và mút được cắt theo rập, may và tạo dáng thành nệm hoàn chỉnh.",
+          "ops": [
+            "Cắt vải theo rập",
+            "May vỏ nệm",
+            "Cắt mút theo khuôn",
+            "Nhồi và tạo dáng",
+            "Đóng đường may"
+          ],
+          "machines": "Máy cắt vải, máy may công nghiệp",
+          "handoverTo": "Đóng gói",
+          "handoverState": "Sản phẩm hoàn thiện đã lắp nệm"
+        },
+        "packing": {
+          "name": "Đóng gói & Xuất khẩu",
+          "receives": "Tất cả các xưởng",
+          "summary": "Sản phẩm được kiểm tra lần cuối, đóng thùng và xếp container ngay tại nhà máy.",
+          "ops": [
+            "Kiểm tra lần cuối trước khi đóng gói",
+            "Bọc chống trầy xước",
+            "Thùng carton sản xuất tại chỗ",
+            "Đóng container tại bãi riêng"
+          ],
+          "machines": "Khu làm thùng carton, bãi container",
+          "handoverTo": "Hãng tàu",
+          "handoverState": "Container niêm phong tại nhà máy"
+        }
+      }
+    },
+    "surface": {
+      "kicker": "Xử lý bề mặt",
+      "title": "Sáu bước trước khi một giọt sơn chạm vào khung",
+      "lede": "Mọi khung nhôm đều được tiền xử lý trước khi sơn tĩnh điện.",
+      "result": "Kết quả là bề mặt hoàn thiện chất lượng cao, chống trầy xước và ăn mòn vượt trội, dễ vệ sinh.",
+      "warrantyLabel": "Bảo hành",
+      "warranty": "Sản phẩm đan có bảo hành tiêu chuẩn 2 năm, có thể mở rộng trên 5 năm theo yêu cầu.",
+      "stages": {
+        "1": {
+          "name": "Tẩy dầu kiềm",
+          "desc": "Loại bỏ toàn bộ dầu mỡ còn lại từ công đoạn hàn."
+        },
+        "2": {
+          "name": "Rửa nước x2",
+          "desc": "Rửa nước hai bước."
+        },
+        "3": {
+          "name": "Lớp nano-zincofin",
+          "desc": "Tăng độ bám dính của lớp sơn."
+        },
+        "4": {
+          "name": "Rửa nước lần cuối",
+          "desc": "Lần rửa cuối trước khi sấy."
+        },
+        "5": {
+          "name": "Sấy khô",
+          "desc": "Khung được sấy khô hoàn toàn."
+        },
+        "6": {
+          "name": "Sơn tĩnh điện",
+          "desc": "Phun sơn bột tĩnh điện, sấy lò."
+        }
+      },
+      "imageCaption": "Khung nhôm sau khi sơn tĩnh điện"
+    },
+    "inhouse": {
+      "title": "Câu trả lời thẳng giúp mọi người tiết kiệm thời gian",
+      "lede": "Nhà máy nào cũng hứa làm được mọi thứ. Đây chính xác là ranh giới của chúng tôi.",
+      "inhouseLabel": "Làm tại nhà máy",
+      "boughtLabel": "Mua ngoài",
+      "unconfirmedTag": "NULL, chờ xác nhận",
+      "madeItems": [
+        "Sấy gỗ và gia công gỗ",
+        "Cắt, uốn và hàn nhôm",
+        "Sơn tĩnh điện 6 bước",
+        "Đan tay dây và mây nhựa",
+        "May nệm",
+        "Thùng carton và đóng container"
+      ],
+      "boughtItems": {
+        "fabric": "Vải ngoài trời (Sunbrella và tương đương)",
+        "profile": "Nhôm định hình ép đùn",
+        "timber": "Trồng gỗ (nhập từ Costa Rica & Brazil)",
+        "foam": "Mút xốp",
+        "stone": "Mặt đá sintered",
+        "fittings": "Phụ kiện inox"
+      },
+      "unclassifiedLabel": "Chưa phân loại có chủ đích",
+      "unclassified": "Sợi đan và dây: việc ép đùn có diễn ra tại nhà máy hay không đang chờ xác nhận. Nếu có, mục này chuyển sang cột trái và trở thành thế mạnh hàng đầu."
+    },
+    "process": {
+      "title": "Từ yêu cầu đến container xuất xưởng",
+      "lede": "Điều gì diễn ra ở mỗi bước, và chúng tôi cần gì từ bạn.",
+      "prepareLabel": "Bạn chuẩn bị",
+      "steps": {
+        "step1": {
+          "name": "Yêu cầu & Bản vẽ",
+          "needs": "Bản vẽ kỹ thuật, ảnh tham khảo hoặc mẫu; vật liệu mong muốn; sản lượng dự kiến"
+        },
+        "step2": {
+          "name": "Báo giá & Thẩm định kỹ thuật",
+          "time": "NULL ngày"
+        },
+        "step3": {
+          "name": "Làm mẫu",
+          "needs": "Vật liệu và màu hoàn thiện đã chốt",
+          "time": "NULL tuần"
+        },
+        "step4": {
+          "name": "Khách hàng duyệt mẫu",
+          "needs": "Phản hồi trên mẫu thực tế"
+        },
+        "step5": {
+          "name": "Sản xuất hàng loạt",
+          "needs": "Đơn đặt hàng",
+          "time": "NULL tuần"
+        },
+        "step6": {
+          "name": "QC & Đóng container",
+          "needs": "Chỉ định đơn vị kiểm định bên thứ ba, nếu có"
+        }
+      }
+    },
+    "qc": {
+      "kicker": "Kiểm soát chất lượng",
+      "title": "Kiểm tra ở mọi điểm bàn giao, không chỉ ở khâu cuối",
+      "items": {
+        "1": {
+          "name": "Kiểm tra vật tư đầu vào",
+          "desc": "Gỗ, nhôm và vải được kiểm tra ngay khi về, trước khi vào bất kỳ xưởng nào."
+        },
+        "2": {
+          "name": "Kiểm tra trong quá trình",
+          "desc": "Mỗi lần sản phẩm chuyển sang xưởng kế tiếp đều được kiểm tra trước khi bên nhận chấp nhận."
+        },
+        "3": {
+          "name": "Kiểm tra cuối cùng",
+          "desc": "Từng sản phẩm được đối chiếu với thông số đơn hàng trước khi đóng gói."
+        }
+      },
+      "customTitle": "Tiêu chuẩn riêng của khách hàng",
+      "customDesc": "Tiêu chuẩn riêng của từng khách được áp dụng xuyên suốt, không phải checklist chung.",
+      "thirdPartyTitle": "Kiểm định bên thứ ba",
+      "thirdPartyDesc": "Chúng tôi làm việc với các đơn vị kiểm định độc lập theo yêu cầu.",
+      "agencies": "Đơn vị: NULL",
+      "certs": {
+        "title": "Chứng nhận",
+        "lede": "Số hiệu, đơn vị cấp và bản PDF của từng chứng nhận để đội sourcing của bạn đối chiếu.",
+        "numberLabel": "Số hiệu",
+        "issuerLabel": "Đơn vị cấp",
+        "validLabel": "Hiệu lực",
+        "download": "Tải chứng nhận (PDF)",
+        "downloadPending": "PDF: chờ xác nhận",
+        "pendingName": "NULL",
+        "pendingScope": "Chứng nhận đang chờ BFC xác nhận",
+        "items": {
+          "fsc": {
+            "name": "FSC",
+            "scope": "Gỗ teak có chứng nhận FSC"
+          },
+          "iso9001": {
+            "name": "ISO 9001",
+            "scope": "Hệ thống quản lý chất lượng"
+          },
+          "iso14001": {
+            "name": "ISO 14001",
+            "scope": "Hệ thống quản lý môi trường"
+          }
+        },
+        "sample": "Mẫu",
+        "kicker": "Chứng nhận",
+        "heading": "Được kiểm chứng độc lập"
+      },
+      "chips": {
+        "custom": "Áp dụng tiêu chuẩn riêng của từng khách hàng",
+        "thirdParty": "Kiểm định bên thứ ba theo yêu cầu"
+      }
+    },
+    "oem": {
+      "kicker": "OEM / ODM",
+      "title": "Thiết kế của bạn, nhà máy của chúng tôi",
+      "p1": "Gửi cho chúng tôi bản vẽ, ảnh tham khảo hoặc mẫu thật. Chúng tôi dựng mẫu đầu tiên, bạn trực tiếp đánh giá, và chúng tôi chỉnh sửa đến khi khớp hoàn toàn.",
+      "p2": "Chúng tôi cũng phát triển từ brief khi bạn có định hướng nhưng chưa có bản vẽ.",
+      "samplingLabel": "Thời gian làm mẫu điển hình:",
+      "samplingValue": "NULL",
+      "cta": "Bắt đầu yêu cầu làm mẫu"
+    },
+    "oemProcess": {
+      "kicker": "OEM / ODM",
+      "title": "Từ bản vẽ của bạn đến container xuất xưởng",
+      "lede": "Sáu bước rõ ràng từ yêu cầu đầu tiên đến khi hàng rời nhà máy.",
+      "cta": "Gửi yêu cầu làm mẫu",
+      "steps": {
+        "1": {
+          "name": "Gửi yêu cầu",
+          "desc": "Bản vẽ, ảnh tham khảo hoặc mẫu thật, kèm vật liệu và sản lượng dự kiến."
+        },
+        "2": {
+          "name": "Báo giá & thẩm định",
+          "desc": "Kỹ sư rà kết cấu, vật liệu và gửi báo giá kèm đề xuất điều chỉnh nếu cần."
+        },
+        "3": {
+          "name": "Làm mẫu",
+          "desc": "Mẫu đầu tiên được làm tại chính các xưởng sẽ sản xuất hàng loạt."
+        },
+        "4": {
+          "name": "Duyệt mẫu",
+          "desc": "Bạn đánh giá mẫu thực tế, chúng tôi chỉnh đến khi khớp yêu cầu."
+        },
+        "5": {
+          "name": "Sản xuất hàng loạt",
+          "desc": "Sản phẩm đi qua sáu xưởng, được kiểm tra ở mỗi điểm bàn giao."
+        },
+        "6": {
+          "name": "QC & đóng container",
+          "desc": "Kiểm tra cuối theo thông số đơn hàng, đóng gói và xếp container tại bãi riêng."
+        }
+      },
+      "phaseLabel": "Giai đoạn",
+      "owner": {
+        "you": "Bạn",
+        "bfc": "BFC"
+      },
+      "ownerAria": {
+        "you": "Bạn thực hiện",
+        "bfc": "BFC thực hiện"
+      },
+      "phases": {
+        "quote": "Yêu cầu & báo giá",
+        "sample": "Phát triển mẫu",
+        "production": "Sản xuất & giao hàng"
+      }
+    },
+    "faq": {
+      "kicker": "Hỏi đáp",
+      "title": "Câu hỏi thường gặp",
+      "more": "Chưa thấy câu trả lời bạn cần?",
+      "contact": "Liên hệ với chúng tôi",
+      "items": {
+        "moq": {
+          "q": "Đơn hàng tối thiểu (MOQ) là bao nhiêu?",
+          "a": "MOQ tuỳ theo mẫu, vật liệu và màu hoàn thiện. Chúng tôi báo MOQ cụ thể cùng với báo giá."
+        },
+        "sample": {
+          "q": "Làm mẫu mất bao lâu?",
+          "a": "Tuỳ độ phức tạp và vật liệu của mẫu. Thời gian làm mẫu được ghi rõ trong báo giá để bạn chủ động lịch duyệt."
+        },
+        "drawing": {
+          "q": "BFC có làm theo bản vẽ hoặc thiết kế riêng không?",
+          "a": "Có. Chúng tôi làm theo bản vẽ, ảnh hoặc mẫu của bạn, và cũng phát triển từ brief khi bạn có định hướng nhưng chưa có bản vẽ."
+        },
+        "inspection": {
+          "q": "Tôi có thể chỉ định bên kiểm định thứ ba không?",
+          "a": "Có. Bạn chỉ định đơn vị kiểm định, chúng tôi phối hợp lịch kiểm hàng trước khi đóng container."
+        }
+      }
+    }
+  },
+  "ContactPage": {
+    "metaTitle": "Liên hệ | BINH BFC",
+    "metaDescription": "Gửi bản vẽ, yêu cầu báo giá hoặc đặt lịch thăm nhà máy nội thất ngoài trời BFC tại Đồng Nai, Việt Nam.",
+    "hero": {
+      "title": "Liên hệ",
+      "lede": "Gửi bản vẽ, ảnh tham khảo hoặc yêu cầu báo giá. Đội ngũ kinh doanh của BFC sẽ phản hồi bạn qua email."
+    },
+    "channels": {
+      "title": "Kênh liên hệ",
+      "phone": "Điện thoại",
+      "email": "Email",
+      "whatsapp": "WhatsApp",
+      "zalo": "Zalo",
+      "hours": "Giờ làm việc",
+      "address": "Nhà máy",
+      "directions": "Chỉ đường trên Google Maps"
+    },
+    "form": {
+      "title": "Gửi yêu cầu",
+      "purposeLabel": "Bạn cần",
+      "purposes": {
+        "quote": "Báo giá",
+        "oem": "OEM / làm mẫu",
+        "visit": "Thăm nhà máy",
+        "other": "Khác"
+      },
+      "fields": {
+        "name": "Họ và tên",
+        "email": "Email công việc",
+        "company": "Công ty",
+        "country": "Quốc gia",
+        "phone": "Điện thoại / WhatsApp",
+        "message": "Nội dung",
+        "model": "Mã mẫu"
+      },
+      "messagePlaceholder": "Sản phẩm, vật liệu, số lượng dự kiến, thời gian cần hàng...",
+      "required": "bắt buộc",
+      "attach": "Đính kèm bản vẽ hoặc ảnh",
+      "attachHint": "PDF, DWG, DXF, JPG hoặc PNG, tối đa 10 MB",
+      "attachRemove": "Bỏ tệp",
+      "submit": "Gửi yêu cầu",
+      "sending": "Đang gửi...",
+      "privacy": "Thông tin của bạn chỉ dùng để trả lời yêu cầu này. Xem <link>Chính sách bảo mật</link>.",
+      "errors": {
+        "name": "Vui lòng nhập họ tên.",
+        "email": "Email chưa đúng định dạng.",
+        "message": "Vui lòng cho chúng tôi biết bạn cần gì.",
+        "file": "Tệp vượt quá 10 MB, không đúng định dạng hoặc chứa nội dung không an toàn.",
+        "generic": "Chưa gửi được. Vui lòng thử lại hoặc email trực tiếp cho chúng tôi.",
+        "rateLimited": "Bạn đã gửi nhiều yêu cầu trong thời gian ngắn. Vui lòng thử lại sau ít phút.",
+        "captcha": "Chưa xác minh được bạn không phải robot. Vui lòng thử lại."
+      },
+      "success": {
+        "title": "Đã nhận yêu cầu của bạn",
+        "body": "Cảm ơn bạn. Chúng tôi sẽ phản hồi qua email {email}.",
+        "again": "Gửi yêu cầu khác"
+      },
+      "modelPlaceholder": "VD: 2BFC2636, nhiều mã cách nhau dấu phẩy",
+      "countryPlaceholder": "Chọn quốc gia",
+      "countryMain": "Thị trường chính",
+      "countryAll": "Tất cả quốc gia"
+    },
+    "visit": {
+      "kicker": "Thăm nhà máy",
+      "title": "Đến tận nơi xem xưởng và mẫu",
+      "body": "Chúng tôi đón khách tham quan nhà máy, audit và kiểm hàng theo lịch hẹn trước.",
+      "cta": "Đặt lịch thăm nhà máy",
+      "mapTitle": "Bản đồ nhà máy BFC"
+    }
+  },
+  "MaterialsPage": {
+    "metaTitle": "Vật liệu | BINH BFC",
+    "metaDescription": "Gỗ teak FSC, nhôm, sắt thép, dây đan, mây nhựa, vải, kính và gốm: các vật liệu BFC dùng cho nội thất ngoài trời.",
+    "hero": {
+      "title": "Vật liệu",
+      "lede": "Gỗ teak, nhôm, sắt thép, dây đan, mây nhựa, vải, kính và gốm: các vật liệu tạo nên nội thất ngoài trời của BFC. Chọn một vật liệu để xem chi tiết."
+    },
+    "readMore": "Xem thêm",
+    "items": {
+      "wood": {
+        "name": "Gỗ teak"
+      },
+      "aluminum": {
+        "name": "Nhôm"
+      },
+      "rope": {
+        "name": "Dây đan"
+      },
+      "wicker": {
+        "name": "Mây nhựa"
+      },
+      "steel": {
+        "name": "Sắt thép"
+      },
+      "fabric": {
+        "name": "Vải"
+      },
+      "glass": {
+        "name": "Kính"
+      },
+      "ceramic": {
+        "name": "Gốm"
+      }
+    }
+  },
+  "MaterialDetail": {
+    "metaTitle": "{name} | Vật liệu | BINH BFC",
+    "properties": "Đặc tính",
+    "craft": "Gia công tại BFC",
+    "care": "Bảo quản",
+    "products": "Sản phẩm dùng {name}",
+    "allMaterials": "Tất cả vật liệu",
+    "items": {
+      "wood": {
+        "lede": "Gỗ teak rừng trồng đạt chứng nhận FSC, nhập từ Costa Rica và Brazil. Dầu tự nhiên trong gỗ giúp teak chịu được nắng, mưa và độ ẩm ngoài trời, nên đây là vật liệu chủ lực của BFC.",
+        "properties": [
+          "Teak chứa nhiều dầu và nhựa tự nhiên, giúp gỗ hạn chế hút nước, ít cong vênh và chống mối mọt mà không cần xử lý hóa chất nặng.",
+          "Để ngoài trời, bề mặt teak chuyển dần từ màu nâu mật sang xám bạc. Đây là lớp patina tự nhiên, không ảnh hưởng đến độ bền của gỗ. Đặt trong nhà hoặc dưới mái che, gỗ giữ màu nâu lâu hơn."
+        ],
+        "craft": [
+          "Phôi gỗ được tuyển chọn và ghép vân, sấy đến độ ẩm 8-12% rồi tạo hình trên CNC 5 trục. Mộng được cắt và lắp chính xác trước khi chà nhám từ thô đến mịn.",
+          "Toàn bộ khâu gia công gỗ nằm trong nhà máy, cùng với đan, may nệm và đóng gói, nên khung gỗ không phải rời xưởng trước khi thành sản phẩm hoàn chỉnh."
+        ],
+        "care": [
+          "Teak là gỗ nhiều dầu nên không sơn hay phủ vecni. Lớp phủ sẽ bong tróc theo thời gian khi dầu tự nhiên đẩy ra bề mặt.",
+          "Vệ sinh định kỳ bằng nước ấm pha xà phòng nhẹ và bàn chải mềm, chải theo chiều vân gỗ rồi để khô tự nhiên. Không dùng máy xịt áp lực cao.",
+          "Nếu muốn giữ màu nâu mật của gỗ mới, có thể dùng dầu hoặc chất bảo vệ chuyên dụng cho teak theo hướng dẫn của nhà sản xuất.",
+          "Khi cất giữ qua mùa mưa hoặc mùa đông, đặt sản phẩm ở nơi khô ráo, thông thoáng. Tránh trùm kín bằng vật liệu không thoáng khí vì dễ đọng ẩm."
+        ]
+      },
+      "aluminum": {
+        "lede": "Nhôm định hình ép đùn, gia công và sơn tĩnh điện ngay tại nhà máy. Nhẹ, không gỉ và giữ được những đường nét mảnh mà gỗ khó làm được.",
+        "properties": [
+          "Nhôm nhẹ nên sản phẩm dễ di chuyển, xếp chồng và vận chuyển. Nhôm không gỉ sét như kim loại chứa sắt, phù hợp với khí hậu nóng ẩm và khu vực gần biển.",
+          "Lớp sơn tĩnh điện tạo bề mặt đều màu, chống trầy xước và dễ vệ sinh. Khung nhôm cũng là nền cho dây đan và mây nhựa."
+        ],
+        "craft": [
+          "Ống nhôm được cắt laser theo bản vẽ, uốn theo bán kính, hàn robot ở các mối chính và hàn tay ở các mối khuất, sau đó mài phẳng mối hàn.",
+          "Trước khi sơn, mọi khung đi qua dây chuyền tiền xử lý 6 bước: tẩy dầu kiềm, rửa nước hai lần, phủ lớp nano-zincofin, rửa lần cuối và sấy khô. Sau đó khung được phun sơn bột tĩnh điện và sấy lò."
+        ],
+        "care": [
+          "Lau bề mặt bằng khăn mềm với nước và xà phòng trung tính, rửa lại bằng nước sạch rồi lau khô.",
+          "Không dùng chất tẩy mạnh, dung môi hoặc miếng chà nhám vì có thể làm mờ hoặc trầy lớp sơn.",
+          "Ở khu vực gần biển, nên rửa sạch muối bám trên bề mặt thường xuyên hơn để lớp sơn giữ được độ bền.",
+          "Nếu lớp sơn bị trầy sâu, xử lý sớm bằng sơn dặm cùng màu để hạn chế ảnh hưởng đến bề mặt xung quanh."
+        ]
+      },
+      "rope": {
+        "lede": "Sợi polypropylene chuyên dụng ngoài trời, được thợ của chúng tôi đan tay trên khung gỗ teak hoặc nhôm sơn tĩnh điện.",
+        "properties": [
+          "Sợi dây chống tia UV, nấm mốc và thời tiết, giữ được độ mềm và màu sắc khi dùng ngoài trời.",
+          "Mặt dây đan có độ đàn hồi nhẹ, mềm tay và thoáng khí, đồng thời giúp sản phẩm trông nhẹ nhàng hơn so với khung đặc."
+        ],
+        "craft": [
+          "Khung được cố định lên giá, thợ đan căng từng sợi theo mẫu chuẩn và cân chỉnh độ căng bằng tay. Đầu sợi được khóa và giấu kín để bề mặt gọn gàng.",
+          "Đan dây là công đoạn hoàn toàn thủ công, tay nghề mà máy móc không thể thay thế. Độ căng được kiểm tra trước khi sản phẩm chuyển sang may nệm hoặc đóng gói."
+        ],
+        "care": [
+          "Phủi bụi và lá khô thường xuyên. Khi cần, vệ sinh bằng nước ấm pha xà phòng nhẹ và bàn chải mềm, rồi rửa lại bằng nước sạch.",
+          "Để dây khô hoàn toàn trước khi đặt nệm hoặc trùm bạt để tránh nấm mốc.",
+          "Không dùng chất tẩy mạnh hoặc máy xịt áp lực cao vì có thể làm xơ sợi.",
+          "Cất ở nơi khô ráo, thoáng khí khi không dùng trong thời gian dài."
+        ]
+      },
+      "wicker": {
+        "lede": "Sợi polyethylene ép đùn, sấy lò để giữ màu bền lâu, đan trên khung nhôm đã tiền xử lý và sơn tĩnh điện.",
+        "properties": [
+          "Mây nhựa giữ được vẻ ấm áp của mây tự nhiên nhưng không mục, nứt hay hút nước khi để ngoài trời.",
+          "Sản phẩm đan có bảo hành tiêu chuẩn 2 năm, có thể mở rộng trên 5 năm theo yêu cầu của khách hàng."
+        ],
+        "craft": [
+          "Khung nhôm được sơn tĩnh điện trước nên bề mặt đủ cứng để căng sợi mà không trầy. Thợ đan căng sợi theo mẫu, cân chỉnh độ căng và khóa đầu sợi bằng tay.",
+          "Từ kiểu đan dày kín đến đan thưa lộ khung, mẫu đan có thể phát triển theo bản vẽ của từng khách hàng."
+        ],
+        "care": [
+          "Phủi bụi thường xuyên. Khi cần, vệ sinh bằng nước ấm pha xà phòng nhẹ và bàn chải mềm, rồi rửa lại bằng nước sạch.",
+          "Để mặt đan khô hoàn toàn trước khi đặt nệm hoặc trùm bạt.",
+          "Không dùng chất tẩy mạnh, dung môi hoặc vật sắc nhọn trên mặt đan.",
+          "Cất ở nơi khô ráo, thoáng khí khi không dùng trong thời gian dài."
+        ]
+      },
+      "steel": {
+        "lede": "Thép dùng cho những chi tiết cần độ cứng và chịu lực cao, như chân đế, khung bàn và các cấu kiện liên kết.",
+        "properties": [
+          "Thép có độ cứng cao, cho phép làm chân đế và khung có tiết diện nhỏ mà vẫn vững chắc, phù hợp với bàn có mặt đá, gốm hoặc kính.",
+          "Khi dùng ngoài trời, thép cần lớp bảo vệ bề mặt phù hợp. Lớp hoàn thiện quyết định độ bền của sản phẩm trước độ ẩm và thời tiết."
+        ],
+        "craft": [
+          "Chi tiết thép được cắt, hàn và mài mối hàn theo bản vẽ, sau đó xử lý bề mặt và phủ hoàn thiện trước khi lắp ráp.",
+          "Thông số vật liệu và quy trình hoàn thiện cho từng dự án được thống nhất với khách hàng từ giai đoạn báo giá và làm mẫu."
+        ],
+        "care": [
+          "Lau bằng khăn mềm với nước và xà phòng trung tính, sau đó lau khô hoàn toàn.",
+          "Kiểm tra định kỳ các vị trí dễ đọng nước như chân đế và mối nối. Nếu lớp phủ bị trầy, xử lý sớm để tránh gỉ lan rộng.",
+          "Ở khu vực gần biển, nên rửa sạch muối bám trên bề mặt thường xuyên hơn.",
+          "Không dùng chất tẩy có tính axit hoặc miếng chà nhám."
+        ]
+      },
+      "fabric": {
+        "lede": "Vải ngoài trời cho nệm ngồi, nệm tựa và gối, được cắt và may tại xưởng may nệm của nhà máy.",
+        "properties": [
+          "Vải ngoài trời được dệt để chịu nắng, nhanh khô và hạn chế nấm mốc, giữ màu tốt hơn vải nội thất thông thường.",
+          "Màu và chất liệu vải có thể chọn theo bộ sưu tập hoặc theo yêu cầu riêng của khách hàng."
+        ],
+        "craft": [
+          "Vải và mút được cắt theo rập, may thành vỏ nệm, nhồi và tạo dáng trước khi đóng đường may.",
+          "Xưởng may nệm nằm cạnh các xưởng gỗ và đan, nên nệm được thử khớp với khung ngay trong nhà máy."
+        ],
+        "care": [
+          "Phủi bụi và xử lý vết bẩn sớm bằng nước ấm pha xà phòng nhẹ, thấm nhẹ thay vì chà mạnh.",
+          "Dựng nghiêng nệm sau mưa để nước thoát nhanh, và để nệm khô hoàn toàn trước khi cất.",
+          "Khi không dùng, cất nệm ở nơi khô ráo hoặc trong túi chứa thoáng khí.",
+          "Xem nhãn hướng dẫn của từng loại vải trước khi giặt vỏ nệm."
+        ]
+      },
+      "glass": {
+        "lede": "Kính dùng cho mặt bàn ăn, bàn cà phê và bàn phụ, kết hợp với khung nhôm, thép hoặc gỗ teak.",
+        "properties": [
+          "Mặt kính phẳng, không hút nước và dễ vệ sinh, giúp không gian ngoài trời trông thoáng và nhẹ hơn.",
+          "Kính cho phép nhìn xuyên xuống chân bàn, nên thường được chọn khi muốn khoe kết cấu khung bên dưới."
+        ],
+        "craft": [
+          "Mặt kính được đặt theo kích thước bản vẽ, kiểm tra cạnh và bề mặt khi nhận về rồi mới lắp lên khung.",
+          "Đệm và liên kết giữa kính và khung được tính toán để mặt kính nằm chắc, không tiếp xúc trực tiếp với kim loại."
+        ],
+        "care": [
+          "Lau bằng khăn mềm với nước sạch hoặc dung dịch lau kính, tránh miếng chà nhám.",
+          "Không đặt vật nóng trực tiếp lên mặt kính và tránh va đập mạnh ở cạnh kính.",
+          "Kiểm tra định kỳ phần đệm giữa kính và khung, thay mới nếu bị lão hóa.",
+          "Khi cất giữ, đặt mặt kính ở nơi bằng phẳng và không chồng vật nặng lên trên."
+        ]
+      },
+      "ceramic": {
+        "lede": "Mặt gốm cho bàn ăn và bàn cà phê ngoài trời, mang vẻ đẹp của đá tự nhiên nhưng dễ chăm sóc hơn.",
+        "properties": [
+          "Gốm có bề mặt cứng, chịu nhiệt và chống trầy tốt, ít bám bẩn và không hút nước.",
+          "Nhiều vân và màu khác nhau, từ vân đá đến bề mặt trơn, dễ phối với khung nhôm, thép hoặc gỗ teak."
+        ],
+        "craft": [
+          "Mặt gốm được kiểm tra khi nhận về, sau đó lắp lên khung bàn với lớp đệm và liên kết phù hợp.",
+          "Kích thước, độ dày và kiểu cạnh của mặt gốm được thống nhất theo bản vẽ của từng dự án."
+        ],
+        "care": [
+          "Lau bằng khăn ẩm với xà phòng trung tính, sau đó lau khô.",
+          "Lau sớm các vết dầu mỡ, rượu vang hoặc cà phê để không để lại vệt trên bề mặt.",
+          "Tránh va đập mạnh ở cạnh và góc mặt gốm.",
+          "Không dùng chất tẩy có tính axit mạnh hoặc miếng chà nhám."
+        ]
+      }
+    },
+    "craftKicker": "Xưởng BFC",
+    "careKicker": "Hướng dẫn",
+    "productsKicker": "Ứng dụng"
+  },
+  "AboutPage": {
+    "metaTitle": "Về chúng tôi | BINH BFC",
+    "metaDescription": "BINH BFC sản xuất nội thất ngoài trời tại Đồng Nai từ năm 2010: nhà máy 28.000 m², 370 nhân sự, tự gia công gỗ, nhôm, thép, đan dây, đan mây nhựa và may nệm.",
+    "hero": {
+      "title": "Về BINH BFC",
+      "lede": "Nhà sản xuất nội thất ngoài trời tại Đồng Nai từ năm 2010. Chúng tôi làm hàng theo bản vẽ và cùng phát triển mẫu cho khách sạn, khu nghỉ dưỡng và thương hiệu nội thất."
+    },
+    "story": {
+      "title": "Câu chuyện của chúng tôi",
+      "lead": "Một món nội thất ngoài trời bền đẹp được làm nên từ từng mối hàn, từng thớ gỗ và từng sợi đan. BINH BFC ra đời để làm trọn những công đoạn đó dưới một mái nhà.",
+      "paragraphs": [
+        "Thành lập năm 2010 tại Đồng Nai, BINH BFC bắt đầu với một mục tiêu rõ ràng: tạo ra nội thất ngoài trời vừa đẹp vừa chịu được nắng, mưa và độ ẩm quanh năm. Từ đó đến nay, khách hàng của chúng tôi là các khu nghỉ dưỡng, khách sạn, nhà phân phối và thương hiệu nội thất cần một xưởng làm đúng bản vẽ, đúng tiến độ.",
+        "Thế mạnh của chúng tôi là phối hợp nhiều chất liệu trong cùng một sản phẩm: gỗ teak, nhôm, thép, mây nhựa, dây đan và vải ngoài trời. Mỗi chất liệu có một xưởng riêng trong cùng khuôn viên, nên một chiếc ghế có thể đi từ khung nhôm, qua sơn tĩnh điện, sang bàn đan rồi tới xưởng may nệm mà không rời nhà máy.",
+        "Làm trọn tại xưởng giúp chúng tôi nhìn thấy sản phẩm ở mọi bước. Khi có vấn đề, người thợ ở công đoạn trước và công đoạn sau cùng đứng tại một chỗ để xử lý, thay vì chờ phản hồi qua nhiều nhà cung cấp.",
+        "Ngày nay, nhà máy 28.000 m² cùng 370 nhân sự vẫn giữ cách làm đó: thợ mộc, thợ hàn, thợ đan và thợ may làm việc trực tiếp trên sản phẩm của từng khách hàng, từ mẫu thử đầu tiên đến container cuối cùng."
+      ],
+      "factsAria": "BINH BFC tóm tắt",
+      "facts": {
+        "founded": {
+          "label": "Thành lập",
+          "value": "2010"
+        },
+        "location": {
+          "label": "Nhà máy",
+          "value": "Đồng Nai, Việt Nam"
+        },
+        "area": {
+          "label": "Diện tích",
+          "value": "28.000 m²"
+        },
+        "employees": {
+          "label": "Nhân sự",
+          "value": "370"
+        },
+        "workshops": {
+          "label": "Xưởng nội bộ",
+          "value": "6"
+        }
+      },
+      "kicker": "Từ năm 2010"
+    },
+    "values": {
+      "title": "Điều chúng tôi giữ",
+      "lede": "Bốn nguyên tắc định hình cách BINH BFC làm việc với từng đơn hàng.",
+      "items": {
+        "inhouse": {
+          "name": "Làm trọn tại xưởng",
+          "desc": "Gỗ, kim loại, đan, sơn, may nệm và đóng gói đều nằm trong một khuôn viên. Chúng tôi chủ động chất lượng và tiến độ thay vì phụ thuộc nhà gia công bên ngoài."
+        },
+        "materials": {
+          "name": "Hiểu từng chất liệu",
+          "desc": "Mỗi vật liệu có xưởng và đội thợ riêng. Biết rõ gỗ co ngót ra sao, nhôm cần xử lý bề mặt thế nào, chúng tôi mới phối chúng bền được với nhau."
+        },
+        "partner": {
+          "name": "Làm theo bản vẽ của bạn",
+          "desc": "Chúng tôi sản xuất cho thương hiệu của khách hàng. Bản vẽ, mẫu thử và thông số được giữ đúng như đã duyệt, đi kèm phản hồi kỹ thuật khi cần."
+        },
+        "outdoor": {
+          "name": "Bền ngoài trời",
+          "desc": "Mọi lựa chọn vật liệu, mối ghép và lớp hoàn thiện đều hướng tới một việc: sản phẩm đứng được nhiều năm dưới nắng, mưa và hơi muối."
+        }
+      },
+      "kicker": "Giá trị"
+    },
+    "people": {
+      "title": "Con người tại xưởng",
+      "body": [
+        "Phía sau mỗi sản phẩm là đội ngũ 370 người, phần lớn làm việc trực tiếp tại xưởng. Nhiều công đoạn như đan dây, đan mây nhựa hay hoàn thiện gỗ vẫn cần đôi tay và con mắt của người thợ lành nghề.",
+        "Chúng tôi đầu tư máy móc ở những khâu cần độ chính xác lặp lại, như CNC 5 trục cho gỗ hay cắt laser và hàn robot cho kim loại, để người thợ dồn thời gian cho những chi tiết máy không làm thay được."
+      ],
+      "kicker": "Đội ngũ"
+    },
+    "export": {
+      "title": "Từ Đồng Nai đến công trình của bạn",
+      "body": [
+        "Nhà máy có bãi container riêng ngay trong khuôn viên. Hàng được kiểm tra, đóng gói và đóng container tại chỗ, nên chúng tôi kiểm soát được cả khâu cuối trước khi hàng rời xưởng.",
+        "Mỗi đơn hàng có một đầu mối theo sát từ bản vẽ đầu tiên đến ngày xuất hàng, để bạn luôn biết sản phẩm của mình đang ở công đoạn nào."
+      ],
+      "cta": "Xem năng lực sản xuất",
+      "kicker": "Xuất khẩu"
+    },
+    "history": {
+      "kicker": "Lịch sử",
+      "title": "Hành trình phát triển",
+      "prev": "Mốc trước",
+      "next": "Mốc sau",
+      "items": [
+        {
+          "year": "2010",
+          "title": "Thành lập tại Đồng Nai",
+          "desc": "BINH BFC bắt đầu sản xuất nội thất ngoài trời cho thị trường xuất khẩu."
+        },
+        {
+          "year": "2016",
+          "title": "Mở rộng xưởng kim loại",
+          "desc": "Đầu tư xưởng hàn và gia công khung nhôm, thép ngay trong nhà máy."
+        },
+        {
+          "year": "2019",
+          "title": "Dây chuyền sơn tĩnh điện",
+          "desc": "Đưa vào vận hành dây chuyền sơn tĩnh điện, chủ động hoàn thiện bề mặt khung."
+        },
+        {
+          "year": "now",
+          "title": "Nhà máy 28.000 m²",
+          "desc": "370 nhân sự, 6 xưởng sản xuất, phục vụ thương hiệu nội thất ngoài trời trên nhiều thị trường."
+        }
+      ]
+    }
+  },
+  "NotFound": {
+    "metaTitle": "Không tìm thấy trang | BINH BFC",
+    "kicker": "Lỗi 404",
+    "title": "Không tìm thấy trang",
+    "lede": "Trang bạn tìm có thể đã được đổi địa chỉ hoặc không còn tồn tại. Bạn có thể quay về trang chủ hoặc liên hệ để chúng tôi hỗ trợ.",
+    "home": "Về trang chủ",
+    "contact": "Liên hệ với chúng tôi",
+    "linksKicker": "Gợi ý",
+    "linksTitle": "Có thể bạn đang tìm"
+  },
+  "ErrorPage": {
+    "kicker": "Lỗi tải trang",
+    "title": "Trang chưa tải được",
+    "lede": "Hệ thống đang bận hoặc gặp sự cố tạm thời. Bạn thử tải lại sau ít phút, hoặc liên hệ trực tiếp với chúng tôi.",
+    "retry": "Thử lại",
+    "contact": "Liên hệ",
+    "reference": "Mã lỗi: {digest}"
+  },
+  "ProductsPage": {
+    "metaTitle": "Sản phẩm nội thất ngoài trời",
+    "metaDescription": "Sáu nhóm sản phẩm nội thất ngoài trời BFC sản xuất theo đơn OEM tại Đồng Nai: ghế tắm nắng, sofa, bàn ghế ăn, ghế thư giãn, bàn và phụ kiện.",
+    "hero": {
+      "title": "Sản phẩm",
+      "lede": "Sáu nhóm nội thất ngoài trời, làm theo bản vẽ của khách hoặc phát triển mẫu cùng nhau. Các mẫu dưới đây để tham khảo kiểu dáng và chất liệu."
+    },
+    "browser": {
+      "type": "Loại",
+      "material": "Chất liệu",
+      "all": "Tất cả",
+      "reset": "Xoá bộ lọc",
+      "empty": "Chưa có mẫu phù hợp bộ lọc này.",
+      "count": "{count} mẫu",
+      "category": "Nhóm",
+      "view": "Kiểu xem",
+      "grid": "Lưới",
+      "list": "Danh sách",
+      "pagination": "Phân trang",
+      "prev": "Trang trước",
+      "next": "Trang sau",
+      "page": "Trang {page}",
+      "viewDetail": "Xem chi tiết"
+    },
+    "detail": {
+      "metaTitle": "{name} | {type}",
+      "eyebrow": "Chi tiết",
+      "specs": "Thông số",
+      "category": "Nhóm",
+      "type": "Loại",
+      "materials": "Chất liệu",
+      "features": "Tính năng",
+      "setItems": "Bộ gồm",
+      "setItem": "{qty} × {type}",
+      "none": "Đang cập nhật",
+      "oem": "Kích thước, chất liệu, màu đan và nệm đều chỉnh được theo đơn hàng.",
+      "quote": "Yêu cầu báo giá",
+      "relatedEyebrow": "Cùng nhóm",
+      "related": "Mẫu khác",
+      "code": "Mã mẫu",
+      "dimensions": "Kích thước",
+      "dims": {
+        "length": "Dài",
+        "width": "Rộng",
+        "height": "Cao",
+        "diameter": "Đường kính"
+      },
+      "unit": "cm",
+      "dimNote": "Kích thước tham khảo, có thể chỉnh theo đơn hàng.",
+      "details": "Thông tin chi tiết",
+      "materialsSection": "Chất liệu",
+      "materialMore": "Xem vật liệu",
+      "customize": "Tùy chỉnh theo đơn hàng",
+      "customizeItems": [
+        "Kích thước và tỷ lệ theo bản vẽ hoặc không gian của dự án.",
+        "Loại gỗ, khung nhôm hay thép, cùng màu sơn tĩnh điện.",
+        "Kiểu đan, màu sợi rope hoặc wicker.",
+        "Vải và độ dày nệm, có tùy chọn vải chống cháy."
+      ],
+      "quoteNote": "Gửi mã mẫu và số lượng, đội ngũ BFC phản hồi báo giá kèm thời gian sản xuất.",
+      "gallery": "Ảnh sản phẩm",
+      "galleryThumb": "Xem ảnh {n}",
+      "viewAll": "Xem tất cả",
+      "zoom": "Phóng to ảnh",
+      "lightbox": {
+        "previous": "Ảnh trước",
+        "next": "Ảnh sau",
+        "close": "Đóng",
+        "zoomIn": "Phóng to",
+        "zoomOut": "Thu nhỏ",
+        "enterFullscreen": "Toàn màn hình",
+        "exitFullscreen": "Thoát toàn màn hình",
+        "lightbox": "Xem ảnh sản phẩm",
+        "carousel": "Bộ ảnh",
+        "slide": "Ảnh",
+        "thumbnails": "Ảnh thu nhỏ",
+        "slideOf": "{index} / {total}"
+      },
+      "tabs": {
+        "description": "Mô tả",
+        "specifications": "Thông số kỹ thuật"
+      },
+      "setSection": "Thành phần bộ",
+      "setPieceQty": "{qty} món",
+      "dimsBySet": "Theo từng món trong bộ",
+      "packing": "Đóng gói và xếp container",
+      "assembly": "Kiểu đóng gói",
+      "assemblyValue": {
+        "kd": "Tháo rời (KD)",
+        "fa": "Lắp sẵn (FA)"
+      },
+      "pcsPerBox": "Số lượng / thùng",
+      "pcsPerBoxValue": "{n} pcs / thùng",
+      "carton": "Kích thước thùng",
+      "loading": "Số lượng / container",
+      "loadingValue": "{n} pcs",
+      "packingBySet": "Bộ đóng nhiều thùng, quy cách đóng gói ghi theo từng món ở Thành phần bộ.",
+      "packingNote": "Quy cách đóng gói và số lượng xếp container được xác nhận lại khi báo giá."
+    },
+    "categories": {
+      "eyebrow": "Danh mục",
+      "title": "Chọn nhóm sản phẩm"
+    },
+    "viewMore": "Xem thêm",
+    "modelCount": "{count} mẫu"
+  },
+  "Legal": {
+    "updated": "Cập nhật ngày {date}",
+    "contents": "Nội dung"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "admitted": true,
+  "reasons": [],
+  "provenance": {
+    "viewpoint": "reference",
+    "sourcePath": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\reference\\chair-right.png",
+    "width": 890,
+    "height": 932,
+    "foregroundCoverage": 0.6245,
+    "largestComponentFraction": 0.9987,
+    "pHash": 17004373895032086528,
+    "duplicateOfHash": null
+  }
+}

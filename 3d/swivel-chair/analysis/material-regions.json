@@ -1,0 +1,23 @@
+{
+  "referenceId": "swivel-chair-rear-left-3q",
+  "regions": [
+    {"componentId": "rear-top-rail", "regionId": "teak-lit-face", "sourceImage": "material-crops/teak-rear-top-rail.png",
+     "bbox": {"x": 0, "y": 0, "width": 160, "height": 36},
+     "materialId": "wood.unfinished", "family": "wood", "subtype": "generic", "finish": "unfinished",
+     "materialSpecId": "teak-satin", "confidence": 0.85, "source": "vision",
+     "note": "Deskewed lit band of the rear top rail. Outdoor oiled teak: satin sheen, no separate clearcoat layer, so wood.unfinished rather than wood.varnished."},
+    {"componentId": "weave-rear", "regionId": "rope-dense-lattice", "sourceImage": "material-crops/rope-rear-panel.png",
+     "bbox": {"x": 0, "y": 0, "width": 140, "height": 180},
+     "materialId": "fabric.woven-matte", "family": "fabric", "subtype": "woven", "finish": "matte",
+     "materialSpecId": "rope-braided", "confidence": 0.8, "source": "vision",
+     "note": "Braided outdoor rope: diffuse fibre body with soft sheen; closest registry profile is woven matte fabric."},
+    {"componentId": "cushion-back", "regionId": "cushion-slub-weave", "sourceImage": "material-crops/cushion-back.png",
+     "bbox": {"x": 0, "y": 0, "width": 140, "height": 45},
+     "materialId": "fabric.woven-matte", "family": "fabric", "subtype": "woven", "finish": "matte",
+     "materialSpecId": "cushion-fabric", "confidence": 0.85, "source": "vision",
+     "note": "Light beige slub upholstery; matte with grazing sheen."}
+  ],
+  "notObservedMaterials": [
+    {"id": "metal", "reason": "No exposed metal visible; the swivel bearing is hidden."}
+  ]
+}

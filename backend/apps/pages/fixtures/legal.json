@@ -1,0 +1,416 @@
+{
+  "privacy": {
+    "title": "Chính sách bảo mật",
+    "title_en": "Privacy Policy",
+    "slug": "chinh-sach-bao-mat",
+    "vi": {
+      "body": [
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Về chính sách này",
+            "paragraphs": [
+              "Chính sách này cho biết Công ty TNHH Bình B.F.C (BFC) thu thập, sử dụng và bảo vệ dữ liệu cá nhân của bạn như thế nào khi bạn truy cập website và gửi yêu cầu cho chúng tôi, theo pháp luật Việt Nam về bảo vệ dữ liệu cá nhân (Nghị định 13/2023/NĐ-CP).",
+              "Khi gửi form liên hệ, bạn đồng ý để BFC xử lý dữ liệu theo chính sách này."
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Dữ liệu chúng tôi thu thập",
+            "paragraphs": [
+              "Khi bạn gửi form liên hệ hoặc yêu cầu báo giá:",
+              [
+                "Họ tên, email, số điện thoại, tên công ty, quốc gia.",
+                "Mục đích liên hệ, mã mẫu bạn quan tâm, nội dung tin nhắn.",
+                "Tệp bạn đính kèm (bản vẽ, hình ảnh, tài liệu yêu cầu), tối đa 10 MB."
+              ],
+              "Dữ liệu kỹ thuật: địa chỉ IP được dùng tạm thời để giới hạn số lần gửi và chống gửi tự động, không lưu kèm yêu cầu của bạn. Website không dùng công cụ quảng cáo hay theo dõi hành vi."
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Mục đích sử dụng",
+            "paragraphs": [
+              [
+                "Trả lời yêu cầu, gửi báo giá, trao đổi về mẫu, đơn hàng và lịch thăm nhà máy.",
+                "Lưu lịch sử trao đổi để phục vụ bạn trong các lần liên hệ sau.",
+                "Bảo vệ website khỏi thư rác, mã độc và truy cập trái phép."
+              ],
+              "BFC không bán, không cho thuê dữ liệu cá nhân của bạn và không dùng để gửi quảng cáo khi bạn chưa đồng ý."
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Ai được tiếp cận dữ liệu",
+            "paragraphs": [
+              [
+                "Nhân viên BFC được phân công xử lý yêu cầu của khách hàng.",
+                "Nhà cung cấp dịch vụ giúp vận hành website: máy chủ, gửi email thông báo, và Cloudflare Turnstile (kiểm tra người gửi không phải máy, có thể xử lý thông tin trình duyệt và thiết bị của bạn). Các bên này chỉ xử lý dữ liệu để cung cấp dịch vụ cho BFC.",
+                "Cơ quan nhà nước có thẩm quyền khi pháp luật yêu cầu."
+              ]
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Lưu trữ và bảo vệ",
+            "paragraphs": [
+              "Dữ liệu được lưu trên máy chủ do BFC quản lý, đặt tại NULL. Kết nối tới website được mã hoá (HTTPS); chỉ tài khoản quản trị được phân quyền mới xem được yêu cầu. Tệp đính kèm được quét virus trước khi nhân viên mở.",
+              "Yêu cầu liên hệ và tệp đính kèm được lưu trong NULL kể từ lần trao đổi cuối, sau đó được xoá, trừ khi pháp luật yêu cầu lưu lâu hơn hoặc yêu cầu đã trở thành đơn hàng."
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Cookie",
+            "paragraphs": [
+              "Website chỉ dùng cookie cần thiết, ví dụ ghi nhớ ngôn ngữ bạn chọn. Cloudflare Turnstile có thể dùng cookie hoặc kỹ thuật tương tự để chống gửi tự động. Website không dùng cookie quảng cáo."
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Quyền của bạn",
+            "paragraphs": [
+              "Theo pháp luật Việt Nam, bạn có quyền:",
+              [
+                "Được biết dữ liệu nào của bạn đang được xử lý và yêu cầu xem, bản sao.",
+                "Yêu cầu chỉnh sửa dữ liệu chưa chính xác.",
+                "Rút lại sự đồng ý, yêu cầu xoá hoặc hạn chế xử lý dữ liệu.",
+                "Khiếu nại tới cơ quan có thẩm quyền nếu cho rằng quyền của bạn bị vi phạm."
+              ],
+              "Để thực hiện các quyền trên, hãy gửi email tới office@bfcfurniture.com. Chúng tôi sẽ phản hồi trong thời hạn pháp luật quy định."
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Thay đổi chính sách",
+            "paragraphs": [
+              "BFC có thể cập nhật chính sách này khi thay đổi cách xử lý dữ liệu hoặc khi pháp luật thay đổi. Ngày cập nhật ghi ở đầu trang."
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Liên hệ",
+            "paragraphs": [
+              "Công ty TNHH Bình B.F.C, Lô C7+D1, Cụm công nghiệp Thạnh Phú - Thiện Tân, xã Thiện Tân, huyện Vĩnh Cửu, Đồng Nai, Việt Nam.",
+              "Email: office@bfcfurniture.com. Điện thoại: +84 914 642 008."
+            ]
+          }
+        }
+      ]
+    },
+    "en": {
+      "body": [
+        {
+          "type": "legal",
+          "value": {
+            "heading": "About this policy",
+            "paragraphs": [
+              "This policy explains how Binh B.F.C Co., Ltd. (BFC) collects, uses and protects your personal data when you visit our website and send us an enquiry, in line with Vietnamese personal data protection law (Decree 13/2023/ND-CP).",
+              "By submitting the contact form, you agree that BFC processes your data as described in this policy."
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Data we collect",
+            "paragraphs": [
+              "When you send the contact or quotation form:",
+              [
+                "Your name, email, phone number, company name and country.",
+                "The purpose of your enquiry, the model codes you are interested in and your message.",
+                "Files you attach (drawings, images, specifications), up to 10 MB."
+              ],
+              "Technical data: your IP address is used temporarily to limit submissions and block automated sending, and is not stored with your enquiry. The website does not use advertising or behaviour tracking tools."
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "How we use it",
+            "paragraphs": [
+              [
+                "To answer your enquiry, send quotations and discuss samples, orders and factory visits.",
+                "To keep a record of our conversation so we can serve you next time.",
+                "To protect the website against spam, malware and unauthorised access."
+              ],
+              "BFC does not sell or rent your personal data and does not send you marketing without your consent."
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Who can access your data",
+            "paragraphs": [
+              [
+                "BFC staff assigned to handle customer enquiries.",
+                "Service providers that help run the website: hosting, notification email, and Cloudflare Turnstile (checks that the sender is not a bot and may process information about your browser and device). They process data only to provide their service to BFC.",
+                "Competent authorities when required by law."
+              ]
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Storage and security",
+            "paragraphs": [
+              "Data is stored on servers managed by BFC, located in NULL. Connections to the website are encrypted (HTTPS), and only authorised admin accounts can view enquiries. Attachments are scanned for viruses before staff open them.",
+              "Enquiries and attachments are kept for NULL after our last exchange and then deleted, unless the law requires longer retention or the enquiry has become an order."
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Cookies",
+            "paragraphs": [
+              "The website only uses necessary cookies, for example to remember your language. Cloudflare Turnstile may use cookies or similar techniques to block automated submissions. The website does not use advertising cookies."
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Your rights",
+            "paragraphs": [
+              "Under Vietnamese law, you have the right to:",
+              [
+                "Know which of your data is being processed and request access or a copy.",
+                "Ask us to correct inaccurate data.",
+                "Withdraw your consent and ask us to delete or restrict the processing of your data.",
+                "Complain to the competent authority if you believe your rights have been infringed."
+              ],
+              "To exercise these rights, email office@bfcfurniture.com. We will respond within the time required by law."
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Changes to this policy",
+            "paragraphs": [
+              "BFC may update this policy when we change how we handle data or when the law changes. The update date is shown at the top of the page."
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Contact",
+            "paragraphs": [
+              "Binh B.F.C Co., Ltd., Lot C7+D1, Thanh Phu - Thien Tan Industrial Complex, Thien Tan Commune, Vinh Cuu District, Dong Nai, Vietnam.",
+              "Email: office@bfcfurniture.com. Phone: +84 914 642 008."
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "terms": {
+    "title": "Điều khoản sử dụng",
+    "title_en": "Terms of Use",
+    "slug": "dieu-khoan-su-dung",
+    "vi": {
+      "body": [
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Chấp nhận điều khoản",
+            "paragraphs": [
+              "Website này do Công ty TNHH Bình B.F.C (BFC) sở hữu và vận hành. Khi truy cập và sử dụng website, bạn đồng ý với các điều khoản dưới đây. Nếu không đồng ý, vui lòng ngừng sử dụng website."
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Thông tin sản phẩm",
+            "paragraphs": [
+              "Website giới thiệu năng lực sản xuất và sản phẩm nội thất của BFC cho khách hàng doanh nghiệp. Hình ảnh, mô tả, kích thước và vật liệu chỉ mang tính tham khảo; màu sắc thực tế có thể khác do màn hình hiển thị.",
+              "Thông số, giá, số lượng tối thiểu và thời gian giao hàng chỉ được xác nhận trong báo giá hoặc hợp đồng. Nội dung trên website không phải là lời chào bán có giá trị ràng buộc."
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Sở hữu trí tuệ",
+            "paragraphs": [
+              "Nội dung, hình ảnh, thiết kế, logo và nhãn hiệu trên website thuộc BFC hoặc đối tác đã cho phép BFC sử dụng. Bạn không được sao chép, chỉnh sửa hay dùng cho mục đích thương mại khi chưa có đồng ý bằng văn bản của BFC.",
+              "Sản phẩm làm theo thiết kế của khách hàng được bảo mật và thuộc quyền của khách hàng theo thoả thuận giữa hai bên."
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Sử dụng hợp lệ",
+            "paragraphs": [
+              "Khi sử dụng website, bạn không được:",
+              [
+                "Gửi thông tin sai sự thật, nội dung vi phạm pháp luật hoặc xâm phạm quyền của người khác.",
+                "Gửi tệp chứa mã độc, thư rác hoặc gửi tự động hàng loạt.",
+                "Tìm cách truy cập trái phép, làm gián đoạn website hoặc thu thập dữ liệu tự động gây quá tải."
+              ]
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Thông tin bạn gửi",
+            "paragraphs": [
+              "Bạn chịu trách nhiệm về tính chính xác của thông tin và có quyền gửi các tệp đính kèm. Dữ liệu cá nhân được xử lý theo Chính sách bảo mật của BFC."
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Liên kết bên ngoài",
+            "paragraphs": [
+              "Website có thể có liên kết tới website hoặc mạng xã hội của bên thứ ba. BFC không chịu trách nhiệm về nội dung và cách xử lý dữ liệu của các trang đó."
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Giới hạn trách nhiệm",
+            "paragraphs": [
+              "BFC cố gắng giữ thông tin chính xác và website hoạt động ổn định, nhưng không bảo đảm website luôn liên tục hay không có lỗi. Trong phạm vi pháp luật cho phép, BFC không chịu trách nhiệm về thiệt hại gián tiếp phát sinh từ việc sử dụng thông tin trên website."
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Luật áp dụng",
+            "paragraphs": [
+              "Điều khoản này được điều chỉnh bởi pháp luật Việt Nam. Tranh chấp được ưu tiên giải quyết bằng thương lượng; nếu không thành, tranh chấp được giải quyết tại toà án có thẩm quyền ở Việt Nam."
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Thay đổi và liên hệ",
+            "paragraphs": [
+              "BFC có thể cập nhật điều khoản này; ngày cập nhật ghi ở đầu trang. Mọi câu hỏi xin gửi tới office@bfcfurniture.com."
+            ]
+          }
+        }
+      ]
+    },
+    "en": {
+      "body": [
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Acceptance of terms",
+            "paragraphs": [
+              "This website is owned and operated by Binh B.F.C Co., Ltd. (BFC). By accessing and using the website, you agree to the terms below. If you do not agree, please stop using the website."
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Product information",
+            "paragraphs": [
+              "The website presents BFC's manufacturing capabilities and furniture products to business customers. Images, descriptions, dimensions and materials are for reference only; actual colours may differ depending on your screen.",
+              "Specifications, prices, minimum order quantities and lead times are confirmed only in a quotation or contract. Content on the website is not a binding offer."
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Intellectual property",
+            "paragraphs": [
+              "Content, images, designs, logos and trademarks on the website belong to BFC or to partners who have allowed BFC to use them. You may not copy, modify or use them for commercial purposes without BFC's written consent.",
+              "Products made to a customer's design are kept confidential and belong to the customer as agreed between the parties."
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Acceptable use",
+            "paragraphs": [
+              "When using the website, you must not:",
+              [
+                "Submit false information, unlawful content or content that infringes the rights of others.",
+                "Send files containing malware, spam or bulk automated submissions.",
+                "Attempt unauthorised access, disrupt the website or scrape data in a way that overloads it."
+              ]
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Information you send",
+            "paragraphs": [
+              "You are responsible for the accuracy of your information and for having the right to send any attachments. Personal data is handled under BFC's Privacy Policy."
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "External links",
+            "paragraphs": [
+              "The website may link to third-party websites or social networks. BFC is not responsible for their content or how they handle data."
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Limitation of liability",
+            "paragraphs": [
+              "BFC works to keep information accurate and the website running smoothly, but does not guarantee that the website is always available or error-free. To the extent permitted by law, BFC is not liable for indirect damages arising from use of information on the website."
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Governing law",
+            "paragraphs": [
+              "These terms are governed by the laws of Vietnam. Disputes will first be resolved through negotiation; failing that, they will be settled by a competent court in Vietnam."
+            ]
+          }
+        },
+        {
+          "type": "legal",
+          "value": {
+            "heading": "Changes and contact",
+            "paragraphs": [
+              "BFC may update these terms; the update date is shown at the top of the page. Please send any questions to office@bfcfurniture.com."
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

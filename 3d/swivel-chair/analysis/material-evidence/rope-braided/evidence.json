@@ -1,0 +1,87 @@
+{
+  "ok": true,
+  "verdict": "pass",
+  "confidence": 0.806,
+  "estimatedFidelity": 0.806,
+  "targetThreshold": 0.7,
+  "materialId": "rope-braided",
+  "sourceImage": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-crops\\rope-rear-panel.png",
+  "outDir": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\rope-braided",
+  "palette": [
+    "#71523D",
+    "#5A3D2B",
+    "#896A55",
+    "#422919",
+    "#A78973"
+  ],
+  "maps": {
+    "albedo": {
+      "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\rope-braided\\rope-braided_albedo.png",
+      "url": "rope-braided_albedo.png",
+      "channel": "albedo",
+      "source": "reference-pixel-extraction"
+    },
+    "roughness": {
+      "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\rope-braided\\rope-braided_roughness.png",
+      "url": "rope-braided_roughness.png",
+      "channel": "roughness",
+      "source": "reference-pixel-extraction"
+    },
+    "height": {
+      "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\rope-braided\\rope-braided_height.png",
+      "url": "rope-braided_height.png",
+      "channel": "height",
+      "source": "reference-pixel-extraction"
+    },
+    "normal": {
+      "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\rope-braided\\rope-braided_normal.png",
+      "url": "rope-braided_normal.png",
+      "channel": "normal",
+      "source": "reference-pixel-extraction"
+    },
+    "ao": {
+      "path": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-evidence\\rope-braided\\rope-braided_ao.png",
+      "url": "rope-braided_ao.png",
+      "channel": "ao",
+      "source": "reference-pixel-extraction"
+    }
+  },
+  "diagnostics": {
+    "sourceWidth": 140,
+    "sourceHeight": 180,
+    "mapSize": 1024,
+    "cropBBoxPixels": {
+      "x": 0,
+      "y": 0,
+      "width": 140,
+      "height": 180
+    },
+    "mask": {
+      "backgroundColor": "#764A36",
+      "backgroundNoise": 46.152,
+      "transparentPixelFraction": 0.0,
+      "foregroundCoverage": 1.0
+    },
+    "mapStats": {
+      "valueRange": 0.3871,
+      "heightP90Gradient": 0.12602,
+      "roughnessBase": 0.849,
+      "roughnessVariation": 0.142,
+      "normalStrength": 0.304,
+      "blurRadius": 21
+    },
+    "palette": [
+      "#71523D",
+      "#5A3D2B",
+      "#896A55",
+      "#422919",
+      "#A78973"
+    ]
+  },
+  "warnings": [
+    "image is not clearly isolated from background; using most pixels as material evidence",
+    "object/background separation is weak",
+    "single-image inverse rendering cannot prove true physical PBR; confidence is capped"
+  ],
+  "limitation": "single-image PBR extraction is an estimate; 70%+ extraction confidence still needs render screenshot review"
+}

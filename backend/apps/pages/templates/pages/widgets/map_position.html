@@ -1,0 +1,11 @@
+{% load static %}<div class="map-position" data-map-position data-width="{{ map.width }}" data-height="{{ map.height }}" data-countries="{% static 'pages/export-countries.json' %}">
+  <div class="map-position__frame" style="aspect-ratio: {{ map.width }} / {{ map.height }}">
+    <img src="{% static 'pages/export-map.svg' %}" alt="" draggable="false">
+    <svg class="map-position__lines" viewBox="0 0 {{ map.width }} {{ map.height }}" preserveAspectRatio="none" aria-hidden="true"></svg>
+    <div class="map-position__marks"></div>
+  </div>
+  <div class="map-position__bar">
+    {% include "django/forms/widgets/input.html" %}
+    <button type="button" class="button button-small button-secondary" data-map-position-clear>Đặt lại (cờ ngay trên nước)</button>
+  </div>
+</div>

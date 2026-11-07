@@ -1,0 +1,6 @@
+{% extends "wagtailadmin/login.html" %}
+{% load static %}
+{% block branding_login %}Đăng nhập BFC CMS{% endblock %}
+{% block branding_logo %}
+    <img src="{% static 'core/img/logo.png' %}" alt="BFC" width="120" height="120" class="bfc-login-logo">
+{% endblock %}

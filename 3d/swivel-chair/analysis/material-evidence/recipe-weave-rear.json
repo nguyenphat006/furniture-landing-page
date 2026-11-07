@@ -1,0 +1,16 @@
+{
+  "componentId": "weave-rear",
+  "dominantAlbedo": "rgba(113, 83, 62, 1.0)",
+  "secondaryAlbedo": "rgba(76, 50, 33, 1.0)",
+  "materialClass": "fabric",
+  "materialClassConfidence": 0.6,
+  "roughnessEstimate": 0.122,
+  "metalnessEstimate": 0.0,
+  "highlightEvidence": "sharp, tight specular hotspot — supports low roughness/high specularity",
+  "sourceCropPath": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-crops\\rope-rear-panel.png",
+  "labClusterMeta": {
+    "clusterCount": 3,
+    "dominantClusterSharePct": 0.396
+  },
+  "cacheHit": true
+}

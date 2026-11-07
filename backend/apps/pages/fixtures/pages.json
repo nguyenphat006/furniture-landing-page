@@ -1,0 +1,275 @@
+{
+  "shared": {
+    "cta": {
+      "name": "CTA cuối trang (báo giá, thăm nhà máy)",
+      "vi": {
+        "type": "cta",
+        "value": {
+          "kicker": "Bắt đầu dự án",
+          "title": "Gửi bản vẽ, nhận báo giá từ xưởng",
+          "image": "/Assets/Slideshow_1_2.png",
+          "quote_label": "",
+          "visit_label": ""
+        }
+      },
+      "en": {
+        "type": "cta",
+        "value": {
+          "kicker": "Start a project",
+          "title": "Send your drawings, get a factory quote",
+          "image": "/Assets/Slideshow_1_2.png",
+          "quote_label": "",
+          "visit_label": ""
+        }
+      }
+    }
+  },
+  "home": {
+    "title": "Trang chủ",
+    "title_en": "Home",
+    "vi": {
+      "body": [
+        {
+          "type": "hero",
+          "value": {
+            "slides": [
+              "/Assets/Landing.jpg",
+              "/Assets/Slideshow_1_3.jpg",
+              "/Assets/Slideshow_1_6.jpg",
+              "/Assets/Slideshow_1_8.jpg"
+            ],
+            "title": "Từ khung nhôm đến sợi đan,\nlàm trọn tại xưởng",
+            "lede": "Sản xuất theo bản vẽ của bạn hoặc cùng phát triển mẫu riêng cho khách sạn, khu nghỉ dưỡng và thương hiệu nội thất, từ mẫu thử đầu tiên đến đơn hàng nguyên container.",
+            "button_label": ""
+          }
+        },
+        {
+          "type": "intro",
+          "value": {
+            "heading": "Câu chuyện BINH BFC",
+            "quote": "Một món nội thất ngoài trời bền đẹp được làm nên từ từng mối hàn, từng thớ gỗ và từng sợi đan.",
+            "body": "Thành lập năm 2010 tại Đồng Nai, BINH BFC sản xuất nội thất ngoài trời cho các khu nghỉ dưỡng, khách sạn và nhà phân phối. Nhà máy 28.000 m² cùng 370 nhân sự tự làm trọn mọi công đoạn, từ khung nhôm, thép, gỗ teak đến đan dây, đan mây nhựa và may nệm. Nhờ vậy chúng tôi giữ được chất lượng và tiến độ ở từng bước, cho từng đơn hàng.",
+            "button_label": ""
+          }
+        },
+        {
+          "type": "section",
+          "value": {
+            "section": "products"
+          }
+        },
+        {
+          "type": "section",
+          "value": {
+            "section": "materials"
+          }
+        },
+        {
+          "type": "export",
+          "value": {
+            "kicker": "Xuất khẩu",
+            "title": "Hàng BFC có mặt tại hơn 20 quốc gia",
+            "markets": [
+              {
+                "country": "GBR",
+                "position": "61,20",
+                "side": "L"
+              },
+              {
+                "country": "ESP",
+                "position": "61,33",
+                "side": "L"
+              },
+              {
+                "country": "NLD",
+                "position": "71,15",
+                "side": "C"
+              },
+              {
+                "country": "USA",
+                "position": "28,36",
+                "side": "L"
+              },
+              {
+                "country": "CHN",
+                "position": "110,23",
+                "side": "C"
+              },
+              {
+                "country": "JPN",
+                "position": "130,30",
+                "side": "R"
+              },
+              {
+                "country": "KOR",
+                "position": "119,23",
+                "side": "C"
+              },
+              {
+                "country": "AUS",
+                "position": "135,57",
+                "side": "C"
+              }
+            ],
+            "stats": [
+              {
+                "value": "20+",
+                "label": "Quốc gia nhập khẩu"
+              },
+              {
+                "value": "100+",
+                "label": "Container mỗi tháng"
+              },
+              {
+                "value": "2010",
+                "label": "Xuất khẩu từ năm"
+              }
+            ]
+          }
+        },
+        {
+          "type": "factory",
+          "value": {
+            "kicker": "Năng lực & nhà máy",
+            "title": "Bên trong nhà máy BFC",
+            "lede": "Từ bản vẽ đến container: các xưởng, đội ngũ và quy trình đứng sau mỗi đơn hàng.",
+            "image": "/Assets/Slideshow_1_6.jpg",
+            "detail_image": "/Assets/Slideshow_Rope_2.jpg",
+            "points": [
+              "Sản xuất từ năm 2010",
+              "OEM / ODM theo bản vẽ",
+              "Sẵn sàng đón khách thăm nhà máy"
+            ],
+            "button_label": ""
+          }
+        },
+        {
+          "type": "shared",
+          "value": "cta"
+        }
+      ]
+    },
+    "en": {
+      "body": [
+        {
+          "type": "hero",
+          "value": {
+            "slides": [
+              "/Assets/Landing.jpg",
+              "/Assets/Slideshow_1_3.jpg",
+              "/Assets/Slideshow_1_6.jpg",
+              "/Assets/Slideshow_1_8.jpg"
+            ],
+            "title": "From frame to weave,\nall under one roof",
+            "lede": "Built to your drawings or developed together with you for hotels, resorts and furniture brands, from the first prototype to full container orders.",
+            "button_label": ""
+          }
+        },
+        {
+          "type": "intro",
+          "value": {
+            "heading": "The BINH BFC story",
+            "quote": "Outdoor furniture that lasts is made one weld, one joint and one strand at a time.",
+            "body": "Founded in 2010 in Dong Nai, BINH BFC makes outdoor furniture for resorts, hotels and distributors. Our 28,000 m² factory and 370 people handle every step in house, from aluminum, steel and teak frames to rope and wicker weaving and cushion sewing. That keeps quality and lead times under our control at every stage, on every order.",
+            "button_label": ""
+          }
+        },
+        {
+          "type": "section",
+          "value": {
+            "section": "products"
+          }
+        },
+        {
+          "type": "section",
+          "value": {
+            "section": "materials"
+          }
+        },
+        {
+          "type": "export",
+          "value": {
+            "kicker": "Export",
+            "title": "BFC furniture ships to 20+ countries",
+            "markets": [
+              {
+                "country": "GBR",
+                "position": "61,20",
+                "side": "L"
+              },
+              {
+                "country": "ESP",
+                "position": "61,33",
+                "side": "L"
+              },
+              {
+                "country": "NLD",
+                "position": "71,15",
+                "side": "C"
+              },
+              {
+                "country": "USA",
+                "position": "28,36",
+                "side": "L"
+              },
+              {
+                "country": "CHN",
+                "position": "110,23",
+                "side": "C"
+              },
+              {
+                "country": "JPN",
+                "position": "130,30",
+                "side": "R"
+              },
+              {
+                "country": "KOR",
+                "position": "119,23",
+                "side": "C"
+              },
+              {
+                "country": "AUS",
+                "position": "135,57",
+                "side": "C"
+              }
+            ],
+            "stats": [
+              {
+                "value": "20+",
+                "label": "Importing countries"
+              },
+              {
+                "value": "100+",
+                "label": "Containers per month"
+              },
+              {
+                "value": "2010",
+                "label": "Exporting since"
+              }
+            ]
+          }
+        },
+        {
+          "type": "factory",
+          "value": {
+            "kicker": "Capabilities & factory",
+            "title": "Inside the BFC factory",
+            "lede": "From drawing to container: the workshops, the team and the process behind every order.",
+            "image": "/Assets/Slideshow_1_6.jpg",
+            "detail_image": "/Assets/Slideshow_Rope_2.jpg",
+            "points": [
+              "Manufacturing since 2010",
+              "OEM / ODM to your drawings",
+              "Factory visits welcome"
+            ],
+            "button_label": ""
+          }
+        },
+        {
+          "type": "shared",
+          "value": "cta"
+        }
+      ]
+    }
+  }
+}

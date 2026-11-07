@@ -1,0 +1,47 @@
+{
+  "0a4c2d8181b3ec14bed6923b08a40eefa6667be5141418ff795149d67296f6a9:15d924286498": {
+    "componentId": "base-ring",
+    "dominantAlbedo": "rgba(157, 103, 64, 1.0)",
+    "secondaryAlbedo": "rgba(162, 109, 68, 1.0)",
+    "materialClass": "wood",
+    "materialClassConfidence": 0.6,
+    "roughnessEstimate": 0.87,
+    "metalnessEstimate": 0.0,
+    "highlightEvidence": "broad, gradually-fading highlight — supports high roughness/diffuse response",
+    "sourceCropPath": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-crops\\teak-rear-top-rail.png",
+    "labClusterMeta": {
+      "clusterCount": 3,
+      "dominantClusterSharePct": 0.457
+    }
+  },
+  "8728f0e3111e03f351b3a1b883c5a7057efac0de4761bf4e217b50d30b10ff02:15d924286498": {
+    "componentId": "weave-lateral-left",
+    "dominantAlbedo": "rgba(113, 83, 62, 1.0)",
+    "secondaryAlbedo": "rgba(76, 50, 33, 1.0)",
+    "materialClass": "fabric",
+    "materialClassConfidence": 0.6,
+    "roughnessEstimate": 0.122,
+    "metalnessEstimate": 0.0,
+    "highlightEvidence": "sharp, tight specular hotspot — supports low roughness/high specularity",
+    "sourceCropPath": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-crops\\rope-rear-panel.png",
+    "labClusterMeta": {
+      "clusterCount": 3,
+      "dominantClusterSharePct": 0.396
+    }
+  },
+  "8e2c9b17b2cf2071d9bce158a13396c7a80040e7400cbb64ac9dfd457a063434:15d924286498": {
+    "componentId": "cushion-seat",
+    "dominantAlbedo": "rgba(233, 228, 222, 1.0)",
+    "secondaryAlbedo": "rgba(254, 254, 254, 1.0)",
+    "materialClass": "fabric",
+    "materialClassConfidence": 0.6,
+    "roughnessEstimate": 0.87,
+    "metalnessEstimate": 0.0,
+    "highlightEvidence": "broad, gradually-fading highlight — supports high roughness/diffuse response",
+    "sourceCropPath": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-crops\\cushion-back.png",
+    "labClusterMeta": {
+      "clusterCount": 3,
+      "dominantClusterSharePct": 0.522
+    }
+  }
+}

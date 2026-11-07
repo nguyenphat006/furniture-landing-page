@@ -1,0 +1,355 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* BFC brand tokens (từ Claude Design "BFC Design System") */
+  --color-ink: #141414;
+  --color-ink-soft: #444444;
+  --color-ink-mute: #6b6b6b;
+  --color-line: #e8e8e8;
+  /* Xanh thương hiệu (2026-11-06): đổi sang xanh tươi, đậm sắc hơn cho toàn app.
+     Chữ trắng trên nền này ~5.4:1 (đạt AA). Màu cũ (xám, trầm): #3f5d46, muốn quay lại thì đổi về giá trị đó. */
+  --color-forest: #32764a;
+  /* Gold (2026-11-06): đổi sang vàng tươi, rực hơn cho toàn app. Màu cũ (vàng đồng, trầm): #c9a227 */
+  --color-gold: #f2c230;
+  /* Gold tối hơn, dùng khi gold là màu chữ trên nền trắng (đủ tương phản) */
+  --color-gold-ink: #8a6d12;
+
+  /*
+   * Token bổ sung sau khi quét ATC, Gloster, Nghĩa Sơn (docs/design-research/tong-hop.html, mục 05).
+   * Giá trị là của riêng BFC, không chép mã màu/font của site khác.
+   *
+   * Quy ước gold: dùng cho trạng thái active, con số, năm và hover của CardAction trên ảnh
+   * (ngoại lệ có chủ đích, chốt 2026-11-04). Nút "Báo giá" dùng forest đặc, không dùng gold.
+   */
+
+  /* Surface xen kẽ giữa các section */
+  --color-surface-stone: #f3f1ec;
+  --color-surface-forest: #eaf1ed; /* nền nhạt ăn theo forest mới; cũ: #e9eeea */
+
+  /* Thang chữ fluid. text-section là tiêu đề section trang chủ (tối đa 48px, ngoại lệ có chủ đích);
+     text-h2 dùng bên trong trang con (tối đa 40px) */
+  --text-display: clamp(3rem, 5vw + 1rem, 6rem);
+  --text-display--line-height: 1.05;
+  --text-h1: clamp(2.25rem, 3vw + 1.5rem, 4rem);
+  --text-h1--line-height: 1.1;
+  --text-section: clamp(2rem, 3.2vw, 3rem);
+  --text-section--line-height: 1.15;
+  --text-h2: clamp(1.875rem, 1vw + 1.6rem, 2.5rem);
+  --text-h2--line-height: 1.2;
+  --text-h3: 1.5rem;
+  --text-h3--line-height: 1.25;
+  --text-lede: 1.0625rem;
+  --text-lede--line-height: 1.7;
+  --text-eyebrow: 0.75rem;
+  --text-eyebrow--line-height: 1.4;
+  --text-eyebrow--letter-spacing: 0.16em;
+
+  /* Khoảng cách: gutter theo Gloster (24px mobile, ~43px tablet, 80px từ ~1430px), nhịp section 80 → 112px */
+  --spacing-gutter: clamp(1.5rem, 5.6vw, 5rem);
+  --spacing-section: clamp(5rem, 6vw + 2.5rem, 7rem);
+  --spacing-band: clamp(3rem, 5vw, 6rem);
+  /* Container chung bằng Gloster: tổng tối đa 1800px gồm lề 80px mỗi bên, nội dung 1640px */
+  --container-content: 1640px;
+
+  /* Motion */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+
+  --animate-bfc-nudge: bfc-nudge 2.4s ease-in-out infinite;
+
+  @keyframes bfc-nudge {
+    0%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.8;
+    }
+    50% {
+      transform: translateY(6px);
+      opacity: 1;
+    }
+  }
+}
+
+/* Thời lượng motion: dùng duration-(--duration-base) ... */
+:root {
+  --duration-micro: 120ms;
+  --duration-base: 220ms;
+  --duration-slow: 420ms;
+}
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  /* 2px: nút, input, card gần như vuông (trước là 0.625rem). Ảnh để 0, chip/swatch rounded-full */
+  --radius: 0.125rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    text-wrap: pretty;
+  }
+  html {
+    @apply scroll-smooth font-sans;
+  }
+  *:focus-visible {
+    outline: 2px solid var(--color-forest);
+    outline-offset: 3px;
+  }
+}
+
+/* Ẩn scrollbar cho carousel cuộn ngang */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Nháy nền vàng nhạt khi nhảy tới anchor xưởng (trang Năng lực) */
+@keyframes bfc-flash {
+  from {
+    background-color: #fbf6ea;
+  }
+  to {
+    background-color: transparent;
+  }
+}
+.bfc-ws:target > div {
+  animation: bfc-flash 1.6s ease 1;
+}
+
+/* Lưới stats: 2 cột mobile / 3 cột tablet / 5 cột desktop, kẻ hairline giữa các ô */
+.bfc-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.bfc-stats > div {
+  border-left: 1px solid var(--color-line);
+  border-top: 1px solid var(--color-line);
+}
+.bfc-stats > div:nth-child(2n + 1) {
+  border-left: 0;
+}
+.bfc-stats > div:nth-child(-n + 2) {
+  border-top: 0;
+}
+@media (min-width: 641px) and (max-width: 1023px) {
+  .bfc-stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .bfc-stats > div {
+    border-left: 1px solid var(--color-line);
+    border-top: 0;
+  }
+  .bfc-stats > div:nth-child(3n + 1) {
+    border-left: 0;
+  }
+  .bfc-stats > div:nth-child(n + 4) {
+    border-top: 1px solid var(--color-line);
+  }
+}
+@media (min-width: 1024px) {
+  .bfc-stats {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .bfc-stats > div {
+    border-left: 1px solid var(--color-line);
+    border-top: 0;
+  }
+  .bfc-stats > div:nth-child(5n + 1) {
+    border-left: 0;
+  }
+}
+
+/* Bản đồ xuất khẩu trang chủ (2026-11-06, features/home/components/export-*.tsx) */
+.export-map .export-region {
+  transition: opacity 0.4s var(--ease-out-soft);
+}
+.export-map[data-active] .export-region {
+  opacity: 0.15;
+}
+/* Đường cung NÉT LIỀN (người dùng: không dùng nét đứt): tự vẽ từ BFC ra khi cuộn tới (pathLength=1).
+   Hiệu ứng tỏa (.export-pulse, path trùng toạ độ, cùng độ dày, đè lên): dải VÀNG SÁNG LIỀN phủ dần dọc
+   chính đường cung từ BFC ra tới nước đích rồi mờ đi, lặp lại (người dùng: liền, không tách vệt). */
+.export-arc {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.4s var(--ease-out-soft);
+}
+.export-map[data-inview] .export-arc {
+  stroke-dashoffset: 0;
+}
+.export-pulse {
+  stroke-dasharray: 1 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+}
+.export-map[data-inview] .export-pulse {
+  animation: export-pulse 3.2s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+}
+/* Dải vàng sáng LIỀN phủ dần từ BFC tới nước đích (không tách vệt), giữ một nhịp rồi mờ đi, lặp lại */
+@keyframes export-pulse {
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 0.95;
+  }
+  55% {
+    stroke-dashoffset: 0;
+    opacity: 0.95;
+  }
+  80%,
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+.export-ping {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: export-ping 2.4s ease-out infinite;
+}
+@keyframes export-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(3.2);
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .export-ping {
+    animation: none;
+    opacity: 0;
+  }
+  .export-map[data-inview] .export-pulse {
+    animation: none;
+  }
+}
+
+/* Tắt chuyển động toàn site khi người dùng bật giảm chuyển động */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

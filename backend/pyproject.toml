@@ -1,0 +1,142 @@
+[project]
+name = "bfc-cms"
+version = "0.1.0"
+description = "CMS (Django + Wagtail) cho landing page BFC"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+# Ghim phiên bản chính xác; mỗi bản đã phát hành ít nhất 2 tuần trước khi thêm (xem docs/adr/0001).
+dependencies = [
+  "django==5.2.18",
+  "wagtail==8.0.1",
+  "wagtail-localize==1.14.5",
+  "djangorestframework==3.18.3",
+  "drf-spectacular==0.30.0",
+  "django-filter==26.2",
+  "django-environ==0.14.0",
+  "psycopg[binary]==3.3.6",
+  "argon2-cffi==25.1.0",
+  "django-axes==8.3.1",
+  "django-auditlog==3.4.1",
+  "django-csp==4.0",
+  "structlog==26.1.0",
+  "django-structlog==10.1.0",
+]
+
+[dependency-groups]
+dev = [
+  "ruff==0.17.2",
+  "mypy==2.3.1",
+  "django-stubs[compatible-mypy]==6.1.2",
+  "djangorestframework-stubs[compatible-mypy]==3.18.1",
+  "pytest==9.1.1",
+  "pytest-django==4.14.0",
+  "pytest-cov==7.1.0",
+  "pytest-xdist==3.8.0",
+  "factory-boy==3.3.3",
+  "pre-commit==4.7.0",
+  "poethepoet==0.49.0",
+]
+# Chỉ cài trong image production (Dockerfile): uv sync --group prod --no-dev
+prod = [
+  "gunicorn==26.2.0",
+  "whitenoise==6.12.0",
+]
+
+[tool.uv]
+package = false
+
+# ---------------------------------------------------------------- poe (lệnh chạy chung Windows / Linux)
+[tool.poe.tasks]
+dev = { cmd = "python manage.py runserver 127.0.0.1:9000", help = "Chạy CMS ở http://127.0.0.1:9000/admin/" }
+migrate = { cmd = "python manage.py migrate", help = "Áp migration" }
+bootstrap = { sequence = ["migrate", { cmd = "python manage.py bootstrap" }], help = "Migrate + tạo locale vi/en và nhóm Quản trị" }
+test = { cmd = "pytest", help = "Chạy test + coverage" }
+lint = { sequence = [{ cmd = "ruff check ." }, { cmd = "ruff format --check ." }], help = "Lint + kiểm tra format" }
+format = { sequence = [{ cmd = "ruff check --fix ." }, { cmd = "ruff format ." }], help = "Tự sửa lint + format" }
+typecheck = { cmd = "mypy .", help = "Kiểm tra type" }
+migrations-check = { cmd = "python manage.py makemigrations --check --dry-run", help = "Báo lỗi nếu model đổi mà thiếu migration" }
+schema = { cmd = "python manage.py spectacular --file openapi.yaml --validate --fail-on-warn", help = "Sinh OpenAPI vào openapi.yaml" }
+check = { sequence = ["lint", "typecheck", "migrations-check", "test"], help = "Chạy đủ bộ kiểm tra như CI" }
+
+# ---------------------------------------------------------------- ruff
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+extend-exclude = ["**/migrations/**"]
+
+[tool.ruff.lint]
+select = [
+  "E", "W", "F",  # pycodestyle, pyflakes
+  "I",            # isort
+  "B",            # bugbear
+  "UP",           # pyupgrade
+  "S",            # bandit (bảo mật)
+  "DJ",           # django
+  "C4", "SIM", "RET", "PIE", "PT", "DTZ", "T20", "ERA", "RUF",
+]
+ignore = ["RUF012"]  # Meta/class attr mutable: kiểu khai báo chuẩn của Django
+
+[tool.ruff.lint.per-file-ignores]
+"**/tests/**" = ["S101", "S105", "S106"]
+"config/settings/*.py" = ["F405", "F403", "ERA001"]  # dòng kẻ chia mục bị ERA nhầm là code
+
+[tool.ruff.lint.isort]
+known-first-party = ["apps", "config"]
+
+# ---------------------------------------------------------------- mypy
+[tool.mypy]
+python_version = "3.12"
+plugins = ["mypy_django_plugin.main", "mypy_drf_plugin.main"]
+strict = true
+warn_unreachable = true
+exclude = ["/migrations/", "^\\.venv/"]
+
+[tool.django-stubs]
+django_settings_module = "config.settings.test"
+
+[[tool.mypy.overrides]]
+# Các gói chưa có type stub
+module = [
+  "wagtail.*", "wagtail_localize.*", "modelcluster.*", "taggit.*",
+  "auditlog.*", "axes.*", "environ.*", "csp.*", "django_structlog.*", "factory.*",
+  "treebeard.*", "modelsearch.*",
+]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["*.tests.*", "conftest"]
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+disallow_untyped_calls = false
+
+[[tool.mypy.overrides]]
+# factory-boy có py.typed nhưng không khai báo export rõ ràng
+module = ["factory", "factory.*"]
+implicit_reexport = true
+
+[[tool.mypy.overrides]]
+# Wagtail / modelcluster chưa có type: model, block, form và viewset kế thừa class của chúng
+module = ["apps.*.models", "apps.*.models.*", "apps.*.blocks", "apps.*.wagtail_hooks"]
+disallow_subclassing_any = false
+# Plugin django-stubs không thấy related manager do ParentalKey (modelcluster) tạo
+disable_error_code = ["django-manager-missing"]
+
+[[tool.mypy.overrides]]
+# Decorator @hooks.register của Wagtail chưa có type
+module = ["*.wagtail_hooks"]
+disable_error_code = ["untyped-decorator"]
+
+# ---------------------------------------------------------------- pytest
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.test"
+python_files = ["test_*.py"]
+addopts = "-ra --strict-markers --cov --cov-report=term-missing:skip-covered"
+testpaths = ["apps"]
+
+[tool.coverage.run]
+source = ["apps"]
+omit = ["*/migrations/*", "*/tests/*"]
+
+[tool.coverage.report]
+fail_under = 85
+show_missing = true

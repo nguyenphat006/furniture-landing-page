@@ -1,0 +1,34 @@
+PASS
+warning: quality: material 'teak-satin' needs usable referencePbr extracted from source pixels
+warning: quality: material 'rope-braided' needs usable referencePbr extracted from source pixels
+warning: quality: material 'cushion-fabric' needs usable referencePbr extracted from source pixels
+warning: quality: component 'base-ring' is missing colorMaterialRecipe
+warning: quality: component 'base-stretcher-a' is missing colorMaterialRecipe
+warning: quality: component 'base-stretcher-b' is missing colorMaterialRecipe
+warning: quality: component 'swivel-plate' is missing colorMaterialRecipe
+warning: quality: component 'seat-deck' is missing colorMaterialRecipe
+warning: quality: component 'lateral-rear-post-left' is missing colorMaterialRecipe
+warning: quality: component 'front-post-left' is missing colorMaterialRecipe
+warning: quality: component 'lateral-bottom-rail-left' is missing colorMaterialRecipe
+warning: quality: component 'armrest-left' is missing colorMaterialRecipe
+warning: quality: component 'fastener-cap-left-upper' is missing colorMaterialRecipe
+warning: quality: component 'fastener-cap-left-lower' is missing colorMaterialRecipe
+warning: quality: component 'weave-lateral-left' is missing colorMaterialRecipe
+warning: quality: component 'weave-lateral-left-b' is missing colorMaterialRecipe
+warning: quality: component 'lateral-rear-post-right' is missing colorMaterialRecipe
+warning: quality: component 'front-post-right' is missing colorMaterialRecipe
+warning: quality: component 'lateral-bottom-rail-right' is missing colorMaterialRecipe
+warning: quality: component 'armrest-right' is missing colorMaterialRecipe
+warning: quality: component 'fastener-cap-right-upper' is missing colorMaterialRecipe
+warning: quality: component 'fastener-cap-right-lower' is missing colorMaterialRecipe
+warning: quality: component 'weave-lateral-right' is missing colorMaterialRecipe
+warning: quality: component 'weave-lateral-right-b' is missing colorMaterialRecipe
+warning: quality: component 'rear-stile-left' is missing colorMaterialRecipe
+warning: quality: component 'rear-stile-right' is missing colorMaterialRecipe
+warning: quality: component 'rear-bottom-rail' is missing colorMaterialRecipe
+warning: quality: component 'rear-top-rail' is missing colorMaterialRecipe
+warning: quality: component 'front-apron-rail' is missing colorMaterialRecipe
+warning: quality: component 'weave-rear' is missing colorMaterialRecipe
+warning: quality: component 'weave-rear-b' is missing colorMaterialRecipe
+warning: quality: component 'cushion-seat' is missing colorMaterialRecipe
+warning: quality: component 'cushion-back' is missing colorMaterialRecipe

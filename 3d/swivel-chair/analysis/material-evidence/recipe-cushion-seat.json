@@ -1,0 +1,16 @@
+{
+  "componentId": "cushion-seat",
+  "dominantAlbedo": "rgba(233, 228, 222, 1.0)",
+  "secondaryAlbedo": "rgba(254, 254, 254, 1.0)",
+  "materialClass": "fabric",
+  "materialClassConfidence": 0.6,
+  "roughnessEstimate": 0.87,
+  "metalnessEstimate": 0.0,
+  "highlightEvidence": "broad, gradually-fading highlight — supports high roughness/diffuse response",
+  "sourceCropPath": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\analysis\\material-crops\\cushion-back.png",
+  "labClusterMeta": {
+    "clusterCount": 3,
+    "dominantClusterSharePct": 0.522
+  },
+  "cacheHit": true
+}

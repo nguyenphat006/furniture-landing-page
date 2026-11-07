@@ -1,0 +1,145 @@
+STATUS pass=blockout completed=0 blocked=none next=diagnose_render.py
+{
+  "passed": false,
+  "checks": {
+    "silhouetteIoU": 0.5642,
+    "aspectRatioDelta": 0.0092,
+    "scaleDelta": 0.145,
+    "bilateralSymmetryError": 0.1728,
+    "colorDelta": {
+      "checked": 30,
+      "maxDeltaE": 10.96,
+      "perComponent": [
+        {
+          "componentId": "base-ring",
+          "deltaE": 3.9
+        },
+        {
+          "componentId": "base-stretcher-a",
+          "deltaE": 3.9
+        },
+        {
+          "componentId": "base-stretcher-b",
+          "deltaE": 3.9
+        },
+        {
+          "componentId": "swivel-plate",
+          "deltaE": 3.9
+        },
+        {
+          "componentId": "seat-deck",
+          "deltaE": 3.9
+        },
+        {
+          "componentId": "lateral-rear-post-left",
+          "deltaE": 3.9
+        },
+        {
+          "componentId": "front-post-left",
+          "deltaE": 3.9
+        },
+        {
+          "componentId": "lateral-bottom-rail-left",
+          "deltaE": 3.9
+        },
+        {
+          "componentId": "armrest-left",
+          "deltaE": 3.9
+        },
+        {
+          "componentId": "fastener-cap-left-upper",
+          "deltaE": 3.9
+        },
+        {
+          "componentId": "fastener-cap-left-lower",
+          "deltaE": 3.9
+        },
+        {
+          "componentId": "weave-lateral-left",
+          "deltaE": 10.96
+        },
+        {
+          "componentId": "weave-lateral-left-b",
+          "deltaE": 10.96
+        },
+        {
+          "componentId": "lateral-rear-post-right",
+          "deltaE": 3.9
+        },
+        {
+          "componentId": "front-post-right",
+          "deltaE": 3.9
+        },
+        {
+          "componentId": "lateral-bottom-rail-right",
+          "deltaE": 3.9
+        },
+        {
+          "componentId": "armrest-right",
+          "deltaE": 3.9
+        },
+        {
+          "componentId": "fastener-cap-right-upper",
+          "deltaE": 3.9
+        },
+        {
+          "componentId": "fastener-cap-right-lower",
+          "deltaE": 3.9
+        },
+        {
+          "componentId": "weave-lateral-right",
+          "deltaE": 10.96
+        },
+        {
+          "componentId": "weave-lateral-right-b",
+          "deltaE": 10.96
+        },
+        {
+          "componentId": "rear-stile-left",
+          "deltaE": 3.9
+        },
+        {
+          "componentId": "rear-stile-right",
+          "deltaE": 3.9
+        },
+        {
+          "componentId": "rear-bottom-rail",
+          "deltaE": 3.9
+        },
+        {
+          "componentId": "rear-top-rail",
+          "deltaE": 3.9
+        },
+        {
+          "componentId": "front-apron-rail",
+          "deltaE": 3.9
+        },
+        {
+          "componentId": "weave-rear",
+          "deltaE": 10.96
+        },
+        {
+          "componentId": "weave-rear-b",
+          "deltaE": 10.96
+        },
+        {
+          "componentId": "cushion-seat",
+          "deltaE": 0.85
+        },
+        {
+          "componentId": "cushion-back",
+          "deltaE": 0.85
+        }
+      ],
+      "gated": false
+    }
+  },
+  "failures": [
+    "silhouette IoU 0.564 is below threshold 0.85",
+    "scale delta 0.145 exceeds threshold 0.08"
+  ],
+  "maskWarnings": [],
+  "renderHash": "e7eb7778e15b186c",
+  "passId": "blockout",
+  "mapStrippedRender": "C:\\Users\\NguyenDangPhat\\Documents\\GitHub\\bfc-landing-page\\3d\\swivel-chair\\renders\\blockout\\iter3\\rear-left-3q-mapstripped.png"
+}

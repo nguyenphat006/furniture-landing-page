@@ -1,0 +1,724 @@
+<title>BFC Design Research</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: một trục trái duy nhất, cột đọc 8/12, mục lục dính bên trái ở desktop; dải nền surface xen kẽ theo từng phần. */
+:root {
+  --bg: #ffffff;
+  --fg: #141414;          /* BFC ink */
+  --fg-soft: #444444;     /* BFC ink-soft */
+  --fg-mute: #6b6b6b;     /* BFC ink-mute */
+  --line: #e8e8e8;        /* BFC line */
+  --surface: #f3f1ec;     /* đề xuất surface-stone */
+  --surface-2: #e9eeea;   /* đề xuất surface-forest-tint */
+  --accent: #3f5d46;      /* BFC forest */
+  --accent-2: #8a6d12;    /* BFC gold, tối hơn để đọc được trên nền trắng */
+  --gold: #c9a227;        /* BFC gold gốc, chỉ dùng cho mảng */
+  --chip-new-bg: #fbf3d9;
+  --chip-new-fg: #6b520a;
+  --chip-keep-bg: #e3ece5;
+  --chip-keep-fg: #2c4632;
+  --chip-ask-bg: #f1e4e0;
+  --chip-ask-fg: #7a3524;
+  --wf: #d9d6cf;
+  --wf-strong: #b9b4aa;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+/* Chỉ dùng nền sáng, theo yêu cầu: không đổi theo theme tối của trình duyệt. */
+:root, :root[data-theme="dark"] { color-scheme: light; }
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font-family: var(--font-sans); font-size: 16px; line-height: 1.6; font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+h1, h2, h3, h4 { text-wrap: balance; margin: 0; line-height: 1.15; letter-spacing: -0.01em; }
+p { margin: 0; }
+code, .mono { font-family: var(--font-mono); font-size: 0.86em; }
+
+.wrap { max-width: 1280px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+@media (min-width: 768px) { .wrap { padding-left: max(48px, env(safe-area-inset-left, 0px)); padding-right: max(48px, env(safe-area-inset-right, 0px)); } }
+
+.band { padding-block: clamp(48px, 6vw, 88px); border-top: 1px solid var(--line); }
+.band.alt { background: var(--surface); }
+.band.alt2 { background: var(--surface-2); }
+
+.eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+.lead { font-size: 1.125rem; color: var(--fg-soft); max-width: 68ch; }
+.muted { color: var(--fg-mute); }
+.prose { max-width: 70ch; display: grid; gap: 12px; color: var(--fg-soft); }
+
+/* Masthead */
+.mast { padding-block: clamp(40px, 7vw, 96px) clamp(32px, 5vw, 64px); }
+.mast h1 { font-size: clamp(2.25rem, 4.2vw + 0.8rem, 4.25rem); font-weight: 600; letter-spacing: -0.025em; margin-top: 14px; max-width: 18ch; }
+.mast .lead { margin-top: 20px; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 28px; font-size: 14px; color: var(--fg-mute); }
+.meta b { color: var(--fg); font-weight: 600; }
+.site-strip { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 36px; }
+.site-strip > div { background: var(--bg); padding: 18px 20px; min-width: 0; display: grid; gap: 4px; }
+.site-strip .k { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-mute); }
+.site-strip .v { font-size: 1.05rem; font-weight: 600; }
+.site-strip .s { font-size: 14px; color: var(--fg-soft); }
+@media (max-width: 760px) { .site-strip { grid-template-columns: 1fr; } }
+
+/* Layout trang: mục lục + nội dung */
+.toc { display: none; }
+@media (min-width: 1180px) {
+  .page { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 48px; }
+  .toc { display: block; position: sticky; top: calc(24px + env(safe-area-inset-top, 0px)); align-self: start; padding-top: 8px; }
+  .toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 14px; counter-reset: t; }
+  .toc li { counter-increment: t; }
+  .toc a { color: var(--fg-soft); text-decoration: none; display: block; padding: 2px 0 2px 12px; border-left: 1px solid var(--line); }
+  .toc a:hover { color: var(--fg); border-left-color: var(--accent); }
+  .toc .k { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-mute); margin-bottom: 10px; }
+}
+
+.sec-head { display: grid; gap: 10px; margin-bottom: 32px; }
+.sec-head h2 { font-size: clamp(1.75rem, 1.6vw + 1.2rem, 2.5rem); font-weight: 600; }
+
+/* Tóm tắt */
+.tldr { display: grid; gap: 0; border-top: 1px solid var(--fg); }
+.tldr li { list-style: none; display: grid; grid-template-columns: 2.2rem minmax(0, 1fr); gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.tldr { padding: 0; margin: 0; counter-reset: n; }
+.tldr li::before { counter-increment: n; content: counter(n); font-family: var(--font-mono); font-size: 14px; color: var(--accent-2); padding-top: 2px; }
+.tldr b { color: var(--fg); }
+.tldr span { color: var(--fg-soft); }
+
+/* Lưới chung */
+.grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+@media (max-width: 960px) { .grid-3 { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .grid-2 { grid-template-columns: 1fr; } }
+
+.common { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; }
+@media (max-width: 760px) { .common { grid-template-columns: 1fr; } }
+.common > div { padding: 18px 0; border-top: 1px solid var(--line); display: grid; gap: 6px; min-width: 0; }
+.common h3 { font-size: 1.05rem; font-weight: 600; }
+.common p { color: var(--fg-soft); font-size: 15px; }
+.who { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+.tag { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border: 1px solid var(--line); color: var(--fg-soft); white-space: nowrap; }
+
+/* Thẻ site */
+.site { background: var(--bg); border: 1px solid var(--line); display: grid; grid-template-rows: auto 1fr; min-width: 0; }
+.site figure { margin: 0; aspect-ratio: 16 / 9; overflow: hidden; border-bottom: 1px solid var(--line); background: var(--surface); max-width: 100%; }
+.site figure img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.site .body { padding: 22px; display: grid; gap: 14px; align-content: start; }
+.site h3 { font-size: 1.35rem; font-weight: 600; }
+.site .role { font-size: 14px; color: var(--fg-mute); }
+.site ul { margin: 0; padding-left: 18px; display: grid; gap: 8px; color: var(--fg-soft); font-size: 15px; }
+.site .watch { font-size: 14px; color: var(--fg-mute); border-top: 1px solid var(--line); padding-top: 12px; }
+.site .watch b { color: var(--fg-soft); }
+
+/* Sitemap */
+.ia { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 40px; align-items: start; }
+@media (max-width: 960px) { .ia { grid-template-columns: 1fr; } }
+.tree { list-style: none; margin: 0; padding: 0; font-size: 15px; }
+.tree ul { list-style: none; margin: 6px 0 4px 10px; padding-left: 18px; border-left: 1px solid var(--wf-strong); display: grid; gap: 4px; }
+.tree > li { padding: 12px 0; border-top: 1px solid var(--line); }
+.tree > li:last-child { border-bottom: 1px solid var(--line); }
+.node { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; }
+.node .r { font-family: var(--font-mono); font-size: 13px; color: var(--fg); font-weight: 500; }
+.node .n { font-weight: 600; }
+.node .d { color: var(--fg-mute); font-size: 14px; flex-basis: 100%; }
+.tree ul .node .d { flex-basis: auto; }
+.chip { font-size: 11px; font-weight: 600; padding: 1px 7px; letter-spacing: 0.02em; white-space: nowrap; }
+.chip.keep { background: var(--chip-keep-bg); color: var(--chip-keep-fg); }
+.chip.new { background: var(--chip-new-bg); color: var(--chip-new-fg); }
+.chip.ask { background: var(--chip-ask-bg); color: var(--chip-ask-fg); }
+.legend { display: flex; flex-wrap: wrap; gap: 10px 18px; font-size: 13px; color: var(--fg-mute); margin-bottom: 18px; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+
+.side-card { border: 1px solid var(--line); background: var(--bg); padding: 22px; display: grid; gap: 14px; }
+.side-card h3 { font-size: 1.1rem; font-weight: 600; }
+.side-card ol { margin: 0; padding-left: 20px; display: grid; gap: 7px; font-size: 15px; color: var(--fg-soft); }
+.side-card ol b { color: var(--fg); font-weight: 600; }
+.side-card .src { font-size: 12px; color: var(--fg-mute); white-space: nowrap; }
+.navbar-mock { border: 1px solid var(--line); display: flex; align-items: center; gap: 14px; padding: 10px 14px; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-soft); overflow-x: auto; }
+.navbar-mock .logo { font-weight: 700; letter-spacing: 0.02em; color: var(--fg); text-transform: none; font-size: 14px; margin-right: auto; white-space: nowrap; }
+.navbar-mock .cta { background: var(--accent); color: var(--bg); padding: 6px 10px; white-space: nowrap; }
+.navbar-mock span { white-space: nowrap; }
+
+/* Bảng */
+.table-wrap { overflow-x: auto; border-top: 1px solid var(--fg); }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th, td { text-align: left; vertical-align: top; padding: 11px 12px 11px 0; border-bottom: 1px solid var(--line); }
+th { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-mute); font-weight: 600; white-space: nowrap; }
+td { color: var(--fg-soft); }
+td:first-child { color: var(--fg); font-weight: 500; }
+td code { white-space: nowrap; color: var(--fg); }
+.sw { display: inline-block; width: 14px; height: 14px; border: 1px solid var(--line); vertical-align: -2px; margin-right: 6px; }
+
+pre.code { background: var(--surface); border: 1px solid var(--line); padding: 18px; overflow-x: auto; font-family: var(--font-mono); font-size: 13px; line-height: 1.55; color: var(--fg); margin: 0; }
+.code-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 28px 0 8px; }
+.code-head span { font-size: 14px; color: var(--fg-mute); }
+button.copy { font: inherit; font-size: 13px; padding: 6px 12px; border: 1px solid var(--fg); background: transparent; color: var(--fg); cursor: pointer; }
+button.copy:hover { background: var(--fg); color: var(--bg); }
+
+/* Danh mục layout */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.filters button { font: inherit; font-size: 13px; padding: 6px 12px; border: 1px solid var(--line); background: var(--bg); color: var(--fg-soft); cursor: pointer; }
+.filters button[aria-pressed="true"] { border-color: var(--fg); color: var(--fg); font-weight: 600; }
+.layouts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+@media (max-width: 900px) { .layouts { grid-template-columns: 1fr; } }
+.lay { border: 1px solid var(--line); background: var(--bg); display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); min-width: 0; }
+@media (max-width: 560px) { .lay { grid-template-columns: 1fr; } }
+.lay .viz { border-right: 1px solid var(--line); background: var(--surface); padding: 14px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+@media (max-width: 560px) { .lay .viz { border-right: 0; border-bottom: 1px solid var(--line); } }
+.lay .shot { display: block; aspect-ratio: 16 / 9; overflow: hidden; border: 1px solid var(--line); background: var(--bg); max-width: 100%; }
+.lay .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform 220ms cubic-bezier(.22,1,.36,1); }
+.lay .shot:hover img { transform: scale(1.03); }
+@media (prefers-reduced-motion: reduce) { .lay .shot img { transition: none; } .lay .shot:hover img { transform: none; } }
+.lay .info { padding: 18px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.lay .top { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.lay h3 { font-size: 1.05rem; font-weight: 600; }
+.lay .pri { font-family: var(--font-mono); font-size: 12px; color: var(--accent-2); white-space: nowrap; }
+.lay p { font-size: 14.5px; color: var(--fg-soft); }
+.lay dl { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 12px; font-size: 13.5px; }
+.lay dt { color: var(--fg-mute); }
+.lay dd { margin: 0; color: var(--fg); min-width: 0; }
+.lay dd code { font-size: 12.5px; }
+
+/* Wireframe tí hon */
+.wf { aspect-ratio: 16 / 10; background: var(--bg); border: 1px solid var(--line); padding: 8px; display: grid; gap: 5px; max-width: 100%; }
+.wf i { display: block; background: var(--wf); min-height: 6px; }
+.wf i.s { background: var(--wf-strong); }
+.wf i.t { background: transparent; border-top: 2px solid var(--wf-strong); }
+.wf i.a { background: var(--accent); opacity: .75; }
+.wf i.g { background: var(--gold); opacity: .8; }
+.wf i.d { background: var(--fg); opacity: .78; }
+.wf-cap { font-size: 12px; color: var(--fg-mute); }
+
+/* Phương pháp */
+.compare { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+@media (max-width: 760px) { .compare { grid-template-columns: 1fr; } }
+.compare > div { border-top: 2px solid var(--fg); padding-top: 16px; display: grid; gap: 10px; align-content: start; }
+.compare h3 { font-size: 1.1rem; font-weight: 600; }
+.compare ul { margin: 0; padding-left: 18px; display: grid; gap: 7px; color: var(--fg-soft); font-size: 15px; }
+.stat-row { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: 6px; }
+.stat-row div { display: grid; }
+.stat-row b { font-size: 1.6rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.stat-row span { font-size: 13px; color: var(--fg-mute); }
+
+footer.end { padding-block: 40px 64px; border-top: 1px solid var(--line); font-size: 14px; color: var(--fg-mute); }
+footer.end .wrap { display: grid; gap: 8px; }
+</style>
+
+<header class="wrap mast">
+  <div class="eyebrow">Nghiên cứu thiết kế · BFC landing page</div>
+  <h1>Bóc tách 3 website nội thất để dựng BFC</h1>
+  <p class="lead">Tổng hợp từ phân tích HTML/CSS và quan sát runtime bằng REA (ảnh chụp thật khi cuộn hết trang, outline DOM, routes lấy từ menu) của ATC, Gloster và Nghĩa Sơn. Kết quả là sitemap, design token và danh mục layout cụ thể để áp vào code BFC hiện tại.</p>
+  <div class="meta">
+    <span>Ngày: <b>04/11/2026</b></span>
+    <span>Viewport chụp: <b>1424 × 805 desktop</b> (chưa xem mobile)</span>
+    <span>Chi tiết: <code>atc-craft.md</code>, <code>gloster.md</code>, <code>nghiason.md</code></span>
+  </div>
+  <div class="site-strip">
+    <div><span class="k">ATC Furniture · Việt Nam</span><span class="v">25 trang/trạng thái chụp runtime</span><span class="s">Laravel, GSAP. Nhà sản xuất B2B, mạnh về bằng chứng năng lực.</span></div>
+    <div><span class="k">Gloster · Đức</span><span class="v">18 trang chụp runtime</span><span class="s">Angular SSR, headless CMS. Brand cao cấp, kỷ luật design system.</span></div>
+    <div><span class="k">Nghĩa Sơn · Việt Nam</span><span class="v">Trang chủ + phân tích tĩnh</span><span class="s">WordPress, Elementor. Dừng dò sâu vì site dựng chủ yếu bằng AI; chỉ lấy pattern chuyển đổi B2B.</span></div>
+  </div>
+</header>
+
+<div class="wrap page">
+  <nav class="toc" aria-label="Mục lục">
+    <div class="k">Mục lục</div>
+    <ol>
+      <li><a href="#tom-tat">Tóm tắt</a></li>
+      <li><a href="#diem-chung">Điểm chung</a></li>
+      <li><a href="#diem-manh">Điểm mạnh từng site</a></li>
+      <li><a href="#sitemap">Sitemap cho BFC</a></li>
+      <li><a href="#token">Design token</a></li>
+      <li><a href="#layout">Section &amp; layout lấy được</a></li>
+      <li><a href="#phuong-phap">REA so với phân tích tĩnh</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <!-- 1. Tóm tắt -->
+    <section class="band" id="tom-tat" style="border-top:0; padding-top:0;">
+      <div class="sec-head"><div class="eyebrow">01 · Tóm tắt</div><h2>Năm kết luận chính</h2></div>
+      <ol class="tldr">
+        <li><div><b>Cả 3 site đều bán bằng báo giá, không bằng giỏ hàng.</b> <span>Gloster có "Quote list", Nghĩa Sơn dùng chung một popup RFQ ở 6 vị trí, ATC thu lead qua catalogue. BFC cần một luồng "Yêu cầu báo giá" duy nhất, có trường "Bạn là" để phân loại người mua.</span></div></li>
+        <li><div><b>Chất liệu là điểm nối giữa sản phẩm và năng lực.</b> <span>Gloster kết thúc mọi trang sản phẩm bằng lưới ảnh macro chất liệu; ATC gộp chất liệu với chứng chỉ ở trang Sustainability. Materials (+5) của BFC nên là trang kể chuyện, có link hai chiều với Products và Projects.</span></div></li>
+        <li><div><b>Cảm giác cao cấp đến từ sự tiết chế.</b> <span>Gloster dùng palette gần như không màu, góc vuông, viền 1px, đúng 4 cỡ heading, mỗi section chỉ 1 CTA dạng chữ. BFC giữ ink/forest/gold, nhưng nên giảm radius về 2px, thêm 2 nền surface trầm và một thang chữ dùng <code>clamp()</code>.</span></div></li>
+        <li><div><b>Người mua B2B cần bằng chứng có thể kiểm chứng.</b> <span>ATC có các trang Factory Visit, Milestone, Partners và Sustainability. Phần này BFC còn thiếu: số liệu công suất, mốc phát triển, logo khách hàng, quy trình thăm nhà máy và tài liệu kỹ thuật để tải về.</span></div></li>
+        <li><div><b>Sitemap hiện tại đúng hướng, chỉ cần bổ sung.</b> <span>Giữ 6 mục và nguyên tắc "homepage là mục lục". Đề xuất thêm khối Thăm nhà máy trong Capabilities, trang Resources để tải tài liệu, và hiện nav dạng chữ trên desktop. Cả ba đề xuất cần duyệt.</span></div></li>
+      </ol>
+    </section>
+
+    <!-- 2. Điểm chung -->
+    <section class="band alt" id="diem-chung">
+      <div class="sec-head"><div class="eyebrow">02 · Điểm chung của 3 site</div><h2>Những gì cả ba cùng làm</h2><p class="lead">Khi cả ba site cùng làm một việc, đó gần như là chuẩn của ngành nội thất xuất khẩu. BFC nên coi các điểm này là mức tối thiểu.</p></div>
+      <div class="common">
+        <div><h3>Báo giá thay cho giá bán</h3><p>Không có giá trên trang. CTA chính luôn là báo giá, tải catalogue hoặc liên hệ.</p><div class="who"><span class="tag">ATC</span><span class="tag">Gloster</span><span class="tag">Nghĩa Sơn</span></div></div>
+        <div><h3>Sản phẩm chia theo chất liệu × loại</h3><p>Menu sản phẩm có hai tầng: nhóm chất liệu hoặc collection, rồi đến loại (sofa, ghế, bàn, ghế tắm nắng).</p><div class="who"><span class="tag">ATC</span><span class="tag">Gloster</span><span class="tag">Nghĩa Sơn</span></div></div>
+        <div><h3>Thông số kỹ thuật ngay trên trang sản phẩm</h3><p>Kích thước, khối lượng, CBM, số lượng xếp container, bản vẽ. Đặt trong accordion, phần thông số mở sẵn.</p><div class="who"><span class="tag">ATC</span><span class="tag">Gloster</span><span class="tag">Nghĩa Sơn</span></div></div>
+        <div><h3>Palette trung tính, màu đến từ ảnh</h3><p>Nền trắng hoặc xám nhạt, một màu nhấn duy nhất (vàng đồng ở ATC, xanh lá ở Nghĩa Sơn). Gloster không có màu nhấn, chỉ dùng nền surface trầm.</p><div class="who"><span class="tag">ATC</span><span class="tag">Gloster</span><span class="tag">Nghĩa Sơn</span></div></div>
+        <div><h3>Hero một khung cảnh, không slideshow</h3><p>ATC và Gloster dùng video nền; Nghĩa Sơn dùng ảnh hoặc video kèm H1. Không site nào dùng slider nhiều ảnh ở hero.</p><div class="who"><span class="tag">ATC</span><span class="tag">Gloster</span><span class="tag">Nghĩa Sơn</span></div></div>
+        <div><h3>Công thức tiêu đề section</h3><p>Eyebrow in hoa nhỏ giãn chữ, heading lớn, một câu intro, rồi nội dung. Mỗi section một ý, tối đa một CTA.</p><div class="who"><span class="tag">Gloster</span><span class="tag">Nghĩa Sơn</span><span class="tag">ATC (một phần)</span></div></div>
+        <div><h3>Bằng chứng nhà máy và chứng chỉ</h3><p>Ảnh xưởng thật, ISO, BSCI, FSC, SMETA, nguồn gỗ. Ở Gloster phần này nằm trong câu chuyện gỗ teak và bền vững.</p><div class="who"><span class="tag">ATC</span><span class="tag">Nghĩa Sơn</span><span class="tag">Gloster</span></div></div>
+        <div><h3>Cùng mắc lỗi SEO và a11y</h3><p>Thiếu hoặc trùng meta description, thiếu schema Product, H1 đặt sai cấp, reset focus, khoá zoom, chữ xám nhạt tương phản thấp. BFC có thể làm tốt hơn với chi phí thấp.</p><div class="who"><span class="tag">ATC</span><span class="tag">Gloster</span><span class="tag">Nghĩa Sơn</span></div></div>
+      </div>
+    </section>
+
+    <!-- 3. Điểm mạnh -->
+    <section class="band" id="diem-manh">
+      <div class="sec-head"><div class="eyebrow">03 · Điểm mạnh từng site</div><h2>Mỗi site giỏi một việc khác nhau</h2><p class="lead">ATC giỏi chứng minh năng lực, Gloster giỏi tiết chế thị giác, Nghĩa Sơn giỏi chuyển đổi người xem thành lead. BFC nên lấy cả ba thế mạnh này.</p></div>
+      <div class="grid-3">
+        <article class="site">
+          <figure><img src="screenshots/atc/factory-visit-00.png" alt="ATC: trang Factory Visit, tiêu đề in hoa mảnh và ảnh khách thăm nhà máy" loading="lazy"></figure>
+          <div class="body">
+            <div><h3>ATC</h3><div class="role">Nhà sản xuất B2B · bằng chứng năng lực</div></div>
+            <ul>
+              <li><b>Factory Visit</b> là một trang dịch vụ đầy đủ: đón sân bay, ăn uống, nơi nghỉ, ảnh khách thăm thật.</li>
+              <li><b>Milestone</b> là timeline dọc so le; năm in cỡ khoảng 90px màu nhấn, pictogram tăng dần theo quy mô.</li>
+              <li><b>Accordion thông số logistics</b>: NW/GW/CBM cho từng món, SPECIFICATIONS mở sẵn.</li>
+              <li><b>Menu fullscreen là sitemap đầy đủ</b>, kèm sub-nav "cùng cụm" ở cuối trang About.</li>
+              <li><b>Partners</b> có lưới 24 logo khách hàng hospitality.</li>
+            </ul>
+            <p class="watch"><b>Không lấy:</b> hero video 24 MB, root font-size theo vw, focus bị tắt, ảnh sản phẩm có dấu hiệu render, logo khách bị giấu ở menu cấp 3.</p>
+          </div>
+        </article>
+        <article class="site">
+          <figure><img src="screenshots/gloster/home-03.png" alt="Gloster: khối offset, ảnh nội thất chồng lên panel màu olive" loading="lazy"></figure>
+          <div class="body">
+            <div><h3>Gloster</h3><div class="role">Brand cao cấp châu Âu · kỷ luật design system</div></div>
+            <ul>
+              <li><b>Một trục trái duy nhất</b> ở x=80px; đoạn văn chỉ chiếm 8/12 cột; khoảng cách giữa các section khoảng 110px.</li>
+              <li><b>Đúng 4 cỡ heading</b> (102 / 64 / 38 / 22px). Motion chỉ có 4 thời lượng và 3 easing.</li>
+              <li><b>Nút "line-top"</b>: không nền, có vạch 1px phía trên kèm mũi tên. Góc vuông ở mọi nơi.</li>
+              <li><b>Chất liệu kể chuyện</b>: lưới 2 cột ảnh macro ở cuối mọi trang sản phẩm.</li>
+              <li><b>Resources B2B</b>: Look Book và Tech Spec tách riêng, Media Library dạng thư mục tải về.</li>
+            </ul>
+            <p class="watch"><b>Không lấy:</b> font Cardillac và Gotham (thương mại), mã màu taupe/olive, feed Instagram, store finder, trang Contract quá mỏng.</p>
+          </div>
+        </article>
+        <article class="site">
+          <figure><img src="screenshots/nghiason/home-01.png" alt="Nghĩa Sơn: dải 4 thẻ năng lực sau hero" loading="lazy"></figure>
+          <div class="body">
+            <div><h3>Nghĩa Sơn</h3><div class="role">Nhà sản xuất B2B · chuyển đổi lead</div></div>
+            <ul>
+              <li><b>Một form RFQ dùng chung</b> ở 6 vị trí; có trường "Bạn là" và "Quan tâm"; cam kết phản hồi trong 1 ngày.</li>
+              <li><b>Dải 4 thẻ năng lực</b> ngay sau hero: con số, nhãn và một câu mô tả.</li>
+              <li><b>Bento danh mục</b>: 1 ô lớn, 2 ô vừa, 4 ô nhỏ; có mũi tên ↗ trong vòng tròn.</li>
+              <li><b>Footer tối có thẻ từng nhà máy</b> (địa chỉ, Google Maps, Zalo/WhatsApp) và lời mời thăm xưởng.</li>
+              <li><b>Menu Programs theo loại người mua</b>: importer, retailer, dropship.</li>
+            </ul>
+            <p class="watch"><b>Không lấy:</b> ảnh sản phẩm dựng bằng AI, khoá zoom trên mobile, dịch máy bằng GTranslate, khoảng 48 script.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 4. Sitemap -->
+    <section class="band alt2" id="sitemap">
+      <div class="sec-head"><div class="eyebrow">04 · Sitemap cho BFC</div><h2>Giữ khung 6 mục, bổ sung các trang chứng minh năng lực</h2><p class="lead">Đề xuất dựa trên <code>config/navigation.ts</code> hiện tại và sitemap v1.1 (tối đa 2 cấp, homepage là mục lục, Projects là 1 trang có lightbox). Các mục đánh dấu "Cần duyệt" lệch khỏi quyết định trước đó.</p></div>
+      <div class="legend"><span><span class="chip keep">Giữ</span> đã có trong IA</span><span><span class="chip new">Bổ sung</span> thêm section, không thêm route</span><span><span class="chip ask">Cần duyệt</span> route mới hoặc đổi quyết định</span></div>
+      <div class="ia">
+        <ul class="tree">
+          <li><div class="node"><span class="r">/</span><span class="n">Trang chủ</span><span class="chip keep">Giữ</span><span class="d">Mục lục: mỗi section tóm tắt 1 trang phía sau và có đúng 1 link ra. Thứ tự section đề xuất ở khung bên phải.</span></div></li>
+          <li><div class="node"><span class="r">/capabilities</span><span class="n">Năng lực sản xuất</span><span class="chip keep">Giữ</span><span class="d">Trang quan trọng nhất với người mua B2B. Trang Contract của Gloster quá mỏng; BFC cần làm ngược lại.</span></div>
+            <ul>
+              <li><div class="node"><span class="r">#capacity</span><span class="n">Số liệu công suất</span><span class="chip new">Bổ sung</span><span class="d">container/tháng, m² xưởng, công nhân</span></div></li>
+              <li><div class="node"><span class="r">#lines</span><span class="n">4 dây chuyền: gỗ, nhôm, thép, bọc nệm</span><span class="chip keep">Giữ</span></div></li>
+              <li><div class="node"><span class="r">#oem</span><span class="n">Quy trình OEM/ODM 4 bước</span><span class="chip keep">Giữ</span></div></li>
+              <li><div class="node"><span class="r">#qc</span><span class="n">QC, kiểm định, chứng chỉ</span><span class="chip keep">Giữ</span></div></li>
+              <li><div class="node"><span class="r">#visit</span><span class="n">Thăm nhà máy và audit</span><span class="chip new">Bổ sung</span><span class="d">từ ATC Factory Visit</span></div></li>
+            </ul>
+          </li>
+          <li><div class="node"><span class="r">/about</span><span class="n">Về BFC</span><span class="chip keep">Giữ</span></div>
+            <ul>
+              <li><div class="node"><span class="r">#journey</span><span class="n">Timeline mốc phát triển</span><span class="chip new">Bổ sung</span><span class="d">từ ATC Milestone</span></div></li>
+              <li><div class="node"><span class="r">#values</span><span class="n">Giá trị cốt lõi dạng thẻ</span><span class="chip keep">Giữ</span></div></li>
+              <li><div class="node"><span class="r">#sustainability</span><span class="n">Bền vững và nguồn nguyên liệu</span><span class="chip new">Bổ sung</span></div></li>
+              <li><div class="node"><span class="r">#clients</span><span class="n">Khách hàng và đối tác (logo)</span><span class="chip new">Bổ sung</span><span class="d">khi khách đồng ý (Q4)</span></div></li>
+            </ul>
+          </li>
+          <li><div class="node"><span class="r">/materials</span><span class="n">Chất liệu</span><span class="chip keep">Giữ</span><span class="d">Trang tổng dạng card ảnh macro; mỗi trang con kể chuyện: đặc tính, xử lý bề mặt, độ bền, chứng nhận, rồi đến sản phẩm và dự án dùng chất liệu đó.</span></div>
+            <ul>
+              <li><div class="node"><span class="r">/materials/wood</span><span class="n">Gỗ</span></div></li>
+              <li><div class="node"><span class="r">/materials/aluminum</span><span class="n">Nhôm</span></div></li>
+              <li><div class="node"><span class="r">/materials/rope</span><span class="n">Dây dù</span></div></li>
+              <li><div class="node"><span class="r">/materials/wicker</span><span class="n">Mây nhựa</span></div></li>
+              <li><div class="node"><span class="r">/materials/steel</span><span class="n">Thép</span><span class="d">chờ Q10</span></div></li>
+            </ul>
+          </li>
+          <li><div class="node"><span class="r">/products</span><span class="n">Sản phẩm</span><span class="chip keep">Giữ</span><span class="d">Trang tổng có filter chất liệu × loại, đồng bộ với URL. Mỗi nhóm hiển thị model dạng thẻ; thông số mở trong drawer, không tạo trang riêng cho từng model.</span></div>
+            <ul>
+              <li><div class="node"><span class="r">/products/sunloungers-daybeds</span></div></li>
+              <li><div class="node"><span class="r">/products/sofas-sectionals</span></div></li>
+              <li><div class="node"><span class="r">/products/dining-sets</span></div></li>
+              <li><div class="node"><span class="r">/products/lounge-chairs</span></div></li>
+              <li><div class="node"><span class="r">/products/tables</span></div></li>
+              <li><div class="node"><span class="r">/products/accessories</span></div></li>
+            </ul>
+          </li>
+          <li><div class="node"><span class="r">/projects</span><span class="n">Dự án</span><span class="chip keep">Giữ</span><span class="d">1 trang và lightbox. Nhóm theo loại (Hospitality, Retail, OEM); mỗi nhóm có 1 ảnh lớn và 4 ảnh nhỏ, kèm nút "Xem thêm (N)".</span></div></li>
+          <li><div class="node"><span class="r">/resources</span><span class="n">Tài liệu</span><span class="chip ask">Cần duyệt</span><span class="d">Company profile, catalogue, spec sheet, chứng chỉ để tải về; học từ Catalogue và Media Library của Gloster. Phương án nhẹ hơn: làm thành một section trong /contact.</span></div></li>
+          <li><div class="node"><span class="r">/contact</span><span class="n">Liên hệ và báo giá</span><span class="chip keep">Giữ</span><span class="d">Form có "Bạn là" và "Mục đích" (báo giá, OEM, thăm nhà máy, tài liệu), thẻ từng nhà máy. Chờ Q9 (hosting form).</span></div></li>
+          <li><div class="node"><span class="r">/privacy · /terms</span><span class="chip keep">Giữ</span></div></li>
+          <li><div class="node"><span class="r">/news · /careers · /rfq</span><span class="n">Giai đoạn sau</span><span class="d">Danh sách RFQ (thêm nhiều sản phẩm vào một yêu cầu) học từ Quote list của Gloster.</span></div></li>
+        </ul>
+
+        <div style="display:grid; gap:24px;">
+          <div class="side-card">
+            <h3>Thứ tự section trang chủ đề xuất</h3>
+            <ol>
+              <li><b>Hero</b>: 1 khung cảnh, H1 trái-dưới, 1 CTA <span class="src">Gloster</span></li>
+              <li><b>Dải 4 con số năng lực</b> <span class="src">Nghĩa Sơn</span></li>
+              <li><b>Rail logo khách hàng và chứng chỉ</b> <span class="src">ATC thiếu, Gloster có</span></li>
+              <li><b>About</b>: media-text 4/8, dẫn sang /about <span class="src">Gloster</span></li>
+              <li><b>Capabilities</b>: khối offset, dẫn sang /capabilities <span class="src">Gloster</span></li>
+              <li><b>Materials</b>: overlay card ảnh macro, dẫn sang /materials <span class="src">Gloster</span></li>
+              <li><b>Products</b>: bento danh mục, dẫn sang /products <span class="src">Nghĩa Sơn</span></li>
+              <li><b>Process</b>: 4 bước OEM <span class="src">BFC hiện có</span></li>
+              <li><b>Projects</b>: mosaic, dẫn sang /projects <span class="src">Gloster, ATC</span></li>
+              <li><b>Tài liệu</b>: lead magnet trên dải surface <span class="src">ATC, Gloster</span></li>
+              <li><b>Footer CTA tối</b> và thẻ nhà máy <span class="src">Nghĩa Sơn</span></li>
+            </ol>
+            <p class="muted" style="font-size:14px;">So với 8 section hiện tại (hero, about, capabilities, materials, products, process, projects, certifications): certifications chuyển thành rail logo ở vị trí 3; thêm dải con số và khối tài liệu.</p>
+          </div>
+          <div class="side-card">
+            <h3>Header desktop</h3>
+            <div class="navbar-mock" role="img" aria-label="Mô phỏng header: logo, 5 mục menu, nút báo giá"><span class="logo">BINH BFC</span><span>Capabilities</span><span>Materials</span><span>Products</span><span>Projects</span><span>About</span><span class="cta">Báo giá</span><span>☰</span></div>
+            <p style="font-size:15px; color:var(--fg-soft);">Cả 3 site đều hiện nav dạng chữ trên desktop; ATC hiện 6 lối tắt và để menu fullscreen làm sitemap đầy đủ. Đề xuất: từ 1024px trở lên hiện 5 mục cùng CTA; giữ <code>menu-dialog.tsx</code> cho mobile và làm sitemap đầy đủ. <span class="chip ask">Cần duyệt</span> vì header đã đổi sang chỉ có hamburger vào 11/08.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Token -->
+    <section class="band" id="token">
+      <div class="sec-head"><div class="eyebrow">05 · Design token</div><h2>Giữ nhận diện BFC, thêm kỷ luật của Gloster</h2><p class="lead">Màu thương hiệu giữ nguyên. Phần thay đổi nằm ở surface, thang chữ, khoảng cách, radius và motion. Mọi giá trị là của riêng BFC, không chép mã màu hay font của site khác.</p></div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Nhóm</th><th>Hiện tại</th><th>Đề xuất</th><th>Học từ</th></tr></thead>
+          <tbody>
+            <tr><td>Màu thương hiệu</td><td><span class="sw" style="background:#141414"></span>ink · <span class="sw" style="background:#3f5d46"></span>forest · <span class="sw" style="background:#c9a227"></span>gold</td><td>Giữ nguyên. Gold chỉ dùng cho trạng thái active, con số và năm (giống cách ATC dùng màu nhấn), không làm nền nút.</td><td>ATC: một màu nhấn duy nhất</td></tr>
+            <tr><td>Surface</td><td>Trắng</td><td><span class="sw" style="background:#f3f1ec"></span><code>surface-stone #f3f1ec</code> cho Materials, Tài liệu · <span class="sw" style="background:#e9eeea"></span><code>surface-forest #e9eeea</code> cho Certifications, Process · <span class="sw" style="background:#141414"></span><code>ink</code> cho footer CTA</td><td>Gloster: dải taupe/olive xen kẽ · Nghĩa Sơn: footer tối</td></tr>
+            <tr><td>Font</td><td>Inter (subset vietnamese)</td><td>Giữ Inter. Body weight 400, không dùng 300. Nếu thử serif display cho H1 lớn, phải hỗ trợ đủ dấu tiếng Việt ở chữ hoa.</td><td>Gloster, ATC: chữ mảnh 300 làm tương phản thấp</td></tr>
+            <tr><td>Thang chữ</td><td>Cỡ cố định theo breakpoint</td><td>display <code>clamp(3rem, 5vw + 1rem, 6rem)</code> · h1 <code>clamp(2.25rem, 3vw + 1.5rem, 4rem)</code> · h2 <code>clamp(1.875rem, 1vw + 1.6rem, 2.5rem)</code> · h3 <code>1.5rem</code> · body <code>1rem/1.6</code> · eyebrow <code>12px, 0.16em, in hoa</code></td><td>Gloster: 4 cỡ heading · Nghĩa Sơn: eyebrow</td></tr>
+            <tr><td>Lưới và gutter</td><td>Container giữa trang</td><td>12 cột · gutter <code>24 / 48 / 80px</code> (&lt;768 / &lt;1330 / ≥1330) · max <code>1440px</code> · đoạn văn tối đa 8/12 cột (khoảng 760px)</td><td>Gloster: 1 trục trái</td></tr>
+            <tr><td>Khoảng cách section</td><td><code>min-h 100dvh</code> theo từng section</td><td>padding <code>clamp(80px, 6vw + 40px, 112px)</code>; dải có nền <code>clamp(48px, 5vw, 96px)</code>. Giữ cảm giác full screen ở hero và các section ảnh; các section chữ để nội dung tự quyết chiều cao.</td><td>Gloster: row rhythm 64–112px</td></tr>
+            <tr><td>Radius</td><td><code>--radius 0.625rem</code> (10px)</td><td><code>--radius 2px</code> cho nút, input, card; ảnh 0. Riêng chip và swatch được tròn.</td><td>Gloster: góc vuông · ATC: bo lẫn lộn 4 kiểu</td></tr>
+            <tr><td>Viền và bóng</td><td>Một số card có bóng</td><td>Viền 1px <code>line</code>; bỏ shadow ở card. Chiều sâu tạo bằng surface và ảnh.</td><td>Gloster: gần như không có bóng</td></tr>
+            <tr><td>Motion</td><td>Crossfade 1.2s, Ken Burns, curtain 0.7s</td><td>Thời lượng <code>120 / 220 / 420ms</code> · ease-out <code>cubic-bezier(.22,1,.36,1)</code> · emphasized <code>(.2,0,0,1)</code> · hover ảnh scale 1.04, card nhấc -6px · tắt toàn bộ khi bật reduced-motion</td><td>Gloster: motion token</td></tr>
+            <tr><td>Nút</td><td>Đặc forest / gold</td><td>3 biến thể: <b>solid</b> (forest, chỉ cho "Báo giá") · <b>line</b> (vạch 1px trên, mũi tên, cho CTA trong nội dung) · <b>outline</b> (viền 1px, cho Xem thêm, Tải PDF)</td><td>Gloster: line-top · Nghĩa Sơn: một CTA đặc</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="code-head"><span>Phần bổ sung cho <code>frontend/src/app/globals.css</code></span><button class="copy" type="button" data-copy="tok">Sao chép</button></div>
+      <pre class="code" id="tok">@theme inline {
+  /* Surface xen kẽ (BFC riêng) */
+  --color-surface-stone: #f3f1ec;
+  --color-surface-forest: #e9eeea;
+
+  /* Thang chữ fluid */
+  --text-display: clamp(3rem, 5vw + 1rem, 6rem);
+  --text-h1: clamp(2.25rem, 3vw + 1.5rem, 4rem);
+  --text-h2: clamp(1.875rem, 1vw + 1.6rem, 2.5rem);
+  --text-h3: 1.5rem;
+  --text-eyebrow: 0.75rem;
+
+  /* Khoảng cách */
+  --spacing-gutter: clamp(1.5rem, 4vw, 5rem);
+  --spacing-section: clamp(5rem, 6vw + 2.5rem, 7rem);
+  --spacing-band: clamp(3rem, 5vw, 6rem);
+
+  /* Motion */
+  --ease-out-soft: cubic-bezier(.22, 1, .36, 1);
+  --ease-emphasized: cubic-bezier(.2, 0, 0, 1);
+  --duration-micro: 120ms;
+  --duration-base: 220ms;
+  --duration-slow: 420ms;
+}
+
+:root {
+  --radius: 0.125rem; /* 2px, thay 0.625rem */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}</pre>
+    </section>
+
+    <!-- 6. Layout -->
+    <section class="band alt" id="layout">
+      <div class="sec-head"><div class="eyebrow">06 · Section và layout lấy được</div><h2>16 layout áp được vào BFC</h2><p class="lead">Mỗi layout gồm sơ đồ khung, ảnh chụp thật (bấm để xem cỡ lớn), vị trí đặt trong BFC và mức ưu tiên. P0: làm ngay. P1: nên làm ở wave tương ứng. P2: cân nhắc.</p></div>
+      <div class="filters" role="group" aria-label="Lọc theo trang BFC">
+        <button type="button" data-f="all" aria-pressed="true">Tất cả</button>
+        <button type="button" data-f="home" aria-pressed="false">Trang chủ</button>
+        <button type="button" data-f="capabilities" aria-pressed="false">Capabilities</button>
+        <button type="button" data-f="about" aria-pressed="false">About</button>
+        <button type="button" data-f="materials" aria-pressed="false">Materials</button>
+        <button type="button" data-f="products" aria-pressed="false">Products</button>
+        <button type="button" data-f="projects" aria-pressed="false">Projects</button>
+        <button type="button" data-f="contact" aria-pressed="false">Contact / Tài liệu</button>
+        <button type="button" data-f="global" aria-pressed="false">Toàn site</button>
+      </div>
+
+      <div class="layouts" id="layouts">
+        <!-- L1 -->
+        <article class="lay" data-t="home">
+          <div class="viz">
+            <div class="wf" style="grid-template-rows:1fr auto auto; background:linear-gradient(180deg, var(--wf) 0%, var(--wf-strong) 100%);"><span></span><i class="d" style="width:62%;height:16px"></i><i class="t" style="width:22%;"></i></div>
+            <a class="shot" href="screenshots/atc/home-00.png" target="_blank" rel="noopener"><img src="screenshots/atc/home-00.png" alt="ATC hero video full-bleed, không chữ, có huy hiệu cuộn xuống" loading="lazy"></a>
+          </div>
+          <div class="info">
+            <div class="top"><h3>Hero một khung cảnh, chữ trái-dưới</h3><span class="pri">P1</span></div>
+            <p>Ảnh hoặc video full-bleed, gradient tối từ dưới lên, H1 đặt góc trái-dưới, chỉ 1 CTA line. Không có slider.</p>
+            <dl><dt>Nguồn</dt><dd>Gloster (trang chủ), ATC (video)</dd><dt>BFC</dt><dd><code>hero-section.tsx</code>: giữ slider đã duyệt nhưng kéo dài thời gian mỗi ảnh, đặt chữ trái-dưới, thêm nút pause</dd></dl>
+          </div>
+        </article>
+        <!-- L2 -->
+        <article class="lay" data-t="home capabilities">
+          <div class="viz">
+            <div class="wf" style="grid-template-rows:auto auto 1fr;"><i class="s" style="width:40%;height:8px"></i><i style="width:70%;height:12px"></i><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;"><i class="t"></i><i class="t"></i><i class="t"></i><i class="t"></i></div></div>
+            <a class="shot" href="screenshots/nghiason/home-01.png" target="_blank" rel="noopener"><img src="screenshots/nghiason/home-01.png" alt="Nghĩa Sơn dải thẻ năng lực" loading="lazy"></a>
+          </div>
+          <div class="info">
+            <div class="top"><h3>Dải 4 con số năng lực</h3><span class="pri">P0</span></div>
+            <p>Bốn thẻ: con số lớn, nhãn in hoa, một câu mô tả, gạch nhấn 48×2px. Trên mobile chuyển thành thanh cuộn ngang có snap.</p>
+            <dl><dt>Nguồn</dt><dd>Nghĩa Sơn (trang chủ)</dd><dt>BFC</dt><dd>Ngay sau hero; dùng lại count-up đang có trong <code>capabilities-section.tsx</code>; gạch nhấn màu gold</dd></dl>
+          </div>
+        </article>
+        <!-- L3 -->
+        <article class="lay" data-t="home about global">
+          <div class="viz">
+            <div class="wf" style="grid-template-columns:repeat(6,1fr);grid-auto-rows:min-content;align-content:center;"><i class="g" style="grid-column:span 6;height:10px;opacity:.5"></i><i style="grid-column:span 1;height:36px"></i><i style="grid-column:span 1;height:36px"></i><i style="grid-column:span 1;height:36px"></i><i style="grid-column:span 1;height:36px"></i><i style="grid-column:span 1;height:36px"></i><i style="grid-column:span 1;height:36px"></i></div>
+            <a class="shot" href="screenshots/atc/partners-00.png" target="_blank" rel="noopener"><img src="screenshots/atc/partners-00.png" alt="ATC lưới logo đối tác" loading="lazy"></a>
+          </div>
+          <div class="info">
+            <div class="top"><h3>Rail logo khách hàng và chứng chỉ</h3><span class="pri">P1</span></div>
+            <p>Logo xám đơn sắc, hover hiện màu, 5–6 cột trên desktop và marquee trên mobile. ATC có lưới 24 logo nhưng không đưa lên trang chủ; Gloster có dải "As seen in" kéo được.</p>
+            <dl><dt>Nguồn</dt><dd>ATC Partners, Gloster trang chủ</dd><dt>BFC</dt><dd>Thay <code>certifications-section.tsx</code>; logo khách hàng chờ Q4</dd></dl>
+          </div>
+        </article>
+        <!-- L4 -->
+        <article class="lay" data-t="home about">
+          <div class="viz">
+            <div class="wf" style="grid-template-columns:2fr 1fr;align-items:center;gap:10px;"><div style="display:grid;gap:5px;"><i class="s" style="width:80%;height:14px"></i><i style="height:6px"></i><i style="height:6px;width:90%"></i><i style="height:6px;width:70%"></i><i class="t" style="width:35%;margin-top:6px"></i></div><i style="aspect-ratio:1;height:auto"></i></div>
+            <a class="shot" href="screenshots/gloster/home-01.png" target="_blank" rel="noopener"><img src="screenshots/gloster/home-01.png" alt="Gloster media-text 8/4" loading="lazy"></a>
+          </div>
+          <div class="info">
+            <div class="top"><h3>Media-text 8/4</h3><span class="pri">P1</span></div>
+            <p>Chữ 8 cột (H1 hoặc H2, 2 đoạn, CTA line), ảnh cận chi tiết 4 cột ở bên phải. Đây cũng là nơi đặt H1 thật của trang nếu hero chỉ có ảnh.</p>
+            <dl><dt>Nguồn</dt><dd>Gloster trang chủ</dd><dt>BFC</dt><dd><code>about-section.tsx</code>, intro các trang con</dd></dl>
+          </div>
+        </article>
+        <!-- L5 -->
+        <article class="lay" data-t="home capabilities projects">
+          <div class="viz">
+            <div class="wf" style="grid-template-columns:repeat(12,1fr);grid-template-rows:repeat(6,1fr);"><i style="grid-column:1/7;grid-row:1/6;z-index:1;height:auto"></i><i class="a" style="grid-column:5/13;grid-row:2/7;height:auto;opacity:.45"></i></div>
+            <a class="shot" href="screenshots/gloster/home-03.png" target="_blank" rel="noopener"><img src="screenshots/gloster/home-03.png" alt="Gloster offset composition" loading="lazy"></a>
+          </div>
+          <div class="info">
+            <div class="top"><h3>Offset composition</h3><span class="pri">P1</span></div>
+            <p>Ảnh 4:5 chiếm 6 cột, chồng lên panel màu trải từ cột 5 đến 12 và lệch xuống dưới. Panel chứa eyebrow, H2, đoạn văn, CTA ở đáy. Gloster chỉ dùng layout này một lần trên toàn site.</p>
+            <dl><dt>Nguồn</dt><dd>Gloster (featured collection)</dd><dt>BFC</dt><dd>Khối Capabilities trên trang chủ (panel <code>surface-forest</code>) hoặc 1 dự án tiêu biểu</dd></dl>
+          </div>
+        </article>
+        <!-- L6 -->
+        <article class="lay" data-t="home materials products projects">
+          <div class="viz">
+            <div class="wf" style="grid-template-columns:1fr 1fr;gap:0;"><div style="display:grid;grid-template-rows:1fr auto auto;gap:4px;background:var(--wf-strong);padding:6px;"><span></span><i class="d" style="width:50%;height:9px"></i><i class="t" style="width:60%;border-top-color:var(--bg)"></i></div><div style="display:grid;grid-template-rows:1fr auto auto;gap:4px;background:var(--fg);opacity:.7;padding:6px;"><span></span><i style="width:40%;height:9px;background:var(--bg)"></i><i class="t" style="width:60%;border-top-color:var(--bg)"></i></div></div>
+            <a class="shot" href="screenshots/gloster/product-type-05.png" target="_blank" rel="noopener"><img src="screenshots/gloster/product-type-05.png" alt="Gloster lưới 2 cột ảnh macro chất liệu" loading="lazy"></a>
+          </div>
+          <div class="info">
+            <div class="top"><h3>Lưới 2 cột ảnh macro chất liệu</h3><span class="pri">P0</span></div>
+            <p>Tràn viền, không có khe. Mỗi ô là ảnh macro (vân gỗ, sợi dây, mặt nhôm) với gradient tối, tên 40px, 3 dòng mô tả và link "Tìm hiểu chất liệu". Gloster đặt khối này ở cuối mọi trang sản phẩm và collection.</p>
+            <dl><dt>Nguồn</dt><dd>Gloster (loại sản phẩm, PDP, collection)</dd><dt>BFC</dt><dd><code>materials-section.tsx</code> trên trang chủ, và khối "Chất liệu sử dụng" ở cuối Products và Projects</dd></dl>
+          </div>
+        </article>
+        <!-- L7 -->
+        <article class="lay" data-t="home products">
+          <div class="viz">
+            <div class="wf" style="grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);"><i style="grid-column:1/3;grid-row:1/3;height:auto"></i><i style="grid-column:3/5;grid-row:1/2;height:auto"></i><i style="grid-column:3/5;grid-row:2/3;height:auto"></i><i style="height:auto"></i><i style="height:auto"></i><i style="height:auto"></i><i style="height:auto"></i></div>
+            <a class="shot" href="screenshots/nghiason/home-02.png" target="_blank" rel="noopener"><img src="screenshots/nghiason/home-02.png" alt="Nghĩa Sơn bento danh mục" loading="lazy"></a>
+          </div>
+          <div class="info">
+            <div class="top"><h3>Bento danh mục sản phẩm</h3><span class="pri">P1</span></div>
+            <p>Một ô 2×2, hai ô rộng và bốn ô thường; tên nhóm và danh sách con nằm ở góc dưới, có mũi tên ↗ trong vòng tròn. Hover: ảnh phóng 1.06, lớp phủ đậm hơn. Đầu section đặt 2 con số bên phải tiêu đề.</p>
+            <dl><dt>Nguồn</dt><dd>Nghĩa Sơn (trang chủ)</dd><dt>BFC</dt><dd><code>products-section.tsx</code> với 6 nhóm sản phẩm; dùng <code>next/image</code>, không dùng background-image</dd></dl>
+          </div>
+        </article>
+        <!-- L8 -->
+        <article class="lay" data-t="products">
+          <div class="viz">
+            <div class="wf" style="grid-template-columns:1fr 1fr;gap:10px;align-items:start;"><i style="aspect-ratio:1;height:auto"></i><div style="display:grid;gap:5px;"><i class="s" style="height:14px;width:70%"></i><i style="height:12px"></i><i style="height:12px"></i><div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;"><i class="t" style="height:10px;border:1px solid var(--wf-strong)"></i><i class="a" style="height:10px"></i></div><i class="t"></i><i class="t"></i><i class="t"></i></div></div>
+            <a class="shot" href="screenshots/atc/product-detail-00.png" target="_blank" rel="noopener"><img src="screenshots/atc/product-detail-00.png" alt="ATC chi tiết sản phẩm, accordion thông số" loading="lazy"></a>
+          </div>
+          <div class="info">
+            <div class="top"><h3>Ảnh trái, thông số phải, accordion mở sẵn</h3><span class="pri">P0</span></div>
+            <p>Ảnh nền xám nhạt bên trái. Bên phải: tên, mã, swatch hoàn thiện, 2 nút ("Thêm vào báo giá" đặc, "Tải spec" outline), rồi accordion Kích thước và Logistics (mở sẵn), Chất liệu, MOQ và lead time, Bản vẽ 2D.</p>
+            <dl><dt>Nguồn</dt><dd>ATC (NW/GW/CBM), Gloster PDP (swatch, nút), Nghĩa Sơn (số lượng/container)</dd><dt>BFC</dt><dd>Drawer hoặc lightbox model trong <code>/products/[family]</code>. ATC thiếu CTA báo giá ở đây; BFC phải có</dd></dl>
+          </div>
+        </article>
+        <!-- L9 -->
+        <article class="lay" data-t="about">
+          <div class="viz">
+            <div class="wf" style="grid-template-columns:1fr 2px 1fr;gap:8px;"><div style="display:grid;gap:5px;align-content:start;"><i class="g" style="height:16px;width:70%;justify-self:end"></i><i style="height:5px"></i><i style="height:5px;width:60%;justify-self:end"></i></div><i class="s" style="height:auto"></i><div style="display:grid;gap:5px;align-content:end;"><i class="g" style="height:16px;width:70%"></i><i style="height:5px"></i><i style="height:5px;width:60%"></i></div></div>
+            <a class="shot" href="screenshots/atc/milestone-00.png" target="_blank" rel="noopener"><img src="screenshots/atc/milestone-00.png" alt="ATC timeline milestone" loading="lazy"></a>
+          </div>
+          <div class="info">
+            <div class="top"><h3>Timeline so le trái/phải</h3><span class="pri">P0</span></div>
+            <p>Trục dọc 1px ở giữa, các mốc lệch trái và phải. Năm in rất lớn màu nhấn, ghi diện tích m² và số công nhân, pictogram tăng dần theo quy mô.</p>
+            <dl><dt>Nguồn</dt><dd>ATC Milestone</dd><dt>BFC</dt><dd><code>/about#journey</code>: 5–7 mốc (gỗ, rồi nhôm, thép, nệm); năm màu gold, Inter 600</dd></dl>
+          </div>
+        </article>
+        <!-- L10 -->
+        <article class="lay" data-t="capabilities contact">
+          <div class="viz">
+            <div class="wf" style="grid-template-rows:auto 1fr;gap:8px;"><div style="display:grid;grid-template-columns:1fr 2fr;gap:8px;"><i class="s" style="height:12px"></i><div style="display:grid;gap:4px;"><i style="height:5px"></i><i style="height:5px;width:80%"></i></div></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;"><i style="height:auto"></i><i style="height:auto;margin-top:-6px"></i><i style="height:auto"></i></div></div>
+            <a class="shot" href="screenshots/atc/factory-visit-00.png" target="_blank" rel="noopener"><img src="screenshots/atc/factory-visit-00.png" alt="ATC Factory Visit" loading="lazy"></a>
+          </div>
+          <div class="info">
+            <div class="top"><h3>Thăm nhà máy dạng dịch vụ</h3><span class="pri">P0</span></div>
+            <p>Tiêu đề trái và đoạn văn phải, sau đó 3 ảnh khách thăm thật; tiếp theo là các dịch vụ: đưa đón, lịch audit/QC, hỗ trợ lưu trú. ATC ghi "100 lượt thăm mỗi năm" như một con số bằng chứng.</p>
+            <dl><dt>Nguồn</dt><dd>ATC Factory Visit</dd><dt>BFC</dt><dd><code>/capabilities#visit</code> cùng lựa chọn "Đặt lịch thăm nhà máy" trong form Contact</dd></dl>
+          </div>
+        </article>
+        <!-- L11 -->
+        <article class="lay" data-t="projects products">
+          <div class="viz">
+            <div class="wf" style="grid-template-columns:repeat(4,1fr);grid-template-rows:2fr 1fr 1fr;"><i style="grid-column:1/5;height:auto;position:relative"></i><i style="grid-column:span 2;height:auto"></i><i style="grid-column:span 2;height:auto"></i><i style="grid-column:span 2;height:auto"></i><i style="grid-column:span 2;height:auto"></i></div>
+            <a class="shot" href="screenshots/gloster/collections-01.png" target="_blank" rel="noopener"><img src="screenshots/gloster/collections-01.png" alt="Gloster mosaic collection" loading="lazy"></a>
+          </div>
+          <div class="info">
+            <div class="top"><h3>Mosaic nhóm: 1 lớn và 4 nhỏ</h3><span class="pri">P1</span></div>
+            <p>Mỗi nhóm có một ảnh lifestyle rộng, nhãn chữ trên nền surface đặt ở góc, bên dưới là lưới 2×2. Các nhóm xen kẽ nền trắng và surface. Bổ sung nút "Xem thêm (18)" kiểu ATC để người xem biết quy mô.</p>
+            <dl><dt>Nguồn</dt><dd>Gloster Collections, ATC Projects</dd><dt>BFC</dt><dd><code>/projects</code> nhóm theo Hospitality, Retail, OEM; mở lightbox, không có trang con</dd></dl>
+          </div>
+        </article>
+        <!-- L12 -->
+        <article class="lay" data-t="home contact">
+          <div class="viz">
+            <div class="wf" style="grid-template-columns:1fr 1.2fr;gap:10px;align-items:center;background:var(--surface);"><div style="display:grid;gap:5px;"><i class="s" style="height:12px;width:80%"></i><i style="height:5px"></i><i style="height:5px;width:70%"></i><div style="display:flex;gap:4px;margin-top:4px;"><i class="t" style="width:40%;height:10px;border:1px solid var(--wf-strong)"></i><i class="t" style="width:40%;height:10px;border:1px solid var(--wf-strong)"></i></div></div><i style="aspect-ratio:4/3;height:auto"></i></div>
+            <a class="shot" href="screenshots/gloster/home-05.png" target="_blank" rel="noopener"><img src="screenshots/gloster/home-05.png" alt="Gloster dải Look Book trên nền taupe" loading="lazy"></a>
+          </div>
+          <div class="info">
+            <div class="top"><h3>Tài liệu trên dải surface</h3><span class="pri">P0</span></div>
+            <p>Ảnh bìa tài liệu và đoạn mô tả ngắn, kèm 2 nút outline "Xem" và "Tải PDF". Gloster tách Look Book và Tech Spec; ATC thu lead bằng form có trường Country.</p>
+            <dl><dt>Nguồn</dt><dd>Gloster Catalogue, ATC Catalogue</dd><dt>BFC</dt><dd>Company profile, Catalogue, Spec sheet. Đặt ở gần cuối trang chủ, trên /capabilities và /resources</dd></dl>
+          </div>
+        </article>
+        <!-- L13 -->
+        <article class="lay" data-t="global materials products about">
+          <div class="viz">
+            <div class="wf" style="grid-template-rows:1fr auto auto;"><span></span><div style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px;background:var(--surface);padding:6px;"><i class="g" style="height:8px"></i><i style="height:8px"></i><i style="height:8px"></i><i style="height:8px"></i><i style="height:8px"></i></div><i class="d" style="height:20px"></i></div>
+            <a class="shot" href="screenshots/atc/about-03.png" target="_blank" rel="noopener"><img src="screenshots/atc/about-03.png" alt="ATC sub-nav cuối trang About" loading="lazy"></a>
+          </div>
+          <div class="info">
+            <div class="top"><h3>Sub-nav "cùng cụm" cuối trang</h3><span class="pri">P1</span></div>
+            <p>Thanh ngang ngay trên footer liệt kê các trang anh em trong cùng cụm, trang hiện tại tô màu nhấn. Người đọc đi tiếp sang trang khác mà không phải mở lại menu.</p>
+            <dl><dt>Nguồn</dt><dd>ATC (cụm About, cụm USP)</dd><dt>BFC</dt><dd>Cuối 5 trang Materials và 6 trang Products; mục hiện tại màu gold</dd></dl>
+          </div>
+        </article>
+        <!-- L14 -->
+        <article class="lay" data-t="global contact">
+          <div class="viz">
+            <div class="wf" style="background:var(--fg);grid-template-rows:auto auto 1fr;gap:6px;"><div style="display:grid;grid-template-columns:2fr 1fr;gap:8px;"><i style="height:14px;background:var(--bg);opacity:.85"></i><i class="a" style="height:12px;opacity:1"></i></div><span></span><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;"><i style="height:auto;background:var(--bg);opacity:.18;border:1px solid var(--bg)"></i><i style="height:auto;background:var(--bg);opacity:.18"></i><i style="height:auto;background:var(--bg);opacity:.18"></i></div></div>
+            <a class="shot" href="screenshots/nghiason/home-06.png" target="_blank" rel="noopener"><img src="screenshots/nghiason/home-06.png" alt="Nghĩa Sơn footer tối có thẻ nhà máy" loading="lazy"></a>
+          </div>
+          <div class="info">
+            <div class="top"><h3>Footer CTA tối và thẻ nhà máy</h3><span class="pri">P1</span></div>
+            <p>Dải trên: câu chốt lớn, nút báo giá, liên kết nhanh tới các nhóm sản phẩm. Dải dưới: thẻ cho từng nhà máy (địa chỉ, giờ làm việc, link bản đồ) và thẻ phòng xuất khẩu (điện thoại, Zalo/WhatsApp, email).</p>
+            <dl><dt>Nguồn</dt><dd>Nghĩa Sơn footer</dd><dt>BFC</dt><dd><code>site-footer.tsx</code> nền ink; có thể thêm hiệu ứng footer reveal bằng CSS sticky như Gloster</dd></dl>
+          </div>
+        </article>
+        <!-- L15 -->
+        <article class="lay" data-t="global capabilities materials products">
+          <div class="viz">
+            <div class="wf" style="grid-template-rows:auto auto auto 1fr;gap:6px;"><i style="height:5px;width:35%"></i><i class="s" style="height:16px;width:55%"></i><i style="height:6px;width:66%"></i><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:6px;"><i style="height:auto"></i><i style="height:auto"></i><i style="height:auto"></i></div></div>
+            <a class="shot" href="screenshots/gloster/materials-01.png" target="_blank" rel="noopener"><img src="screenshots/gloster/materials-01.png" alt="Gloster trang Materials" loading="lazy"></a>
+          </div>
+          <div class="info">
+            <div class="top"><h3>PageHeader chuẩn cho trang con</h3><span class="pri">P0</span></div>
+            <p>Breadcrumb 14px in hoa, rồi H1 64px căn trái, intro tối đa 8/12 cột, rồi nội dung. Gloster lặp khung này gần như 100% các trang; chỉ trang cần cảm xúc mới dùng hero full-bleed.</p>
+            <dl><dt>Nguồn</dt><dd>Gloster (18 trang)</dd><dt>BFC</dt><dd>Tách <code>page-hero.tsx</code> thành 2 biến thể: <code>PageHeader</code> (Capabilities, Materials, Products, Contact) và <code>HeroPage</code> (About, Projects)</dd></dl>
+          </div>
+        </article>
+        <!-- L16 -->
+        <article class="lay" data-t="contact global">
+          <div class="viz">
+            <div class="wf" style="grid-template-columns:1fr 1.3fr;gap:10px;"><div style="display:grid;gap:5px;align-content:start;"><i class="s" style="height:12px;width:80%"></i><i style="height:5px"></i><i style="height:5px;width:60%"></i></div><div style="display:grid;gap:5px;border:1px solid var(--wf-strong);padding:6px;align-content:start;"><div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;"><i class="t" style="height:8px;border:1px solid var(--wf-strong)"></i><i class="t" style="height:8px;border:1px solid var(--wf-strong)"></i></div><i class="t" style="height:8px;border:1px solid var(--wf-strong)"></i><div style="display:flex;gap:3px;"><i class="a" style="height:8px;width:24%"></i><i style="height:8px;width:24%"></i><i style="height:8px;width:24%"></i></div><i class="t" style="height:18px;border:1px solid var(--wf-strong)"></i><i class="a" style="height:10px;width:40%"></i></div></div>
+            <a class="shot" href="screenshots/gloster/pdp-00.png" target="_blank" rel="noopener"><img src="screenshots/gloster/pdp-00.png" alt="Gloster PDP, nút Add to quote" loading="lazy"></a>
+          </div>
+          <div class="info">
+            <div class="top"><h3>Một form báo giá dùng chung</h3><span class="pri">P0</span></div>
+            <p>Một Dialog được gọi từ header, hero, thẻ sản phẩm, footer và nút nổi. Trường bắt buộc "Bạn là" (Importer, Retailer, Brand OEM/ODM, Hospitality, Designer), "Quan tâm", Country, số lượng dự kiến. Có cam kết thời gian phản hồi.</p>
+            <dl><dt>Nguồn</dt><dd>Nghĩa Sơn (RFQ popup), Gloster ("I am a…"), ATC (Country)</dd><dt>BFC</dt><dd>shadcn <code>Dialog</code> theo token chung (viền 1px, radius 2px). Không nhúng HubSpot vì sẽ lệch font như form Contact của Gloster</dd></dl>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 7. Phương pháp -->
+    <section class="band" id="phuong-phap">
+      <div class="sec-head"><div class="eyebrow">07 · Phương pháp</div><h2>Dùng REA có tốt hơn không?</h2><p class="lead">Có, ở phần quan sát. Phân tích tĩnh cho token chính xác từ CSS; REA cho ảnh thật và DOM đã render. Kết hợp cả hai cho kết quả tốt nhất.</p></div>
+      <div class="compare">
+        <div>
+          <h3>Phân tích tĩnh (curl HTML/CSS)</h3>
+          <ul>
+            <li>Lấy được token chính xác từ <code>:root</code>: hex, clamp, easing, breakpoint.</li>
+            <li>Đọc được schema, meta, số lượng script, dung lượng file.</li>
+            <li>Nhưng phải đoán bố cục, và đã đoán sai ở nhiều chỗ: căn giữa hay căn trái, có bo góc hay không, sidebar có hay không.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>REA runtime (CDP và capture-web-screenshot)</h3>
+          <ul>
+            <li>Ảnh thật của từng viewport, có <code>evidence_id</code>; routes lấy từ menu ẩn thay vì đoán URL.</li>
+            <li>Phát hiện lỗi chỉ thấy khi chạy: ảnh Instagram hỏng, Cookiebot che màn hình đầu, scroll-reveal để trống khối, công cụ nhúng lệch font.</li>
+            <li>Chi phí: cần Node 22 dạng portable; lệnh <code>capture-browser-scenario</code> lỗi trên Windows nên phải tự viết script cuộn trang.</li>
+          </ul>
+          <div class="stat-row">
+            <div><b>43</b><span>trang chụp runtime</span></div>
+            <div><b>18</b><span>chỗ đính chính bản tĩnh</span></div>
+            <div><b>154</b><span>URL lấy từ DOM</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<footer class="end">
+  <div class="wrap">
+    <span>Chỉ học cấu trúc và cơ chế; không dùng lại logo, ảnh, nội dung, font thương mại hay mã màu của các site được phân tích.</span>
+    <span>Nguồn chi tiết và ảnh đầy đủ: <code>docs/design-research/</code> trong repo bfc-landing-page.</span>
+  </div>
+</footer>
+
+<script>
+(() => {
+  // Lọc layout theo trang BFC
+  const btns = document.querySelectorAll('.filters button');
+  const cards = document.querySelectorAll('#layouts .lay');
+  btns.forEach(b => b.addEventListener('click', () => {
+    const f = b.dataset.f;
+    btns.forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    cards.forEach(c => { c.hidden = !(f === 'all' || c.dataset.t.split(' ').includes(f)); });
+  }));
+  // Sao chép đoạn token
+  document.querySelectorAll('button.copy').forEach(btn => btn.addEventListener('click', () => {
+    const el = document.getElementById(btn.dataset.copy);
+    const done = () => { btn.textContent = 'Đã sao chép'; setTimeout(() => btn.textContent = 'Sao chép', 1600); };
+    const fallback = () => { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = 'Đã chọn, nhấn Ctrl+C'; };
+    try { navigator.clipboard.writeText(el.innerText).then(done, fallback); } catch (e) { fallback(); }
+  }));
+})();
+</script>

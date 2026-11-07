@@ -1,0 +1,33 @@
+/*
+ * Màu admin theo thương hiệu BFC (forest #32764a). Chỉ ghi đè biến màu HSL của Wagtail,
+ * không sửa CSS gốc, để nâng cấp Wagtail không bị vỡ.
+ * - secondary: nút chính, link, trạng thái chọn = forest.
+ * - primary: nền thanh bên = xanh rất đậm cùng sắc forest.
+ */
+:root {
+  --w-color-secondary-hue: 141.2;
+  --w-color-secondary-saturation: 40.5%;
+  --w-color-secondary-lightness: 32.9%;
+
+  --w-color-primary-hue: 141.2;
+  --w-color-primary-saturation: 24%;
+  --w-color-primary-lightness: 14%;
+}
+
+.bfc-sidebar-logo {
+  display: block;
+  margin-inline: auto;
+  width: 72px;
+  max-width: 100%;
+  height: auto;
+  background: #fff;
+  border-radius: 50%;
+  padding: 4px;
+}
+
+.bfc-login-logo {
+  display: block;
+  margin: 1.5rem auto 0;
+  width: 88px;
+  height: auto;
+}

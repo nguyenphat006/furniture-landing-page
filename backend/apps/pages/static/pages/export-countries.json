@@ -1,0 +1,1603 @@
+{
+ "width": 141,
+ "height": 76,
+ "hub": [
+  111,
+  44.17
+ ],
+ "countries": [
+  {
+   "code": "SAU",
+   "vi": "Ả Rập Xê-út",
+   "en": "Saudi Arabia",
+   "point": [
+    86,
+    38.97
+   ]
+  },
+  {
+   "code": "AFG",
+   "vi": "Afghanistan",
+   "en": "Afghanistan",
+   "point": [
+    95,
+    33.77
+   ]
+  },
+  {
+   "code": "EGY",
+   "vi": "Ai Cập",
+   "en": "Egypt",
+   "point": [
+    80,
+    37.24
+   ]
+  },
+  {
+   "code": "ALB",
+   "vi": "Albania",
+   "en": "Albania",
+   "point": [
+    76,
+    30.31
+   ]
+  },
+  {
+   "code": "DZA",
+   "vi": "Algeria",
+   "en": "Algeria",
+   "point": [
+    69.5,
+    36.37
+   ]
+  },
+  {
+   "code": "AGO",
+   "vi": "Angola",
+   "en": "Angola",
+   "point": [
+    75.5,
+    53.69
+   ]
+  },
+  {
+   "code": "AUT",
+   "vi": "Áo",
+   "en": "Austria",
+   "point": [
+    73,
+    26.85
+   ]
+  },
+  {
+   "code": "ARG",
+   "vi": "Argentina",
+   "en": "Argentina",
+   "point": [
+    41.5,
+    64.09
+   ]
+  },
+  {
+   "code": "ARM",
+   "vi": "Armenia",
+   "en": "Armenia",
+   "point": [
+    86,
+    30.31
+   ]
+  },
+  {
+   "code": "AZE",
+   "vi": "Azerbaijan",
+   "en": "Azerbaijan",
+   "point": [
+    87,
+    30.31
+   ]
+  },
+  {
+   "code": "IND",
+   "vi": "Ấn Độ",
+   "en": "India",
+   "point": [
+    100,
+    38.97
+   ]
+  },
+  {
+   "code": "POL",
+   "vi": "Ba Lan",
+   "en": "Poland",
+   "point": [
+    76,
+    23.38
+   ]
+  },
+  {
+   "code": "BHS",
+   "vi": "Bahamas",
+   "en": "Bahamas",
+   "point": [
+    36.5,
+    38.11
+   ]
+  },
+  {
+   "code": "BGD",
+   "vi": "Bangladesh",
+   "en": "Bangladesh",
+   "point": [
+    104.5,
+    38.11
+   ]
+  },
+  {
+   "code": "MKD",
+   "vi": "Bắc Macedonia",
+   "en": "North Macedonia",
+   "point": [
+    77,
+    30.31
+   ]
+  },
+  {
+   "code": "BLR",
+   "vi": "Belarus",
+   "en": "Belarus",
+   "point": [
+    79.5,
+    22.52
+   ]
+  },
+  {
+   "code": "BLZ",
+   "vi": "Belize",
+   "en": "Belize",
+   "point": [
+    32.5,
+    41.57
+   ]
+  },
+  {
+   "code": "BEN",
+   "vi": "Benin",
+   "en": "Benin",
+   "point": [
+    69,
+    44.17
+   ]
+  },
+  {
+   "code": "BMU",
+   "vi": "Bermuda",
+   "en": "Bermuda",
+   "point": [
+    41.5,
+    34.64
+   ]
+  },
+  {
+   "code": "BTN",
+   "vi": "Bhutan",
+   "en": "Bhutan",
+   "point": [
+    105,
+    37.24
+   ]
+  },
+  {
+   "code": "BEL",
+   "vi": "Bỉ",
+   "en": "Belgium",
+   "point": [
+    70,
+    25.11
+   ]
+  },
+  {
+   "code": "BOL",
+   "vi": "Bolivia",
+   "en": "Bolivia",
+   "point": [
+    41.5,
+    55.43
+   ]
+  },
+  {
+   "code": "BIH",
+   "vi": "Bosnia và Herzegovina",
+   "en": "Bosnia & Herzegovina",
+   "point": [
+    75,
+    28.58
+   ]
+  },
+  {
+   "code": "BWA",
+   "vi": "Botswana",
+   "en": "Botswana",
+   "point": [
+    78,
+    58.02
+   ]
+  },
+  {
+   "code": "PRT",
+   "vi": "Bồ Đào Nha",
+   "en": "Portugal",
+   "point": [
+    64.5,
+    31.18
+   ]
+  },
+  {
+   "code": "BRA",
+   "vi": "Brazil",
+   "en": "Brazil",
+   "point": [
+    47,
+    52.83
+   ]
+  },
+  {
+   "code": "BRN",
+   "vi": "Brunei",
+   "en": "Brunei",
+   "point": [
+    114.5,
+    46.77
+   ]
+  },
+  {
+   "code": "BGR",
+   "vi": "Bulgaria",
+   "en": "Bulgaria",
+   "point": [
+    77.5,
+    29.44
+   ]
+  },
+  {
+   "code": "BFA",
+   "vi": "Burkina Faso",
+   "en": "Burkina Faso",
+   "point": [
+    66.5,
+    43.3
+   ]
+  },
+  {
+   "code": "BDI",
+   "vi": "Burundi",
+   "en": "Burundi",
+   "point": [
+    80.5,
+    50.23
+   ]
+  },
+  {
+   "code": "ARE",
+   "vi": "Các Tiểu Vương quốc Ả Rập Thống nhất",
+   "en": "United Arab Emirates",
+   "point": [
+    90.5,
+    38.11
+   ]
+  },
+  {
+   "code": "CMR",
+   "vi": "Cameroon",
+   "en": "Cameroon",
+   "point": [
+    73,
+    45.9
+   ]
+  },
+  {
+   "code": "KHM",
+   "vi": "Campuchia",
+   "en": "Cambodia",
+   "point": [
+    110.5,
+    43.3
+   ]
+  },
+  {
+   "code": "CAN",
+   "vi": "Canada",
+   "en": "Canada",
+   "point": [
+    26.5,
+    15.59
+   ]
+  },
+  {
+   "code": "TCD",
+   "vi": "Chad",
+   "en": "Chad",
+   "point": [
+    76,
+    42.44
+   ]
+  },
+  {
+   "code": "CHL",
+   "vi": "Chile",
+   "en": "Chile",
+   "point": [
+    38.5,
+    69.28
+   ]
+  },
+  {
+   "code": "COL",
+   "vi": "Colombia",
+   "en": "Colombia",
+   "point": [
+    38.5,
+    46.77
+   ]
+  },
+  {
+   "code": "COG",
+   "vi": "Congo - Brazzaville",
+   "en": "Congo - Brazzaville",
+   "point": [
+    74,
+    49.36
+   ]
+  },
+  {
+   "code": "COD",
+   "vi": "Congo - Kinshasa",
+   "en": "Congo - Kinshasa",
+   "point": [
+    77.5,
+    50.23
+   ]
+  },
+  {
+   "code": "CRI",
+   "vi": "Costa Rica",
+   "en": "Costa Rica",
+   "point": [
+    34.5,
+    45.03
+   ]
+  },
+  {
+   "code": "DOM",
+   "vi": "Cộng hòa Dominica",
+   "en": "Dominican Republic",
+   "point": [
+    40,
+    40.7
+   ]
+  },
+  {
+   "code": "CAF",
+   "vi": "Cộng hòa Trung Phi",
+   "en": "Central African Republic",
+   "point": [
+    76,
+    45.9
+   ]
+  },
+  {
+   "code": "CIV",
+   "vi": "Côte d’Ivoire",
+   "en": "Côte d’Ivoire",
+   "point": [
+    65.5,
+    45.03
+   ]
+  },
+  {
+   "code": "HRV",
+   "vi": "Croatia",
+   "en": "Croatia",
+   "point": [
+    75.5,
+    27.71
+   ]
+  },
+  {
+   "code": "CUB",
+   "vi": "Cuba",
+   "en": "Cuba",
+   "point": [
+    35,
+    38.97
+   ]
+  },
+  {
+   "code": "DJI",
+   "vi": "Djibouti",
+   "en": "Djibouti",
+   "point": [
+    85,
+    44.17
+   ]
+  },
+  {
+   "code": "TWN",
+   "vi": "Đài Loan",
+   "en": "Taiwan",
+   "point": [
+    117,
+    38.97
+   ]
+  },
+  {
+   "code": "DNK",
+   "vi": "Đan Mạch",
+   "en": "Denmark",
+   "point": [
+    72,
+    21.65
+   ]
+  },
+  {
+   "code": "HKG",
+   "vi": "Đặc khu Hành chính Hồng Kông, Trung Quốc",
+   "en": "Hong Kong SAR China",
+   "point": [
+    114,
+    38.97
+   ]
+  },
+  {
+   "code": "DEU",
+   "vi": "Đức",
+   "en": "Germany",
+   "point": [
+    72.5,
+    24.25
+   ]
+  },
+  {
+   "code": "ECU",
+   "vi": "Ecuador",
+   "en": "Ecuador",
+   "point": [
+    36,
+    49.36
+   ]
+  },
+  {
+   "code": "SLV",
+   "vi": "El Salvador",
+   "en": "El Salvador",
+   "point": [
+    32.5,
+    43.3
+   ]
+  },
+  {
+   "code": "ERI",
+   "vi": "Eritrea",
+   "en": "Eritrea",
+   "point": [
+    83.5,
+    41.57
+   ]
+  },
+  {
+   "code": "EST",
+   "vi": "Estonia",
+   "en": "Estonia",
+   "point": [
+    78.5,
+    19.05
+   ]
+  },
+  {
+   "code": "SWZ",
+   "vi": "Eswatini",
+   "en": "Eswatini",
+   "point": [
+    81,
+    59.76
+   ]
+  },
+  {
+   "code": "ETH",
+   "vi": "Ethiopia",
+   "en": "Ethiopia",
+   "point": [
+    84.5,
+    45.03
+   ]
+  },
+  {
+   "code": "FJI",
+   "vi": "Fiji",
+   "en": "Fiji",
+   "point": [
+    140.5,
+    55.43
+   ]
+  },
+  {
+   "code": "GAB",
+   "vi": "Gabon",
+   "en": "Gabon",
+   "point": [
+    72.5,
+    48.5
+   ]
+  },
+  {
+   "code": "GMB",
+   "vi": "Gambia",
+   "en": "Gambia",
+   "point": [
+    61.5,
+    43.3
+   ]
+  },
+  {
+   "code": "GEO",
+   "vi": "Georgia",
+   "en": "Georgia",
+   "point": [
+    85.5,
+    29.44
+   ]
+  },
+  {
+   "code": "GHA",
+   "vi": "Ghana",
+   "en": "Ghana",
+   "point": [
+    67.5,
+    45.03
+   ]
+  },
+  {
+   "code": "GRL",
+   "vi": "Greenland",
+   "en": "Greenland",
+   "point": [
+    52,
+    6.06
+   ]
+  },
+  {
+   "code": "GTM",
+   "vi": "Guatemala",
+   "en": "Guatemala",
+   "point": [
+    31.5,
+    41.57
+   ]
+  },
+  {
+   "code": "GUF",
+   "vi": "Guiana thuộc Pháp",
+   "en": "French Guiana",
+   "point": [
+    46.5,
+    46.77
+   ]
+  },
+  {
+   "code": "GIN",
+   "vi": "Guinea",
+   "en": "Guinea",
+   "point": [
+    64,
+    44.17
+   ]
+  },
+  {
+   "code": "GNQ",
+   "vi": "Guinea Xích Đạo",
+   "en": "Equatorial Guinea",
+   "point": [
+    72,
+    47.63
+   ]
+  },
+  {
+   "code": "GNB",
+   "vi": "Guinea-Bissau",
+   "en": "Guinea-Bissau",
+   "point": [
+    62,
+    44.17
+   ]
+  },
+  {
+   "code": "GUY",
+   "vi": "Guyana",
+   "en": "Guyana",
+   "point": [
+    44.5,
+    46.77
+   ]
+  },
+  {
+   "code": "NLD",
+   "vi": "Hà Lan",
+   "en": "Netherlands",
+   "point": [
+    70,
+    23.38
+   ]
+  },
+  {
+   "code": "HTI",
+   "vi": "Haiti",
+   "en": "Haiti",
+   "point": [
+    39,
+    40.7
+   ]
+  },
+  {
+   "code": "KOR",
+   "vi": "Hàn Quốc",
+   "en": "South Korea",
+   "point": [
+    120,
+    32.04
+   ]
+  },
+  {
+   "code": "USA",
+   "vi": "Hoa Kỳ",
+   "en": "United States",
+   "point": [
+    36.5,
+    31.18
+   ]
+  },
+  {
+   "code": "HND",
+   "vi": "Honduras",
+   "en": "Honduras",
+   "point": [
+    33,
+    42.44
+   ]
+  },
+  {
+   "code": "HUN",
+   "vi": "Hungary",
+   "en": "Hungary",
+   "point": [
+    75,
+    26.85
+   ]
+  },
+  {
+   "code": "GRC",
+   "vi": "Hy Lạp",
+   "en": "Greece",
+   "point": [
+    77,
+    30.31
+   ]
+  },
+  {
+   "code": "ISL",
+   "vi": "Iceland",
+   "en": "Iceland",
+   "point": [
+    60.5,
+    13.86
+   ]
+  },
+  {
+   "code": "IDN",
+   "vi": "Indonesia",
+   "en": "Indonesia",
+   "point": [
+    114,
+    49.36
+   ]
+  },
+  {
+   "code": "IRN",
+   "vi": "Iran",
+   "en": "Iran",
+   "point": [
+    90.5,
+    34.64
+   ]
+  },
+  {
+   "code": "IRQ",
+   "vi": "Iraq",
+   "en": "Iraq",
+   "point": [
+    85.5,
+    34.64
+   ]
+  },
+  {
+   "code": "IRL",
+   "vi": "Ireland",
+   "en": "Ireland",
+   "point": [
+    64.5,
+    22.52
+   ]
+  },
+  {
+   "code": "ISR",
+   "vi": "Israel",
+   "en": "Israel",
+   "point": [
+    82.5,
+    34.64
+   ]
+  },
+  {
+   "code": "ITA",
+   "vi": "Italy",
+   "en": "Italy",
+   "point": [
+    72.5,
+    29.44
+   ]
+  },
+  {
+   "code": "JAM",
+   "vi": "Jamaica",
+   "en": "Jamaica",
+   "point": [
+    37,
+    40.7
+   ]
+  },
+  {
+   "code": "JOR",
+   "vi": "Jordan",
+   "en": "Jordan",
+   "point": [
+    83.5,
+    34.64
+   ]
+  },
+  {
+   "code": "KAZ",
+   "vi": "Kazakhstan",
+   "en": "Kazakhstan",
+   "point": [
+    95.5,
+    25.98
+   ]
+  },
+  {
+   "code": "KEN",
+   "vi": "Kenya",
+   "en": "Kenya",
+   "point": [
+    83.5,
+    48.5
+   ]
+  },
+  {
+   "code": "KWT",
+   "vi": "Kuwait",
+   "en": "Kuwait",
+   "point": [
+    87.5,
+    36.37
+   ]
+  },
+  {
+   "code": "KGZ",
+   "vi": "Kyrgyzstan",
+   "en": "Kyrgyzstan",
+   "point": [
+    98,
+    30.31
+   ]
+  },
+  {
+   "code": "PSE",
+   "vi": "Lãnh thổ Palestine",
+   "en": "Palestinian Territories",
+   "point": [
+    82.5,
+    34.64
+   ]
+  },
+  {
+   "code": "LAO",
+   "vi": "Lào",
+   "en": "Laos",
+   "point": [
+    110,
+    40.7
+   ]
+  },
+  {
+   "code": "LVA",
+   "vi": "Latvia",
+   "en": "Latvia",
+   "point": [
+    77.5,
+    20.78
+   ]
+  },
+  {
+   "code": "LSO",
+   "vi": "Lesotho",
+   "en": "Lesotho",
+   "point": [
+    79,
+    61.49
+   ]
+  },
+  {
+   "code": "LBN",
+   "vi": "Li-băng",
+   "en": "Lebanon",
+   "point": [
+    83,
+    33.77
+   ]
+  },
+  {
+   "code": "LBR",
+   "vi": "Liberia",
+   "en": "Liberia",
+   "point": [
+    64,
+    45.9
+   ]
+  },
+  {
+   "code": "LBY",
+   "vi": "Libya",
+   "en": "Libya",
+   "point": [
+    75,
+    37.24
+   ]
+  },
+  {
+   "code": "LTU",
+   "vi": "Litva",
+   "en": "Lithuania",
+   "point": [
+    77,
+    21.65
+   ]
+  },
+  {
+   "code": "LUX",
+   "vi": "Luxembourg",
+   "en": "Luxembourg",
+   "point": [
+    70,
+    25.11
+   ]
+  },
+  {
+   "code": "MAR",
+   "vi": "Ma-rốc",
+   "en": "Morocco",
+   "point": [
+    65,
+    35.51
+   ]
+  },
+  {
+   "code": "MDG",
+   "vi": "Madagascar",
+   "en": "Madagascar",
+   "point": [
+    87,
+    56.29
+   ]
+  },
+  {
+   "code": "MWI",
+   "vi": "Malawi",
+   "en": "Malawi",
+   "point": [
+    81.5,
+    53.69
+   ]
+  },
+  {
+   "code": "MYS",
+   "vi": "Malaysia",
+   "en": "Malaysia",
+   "point": [
+    114,
+    47.63
+   ]
+  },
+  {
+   "code": "MLI",
+   "vi": "Mali",
+   "en": "Mali",
+   "point": [
+    66.5,
+    41.57
+   ]
+  },
+  {
+   "code": "MLT",
+   "vi": "Malta",
+   "en": "Malta",
+   "point": [
+    73.5,
+    32.91
+   ]
+  },
+  {
+   "code": "MRT",
+   "vi": "Mauritania",
+   "en": "Mauritania",
+   "point": [
+    63.5,
+    39.84
+   ]
+  },
+  {
+   "code": "MEX",
+   "vi": "Mexico",
+   "en": "Mexico",
+   "point": [
+    26.5,
+    38.11
+   ]
+  },
+  {
+   "code": "MDA",
+   "vi": "Moldova",
+   "en": "Moldova",
+   "point": [
+    80,
+    26.85
+   ]
+  },
+  {
+   "code": "MNE",
+   "vi": "Montenegro",
+   "en": "Montenegro",
+   "point": [
+    75.5,
+    29.44
+   ]
+  },
+  {
+   "code": "MOZ",
+   "vi": "Mozambique",
+   "en": "Mozambique",
+   "point": [
+    82.5,
+    55.43
+   ]
+  },
+  {
+   "code": "MNG",
+   "vi": "Mông Cổ",
+   "en": "Mongolia",
+   "point": [
+    110,
+    26.85
+   ]
+  },
+  {
+   "code": "MMR",
+   "vi": "Myanmar (Miến Điện)",
+   "en": "Myanmar (Burma)",
+   "point": [
+    107,
+    38.97
+   ]
+  },
+  {
+   "code": "NOR",
+   "vi": "Na Uy",
+   "en": "Norway",
+   "point": [
+    73.5,
+    13.86
+   ]
+  },
+  {
+   "code": "ZAF",
+   "vi": "Nam Phi",
+   "en": "South Africa",
+   "point": [
+    78.5,
+    60.62
+   ]
+  },
+  {
+   "code": "SSD",
+   "vi": "Nam Sudan",
+   "en": "South Sudan",
+   "point": [
+    80,
+    45.9
+   ]
+  },
+  {
+   "code": "NAM",
+   "vi": "Namibia",
+   "en": "Namibia",
+   "point": [
+    75,
+    58.02
+   ]
+  },
+  {
+   "code": "NPL",
+   "vi": "Nepal",
+   "en": "Nepal",
+   "point": [
+    101.5,
+    36.37
+   ]
+  },
+  {
+   "code": "NCL",
+   "vi": "New Caledonia",
+   "en": "New Caledonia",
+   "point": [
+    135.5,
+    57.16
+   ]
+  },
+  {
+   "code": "NZL",
+   "vi": "New Zealand",
+   "en": "New Zealand",
+   "point": [
+    138,
+    66.68
+   ]
+  },
+  {
+   "code": "RUS",
+   "vi": "Nga",
+   "en": "Russia",
+   "point": [
+    109.5,
+    13.86
+   ]
+  },
+  {
+   "code": "JPN",
+   "vi": "Nhật Bản",
+   "en": "Japan",
+   "point": [
+    124.5,
+    32.91
+   ]
+  },
+  {
+   "code": "NIC",
+   "vi": "Nicaragua",
+   "en": "Nicaragua",
+   "point": [
+    33.5,
+    43.3
+   ]
+  },
+  {
+   "code": "NER",
+   "vi": "Niger",
+   "en": "Niger",
+   "point": [
+    71.5,
+    41.57
+   ]
+  },
+  {
+   "code": "NGA",
+   "vi": "Nigeria",
+   "en": "Nigeria",
+   "point": [
+    71,
+    44.17
+   ]
+  },
+  {
+   "code": "OMN",
+   "vi": "Oman",
+   "en": "Oman",
+   "point": [
+    91.5,
+    39.84
+   ]
+  },
+  {
+   "code": "PAK",
+   "vi": "Pakistan",
+   "en": "Pakistan",
+   "point": [
+    96,
+    35.51
+   ]
+  },
+  {
+   "code": "PAN",
+   "vi": "Panama",
+   "en": "Panama",
+   "point": [
+    35.5,
+    45.03
+   ]
+  },
+  {
+   "code": "PNG",
+   "vi": "Papua New Guinea",
+   "en": "Papua New Guinea",
+   "point": [
+    127,
+    51.1
+   ]
+  },
+  {
+   "code": "PRY",
+   "vi": "Paraguay",
+   "en": "Paraguay",
+   "point": [
+    44,
+    58.02
+   ]
+  },
+  {
+   "code": "PER",
+   "vi": "Peru",
+   "en": "Peru",
+   "point": [
+    38,
+    52.83
+   ]
+  },
+  {
+   "code": "FRA",
+   "vi": "Pháp",
+   "en": "France",
+   "point": [
+    69,
+    26.85
+   ]
+  },
+  {
+   "code": "FIN",
+   "vi": "Phần Lan",
+   "en": "Finland",
+   "point": [
+    78.5,
+    13.86
+   ]
+  },
+  {
+   "code": "PHL",
+   "vi": "Philippines",
+   "en": "Philippines",
+   "point": [
+    117,
+    42.44
+   ]
+  },
+  {
+   "code": "PRI",
+   "vi": "Puerto Rico",
+   "en": "Puerto Rico",
+   "point": [
+    41,
+    40.7
+   ]
+  },
+  {
+   "code": "QAT",
+   "vi": "Qatar",
+   "en": "Qatar",
+   "point": [
+    88.5,
+    38.11
+   ]
+  },
+  {
+   "code": "FLK",
+   "vi": "Quần đảo Falkland",
+   "en": "Falkland Islands",
+   "point": [
+    43.5,
+    72.75
+   ]
+  },
+  {
+   "code": "SLB",
+   "vi": "Quần đảo Solomon",
+   "en": "Solomon Islands",
+   "point": [
+    132.5,
+    51.96
+   ]
+  },
+  {
+   "code": "ROU",
+   "vi": "Romania",
+   "en": "Romania",
+   "point": [
+    77.5,
+    27.71
+   ]
+  },
+  {
+   "code": "RWA",
+   "vi": "Rwanda",
+   "en": "Rwanda",
+   "point": [
+    80,
+    49.36
+   ]
+  },
+  {
+   "code": "CZE",
+   "vi": "Séc",
+   "en": "Czechia",
+   "point": [
+    74,
+    25.11
+   ]
+  },
+  {
+   "code": "SEN",
+   "vi": "Senegal",
+   "en": "Senegal",
+   "point": [
+    61.5,
+    43.3
+   ]
+  },
+  {
+   "code": "SRB",
+   "vi": "Serbia",
+   "en": "Serbia",
+   "point": [
+    76,
+    28.58
+   ]
+  },
+  {
+   "code": "SLE",
+   "vi": "Sierra Leone",
+   "en": "Sierra Leone",
+   "point": [
+    63.5,
+    45.03
+   ]
+  },
+  {
+   "code": "SGP",
+   "vi": "Singapore",
+   "en": "Singapore",
+   "point": [
+    110,
+    47.63
+   ]
+  },
+  {
+   "code": "CYP",
+   "vi": "Síp",
+   "en": "Cyprus",
+   "point": [
+    81,
+    33.77
+   ]
+  },
+  {
+   "code": "SVK",
+   "vi": "Slovakia",
+   "en": "Slovakia",
+   "point": [
+    75.5,
+    25.98
+   ]
+  },
+  {
+   "code": "SVN",
+   "vi": "Slovenia",
+   "en": "Slovenia",
+   "point": [
+    74.5,
+    27.71
+   ]
+  },
+  {
+   "code": "SOM",
+   "vi": "Somalia",
+   "en": "Somalia",
+   "point": [
+    86.5,
+    46.77
+   ]
+  },
+  {
+   "code": "LKA",
+   "vi": "Sri Lanka",
+   "en": "Sri Lanka",
+   "point": [
+    100.5,
+    45.03
+   ]
+  },
+  {
+   "code": "SDN",
+   "vi": "Sudan",
+   "en": "Sudan",
+   "point": [
+    80.5,
+    41.57
+   ]
+  },
+  {
+   "code": "SUR",
+   "vi": "Suriname",
+   "en": "Suriname",
+   "point": [
+    45.5,
+    46.77
+   ]
+  },
+  {
+   "code": "SYR",
+   "vi": "Syria",
+   "en": "Syria",
+   "point": [
+    83.5,
+    32.91
+   ]
+  },
+  {
+   "code": "TJK",
+   "vi": "Tajikistan",
+   "en": "Tajikistan",
+   "point": [
+    96.5,
+    31.18
+   ]
+  },
+  {
+   "code": "TZA",
+   "vi": "Tanzania",
+   "en": "Tanzania",
+   "point": [
+    82,
+    51.1
+   ]
+  },
+  {
+   "code": "ESP",
+   "vi": "Tây Ban Nha",
+   "en": "Spain",
+   "point": [
+    67,
+    30.31
+   ]
+  },
+  {
+   "code": "ESH",
+   "vi": "Tây Sahara",
+   "en": "Western Sahara",
+   "point": [
+    62.5,
+    38.11
+   ]
+  },
+  {
+   "code": "THA",
+   "vi": "Thái Lan",
+   "en": "Thailand",
+   "point": [
+    109,
+    42.44
+   ]
+  },
+  {
+   "code": "TUR",
+   "vi": "Thổ Nhĩ Kỳ",
+   "en": "Türkiye",
+   "point": [
+    82.5,
+    31.18
+   ]
+  },
+  {
+   "code": "SWE",
+   "vi": "Thụy Điển",
+   "en": "Sweden",
+   "point": [
+    75,
+    14.72
+   ]
+  },
+  {
+   "code": "CHE",
+   "vi": "Thụy Sĩ",
+   "en": "Switzerland",
+   "point": [
+    71,
+    26.85
+   ]
+  },
+  {
+   "code": "TLS",
+   "vi": "Timor-Leste",
+   "en": "Timor-Leste",
+   "point": [
+    119.5,
+    51.96
+   ]
+  },
+  {
+   "code": "TGO",
+   "vi": "Togo",
+   "en": "Togo",
+   "point": [
+    68.5,
+    45.03
+   ]
+  },
+  {
+   "code": "PRK",
+   "vi": "Triều Tiên",
+   "en": "North Korea",
+   "point": [
+    120,
+    30.31
+   ]
+  },
+  {
+   "code": "TTO",
+   "vi": "Trinidad và Tobago",
+   "en": "Trinidad & Tobago",
+   "point": [
+    43,
+    44.17
+   ]
+  },
+  {
+   "code": "CHN",
+   "vi": "Trung Quốc",
+   "en": "China",
+   "point": [
+    115.5,
+    31.18
+   ]
+  },
+  {
+   "code": "TUN",
+   "vi": "Tunisia",
+   "en": "Tunisia",
+   "point": [
+    72,
+    33.77
+   ]
+  },
+  {
+   "code": "TKM",
+   "vi": "Turkmenistan",
+   "en": "Turkmenistan",
+   "point": [
+    92.5,
+    31.18
+   ]
+  },
+  {
+   "code": "AUS",
+   "vi": "Úc",
+   "en": "Australia",
+   "point": [
+    129,
+    63.22
+   ]
+  },
+  {
+   "code": "UGA",
+   "vi": "Uganda",
+   "en": "Uganda",
+   "point": [
+    81,
+    47.63
+   ]
+  },
+  {
+   "code": "UKR",
+   "vi": "Ukraina",
+   "en": "Ukraine",
+   "point": [
+    81,
+    25.11
+   ]
+  },
+  {
+   "code": "URY",
+   "vi": "Uruguay",
+   "en": "Uruguay",
+   "point": [
+    45.5,
+    62.35
+   ]
+  },
+  {
+   "code": "UZB",
+   "vi": "Uzbekistan",
+   "en": "Uzbekistan",
+   "point": [
+    93.5,
+    29.44
+   ]
+  },
+  {
+   "code": "VUT",
+   "vi": "Vanuatu",
+   "en": "Vanuatu",
+   "point": [
+    136,
+    54.56
+   ]
+  },
+  {
+   "code": "VEN",
+   "vi": "Venezuela",
+   "en": "Venezuela",
+   "point": [
+    41,
+    45.9
+   ]
+  },
+  {
+   "code": "VNM",
+   "vi": "Việt Nam",
+   "en": "Vietnam",
+   "point": [
+    112,
+    42.44
+   ]
+  },
+  {
+   "code": "GBR",
+   "vi": "Vương quốc Anh",
+   "en": "United Kingdom",
+   "point": [
+    68.5,
+    24.25
+   ]
+  },
+  {
+   "code": "YEM",
+   "vi": "Yemen",
+   "en": "Yemen",
+   "point": [
+    87.5,
+    41.57
+   ]
+  },
+  {
+   "code": "ZMB",
+   "vi": "Zambia",
+   "en": "Zambia",
+   "point": [
+    79.5,
+    53.69
+   ]
+  },
+  {
+   "code": "ZWE",
+   "vi": "Zimbabwe",
+   "en": "Zimbabwe",
+   "point": [
+    80,
+    56.29
+   ]
+  }
+ ]
+}
