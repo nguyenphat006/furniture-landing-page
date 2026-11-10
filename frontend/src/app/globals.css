@@ -48,10 +48,11 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 
   /* BFC brand tokens (từ Claude Design "BFC Design System") */
-  --color-ink: #141414;
-  --color-ink-soft: #444444;
-  --color-ink-mute: #6b6b6b;
-  --color-line: #e8e8e8;
+  /* Chữ và đường kẻ đậm hơn (2026-11-09, mức tương phản 2). Cũ: ink #141414, ink-soft #444444, ink-mute #6b6b6b, line #e8e8e8 */
+  --color-ink: #111111;
+  --color-ink-soft: #3d3d3d;
+  --color-ink-mute: #555555;
+  --color-line: #d9d9d9;
   /* Xanh thương hiệu (2026-11-06): đổi sang xanh tươi, đậm sắc hơn cho toàn app.
      Chữ trắng trên nền này ~5.4:1 (đạt AA). Màu cũ (xám, trầm): #3f5d46, muốn quay lại thì đổi về giá trị đó. */
   --color-forest: #32764a;
@@ -351,5 +352,122 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/*
+ * Reveal: hiện dần khi cuộn tới (2026-11-09). Cơ chế ở components/shared/reveal.tsx.
+ * Mẫu "A. Tinh tế": trượt 16px, 700ms. Chỉ ẩn khi <html> có class js và không bật giảm chuyển động.
+ * Dùng animation (fill backwards) thay vì transition để không đè transition hover sẵn có của thẻ.
+ */
+:root {
+  --reveal-distance: 16px;
+  --duration-reveal: 700ms;
+  --ease-reveal: cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes bfc-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(var(--reveal-distance));
+  }
+}
+@keyframes bfc-reveal-zoom {
+  from {
+    transform: scale(1.06);
+  }
+}
+@keyframes bfc-reveal-rule {
+  from {
+    transform: scaleX(0);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .js:not(.reveal-off) [data-reveal="fade-up"]:not([data-shown]),
+  .js:not(.reveal-off) [data-reveal="stagger"]:not([data-shown]) > *,
+  .js:not(.reveal-off) [data-reveal="heading"]:not([data-shown]) [data-ri] {
+    opacity: 0;
+  }
+  .js:not(.reveal-off) [data-reveal="image"]:not([data-shown]) img {
+    transform: scale(1.06);
+  }
+  [data-reveal="fade-up"][data-shown],
+  [data-reveal="stagger"][data-shown] > *,
+  [data-reveal="heading"][data-shown] [data-ri] {
+    animation: bfc-reveal var(--duration-reveal) var(--ease-reveal) backwards;
+  }
+  [data-reveal="stagger"][data-shown] > :nth-child(2) {
+    animation-delay: 80ms;
+  }
+  [data-reveal="stagger"][data-shown] > :nth-child(3) {
+    animation-delay: 160ms;
+  }
+  [data-reveal="stagger"][data-shown] > :nth-child(4) {
+    animation-delay: 240ms;
+  }
+  [data-reveal="stagger"][data-shown] > :nth-child(5) {
+    animation-delay: 320ms;
+  }
+  [data-reveal="stagger"][data-shown] > :nth-child(n + 6) {
+    animation-delay: 400ms;
+  }
+  [data-reveal="heading"][data-shown] [data-ri="1"] {
+    animation-delay: 80ms;
+  }
+  [data-reveal="heading"][data-shown] [data-ri="2"] {
+    animation-delay: 160ms;
+  }
+  [data-reveal="heading"][data-shown] [data-ri="3"] {
+    animation-delay: 240ms;
+  }
+  /* Vạch trước eyebrow kéo ra từ trái */
+  [data-reveal="heading"][data-shown] [data-ri="0"]::before {
+    transform-origin: left;
+    animation: bfc-reveal-rule var(--duration-reveal) var(--ease-reveal) 120ms
+      backwards;
+  }
+  [data-reveal="image"][data-shown] img {
+    animation: bfc-reveal-zoom 1.2s var(--ease-reveal) backwards;
+  }
+}
+@media print {
+  [data-reveal],
+  [data-reveal] * {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+}
+
+/* Hero: tiêu đề, mô tả, nút trượt lên lần lượt khi tải trang (không cần cuộn, không cần JS).
+   Tiêu đề là phần tử LCP nên chỉ trượt, không mờ từ 0 (mờ từ 0 làm LCP trễ ~1s); mô tả và nút mờ dần. */
+@keyframes bfc-rise {
+  from {
+    transform: translateY(var(--reveal-distance));
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-in {
+    --reveal-distance: 28px;
+  }
+  .hero-in > * {
+    animation: bfc-reveal 900ms var(--ease-reveal) 100ms backwards;
+  }
+  .hero-in > h1 {
+    animation: bfc-rise 900ms var(--ease-reveal) backwards;
+  }
+  .hero-in > :nth-child(2) {
+    animation-delay: 250ms;
+  }
+  .hero-in > :nth-child(3) {
+    animation-delay: 400ms;
+  }
+}
+
+/* Vạch tiến độ ảnh tự chạy (WorkshopGallery, 2026-11-09) */
+@keyframes ws-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
   }
 }

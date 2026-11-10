@@ -1,15 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { navHref, type NavKey } from "@/config/navigation";
 import { useSite } from "@/components/providers/site-provider";
 import type { NavEntry } from "@/data/site/types";
-import { Link, usePathname } from "@/i18n/navigation";
-import { routing } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/shared/section";
 import { cn } from "@/lib/utils";
+import { LanguageList } from "./language-switcher";
 
 /*
  * Dropdown của header (2026-11-04), thay cho MenuDialog fullscreen.
@@ -32,7 +32,7 @@ export const isDropdownKey = (key: NavKey): key is DropdownKey =>
 const panelLink =
   "text-ink-soft hover:text-ink text-[15px] leading-snug transition-colors duration-(--duration-micro) hover:no-underline";
 const groupLabel =
-  "text-forest hover:text-ink text-xs font-semibold tracking-[.14em] uppercase transition-colors hover:no-underline";
+  "text-forest hover:text-ink text-xs font-bold tracking-[.14em] uppercase transition-colors hover:no-underline";
 
 /* ---------------------------------- Desktop --------------------------------- */
 
@@ -151,8 +151,6 @@ type MobilePanelProps = {
 export function MobileNavPanel({ nav, onNavigate }: MobilePanelProps) {
   const t = useTranslations("Common");
   const { submenus } = useSite();
-  const locale = useLocale();
-  const pathname = usePathname();
   const [expanded, setExpanded] = useState<DropdownKey | null>(null);
 
   const children = (key: DropdownKey) =>
@@ -242,32 +240,8 @@ export function MobileNavPanel({ nav, onNavigate }: MobilePanelProps) {
         })}
       </ul>
 
-      {/* Đổi ngôn ngữ */}
-      <div className="mt-6 flex items-center gap-3 text-sm tracking-[.06em] uppercase">
-        <span className="text-ink-mute">{t("languageLabel")}</span>
-        {routing.locales.map((l) =>
-          l === locale ? (
-            <span
-              key={l}
-              aria-current="true"
-              className="text-ink font-semibold"
-            >
-              {l.toUpperCase()}
-            </span>
-          ) : (
-            <Link
-              key={l}
-              href={pathname}
-              locale={l}
-              onClick={onNavigate}
-              aria-label={t(`languages.${l}`)}
-              className="text-ink-mute hover:text-ink hover:no-underline"
-            >
-              {l.toUpperCase()}
-            </Link>
-          ),
-        )}
-      </div>
+      {/* Đổi ngôn ngữ: cờ + tên theo CMS */}
+      <LanguageList onNavigate={onNavigate} />
     </div>
   );
 }

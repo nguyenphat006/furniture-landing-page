@@ -52,12 +52,17 @@ export async function generateMetadata({
     locale,
     namespace: "HomePage.products.items",
   });
+  const tp = await getTranslations({ locale, namespace: "ProductsPage" });
+  // Câu mô tả nhóm chỉ 30 đến 49 ký tự (QC 09/11): thêm câu chung về nơi sản xuất
+  const intro = th.has(category) ? th(category) : "";
 
   return {
     ...withSeo(
       {
         title: tc(`products.${category}`),
-        description: th.has(category) ? th(category) : "",
+        description: [intro, tp("categoryMetaSuffix")]
+          .filter(Boolean)
+          .join(" "),
       },
       await getCategorySeo(category, locale),
     ),
@@ -93,7 +98,7 @@ export default async function ProductCategoryPage({
   return (
     <>
       <SiteHeader />
-      <main className="flex-1">
+      <main id="main" tabIndex={-1} className="flex-1 outline-none">
         <PageHeader
           parents={[{ label: tc("nav.products"), href: navHref.products }]}
           current={name}

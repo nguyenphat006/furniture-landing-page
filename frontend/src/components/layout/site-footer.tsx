@@ -39,27 +39,29 @@ export function SiteFooter({
   return (
     <div className="bg-ink">
       {crossKeys.length > 0 ? (
-        <Container className="grid border-b border-white/15 lg:grid-cols-3">
-          {crossKeys.map((key, i) => (
-            <Link
-              key={key}
-              href={navHref[key]}
-              className={cn(
-                "py-[clamp(3rem,6vw,5rem)] text-white transition-colors hover:bg-white/5 lg:px-7 lg:first:pl-0",
-                "max-lg:border-t max-lg:border-white/15 max-lg:first:border-t-0",
-                i > 0 && "lg:border-l lg:border-white/15",
-              )}
-            >
-              <p className="text-gold mb-2.5 text-xs tracking-[.16em] uppercase">
-                {t(`nav.${key}`)}
-              </p>
-              <span className="text-lg leading-[1.4] font-semibold">
-                {tf(`cross.${key}`)}
-                {"  →"}
-              </span>
-            </Link>
-          ))}
-        </Container>
+        <nav aria-label={tf("crossLabel")}>
+          <Container className="grid border-b border-white/15 lg:grid-cols-3">
+            {crossKeys.map((key, i) => (
+              <Link
+                key={key}
+                href={navHref[key]}
+                className={cn(
+                  "py-[clamp(3rem,6vw,5rem)] text-white transition-colors hover:bg-white/5 lg:px-7 lg:first:pl-0",
+                  "max-lg:border-t max-lg:border-white/15 max-lg:first:border-t-0",
+                  i > 0 && "lg:border-l lg:border-white/15",
+                )}
+              >
+                <p className="text-gold mb-2.5 text-xs tracking-[.16em] uppercase">
+                  {t(`nav.${key}`)}
+                </p>
+                <span className="text-lg leading-[1.4] font-semibold">
+                  {tf(`cross.${key}`)}
+                  {"  →"}
+                </span>
+              </Link>
+            ))}
+          </Container>
+        </nav>
       ) : null}
 
       <footer className="py-[clamp(4rem,10vw,8rem)] pb-12">

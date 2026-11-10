@@ -126,7 +126,7 @@ function InquiryForm({
         <span className="bg-forest mx-auto flex size-14 items-center justify-center rounded-full text-white">
           <Check aria-hidden="true" strokeWidth={2.5} className="size-6" />
         </span>
-        <h3 className="text-h3 text-ink mt-6 font-semibold">
+        <h3 className="text-h3 text-ink mt-6 font-bold">
           {t("success.title")}
         </h3>
         <p className="text-ink-soft mx-auto mt-3 max-w-[40ch] leading-relaxed">
@@ -232,6 +232,10 @@ function InquiryForm({
           {(p) => (
             <div className="relative">
               <select
+                // key: React không cập nhật defaultValue của select sau lần đầu, form báo lỗi xong mất quốc gia.
+                // Đặt trước {...p}: key đứng sau spread làm JSX dịch sang createElement, React 19 bản dev
+                // coi các <option> viết tay là danh sách thiếu key và báo lỗi console
+                key={values?.country ?? ""}
                 {...p}
                 name="country"
                 autoComplete="country"

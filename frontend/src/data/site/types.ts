@@ -1,3 +1,4 @@
+import type { SiteLanguage } from "@/config/languages";
 import type { NavKey } from "@/config/navigation";
 import type { Taxonomy } from "@/data/catalog/types";
 
@@ -40,8 +41,10 @@ export type FloatingAction = {
   kind: FloatingKind;
   /** Rỗng: dùng tên có sẵn theo loại (messages FloatingActions) */
   label: string;
-  /** Link đã sẵn (tel:, mailto:, https://, /path); rỗng với search, quote */
+  /** Link đã sẵn (tel:, mailto:, https://, /path); rỗng = nút hiện nhưng không bấm được (quote web tự gắn link) */
   href: string;
+  /** Icon chọn trong CMS (components/shared/action-icons); rỗng = icon có sẵn theo loại */
+  icon: string;
 };
 
 export type Site = {
@@ -79,4 +82,6 @@ export type Site = {
   verification: { google: string; bing: string };
   /** Cụm nút nổi, theo thứ tự, chỉ nút đang hiện */
   floating: FloatingAction[];
+  /** Nút đổi ngôn ngữ ở header: thứ tự, cờ, tên theo CMS; chỉ ngôn ngữ web có */
+  languages: SiteLanguage[];
 };

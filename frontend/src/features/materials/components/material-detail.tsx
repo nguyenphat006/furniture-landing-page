@@ -9,6 +9,7 @@ import { ButtonLink } from "@/components/shared/button-link";
 import { navHref } from "@/config/navigation";
 import type { MaterialPage, Product } from "@/data/catalog";
 import { ProductCarousel } from "@/features/products";
+import { reveal } from "@/components/shared/reveal";
 
 /*
  * Nội dung trang chi tiết vật liệu (2026-11-05), bám bố cục trang vật liệu của Gloster:
@@ -42,7 +43,10 @@ export function MaterialDetail({
       {/* 1. Đặc tính */}
       <Section id="properties" className="pt-0 lg:pt-0">
         <Container>
-          <div className="grid gap-8 lg:grid-cols-3 lg:gap-8">
+          <div
+            {...reveal("fade-up")}
+            className="grid gap-8 lg:grid-cols-3 lg:gap-8"
+          >
             <div className="lg:pt-10">
               <SectionHeading
                 eyebrow={name}
@@ -76,7 +80,10 @@ export function MaterialDetail({
       {/* 2. Gia công tại BFC */}
       <Section id="craft" className="pt-0 lg:pt-0">
         <Container>
-          <div className="grid items-center gap-8 lg:grid-cols-3 lg:gap-8">
+          <div
+            {...reveal("fade-up")}
+            className="grid items-center gap-8 lg:grid-cols-3 lg:gap-8"
+          >
             <div className="bg-surface-stone relative aspect-[3/2] overflow-hidden lg:col-span-2">
               <ImagePlaceholder
                 label={material.craftImage}
@@ -102,7 +109,10 @@ export function MaterialDetail({
       {/* 3. Bảo quản */}
       <Section id="care" tone="stone">
         <Container>
-          <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-8">
+          <div
+            {...reveal("fade-up")}
+            className="grid items-start gap-8 lg:grid-cols-2 lg:gap-8"
+          >
             <SectionHeading
               eyebrow={t("careKicker")}
               title={t("care")}

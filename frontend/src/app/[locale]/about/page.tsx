@@ -37,7 +37,7 @@ export default async function AboutPage({
   return (
     <>
       <SiteHeader />
-      <main className="flex-1">
+      <main id="main" tabIndex={-1} className="flex-1 outline-none">
         <PageHeader
           current={tc("nav.about")}
           title={t("title")}

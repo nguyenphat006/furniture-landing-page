@@ -5,13 +5,22 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import Any
 
+from django.conf import settings
 from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 from wagtail.images.models import AbstractImage
 
 from apps.core.media_url import absolute_url
 
-from ..models import FloatingAction, FooterLink, NavItem, SiteSettings, SocialLink, localized
+from ..models import (
+    DEFAULT_FLAGS,
+    FloatingAction,
+    FooterLink,
+    NavItem,
+    SiteSettings,
+    SocialLink,
+    localized,
+)
 
 # Logo giữ PNG (nền trong suốt, nét sắc); favicon vuông; ảnh chia sẻ đúng khung 1200 x 630
 RENDITION_LOGO = "max-480x480|format-png"
@@ -148,7 +157,14 @@ class FloatingActionSerializer(serializers.Serializer[FloatingAction]):
         help_text="Rỗng: dùng tên có sẵn theo loại"
     )
     url = serializers.SerializerMethodField(
-        help_text="Link đã lấy từ Liên hệ khi cần; rỗng với search và quote"
+        help_text=(
+            "Link đã lấy từ Liên hệ khi cần; rỗng: nút hiện nhưng không bấm được "
+            "(chưa nhập link); search (mở ô tìm kiếm) và quote do web tự gắn"
+        )
+    )
+
+    icon = serializers.CharField(
+        help_text="Icon chọn trong CMS (tên trong bộ icon của web); rỗng = icon có sẵn theo loại"
     )
 
     def get_label(self, obj: FloatingAction) -> str:
@@ -159,12 +175,39 @@ class FloatingActionSerializer(serializers.Serializer[FloatingAction]):
 
 
 def _floating(obj: SiteSettings, context: Mapping[str, Any]) -> list[dict[str, Any]]:
-    """Nút đang hiện và có link dùng được (search, quote không cần link)."""
-    items = []
-    for action in obj.floating_actions.filter(visible=True):
-        data = FloatingActionSerializer(action, context={**context, "site": obj}).data
-        if data["url"] or action.kind in FloatingAction.BUILT_IN:
-            items.append(dict(data))
+    """Nút bật Hiện trong CMS, kể cả khi chưa có link (web hiện nút nhưng không bấm được)."""
+    ctx = {**context, "site": obj}
+    return [
+        dict(FloatingActionSerializer(action, context=ctx).data)
+        for action in obj.floating_actions.filter(visible=True)
+    ]
+
+
+class LanguageSerializer(serializers.Serializer[Any]):
+    code = serializers.CharField(help_text="Mã ngôn ngữ, vd vi, en")
+    label = serializers.CharField(help_text="Tên hiển thị, thường là tên gốc: Tiếng Việt, English")  # type: ignore[assignment]
+    flag = serializers.CharField(help_text="Mã quốc gia ISO 3166 của cờ, vd VN, GB")
+
+
+def _languages(obj: SiteSettings) -> list[dict[str, str]]:
+    """Ngôn ngữ cho nút đổi ngôn ngữ: theo CMS (đang hiện, đã cài), ngôn ngữ mặc định luôn có.
+
+    CMS chưa đặt ngôn ngữ nào thì lấy mọi ngôn ngữ đã cài với cờ mặc định.
+    """
+    names = dict(settings.LANGUAGES)
+    items = [
+        {"code": lang.code, "label": lang.display_name(), "flag": lang.flag}
+        for lang in obj.languages.all()
+        if lang.code in names and (lang.visible or lang.code == settings.LANGUAGE_CODE)
+    ]
+    if not obj.languages.all():
+        items = [
+            {"code": code, "label": name, "flag": DEFAULT_FLAGS.get(code, "")}
+            for code, name in settings.LANGUAGES
+        ]
+    if not any(i["code"] == settings.LANGUAGE_CODE for i in items):
+        code = settings.LANGUAGE_CODE
+        items.insert(0, {"code": code, "label": names[code], "flag": DEFAULT_FLAGS[code]})
     return items
 
 
@@ -182,6 +225,13 @@ class SiteSerializer(serializers.Serializer[SiteSettings]):
     floating = serializers.SerializerMethodField(
         help_text="Cụm nút nổi sát mép phải, theo thứ tự; chỉ nút đang hiện và có link"
     )
+    languages = serializers.SerializerMethodField(
+        help_text="Ngôn ngữ trong nút đổi ngôn ngữ, theo thứ tự CMS; ngôn ngữ mặc định luôn có"
+    )
+
+    @extend_schema_field(LanguageSerializer(many=True))
+    def get_languages(self, obj: SiteSettings) -> list[dict[str, str]]:
+        return _languages(obj)
 
     @extend_schema_field(FloatingActionSerializer(many=True))
     def get_floating(self, obj: SiteSettings) -> list[dict[str, Any]]:

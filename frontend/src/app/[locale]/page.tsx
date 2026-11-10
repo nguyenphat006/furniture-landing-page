@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { pageLinks, withSeo } from "@/lib/seo";
 import { getMaterials } from "@/data/catalog/materials";
 import { getTaxonomy } from "@/data/catalog/taxonomy-source";
+import { getLatestNews } from "@/data/news";
 import { getHomePage } from "@/data/pages/home";
 import { getSite } from "@/data/site";
 import { SiteFooter } from "@/components/layout/site-footer";
@@ -48,11 +49,12 @@ export async function generateMetadata({
 export default async function HomePage({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const [page, materials, { categories }, site] = await Promise.all([
+  const [page, materials, { categories }, site, news] = await Promise.all([
     getHomePage(locale),
     getMaterials(locale),
     getTaxonomy(locale),
     getSite(locale),
+    getLatestNews(locale, 4),
   ]);
 
   return (
@@ -60,11 +62,12 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
       <OrganizationJsonLd site={site} locale={locale} />
       <SiteHeader />
       <SectionDots anchors={homeAnchors(page.blocks)} />
-      <main className="flex-1">
+      <main id="main" tabIndex={-1} className="flex-1 outline-none">
         <HomeBlocks
           blocks={page.blocks}
           categories={categories}
           materials={materials}
+          news={news}
         />
       </main>
       <div id="contact" className="scroll-mt-[72px]">

@@ -28,7 +28,7 @@ export const factoryPoints = ["since", "oem", "visit"] as const;
  * Section lấy nội dung từ catalog (chữ tiêu đề trong messages), khớp CODED_SECTIONS phía backend.
  * Admin chỉ đặt vị trí; nội dung sửa ở Sản phẩm → Nhóm / Chất liệu.
  */
-export const codedSections = ["products", "materials"] as const;
+export const codedSections = ["products", "materials", "news"] as const;
 export type CodedSection = (typeof codedSections)[number];
 
 /** Thứ tự section trang chủ (2026-11-06) */
@@ -39,5 +39,7 @@ export const homeLayout = [
   "materials",
   "export",
   "factory",
+  // Tin tức "Cuộc sống tại BFC" (2026-11-09), luôn ngay trước CTA
+  "news",
   "cta",
 ] as const;

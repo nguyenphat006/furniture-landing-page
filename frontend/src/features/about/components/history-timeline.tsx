@@ -180,7 +180,7 @@ export function HistoryTimeline() {
                   </span>
                 </div>
 
-                <h3 className="text-lg font-semibold tracking-[.04em] text-white uppercase">
+                <h3 className="text-lg font-bold tracking-[.04em] text-white uppercase">
                   {m.title}
                 </h3>
                 <p className="mt-3 max-w-[32ch] leading-relaxed text-white/85">

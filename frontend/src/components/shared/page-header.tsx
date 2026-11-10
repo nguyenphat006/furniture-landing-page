@@ -52,11 +52,11 @@ export function PageHeader({
         >
           <div className="max-w-[min(100%,62rem)]">
             {eyebrow ? (
-              <p className="text-eyebrow text-forest mb-4 font-semibold uppercase">
+              <p className="text-eyebrow text-forest mb-4 font-bold uppercase">
                 {eyebrow}
               </p>
             ) : null}
-            <h1 className="text-h1 text-ink font-semibold tracking-[-0.015em] text-balance">
+            <h1 className="text-h1 text-ink font-bold tracking-[-0.03em] text-balance">
               {title}
             </h1>
             {lede ? (

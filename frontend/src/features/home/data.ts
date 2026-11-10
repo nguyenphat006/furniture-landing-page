@@ -185,5 +185,6 @@ export const sectionAnchors = [
   // "projects" tạm ẩn (2026-11-05), thay bằng carousel vật liệu
   "materials",
   "factory",
+  "news",
   "contact",
 ] as const;

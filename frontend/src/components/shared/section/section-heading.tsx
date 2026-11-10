@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { reveal } from "@/components/shared/reveal";
 import { cn } from "@/lib/utils";
 
 /*
@@ -8,6 +9,10 @@ import { cn } from "@/lib/utils";
  * (2026-11-05) Gọi tên theo người dùng: subtitle = nhãn nhỏ trên tiêu đề (eyebrow, có vạch ngắn phía trước),
  * desc = đoạn dưới tiêu đề (lede, chữ thường). Tiêu đề in hoa. Hiện các section chưa truyền desc.
  */
+
+/** Kiểu eyebrow (vạch ngắn trước chữ, cùng màu chữ), dùng lại cho nhãn nhỏ cùng pattern trong section */
+export const EYEBROW =
+  "text-eyebrow flex items-center gap-3 font-bold uppercase before:block before:h-[2px] before:w-8 before:shrink-0 before:bg-current before:content-['']";
 
 type SectionHeadingProps = {
   eyebrow?: ReactNode;
@@ -37,6 +42,7 @@ export function SectionHeading({
 
   return (
     <div
+      {...reveal("heading")}
       className={cn(
         "mb-12 flex flex-wrap gap-x-12 gap-y-6 lg:mb-14",
         centered
@@ -50,9 +56,10 @@ export function SectionHeading({
       <div className={cn("max-w-[40rem]", centered && "mx-auto")}>
         {eyebrow ? (
           <p
+            data-ri="0"
             className={cn(
-              // Vạch ngắn trước subtitle, cùng màu chữ
-              "text-eyebrow mb-4 flex items-center gap-3 font-semibold uppercase before:block before:h-px before:w-8 before:bg-current before:content-['']",
+              EYEBROW,
+              "mb-4",
               centered && "justify-center",
               light ? "text-white/60" : "text-forest",
             )}
@@ -61,9 +68,10 @@ export function SectionHeading({
           </p>
         ) : null}
         <Heading
+          data-ri="1"
           className={cn(
             // (2026-11-05) Tiêu đề in hoa cho cảm giác chắc hơn; chữ hoa cần nới tracking thay vì siết
-            "text-section font-semibold tracking-[.01em] text-balance uppercase",
+            "text-section font-bold tracking-[-.01em] text-balance uppercase",
             light ? "text-white" : "text-ink",
           )}
         >
@@ -71,6 +79,7 @@ export function SectionHeading({
         </Heading>
         {lede ? (
           <p
+            data-ri="2"
             className={cn(
               "text-lede mt-4 max-w-[60ch]",
               centered && "mx-auto",
@@ -82,7 +91,9 @@ export function SectionHeading({
         ) : null}
       </div>
       {action ? (
-        <div className="flex flex-wrap gap-x-8 gap-y-3">{action}</div>
+        <div data-ri="3" className="flex flex-wrap gap-x-8 gap-y-3">
+          {action}
+        </div>
       ) : null}
     </div>
   );

@@ -123,11 +123,15 @@ Kết quả phải có `/etc/letsencrypt/live/bfcfurniture.com/` và `/etc/letse
 
 Script làm lần lượt: build CMS, bật Postgres và ClamAV, migrate, tạo locale vi/en và nhóm Quản trị
 (`bootstrap`), nhập thông tin chung (`import_site`), phân loại (`sync_taxonomy`), 50 sản phẩm mẫu
-(`import_mock`), trang nội dung (`import_pages`), bật CMS và Nginx, chờ `https://CMS_DOMAIN/readyz`, build web
+(`import_mock`), 10 bài tin tức mẫu (`import_news`), trang nội dung (`import_pages`), bật CMS và Nginx, chờ `https://CMS_DOMAIN/readyz`, build web
 rồi bật web. Lần đầu mất 10 đến 20 phút (tải image, build). ClamAV cần thêm vài phút tải mẫu virus; trong lúc
 đó tệp đính kèm được đánh dấu chờ và cron quét lại sau.
 
 `--first` chỉ dùng **một lần**. Chạy lại sẽ tạo lại các mục phân loại mà admin đã cố ý xoá.
+
+Server dựng trước khi có mục Tin tức (09/11/2026): sau lần deploy có mục này, chạy một lần
+`docker compose exec cms python manage.py import_news` để nhập 10 bài mẫu và chèn section "Cuộc sống tại BFC"
+vào Trang chủ (ngay trước CTA). Lệnh bỏ qua bài và section đã có.
 
 **Bước 5. Kiểm tra**
 
@@ -297,6 +301,7 @@ HTTPS để công cụ nội bộ gọi được.
 | Không đăng nhập được admin | Bị khoá sau 5 lần sai | Chờ 1 giờ hoặc `axes_reset_username` (mục 5) |
 | Ảnh không hiện | Volume `media` trống sau khi chuyển server | Khôi phục `media.tar.gz` (mục 6) |
 | Xem trước bản nháp trong admin trắng | `CMS_ADMIN_ORIGIN` lúc build web khác domain CMS | Kiểm tra `CMS_DOMAIN` trong `.env`, `./deploy.sh` |
+| CMS sập, web vẫn chạy nhưng nội dung mới chưa hiện, ảnh không tải | Web dùng bản dự phòng `/app/.cms-fallback` (lần cuối CMS trả lời) để trang không lỗi; ảnh nằm ở CMS | `docker compose logs web` có "dùng bản dự phòng"; sửa CMS (`docker compose logs cms db`), chạy lại thì xuất bản lại một nội dung bất kỳ để web làm mới ngay |
 
 ## 9. Bảo trì định kỳ
 

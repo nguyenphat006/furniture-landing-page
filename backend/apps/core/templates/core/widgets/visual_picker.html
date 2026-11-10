@@ -1,0 +1,17 @@
+{# Ô chọn có hình (core/widgets.py): dòng đang chọn như một ô select, bấm thả danh sách #}
+<details class="visual-picker" data-visual-picker>
+  <summary class="visual-picker__current">
+    <span class="visual-picker__visual" data-picker-visual aria-hidden="true">{{ widget.current.visual }}</span>
+    <span class="visual-picker__label" data-picker-label>{% if widget.current %}{{ widget.current.label }}{% else %}Chọn...{% endif %}</span>
+    <svg class="visual-picker__chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </summary>
+  <div class="visual-picker__panel" role="radiogroup">
+    {% for group, options, index in widget.optgroups %}{% for option in options %}
+      <label class="visual-picker__option" for="{{ option.attrs.id }}">
+        <input type="radio" name="{{ option.name }}" value="{{ option.value }}"{% include "django/forms/widgets/attrs.html" with widget=option %}>
+        <span class="visual-picker__visual" aria-hidden="true">{{ option.visual }}</span>
+        <span class="visual-picker__label">{{ option.label }}</span>
+      </label>
+    {% endfor %}{% endfor %}
+  </div>
+</details>

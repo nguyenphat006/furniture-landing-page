@@ -39,6 +39,8 @@ IMAGE_FIELDS = ("logo", "logo_on_dark", "favicon", "og_image")
 
 # Cụm nút nổi mặc định khi chưa có nút nào (link lấy từ tab Liên hệ)
 DEFAULT_FLOATING = ("search", "phone", "whatsapp", "zalo", "email")
+# Có sẵn nhưng tắt Hiện, admin bật khi cần (user 09/11: chỉ giữ Tìm kiếm, Gọi điện, Email)
+DEFAULT_FLOATING_OFF = ("whatsapp", "zalo")
 
 
 def ensure_default_floating(obj: SiteSettings) -> None:
@@ -46,7 +48,10 @@ def ensure_default_floating(obj: SiteSettings) -> None:
     if obj.pk and obj.floating_actions.exists():
         return
     obj.floating_actions.set(
-        [FloatingAction(kind=kind, sort_order=order) for order, kind in enumerate(DEFAULT_FLOATING)]
+        [
+            FloatingAction(kind=kind, sort_order=order, visible=kind not in DEFAULT_FLOATING_OFF)
+            for order, kind in enumerate(DEFAULT_FLOATING)
+        ]
     )
 
 

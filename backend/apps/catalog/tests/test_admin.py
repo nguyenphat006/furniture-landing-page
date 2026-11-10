@@ -33,3 +33,15 @@ def test_product_listing_search_and_filter(admin_client: Client) -> None:
     assert res.status_code == 200
     assert b"Atlas Sunlounger" in res.content
     assert b"Stack Chair" not in res.content
+
+
+def test_product_listing_one_row_per_product(admin_client: Client) -> None:
+    """Chỉ liệt kê bản tiếng Việt, cột Bản tiếng Anh cho biết trạng thái bản dịch (09/11/2026)."""
+    from wagtail.models import Locale
+
+    url = reverse("wagtailsnippets_catalog_product:list")
+    html = admin_client.get(url).content.decode()
+    vi = Product.objects.filter(locale=Locale.get_default()).count()
+    assert html.count("data-bulk-action-checkbox class=") == vi
+    assert "Bản tiếng Anh" in html
+    assert Product.objects.count() >= vi

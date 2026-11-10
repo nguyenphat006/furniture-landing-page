@@ -66,7 +66,7 @@ function TabsContent({
       data-slot="tabs-content"
       forceMount={forceMount || undefined}
       className={cn(
-        "focus-visible:outline-forest outline-none focus-visible:outline-2 data-[state=inactive]:hidden",
+        "focus-visible:outline-forest outline-none focus-visible:outline-2 focus-visible:outline-solid data-[state=inactive]:hidden",
         className,
       )}
       {...props}

@@ -22,7 +22,67 @@
           "visit_label": ""
         }
       }
+    },
+    "faq": {
+      "name": "Câu hỏi thường gặp",
+      "vi": {
+        "type": "faq",
+        "value": {
+          "kicker": "Hỏi đáp",
+          "title": "Câu hỏi thường gặp",
+          "note": "Chưa thấy câu trả lời bạn cần?",
+          "button_label": "",
+          "items": [
+            {
+              "question": "Đơn hàng tối thiểu (MOQ) là bao nhiêu?",
+              "answer": "MOQ tuỳ theo mẫu, vật liệu và màu hoàn thiện. Chúng tôi báo MOQ cụ thể cùng với báo giá."
+            },
+            {
+              "question": "Làm mẫu mất bao lâu?",
+              "answer": "Tuỳ độ phức tạp và vật liệu của mẫu. Thời gian làm mẫu được ghi rõ trong báo giá để bạn chủ động lịch duyệt."
+            },
+            {
+              "question": "BFC có làm theo bản vẽ hoặc thiết kế riêng không?",
+              "answer": "Có. Chúng tôi làm theo bản vẽ, ảnh hoặc mẫu của bạn, và cũng phát triển từ brief khi bạn có định hướng nhưng chưa có bản vẽ."
+            },
+            {
+              "question": "Tôi có thể chỉ định bên kiểm định thứ ba không?",
+              "answer": "Có. Bạn chỉ định đơn vị kiểm định, chúng tôi phối hợp lịch kiểm hàng trước khi đóng container."
+            }
+          ]
+        }
+      },
+      "en": {
+        "type": "faq",
+        "value": {
+          "kicker": "FAQ",
+          "title": "Common questions",
+          "note": "Not finding what you need?",
+          "button_label": "",
+          "items": [
+            {
+              "question": "What is the minimum order quantity (MOQ)?",
+              "answer": "MOQ depends on the design, materials and finish. We confirm the exact MOQ together with the quote."
+            },
+            {
+              "question": "How long does sampling take?",
+              "answer": "It depends on the complexity and materials of the piece. Sampling time is stated in the quote so you can plan your review."
+            },
+            {
+              "question": "Do you build to our own drawings or designs?",
+              "answer": "Yes. We build from your drawings, photos or samples, and can also develop a design from a brief when you have a direction but no drawings yet."
+            },
+            {
+              "question": "Can we appoint a third-party inspector?",
+              "answer": "Yes. You appoint the inspection company and we coordinate the inspection before container loading."
+            }
+          ]
+        }
+      }
     }
+  },
+  "slots": {
+    "capabilities_faq": "faq"
   },
   "home": {
     "title": "Trang chủ",
@@ -141,6 +201,12 @@
               "Sẵn sàng đón khách thăm nhà máy"
             ],
             "button_label": ""
+          }
+        },
+        {
+          "type": "section",
+          "value": {
+            "section": "news"
           }
         },
         {
@@ -263,6 +329,12 @@
               "Factory visits welcome"
             ],
             "button_label": ""
+          }
+        },
+        {
+          "type": "section",
+          "value": {
+            "section": "news"
           }
         },
         {

@@ -98,9 +98,28 @@ def block_value(block_type: str, value: Any, context: Mapping[str, Any]) -> dict
             "detail_image": image_data(context, value.get("detail_image"), RENDITION_FEATURE),
             "points": [str(p) for p in value["points"] if p],
         }
+    if block_type == "faq":
+        return {
+            **{k: _text(value, k) for k in ("kicker", "title", "note", "button_label")},
+            "items": [
+                {"question": _text(i, "question"), "answer": _text(i, "answer")}
+                for i in value["items"]
+            ],
+        }
     if block_type == "section":
         return {"section": _text(value, "section")}
     raise ValueError(f"Block lạ: {block_type}")
+
+
+def section_data(section: SharedSection, context: Mapping[str, Any]) -> list[dict[str, Any]]:
+    return [
+        {
+            "type": inner.block_type,
+            "id": inner.id,
+            "value": block_value(inner.block_type, inner.value, context),
+        }
+        for inner in section.body
+    ]
 
 
 def body_data(body: StreamValue, context: Mapping[str, Any]) -> list[dict[str, Any]]:
@@ -118,14 +137,7 @@ def body_data(body: StreamValue, context: Mapping[str, Any]) -> list[dict[str, A
                 section = preview
             if section is None:
                 continue
-            out.extend(
-                {
-                    "type": inner.block_type,
-                    "id": inner.id,
-                    "value": block_value(inner.block_type, inner.value, context),
-                }
-                for inner in section.body
-            )
+            out.extend(section_data(section, context))
             continue
         out.append(
             {
@@ -210,6 +222,19 @@ class LegalValueSerializer(serializers.Serializer[object]):
     )
 
 
+class FaqItemSerializer(serializers.Serializer[object]):
+    question = serializers.CharField()
+    answer = serializers.CharField()
+
+
+class FaqValueSerializer(serializers.Serializer[object]):
+    kicker = serializers.CharField()
+    title = serializers.CharField()
+    note = serializers.CharField()
+    button_label = serializers.CharField(help_text="Rỗng = nhãn mặc định trong messages")
+    items = FaqItemSerializer(many=True)
+
+
 class SectionValueSerializer(serializers.Serializer[object]):
     section = serializers.ChoiceField(choices=[key for key, _ in CODED_SECTIONS])
 
@@ -235,6 +260,7 @@ PAGE_BLOCK = PolymorphicProxySerializer(
         "export": _block_serializer("export", ExportValueSerializer()),
         "factory": _block_serializer("factory", FactoryValueSerializer()),
         "cta": _block_serializer("cta", CtaValueSerializer()),
+        "faq": _block_serializer("faq", FaqValueSerializer()),
         "section": _block_serializer("section", SectionValueSerializer()),
         "legal": _block_serializer("legal", LegalValueSerializer()),
     },
@@ -282,11 +308,27 @@ class ContentPageSerializer(serializers.Serializer[ContentPage]):
         return body_data(obj.body, self.context)
 
 
-class PreviewSerializer(serializers.Serializer[object]):
-    """Bản nháp: data cùng định dạng API công khai (ContentPage hoặc ProductDetail)."""
+class SectionSlotSerializer(serializers.Serializer[SharedSection]):
+    """Section dùng chung ở một vị trí cố định (trang chưa có trong CMS)."""
 
-    kind = serializers.ChoiceField(choices=["page", "product"])
-    key = serializers.CharField(help_text="Khoá trang (home, privacy...) hoặc slug sản phẩm")
+    is_fallback = serializers.SerializerMethodField()
+    body = serializers.SerializerMethodField()
+
+    def get_is_fallback(self, obj: SharedSection) -> bool:
+        return bool(self.context.get("is_fallback"))
+
+    @extend_schema_field(PAGE_BLOCK)
+    def get_body(self, obj: SharedSection) -> list[dict[str, Any]]:
+        return section_data(obj, self.context)
+
+
+class PreviewSerializer(serializers.Serializer[object]):
+    """Bản nháp: data cùng định dạng API công khai (ContentPage, ProductDetail hoặc NewsDetail)."""
+
+    kind = serializers.ChoiceField(choices=["page", "product", "news"])
+    key = serializers.CharField(
+        help_text="Khoá trang (home, privacy...) hoặc slug sản phẩm / bài tin tức"
+    )
     locale = serializers.CharField()
     path = serializers.CharField(help_text="Đường dẫn trên web, đã có tiền tố ngôn ngữ")
     content = serializers.JSONField(source="payload")

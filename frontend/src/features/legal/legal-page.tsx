@@ -65,7 +65,7 @@ export async function LegalPage({
   return (
     <>
       <SiteHeader />
-      <main className="flex-1">
+      <main id="main" tabIndex={-1} className="flex-1 outline-none">
         <PageHeader
           current={page.title}
           title={page.title}
@@ -92,7 +92,7 @@ export async function LegalPage({
                 >
                   <h2
                     id={`${anchor(i)}-h`}
-                    className="text-ink text-xl font-semibold tracking-[-0.01em] md:text-2xl"
+                    className="text-ink text-xl font-bold tracking-[-0.01em] md:text-2xl"
                   >
                     {s.heading}
                   </h2>

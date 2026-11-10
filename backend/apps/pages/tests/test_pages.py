@@ -228,7 +228,7 @@ def test_import_pages_command(assets: Path, tmp_path: Path) -> None:
 def test_frontend_fixture_imports(assets: Path) -> None:
     fixture = Path(__file__).resolve().parents[1] / "fixtures" / "pages.json"
     result = import_pages(json.loads(fixture.read_text("utf-8")), assets_dir=assets)
-    assert result.created == ["shared:cta", "home"]
+    assert result.created == ["shared:cta", "shared:faq", "slot:capabilities_faq", "home"]
 
 
 @pytest.mark.usefixtures("imported")

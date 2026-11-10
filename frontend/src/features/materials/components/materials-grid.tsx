@@ -5,6 +5,7 @@ import { Container, Section } from "@/components/shared/section";
 import { navHref } from "@/config/navigation";
 import type { MaterialSummary } from "@/data/catalog";
 import { Link } from "@/i18n/navigation";
+import { reveal } from "@/components/shared/reveal";
 
 /*
  * Lưới vật liệu (2026-11-05): dải nền màu, thẻ ngang nền trắng cao 360px, xếp 2 cột từ lg
@@ -20,7 +21,7 @@ export function MaterialsGrid({ materials }: { materials: MaterialSummary[] }) {
   return (
     <Section id="materials" tone="stone">
       <Container>
-        <ul className="grid gap-6 lg:grid-cols-2">
+        <ul {...reveal("stagger")} className="grid gap-6 lg:grid-cols-2">
           {materials.map(({ slug, name, image }) => {
             const href = `${navHref.materials}/${slug}`;
             return (
@@ -43,7 +44,7 @@ export function MaterialsGrid({ materials }: { materials: MaterialSummary[] }) {
                 </Link>
 
                 <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-6 xl:p-10">
-                  <h2 className="text-ink text-xl leading-tight font-medium tracking-[.06em] uppercase xl:text-2xl">
+                  <h2 className="text-ink text-xl leading-tight font-bold tracking-[.04em] uppercase xl:text-2xl">
                     {name}
                   </h2>
                   <ArrowLink href={href} className="mt-4 self-start">

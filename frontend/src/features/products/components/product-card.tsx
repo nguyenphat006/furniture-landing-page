@@ -37,7 +37,7 @@ export function ProductCard({
       <p className="text-ink-mute mt-4 text-xs font-semibold tracking-[.14em] uppercase">
         {tc(`productTypes.${product.type}`)}
       </p>
-      <h3 className="text-ink group-hover/card:text-forest mt-1.5 text-lg leading-snug font-medium transition-colors duration-(--duration-base)">
+      <h3 className="text-ink group-hover/card:text-forest mt-1.5 text-lg leading-snug font-bold tracking-[-0.01em] transition-colors duration-(--duration-base)">
         {product.name}
       </h3>
       {/* Nút gọn chữ + mũi tên (cả thẻ là link), đẩy xuống đáy để các thẻ cùng hàng thẳng nhau */}
@@ -86,7 +86,7 @@ export function ProductRow({ product }: { product: Product }) {
         <p className="text-ink-mute text-xs font-semibold tracking-[.14em] uppercase">
           {tc(`productTypes.${product.type}`)}
         </p>
-        <h3 className="text-ink group-hover/row:text-forest mt-1.5 text-lg leading-snug font-medium transition-colors duration-(--duration-base) sm:text-xl">
+        <h3 className="text-ink group-hover/row:text-forest mt-1.5 text-lg leading-snug font-bold tracking-[-0.01em] transition-colors duration-(--duration-base) sm:text-xl">
           {product.name}
         </h3>
         <dl className="mt-3 hidden gap-x-8 gap-y-1 text-sm sm:flex sm:flex-wrap">

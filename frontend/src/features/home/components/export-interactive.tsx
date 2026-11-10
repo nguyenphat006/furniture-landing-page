@@ -76,6 +76,7 @@ export function ExportInteractive({
           <div
             key={c.code}
             tabIndex={0}
+            role="img"
             aria-label={c.name}
             onMouseEnter={() => setActive(c.code)}
             onMouseLeave={() => setActive(null)}
@@ -90,7 +91,7 @@ export function ExportInteractive({
               } as CSSProperties
             }
             className={cn(
-              "absolute hidden cursor-default outline-none lg:block",
+              "focus-visible:ring-forest absolute hidden cursor-default rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-offset-2 lg:block",
               "transition-opacity duration-500",
               !inView && "opacity-0",
               inView && active && active !== c.code && "opacity-30",

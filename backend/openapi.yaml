@@ -245,6 +245,79 @@ paths:
               schema:
                 $ref: '#/components/schemas/Meta'
           description: ''
+  /api/v1/news:
+    get:
+      operationId: news_list
+      description: Bài đang xuất bản, mới nhất trước (?page=&page_size=). Bài chưa
+        dịch trả bản gốc.
+      parameters:
+      - in: query
+        name: kind
+        schema:
+          type: string
+          enum:
+          - news
+          - notice
+        description: Loại bài
+      - in: query
+        name: locale
+        schema:
+          type: string
+          enum:
+          - en
+          - vi
+        description: Ngôn ngữ nội dung, mặc định tiếng Việt
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - news
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedNewsListList'
+          description: ''
+  /api/v1/news/{slug}:
+    get:
+      operationId: news_retrieve
+      parameters:
+      - in: query
+        name: locale
+        schema:
+          type: string
+          enum:
+          - en
+          - vi
+        description: Ngôn ngữ nội dung, mặc định tiếng Việt
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - news
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewsDetail'
+          description: ''
   /api/v1/pages/{key}:
     get:
       operationId: pages_retrieve
@@ -300,6 +373,40 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Preview'
+          description: ''
+  /api/v1/sections/{slot}:
+    get:
+      operationId: sections_retrieve
+      description: |-
+        Section dùng chung ở vị trí cố định (capabilities-faq...), chọn ở Cài đặt.
+
+        Chưa chọn hoặc chưa xuất bản thì 404 (frontend dùng chữ mặc định).
+      parameters:
+      - in: query
+        name: locale
+        schema:
+          type: string
+          enum:
+          - en
+          - vi
+        description: Ngôn ngữ nội dung, mặc định tiếng Việt
+      - in: path
+        name: slot
+        schema:
+          type: string
+          enum:
+          - capabilities-faq
+        required: true
+      tags:
+      - sections
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SectionSlot'
           description: ''
   /api/v1/site:
     get:
@@ -374,6 +481,34 @@ components:
       - logo
       - logo_on_dark
       - og_image
+    ButtonNewsBlock:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/ButtonValue'
+        type:
+          $ref: '#/components/schemas/ButtonNewsBlockTypeEnum'
+        id:
+          type: string
+      required:
+      - id
+      - type
+      - value
+    ButtonNewsBlockTypeEnum:
+      enum:
+      - button
+      type: string
+      description: '* `button` - button'
+    ButtonValue:
+      type: object
+      properties:
+        label:
+          type: string
+        url:
+          type: string
+      required:
+      - label
+      - url
     Category:
       type: object
       properties:
@@ -901,6 +1036,23 @@ components:
       - quote_label
       - title
       - visit_label
+    DocumentData:
+      type: object
+      properties:
+        url:
+          type: string
+        title:
+          type: string
+        extension:
+          type: string
+        size:
+          type: integer
+          description: Byte
+      required:
+      - extension
+      - size
+      - title
+      - url
     ExportMarket:
       type: object
       properties:
@@ -1199,6 +1351,86 @@ components:
       - lede
       - points
       - title
+    FaqItem:
+      type: object
+      properties:
+        question:
+          type: string
+        answer:
+          type: string
+      required:
+      - answer
+      - question
+    FaqPageBlock:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/FaqValue'
+        type:
+          $ref: '#/components/schemas/FaqPageBlockTypeEnum'
+        id:
+          type: string
+      required:
+      - id
+      - type
+      - value
+    FaqPageBlockTypeEnum:
+      enum:
+      - faq
+      type: string
+      description: '* `faq` - faq'
+    FaqValue:
+      type: object
+      properties:
+        kicker:
+          type: string
+        title:
+          type: string
+        note:
+          type: string
+        button_label:
+          type: string
+          description: Rỗng = nhãn mặc định trong messages
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/FaqItem'
+      required:
+      - button_label
+      - items
+      - kicker
+      - note
+      - title
+    FileNewsBlock:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/FileValue'
+        type:
+          $ref: '#/components/schemas/FileNewsBlockTypeEnum'
+        id:
+          type: string
+      required:
+      - id
+      - type
+      - value
+    FileNewsBlockTypeEnum:
+      enum:
+      - file
+      type: string
+      description: '* `file` - file'
+    FileValue:
+      type: object
+      properties:
+        file:
+          allOf:
+          - $ref: '#/components/schemas/DocumentData'
+          nullable: true
+        label:
+          type: string
+      required:
+      - file
+      - label
     FloatingAction:
       type: object
       properties:
@@ -1211,8 +1443,14 @@ components:
         url:
           type: string
           readOnly: true
-          description: Link đã lấy từ Liên hệ khi cần; rỗng với search và quote
+          description: 'Link đã lấy từ Liên hệ khi cần; rỗng: nút hiện nhưng không
+            bấm được (chưa nhập link); search (mở ô tìm kiếm) và quote do web tự gắn'
+        icon:
+          type: string
+          description: Icon chọn trong CMS (tên trong bộ icon của web); rỗng = icon
+            có sẵn theo loại
       required:
+      - icon
       - kind
       - label
       - url
@@ -1260,6 +1498,49 @@ components:
       required:
       - label
       - url
+    GalleryItem:
+      type: object
+      properties:
+        image:
+          $ref: '#/components/schemas/ImageData'
+        caption:
+          type: string
+      required:
+      - caption
+      - image
+    GalleryNewsBlock:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/GalleryValue'
+        type:
+          $ref: '#/components/schemas/GalleryNewsBlockTypeEnum'
+        id:
+          type: string
+      required:
+      - id
+      - type
+      - value
+    GalleryNewsBlockTypeEnum:
+      enum:
+      - gallery
+      type: string
+      description: '* `gallery` - gallery'
+    GalleryValue:
+      type: object
+      properties:
+        layout:
+          $ref: '#/components/schemas/LayoutEnum'
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/GalleryItem'
+        caption:
+          type: string
+      required:
+      - caption
+      - images
+      - layout
     HeroPageBlock:
       type: object
       properties:
@@ -1338,6 +1619,83 @@ components:
       - height
       - url
       - width
+    ImageNewsBlock:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/ImageValue'
+        type:
+          $ref: '#/components/schemas/ImageNewsBlockTypeEnum'
+        id:
+          type: string
+      required:
+      - id
+      - type
+      - value
+    ImageNewsBlockTypeEnum:
+      enum:
+      - image
+      type: string
+      description: '* `image` - image'
+    ImagePositionEnum:
+      enum:
+      - left
+      - right
+      type: string
+      description: |-
+        * `left` - left
+        * `right` - right
+    ImageTextNewsBlock:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/ImageTextValue'
+        type:
+          $ref: '#/components/schemas/ImageTextNewsBlockTypeEnum'
+        id:
+          type: string
+      required:
+      - id
+      - type
+      - value
+    ImageTextNewsBlockTypeEnum:
+      enum:
+      - image_text
+      type: string
+      description: '* `image_text` - image_text'
+    ImageTextValue:
+      type: object
+      properties:
+        image:
+          allOf:
+          - $ref: '#/components/schemas/ImageData'
+          nullable: true
+        image_position:
+          $ref: '#/components/schemas/ImagePositionEnum'
+        heading:
+          type: string
+        html:
+          type: string
+      required:
+      - heading
+      - html
+      - image
+      - image_position
+    ImageValue:
+      type: object
+      properties:
+        image:
+          allOf:
+          - $ref: '#/components/schemas/ImageData'
+          nullable: true
+        caption:
+          type: string
+        size:
+          $ref: '#/components/schemas/SizeEnum'
+      required:
+      - caption
+      - image
+      - size
     InquiryCreateRequest:
       type: object
       description: Dữ liệu form Liên hệ do Next.js server chuyển sang (đã làm sạch
@@ -1442,6 +1800,32 @@ components:
       required:
       - name
       - slug
+    Language:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Mã ngôn ngữ, vd vi, en
+        label:
+          type: string
+          description: 'Tên hiển thị, thường là tên gốc: Tiếng Việt, English'
+        flag:
+          type: string
+          description: Mã quốc gia ISO 3166 của cờ, vd VN, GB
+      required:
+      - code
+      - flag
+      - label
+    LayoutEnum:
+      enum:
+      - grid-2
+      - grid-3
+      - slider
+      type: string
+      description: |-
+        * `grid-2` - grid-2
+        * `grid-3` - grid-3
+        * `slider` - slider
     LegalPageBlock:
       type: object
       properties:
@@ -1692,6 +2076,7 @@ components:
             * `products` - Sản phẩm (có menu con)
             * `about` - Về chúng tôi
             * `projects` - Dự án
+            * `news` - Tin tức
             * `contact` - Liên hệ
             * `link` - Link khác
         label:
@@ -1721,6 +2106,147 @@ components:
         * `instagram` - Instagram
         * `tiktok` - TikTok
         * `pinterest` - Pinterest
+    NewsBlock:
+      oneOf:
+      - $ref: '#/components/schemas/ParagraphNewsBlock'
+      - $ref: '#/components/schemas/ImageNewsBlock'
+      - $ref: '#/components/schemas/GalleryNewsBlock'
+      - $ref: '#/components/schemas/VideoNewsBlock'
+      - $ref: '#/components/schemas/ImageTextNewsBlock'
+      - $ref: '#/components/schemas/QuoteNewsBlock'
+      - $ref: '#/components/schemas/TableNewsBlock'
+      - $ref: '#/components/schemas/ButtonNewsBlock'
+      - $ref: '#/components/schemas/FileNewsBlock'
+      discriminator:
+        propertyName: type
+        mapping:
+          paragraph: '#/components/schemas/ParagraphNewsBlock'
+          image: '#/components/schemas/ImageNewsBlock'
+          gallery: '#/components/schemas/GalleryNewsBlock'
+          video: '#/components/schemas/VideoNewsBlock'
+          image_text: '#/components/schemas/ImageTextNewsBlock'
+          quote: '#/components/schemas/QuoteNewsBlock'
+          table: '#/components/schemas/TableNewsBlock'
+          button: '#/components/schemas/ButtonNewsBlock'
+          file: '#/components/schemas/FileNewsBlock'
+    NewsDetail:
+      type: object
+      properties:
+        slug:
+          type: string
+        kind:
+          $ref: '#/components/schemas/NewsKindEnum'
+        date:
+          type: string
+          format: date
+        title:
+          type: string
+        excerpt:
+          type: string
+        cover:
+          allOf:
+          - $ref: '#/components/schemas/Image'
+          nullable: true
+          readOnly: true
+        is_fallback:
+          type: boolean
+          description: 'True: chưa có bản dịch ở ngôn ngữ được hỏi, đây là bản gốc.'
+        noindex:
+          type: boolean
+          description: Quản trị viên ẩn trang khỏi Google
+        updated:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+          description: Lần xuất bản gần nhất, dùng cho lastmod trong sitemap
+        slugs:
+          type: object
+          additionalProperties:
+            type: string
+          readOnly: true
+          description: Slug của bản đang xuất bản theo từng ngôn ngữ (đổi ngôn ngữ,
+            hreflang)
+        body:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewsBlock'
+          readOnly: true
+          description: Các khối nội dung theo thứ tự
+        seo:
+          allOf:
+          - $ref: '#/components/schemas/PageSeo'
+          readOnly: true
+      required:
+      - body
+      - cover
+      - date
+      - excerpt
+      - is_fallback
+      - kind
+      - noindex
+      - seo
+      - slug
+      - slugs
+      - title
+      - updated
+    NewsKindEnum:
+      enum:
+      - news
+      - notice
+      type: string
+      description: |-
+        * `news` - Tin tức
+        * `notice` - Thông báo
+    NewsList:
+      type: object
+      properties:
+        slug:
+          type: string
+        kind:
+          $ref: '#/components/schemas/NewsKindEnum'
+        date:
+          type: string
+          format: date
+        title:
+          type: string
+        excerpt:
+          type: string
+        cover:
+          allOf:
+          - $ref: '#/components/schemas/Image'
+          nullable: true
+          readOnly: true
+        is_fallback:
+          type: boolean
+          description: 'True: chưa có bản dịch ở ngôn ngữ được hỏi, đây là bản gốc.'
+        noindex:
+          type: boolean
+          description: Quản trị viên ẩn trang khỏi Google
+        updated:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+          description: Lần xuất bản gần nhất, dùng cho lastmod trong sitemap
+        slugs:
+          type: object
+          additionalProperties:
+            type: string
+          readOnly: true
+          description: Slug của bản đang xuất bản theo từng ngôn ngữ (đổi ngôn ngữ,
+            hreflang)
+      required:
+      - cover
+      - date
+      - excerpt
+      - is_fallback
+      - kind
+      - noindex
+      - slug
+      - slugs
+      - title
+      - updated
     PageBlock:
       oneOf:
       - $ref: '#/components/schemas/HeroPageBlock'
@@ -1728,6 +2254,7 @@ components:
       - $ref: '#/components/schemas/ExportPageBlock'
       - $ref: '#/components/schemas/FactoryPageBlock'
       - $ref: '#/components/schemas/CtaPageBlock'
+      - $ref: '#/components/schemas/FaqPageBlock'
       - $ref: '#/components/schemas/SectionPageBlock'
       - $ref: '#/components/schemas/LegalPageBlock'
       discriminator:
@@ -1738,6 +2265,7 @@ components:
           export: '#/components/schemas/ExportPageBlock'
           factory: '#/components/schemas/FactoryPageBlock'
           cta: '#/components/schemas/CtaPageBlock'
+          faq: '#/components/schemas/FaqPageBlock'
           section: '#/components/schemas/SectionPageBlock'
           legal: '#/components/schemas/LegalPageBlock'
     PageSeo:
@@ -1754,6 +2282,27 @@ components:
       - description
       - noindex
       - title
+    PaginatedNewsListList:
+      type: object
+      required:
+      - count
+      - page
+      - page_size
+      - total_pages
+      - results
+      properties:
+        count:
+          type: integer
+        page:
+          type: integer
+        page_size:
+          type: integer
+        total_pages:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewsList'
     PaginatedProductListList:
       type: object
       required:
@@ -1775,16 +2324,42 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ProductList'
+    ParagraphNewsBlock:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/ParagraphValue'
+        type:
+          $ref: '#/components/schemas/ParagraphNewsBlockTypeEnum'
+        id:
+          type: string
+      required:
+      - id
+      - type
+      - value
+    ParagraphNewsBlockTypeEnum:
+      enum:
+      - paragraph
+      type: string
+      description: '* `paragraph` - paragraph'
+    ParagraphValue:
+      type: object
+      properties:
+        html:
+          type: string
+      required:
+      - html
     Preview:
       type: object
-      description: 'Bản nháp: data cùng định dạng API công khai (ContentPage hoặc
-        ProductDetail).'
+      description: 'Bản nháp: data cùng định dạng API công khai (ContentPage, ProductDetail
+        hoặc NewsDetail).'
       properties:
         kind:
           $ref: '#/components/schemas/PreviewKindEnum'
         key:
           type: string
-          description: Khoá trang (home, privacy...) hoặc slug sản phẩm
+          description: Khoá trang (home, privacy...) hoặc slug sản phẩm / bài tin
+            tức
         locale:
           type: string
         path:
@@ -1801,10 +2376,12 @@ components:
       enum:
       - page
       - product
+      - news
       type: string
       description: |-
         * `page` - page
         * `product` - product
+        * `news` - news
     ProductDetail:
       type: object
       properties:
@@ -1834,6 +2411,12 @@ components:
         noindex:
           type: boolean
           description: Quản trị viên ẩn trang khỏi Google
+        updated:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+          description: Lần xuất bản gần nhất, dùng cho lastmod trong sitemap (QC 09/11)
         dimensions:
           type: object
           properties:
@@ -1918,6 +2501,7 @@ components:
       - set_items
       - slug
       - type
+      - updated
     ProductList:
       type: object
       properties:
@@ -1947,6 +2531,12 @@ components:
         noindex:
           type: boolean
           description: Quản trị viên ẩn trang khỏi Google
+        updated:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+          description: Lần xuất bản gần nhất, dùng cho lastmod trong sitemap (QC 09/11)
         image:
           allOf:
           - $ref: '#/components/schemas/Image'
@@ -1963,6 +2553,7 @@ components:
       - noindex
       - slug
       - type
+      - updated
     ProductType:
       type: object
       properties:
@@ -1977,6 +2568,16 @@ components:
       - is_set
       - name
       - slug
+    ProviderEnum:
+      enum:
+      - youtube
+      - vimeo
+      - file
+      type: string
+      description: |-
+        * `youtube` - youtube
+        * `vimeo` - vimeo
+        * `file` - file
     PurposeEnum:
       enum:
       - quote
@@ -1989,14 +2590,47 @@ components:
         * `oem` - OEM / ODM
         * `visit` - Thăm nhà máy
         * `other` - Khác
+    QuoteNewsBlock:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/QuoteValue'
+        type:
+          $ref: '#/components/schemas/QuoteNewsBlockTypeEnum'
+        id:
+          type: string
+      required:
+      - id
+      - type
+      - value
+    QuoteNewsBlockTypeEnum:
+      enum:
+      - quote
+      type: string
+      description: '* `quote` - quote'
+    QuoteValue:
+      type: object
+      properties:
+        quote:
+          type: string
+        author:
+          type: string
+        role:
+          type: string
+      required:
+      - author
+      - quote
+      - role
     SectionEnum:
       enum:
       - products
       - materials
+      - news
       type: string
       description: |-
         * `products` - products
         * `materials` - materials
+        * `news` - news
     SectionPageBlock:
       type: object
       properties:
@@ -2015,6 +2649,21 @@ components:
       - section
       type: string
       description: '* `section` - section'
+    SectionSlot:
+      type: object
+      description: Section dùng chung ở một vị trí cố định (trang chưa có trong CMS).
+      properties:
+        is_fallback:
+          type: boolean
+          readOnly: true
+        body:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageBlock'
+          readOnly: true
+      required:
+      - body
+      - is_fallback
     SectionValue:
       type: object
       properties:
@@ -2156,6 +2805,13 @@ components:
           readOnly: true
           description: Cụm nút nổi sát mép phải, theo thứ tự; chỉ nút đang hiện và
             có link
+        languages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Language'
+          readOnly: true
+          description: Ngôn ngữ trong nút đổi ngôn ngữ, theo thứ tự CMS; ngôn ngữ
+            mặc định luôn có
       required:
       - analytics
       - branding
@@ -2163,9 +2819,18 @@ components:
       - contact
       - floating
       - footer
+      - languages
       - nav
       - seo
       - social
+    SizeEnum:
+      enum:
+      - text
+      - wide
+      type: string
+      description: |-
+        * `text` - text
+        * `wide` - wide
     SocialLink:
       type: object
       properties:
@@ -2176,6 +2841,44 @@ components:
       required:
       - network
       - url
+    TableNewsBlock:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/TableValue'
+        type:
+          $ref: '#/components/schemas/TableNewsBlockTypeEnum'
+        id:
+          type: string
+      required:
+      - id
+      - type
+      - value
+    TableNewsBlockTypeEnum:
+      enum:
+      - table
+      type: string
+      description: '* `table` - table'
+    TableValue:
+      type: object
+      properties:
+        columns:
+          type: array
+          items:
+            type: string
+        rows:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+          description: Ô dạng HTML
+        caption:
+          type: string
+      required:
+      - caption
+      - columns
+      - rows
     TargetEnum:
       enum:
       - capabilities
@@ -2183,6 +2886,7 @@ components:
       - products
       - about
       - projects
+      - news
       - contact
       - link
       type: string
@@ -2192,6 +2896,7 @@ components:
         * `products` - Sản phẩm (có menu con)
         * `about` - Về chúng tôi
         * `projects` - Dự án
+        * `news` - Tin tức
         * `contact` - Liên hệ
         * `link` - Link khác
     Taxonomy:
@@ -2213,3 +2918,47 @@ components:
       - categories
       - features
       - materials
+    VideoNewsBlock:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/VideoValue'
+        type:
+          $ref: '#/components/schemas/VideoNewsBlockTypeEnum'
+        id:
+          type: string
+      required:
+      - id
+      - type
+      - value
+    VideoNewsBlockTypeEnum:
+      enum:
+      - video
+      type: string
+      description: '* `video` - video'
+    VideoValue:
+      type: object
+      properties:
+        provider:
+          $ref: '#/components/schemas/ProviderEnum'
+        video_id:
+          type: string
+          description: Mã video YouTube / Vimeo, trống với tệp
+        src:
+          type: string
+          description: Link nhúng (iframe) hoặc link tệp MP4 / WebM
+        poster:
+          allOf:
+          - $ref: '#/components/schemas/ImageData'
+          nullable: true
+        caption:
+          type: string
+        size:
+          $ref: '#/components/schemas/SizeEnum'
+      required:
+      - caption
+      - poster
+      - provider
+      - size
+      - src
+      - video_id

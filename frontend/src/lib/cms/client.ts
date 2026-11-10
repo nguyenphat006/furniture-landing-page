@@ -1,5 +1,7 @@
 import "server-only";
-import { createHmac } from "node:crypto";
+import { createHash, createHmac, randomUUID } from "node:crypto";
+import { mkdir, readFile, rename, rm, stat, writeFile } from "node:fs/promises";
+import path from "node:path";
 /*
  * Client gọi API CMS (Django + Wagtail, backend/). CHỈ dùng phía server: địa chỉ CMS nằm trong
  * biến môi trường không có tiền tố NEXT_PUBLIC_, trình duyệt không gọi thẳng CMS.
@@ -53,8 +55,72 @@ function buildUrl(base: string, path: string, query: Query): string {
   return url.toString();
 }
 
+/*
+ * Bản tốt gần nhất (QC 09/11, nhóm Dự phòng). Webhook xuất bản cho dữ liệu CMS hết hạn ngay
+ * (expire 0, xem app/api/revalidate); nếu sau đó CMS sập thì lần dựng lại đầu tiên của mọi trang
+ * không còn dữ liệu nào và trả 500. Mỗi lần CMS trả lời (200 hoặc 404) thì ghi JSON ra đĩa, khoá
+ * theo đường dẫn API (không kèm địa chỉ gốc, vì lúc build dùng URL công khai còn lúc chạy dùng URL
+ * nội bộ). CMS lỗi mạng / 5xx thì đọc lại bản này: trang hiện nội dung trước đó thay vì báo lỗi.
+ * Lúc build mọi lời gọi đều chạy thật nên thư mục có đủ bản của mọi trang; Dockerfile chép thư
+ * mục này sang image chạy. Thư mục: CMS_FALLBACK_DIR, mặc định .cms-fallback trong thư mục chạy.
+ */
+function fallbackDir(): string {
+  return (
+    process.env.CMS_FALLBACK_DIR?.trim() ||
+    path.join(process.cwd(), ".cms-fallback")
+  );
+}
+
+function fallbackFile(key: string): string {
+  const name = createHash("sha256").update(key).digest("hex").slice(0, 32);
+  return path.join(fallbackDir(), `${name}.json`);
+}
+
+/** Nội dung đã ghi trong tiến trình này, để không ghi lại khi dữ liệu không đổi */
+const written = new Map<string, string>();
+
+async function remember(key: string, data: unknown): Promise<void> {
+  const text = JSON.stringify({ key, data });
+  if (written.get(key) === text) return;
+  const file = fallbackFile(key);
+  // Ghi tệp tạm rồi đổi tên: lần đọc song song không gặp tệp ghi dở
+  const tmp = `${file}.${process.pid}.${randomUUID()}.tmp`;
+  try {
+    await mkdir(fallbackDir(), { recursive: true });
+    await writeFile(tmp, text);
+    await rename(tmp, file);
+    written.set(key, text);
+  } catch (err) {
+    await rm(tmp, { force: true }).catch(() => {});
+    // Windows: nhiều tiến trình build cùng đổi tên vào một tệp thì báo EPERM; tiến trình khác đã ghi
+    // cùng dữ liệu nên chỉ cảnh báo khi tệp đích thật sự chưa có
+    const exists = await stat(file).then(
+      () => true,
+      () => false,
+    );
+    if (!exists) console.warn("[cms] không ghi được bản dự phòng", String(err));
+  }
+}
+
+async function fallback<T>(key: string, error: CmsError): Promise<T | null> {
+  try {
+    const saved = JSON.parse(await readFile(fallbackFile(key), "utf8")) as {
+      key: string;
+      data: T | null;
+    };
+    if (saved.key === key) {
+      console.warn(`[cms] dùng bản dự phòng do CMS lỗi: ${error.message}`);
+      return saved.data;
+    }
+  } catch {
+    // Chưa có bản dự phòng: báo lỗi như thường
+  }
+  throw error;
+}
+
 /**
- * GET một endpoint CMS, trả JSON. 404 trả null (để trang gọi notFound()); lỗi khác ném CmsError.
+ * GET một endpoint CMS, trả JSON. 404 trả null (để trang gọi notFound()); lỗi khác ném CmsError,
+ * trừ khi đã có bản dự phòng của đường dẫn đó (xem fallback ở trên).
  */
 export async function cmsGet<T>(
   path: string,
@@ -64,6 +130,7 @@ export async function cmsGet<T>(
   if (!base) throw new CmsError("CMS_API_URL chưa được đặt");
 
   const url = buildUrl(base, path, query);
+  const key = url.slice(base.length);
   let res: Response | undefined;
   // Lỗi mạng (CMS đang khởi động lại, quá tải lúc build dựng nhiều trang cùng lúc): thử lại 2 lần
   for (let attempt = 0; !res; attempt++) {
@@ -75,14 +142,27 @@ export async function cmsGet<T>(
       });
     } catch (err) {
       if (attempt >= RETRIES)
-        throw new CmsError(`Không gọi được CMS (${url}): ${String(err)}`);
+        return fallback<T>(
+          key,
+          new CmsError(`Không gọi được CMS (${url}): ${String(err)}`),
+        );
       await new Promise((r) => setTimeout(r, 500 * 2 ** attempt));
     }
   }
-  if (res.status === 404) return null;
+  if (res.status === 404) {
+    await remember(key, null);
+    return null;
+  }
+  if (res.status >= 500)
+    return fallback<T>(
+      key,
+      new CmsError(`CMS trả lỗi ${res.status} (${url})`, res.status),
+    );
   if (!res.ok)
     throw new CmsError(`CMS trả lỗi ${res.status} (${url})`, res.status);
-  return (await res.json()) as T;
+  const data = (await res.json()) as T;
+  await remember(key, data);
+  return data;
 }
 
 type Page<T> = { count: number; total_pages: number; results: T[] };

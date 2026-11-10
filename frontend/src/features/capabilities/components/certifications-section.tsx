@@ -7,6 +7,7 @@ import {
 } from "@/components/shared/section";
 import { certifications, type Certification } from "@/data/certifications";
 import { cn } from "@/lib/utils";
+import { reveal } from "@/components/shared/reveal";
 
 /*
  * Chứng nhận (2026-11-05), tách khỏi section QC nền tối theo yêu cầu, nền trắng.
@@ -25,7 +26,10 @@ export function CertificationsSection() {
           eyebrow={t("kicker")}
           title={t("heading")}
         />
-        <ul className="mx-auto grid max-w-[960px] grid-cols-2 gap-6 sm:grid-cols-3 lg:gap-10">
+        <ul
+          {...reveal("stagger")}
+          className="mx-auto grid max-w-[960px] grid-cols-2 gap-6 sm:grid-cols-3 lg:gap-10"
+        >
           {certifications.map((c) => (
             <CertPaper key={c.key} cert={c} />
           ))}
@@ -71,7 +75,7 @@ function CertPaper({ cert }: { cert: Certification }) {
             <span className="bg-ink/10 mx-auto h-1 w-3/5 rounded-full" />
           </span>
           {cert.sample ? (
-            <span className="bg-gold absolute top-[7%] right-[7%] rounded-[2px] px-2 py-0.5 text-[10px] font-semibold tracking-[.12em] text-white uppercase">
+            <span className="bg-gold text-ink absolute top-[7%] right-[7%] rounded-[2px] px-2 py-0.5 text-[10px] font-semibold tracking-[.12em] uppercase">
               {t("sample")}
             </span>
           ) : null}

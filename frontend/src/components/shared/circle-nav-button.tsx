@@ -1,4 +1,6 @@
-import type { ComponentProps } from "react";
+"use client";
+
+import { useLayoutEffect, useRef, type ComponentProps } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -14,6 +16,8 @@ type CircleNavButtonProps = Omit<ComponentProps<"button">, "children"> & {
  *   được vẽ dần liền một nét (stroke-dashoffset) từ chỗ hở qua đỉnh trên xuống đỉnh dưới trong ~1,1s,
  *   mũi tên chuyển trắng.
  * Vẽ bằng SVG với pathLength=100 nên dash tính theo phần trăm chu vi.
+ * Tới đầu/cuối thì nút bị vô hiệu hoá; nếu nút đang có focus (bấm bằng bàn phím) thì chuyển focus
+ * sang nút còn lại cùng cụm, không để rơi về body (QC 09/11).
  */
 export function CircleNavButton({
   direction,
@@ -25,6 +29,16 @@ export function CircleNavButton({
   // của chỗ hở, chạy theo chiều kim đồng hồ qua đỉnh trên, bên phải, đỉnh dưới rồi dừng ở 144°).
   // Nút "trước" lật ngang SVG nên hở bên phải và nét vẫn chạy từ trên xuống.
   const gapRotate = 216;
+  const ref = useRef<HTMLButtonElement>(null);
+  // Layout effect: chạy ngay sau khi DOM đổi, trước khi trình duyệt bỏ focus khỏi nút bị vô hiệu
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!props.disabled || !el || document.activeElement !== el) return;
+    const other = Array.from(
+      el.parentElement?.querySelectorAll("button") ?? [],
+    ).find((b) => b !== el && !b.disabled);
+    other?.focus();
+  }, [props.disabled]);
 
   return (
     <button
@@ -36,6 +50,7 @@ export function CircleNavButton({
         className,
       )}
       {...props}
+      ref={ref}
     >
       {/* Nền đậm lan từ tâm khi hover */}
       <span

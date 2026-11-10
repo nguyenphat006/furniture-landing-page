@@ -19,6 +19,8 @@ from wagtail.models import Locale
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet
 
+from apps.core.admin_translations import SourceLocaleListingMixin, TranslationStatusColumn
+
 from .models import SharedSection
 from .rich_text import FrontendPageLinkHandler
 from .selectors import PAGE_MODELS
@@ -73,13 +75,18 @@ if SHOW_PAGE_MENU:
     hooks.register("register_admin_menu_item", register_page_menu)
 
 
-class SharedSectionViewSet(SnippetViewSet):
+class SharedSectionViewSet(SourceLocaleListingMixin, SnippetViewSet):
     model = SharedSection
     icon = "link"
     menu_label = _("Section dùng chung")
     menu_order = 150
     add_to_admin_menu = True
-    list_display = ["name", LiveStatusTagColumn(), UpdatedAtColumn()]
+    list_display = [
+        "name",
+        LiveStatusTagColumn(),
+        TranslationStatusColumn(),
+        UpdatedAtColumn(),
+    ]
 
 
 register_snippet(SharedSectionViewSet)

@@ -141,6 +141,39 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/news": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Bài đang xuất bản, mới nhất trước (?page=&page_size=). Bài chưa dịch trả bản gốc. */
+        get: operations["news_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/news/{slug}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["news_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/pages/{key}": {
         parameters: {
             query?: never;
@@ -171,6 +204,27 @@ export interface paths {
         };
         /** @description Bản nháp cho draft mode của frontend (docs/adr/0014). Chỉ nhận request đã ký. */
         get: operations["pages_preview_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/sections/{slot}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * @description Section dùng chung ở vị trí cố định (capabilities-faq...), chọn ở Cài đặt.
+         *
+         *     Chưa chọn hoặc chưa xuất bản thì 404 (frontend dùng chữ mặc định).
+         */
+        get: operations["sections_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -216,6 +270,24 @@ export interface components {
             readonly logo_on_dark: string | null;
             readonly favicon: string | null;
             readonly og_image: string | null;
+        };
+        ButtonNewsBlock: {
+            value: components["schemas"]["ButtonValue"];
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "button";
+            id: string;
+        };
+        /**
+         * @description * `button` - button
+         * @enum {string}
+         */
+        ButtonNewsBlockTypeEnum: "button";
+        ButtonValue: {
+            label: string;
+            url: string;
         };
         Category: {
             slug: string;
@@ -460,6 +532,13 @@ export interface components {
             quote_label: string;
             visit_label: string;
         };
+        DocumentData: {
+            url: string;
+            title: string;
+            extension: string;
+            /** @description Byte */
+            size: number;
+        };
         ExportMarket: {
             /**
              * @description Mã ISO3
@@ -694,12 +773,58 @@ export interface components {
             points: string[];
             button_label: string;
         };
+        FaqItem: {
+            question: string;
+            answer: string;
+        };
+        FaqPageBlock: {
+            value: components["schemas"]["FaqValue"];
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "faq";
+            id: string;
+        };
+        /**
+         * @description * `faq` - faq
+         * @enum {string}
+         */
+        FaqPageBlockTypeEnum: "faq";
+        FaqValue: {
+            kicker: string;
+            title: string;
+            note: string;
+            /** @description Rỗng = nhãn mặc định trong messages */
+            button_label: string;
+            items: components["schemas"]["FaqItem"][];
+        };
+        FileNewsBlock: {
+            value: components["schemas"]["FileValue"];
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "file";
+            id: string;
+        };
+        /**
+         * @description * `file` - file
+         * @enum {string}
+         */
+        FileNewsBlockTypeEnum: "file";
+        FileValue: {
+            file: components["schemas"]["DocumentData"] | null;
+            label: string;
+        };
         FloatingAction: {
             kind: components["schemas"]["FloatingActionKindEnum"];
             /** @description Rỗng: dùng tên có sẵn theo loại */
             readonly label: string;
-            /** @description Link đã lấy từ Liên hệ khi cần; rỗng với search và quote */
+            /** @description Link đã lấy từ Liên hệ khi cần; rỗng: nút hiện nhưng không bấm được (chưa nhập link); search (mở ô tìm kiếm) và quote do web tự gắn */
             readonly url: string;
+            /** @description Icon chọn trong CMS (tên trong bộ icon của web); rỗng = icon có sẵn theo loại */
+            icon: string;
         };
         /**
          * @description * `search` - Tìm kiếm
@@ -720,6 +845,29 @@ export interface components {
         FooterLink: {
             readonly label: string;
             url: string;
+        };
+        GalleryItem: {
+            image: components["schemas"]["ImageData"];
+            caption: string;
+        };
+        GalleryNewsBlock: {
+            value: components["schemas"]["GalleryValue"];
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "gallery";
+            id: string;
+        };
+        /**
+         * @description * `gallery` - gallery
+         * @enum {string}
+         */
+        GalleryNewsBlockTypeEnum: "gallery";
+        GalleryValue: {
+            layout: components["schemas"]["LayoutEnum"];
+            images: components["schemas"]["GalleryItem"][];
+            caption: string;
         };
         HeroPageBlock: {
             value: components["schemas"]["HeroValue"];
@@ -755,6 +903,51 @@ export interface components {
             width: number;
             height: number;
             alt: string;
+        };
+        ImageNewsBlock: {
+            value: components["schemas"]["ImageValue"];
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "image";
+            id: string;
+        };
+        /**
+         * @description * `image` - image
+         * @enum {string}
+         */
+        ImageNewsBlockTypeEnum: "image";
+        /**
+         * @description * `left` - left
+         *     * `right` - right
+         * @enum {string}
+         */
+        ImagePositionEnum: "left" | "right";
+        ImageTextNewsBlock: {
+            value: components["schemas"]["ImageTextValue"];
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "image_text";
+            id: string;
+        };
+        /**
+         * @description * `image_text` - image_text
+         * @enum {string}
+         */
+        ImageTextNewsBlockTypeEnum: "image_text";
+        ImageTextValue: {
+            image: components["schemas"]["ImageData"] | null;
+            image_position: components["schemas"]["ImagePositionEnum"];
+            heading: string;
+            html: string;
+        };
+        ImageValue: {
+            image: components["schemas"]["ImageData"] | null;
+            caption: string;
+            size: components["schemas"]["SizeEnum"];
         };
         /** @description Dữ liệu form Liên hệ do Next.js server chuyển sang (đã làm sạch một lần ở frontend). */
         InquiryCreateRequest: {
@@ -803,6 +996,21 @@ export interface components {
             slug: string;
             readonly name: string;
         };
+        Language: {
+            /** @description Mã ngôn ngữ, vd vi, en */
+            code: string;
+            /** @description Tên hiển thị, thường là tên gốc: Tiếng Việt, English */
+            label: string;
+            /** @description Mã quốc gia ISO 3166 của cờ, vd VN, GB */
+            flag: string;
+        };
+        /**
+         * @description * `grid-2` - grid-2
+         *     * `grid-3` - grid-3
+         *     * `slider` - slider
+         * @enum {string}
+         */
+        LayoutEnum: "grid-2" | "grid-3" | "slider";
         LegalPageBlock: {
             value: components["schemas"]["LegalValue"];
             /**
@@ -907,6 +1115,7 @@ export interface components {
              *     * `products` - Sản phẩm (có menu con)
              *     * `about` - Về chúng tôi
              *     * `projects` - Dự án
+             *     * `news` - Tin tức
              *     * `contact` - Liên hệ
              *     * `link` - Link khác
              */
@@ -926,12 +1135,73 @@ export interface components {
          * @enum {string}
          */
         NetworkEnum: "facebook" | "linkedin" | "youtube" | "instagram" | "tiktok" | "pinterest";
-        PageBlock: components["schemas"]["HeroPageBlock"] | components["schemas"]["IntroPageBlock"] | components["schemas"]["ExportPageBlock"] | components["schemas"]["FactoryPageBlock"] | components["schemas"]["CtaPageBlock"] | components["schemas"]["SectionPageBlock"] | components["schemas"]["LegalPageBlock"];
+        NewsBlock: components["schemas"]["ParagraphNewsBlock"] | components["schemas"]["ImageNewsBlock"] | components["schemas"]["GalleryNewsBlock"] | components["schemas"]["VideoNewsBlock"] | components["schemas"]["ImageTextNewsBlock"] | components["schemas"]["QuoteNewsBlock"] | components["schemas"]["TableNewsBlock"] | components["schemas"]["ButtonNewsBlock"] | components["schemas"]["FileNewsBlock"];
+        NewsDetail: {
+            slug: string;
+            kind: components["schemas"]["NewsKindEnum"];
+            /** Format: date */
+            date: string;
+            title: string;
+            excerpt: string;
+            readonly cover: components["schemas"]["Image"] | null;
+            /** @description True: chưa có bản dịch ở ngôn ngữ được hỏi, đây là bản gốc. */
+            is_fallback: boolean;
+            /** @description Quản trị viên ẩn trang khỏi Google */
+            noindex: boolean;
+            /**
+             * Format: date-time
+             * @description Lần xuất bản gần nhất, dùng cho lastmod trong sitemap
+             */
+            readonly updated: string | null;
+            /** @description Slug của bản đang xuất bản theo từng ngôn ngữ (đổi ngôn ngữ, hreflang) */
+            readonly slugs: {
+                [key: string]: string;
+            };
+            /** @description Các khối nội dung theo thứ tự */
+            readonly body: components["schemas"]["NewsBlock"][];
+            readonly seo: components["schemas"]["PageSeo"];
+        };
+        /**
+         * @description * `news` - Tin tức
+         *     * `notice` - Thông báo
+         * @enum {string}
+         */
+        NewsKindEnum: "news" | "notice";
+        NewsList: {
+            slug: string;
+            kind: components["schemas"]["NewsKindEnum"];
+            /** Format: date */
+            date: string;
+            title: string;
+            excerpt: string;
+            readonly cover: components["schemas"]["Image"] | null;
+            /** @description True: chưa có bản dịch ở ngôn ngữ được hỏi, đây là bản gốc. */
+            is_fallback: boolean;
+            /** @description Quản trị viên ẩn trang khỏi Google */
+            noindex: boolean;
+            /**
+             * Format: date-time
+             * @description Lần xuất bản gần nhất, dùng cho lastmod trong sitemap
+             */
+            readonly updated: string | null;
+            /** @description Slug của bản đang xuất bản theo từng ngôn ngữ (đổi ngôn ngữ, hreflang) */
+            readonly slugs: {
+                [key: string]: string;
+            };
+        };
+        PageBlock: components["schemas"]["HeroPageBlock"] | components["schemas"]["IntroPageBlock"] | components["schemas"]["ExportPageBlock"] | components["schemas"]["FactoryPageBlock"] | components["schemas"]["CtaPageBlock"] | components["schemas"]["FaqPageBlock"] | components["schemas"]["SectionPageBlock"] | components["schemas"]["LegalPageBlock"];
         /** @description SEO riêng của trang; chuỗi rỗng = frontend tự tạo từ nội dung (docs/adr/0012). */
         PageSeo: {
             title: string;
             description: string;
             noindex: boolean;
+        };
+        PaginatedNewsListList: {
+            count: number;
+            page: number;
+            page_size: number;
+            total_pages: number;
+            results: components["schemas"]["NewsList"][];
         };
         PaginatedProductListList: {
             count: number;
@@ -940,10 +1210,27 @@ export interface components {
             total_pages: number;
             results: components["schemas"]["ProductList"][];
         };
-        /** @description Bản nháp: data cùng định dạng API công khai (ContentPage hoặc ProductDetail). */
+        ParagraphNewsBlock: {
+            value: components["schemas"]["ParagraphValue"];
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "paragraph";
+            id: string;
+        };
+        /**
+         * @description * `paragraph` - paragraph
+         * @enum {string}
+         */
+        ParagraphNewsBlockTypeEnum: "paragraph";
+        ParagraphValue: {
+            html: string;
+        };
+        /** @description Bản nháp: data cùng định dạng API công khai (ContentPage, ProductDetail hoặc NewsDetail). */
         Preview: {
             kind: components["schemas"]["PreviewKindEnum"];
-            /** @description Khoá trang (home, privacy...) hoặc slug sản phẩm */
+            /** @description Khoá trang (home, privacy...) hoặc slug sản phẩm / bài tin tức */
             key: string;
             locale: string;
             /** @description Đường dẫn trên web, đã có tiền tố ngôn ngữ */
@@ -953,9 +1240,10 @@ export interface components {
         /**
          * @description * `page` - page
          *     * `product` - product
+         *     * `news` - news
          * @enum {string}
          */
-        PreviewKindEnum: "page" | "product";
+        PreviewKindEnum: "page" | "product" | "news";
         ProductDetail: {
             slug: string;
             name: string;
@@ -968,6 +1256,11 @@ export interface components {
             is_fallback: boolean;
             /** @description Quản trị viên ẩn trang khỏi Google */
             noindex: boolean;
+            /**
+             * Format: date-time
+             * @description Lần xuất bản gần nhất, dùng cho lastmod trong sitemap (QC 09/11)
+             */
+            readonly updated: string | null;
             /** @description cm; trường nào trống thì không có */
             readonly dimensions: {
                 length?: number;
@@ -1008,6 +1301,11 @@ export interface components {
             is_fallback: boolean;
             /** @description Quản trị viên ẩn trang khỏi Google */
             noindex: boolean;
+            /**
+             * Format: date-time
+             * @description Lần xuất bản gần nhất, dùng cho lastmod trong sitemap (QC 09/11)
+             */
+            readonly updated: string | null;
             readonly image: components["schemas"]["Image"] | null;
         };
         ProductType: {
@@ -1016,6 +1314,13 @@ export interface components {
             is_set: boolean;
         };
         /**
+         * @description * `youtube` - youtube
+         *     * `vimeo` - vimeo
+         *     * `file` - file
+         * @enum {string}
+         */
+        ProviderEnum: "youtube" | "vimeo" | "file";
+        /**
          * @description * `quote` - Báo giá
          *     * `oem` - OEM / ODM
          *     * `visit` - Thăm nhà máy
@@ -1023,12 +1328,32 @@ export interface components {
          * @enum {string}
          */
         PurposeEnum: "quote" | "oem" | "visit" | "other";
+        QuoteNewsBlock: {
+            value: components["schemas"]["QuoteValue"];
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "quote";
+            id: string;
+        };
+        /**
+         * @description * `quote` - quote
+         * @enum {string}
+         */
+        QuoteNewsBlockTypeEnum: "quote";
+        QuoteValue: {
+            quote: string;
+            author: string;
+            role: string;
+        };
         /**
          * @description * `products` - products
          *     * `materials` - materials
+         *     * `news` - news
          * @enum {string}
          */
-        SectionEnum: "products" | "materials";
+        SectionEnum: "products" | "materials" | "news";
         SectionPageBlock: {
             value: components["schemas"]["SectionValue"];
             /**
@@ -1043,6 +1368,11 @@ export interface components {
          * @enum {string}
          */
         SectionPageBlockTypeEnum: "section";
+        /** @description Section dùng chung ở một vị trí cố định (trang chưa có trong CMS). */
+        SectionSlot: {
+            readonly is_fallback: boolean;
+            readonly body: components["schemas"]["PageBlock"][];
+        };
         SectionValue: {
             section: components["schemas"]["SectionEnum"];
         };
@@ -1098,10 +1428,38 @@ export interface components {
             analytics: components["schemas"]["Analytics"];
             /** @description Cụm nút nổi sát mép phải, theo thứ tự; chỉ nút đang hiện và có link */
             readonly floating: components["schemas"]["FloatingAction"][];
+            /** @description Ngôn ngữ trong nút đổi ngôn ngữ, theo thứ tự CMS; ngôn ngữ mặc định luôn có */
+            readonly languages: components["schemas"]["Language"][];
         };
+        /**
+         * @description * `text` - text
+         *     * `wide` - wide
+         * @enum {string}
+         */
+        SizeEnum: "text" | "wide";
         SocialLink: {
             network: components["schemas"]["NetworkEnum"];
             url: string;
+        };
+        TableNewsBlock: {
+            value: components["schemas"]["TableValue"];
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "table";
+            id: string;
+        };
+        /**
+         * @description * `table` - table
+         * @enum {string}
+         */
+        TableNewsBlockTypeEnum: "table";
+        TableValue: {
+            columns: string[];
+            /** @description Ô dạng HTML */
+            rows: string[][];
+            caption: string;
         };
         /**
          * @description * `capabilities` - Năng lực
@@ -1109,15 +1467,40 @@ export interface components {
          *     * `products` - Sản phẩm (có menu con)
          *     * `about` - Về chúng tôi
          *     * `projects` - Dự án
+         *     * `news` - Tin tức
          *     * `contact` - Liên hệ
          *     * `link` - Link khác
          * @enum {string}
          */
-        TargetEnum: "capabilities" | "materials" | "products" | "about" | "projects" | "contact" | "link";
+        TargetEnum: "capabilities" | "materials" | "products" | "about" | "projects" | "news" | "contact" | "link";
         Taxonomy: {
             categories: components["schemas"]["Category"][];
             materials: components["schemas"]["Labelled"][];
             features: components["schemas"]["Labelled"][];
+        };
+        VideoNewsBlock: {
+            value: components["schemas"]["VideoValue"];
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "video";
+            id: string;
+        };
+        /**
+         * @description * `video` - video
+         * @enum {string}
+         */
+        VideoNewsBlockTypeEnum: "video";
+        VideoValue: {
+            provider: components["schemas"]["ProviderEnum"];
+            /** @description Mã video YouTube / Vimeo, trống với tệp */
+            video_id: string;
+            /** @description Link nhúng (iframe) hoặc link tệp MP4 / WebM */
+            src: string;
+            poster: components["schemas"]["ImageData"] | null;
+            caption: string;
+            size: components["schemas"]["SizeEnum"];
         };
     };
     responses: never;
@@ -1328,6 +1711,58 @@ export interface operations {
             };
         };
     };
+    news_list: {
+        parameters: {
+            query?: {
+                /** @description Loại bài */
+                kind?: "news" | "notice";
+                /** @description Ngôn ngữ nội dung, mặc định tiếng Việt */
+                locale?: "en" | "vi";
+                /** @description A page number within the paginated result set. */
+                page?: number;
+                /** @description Number of results to return per page. */
+                page_size?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedNewsListList"];
+                };
+            };
+        };
+    };
+    news_retrieve: {
+        parameters: {
+            query?: {
+                /** @description Ngôn ngữ nội dung, mặc định tiếng Việt */
+                locale?: "en" | "vi";
+            };
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NewsDetail"];
+                };
+            };
+        };
+    };
     pages_retrieve: {
         parameters: {
             query?: {
@@ -1369,6 +1804,30 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Preview"];
+                };
+            };
+        };
+    };
+    sections_retrieve: {
+        parameters: {
+            query?: {
+                /** @description Ngôn ngữ nội dung, mặc định tiếng Việt */
+                locale?: "en" | "vi";
+            };
+            header?: never;
+            path: {
+                slot: "capabilities-faq";
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SectionSlot"];
                 };
             };
         };

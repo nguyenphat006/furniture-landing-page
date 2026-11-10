@@ -5,10 +5,12 @@ from wagtail.admin.ui.tables import BooleanColumn, Column, LiveStatusTagColumn, 
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
 
+from apps.core.admin_translations import SourceLocaleListingMixin, TranslationStatusColumn
+
 from .models import Category, Feature, Material, MaterialMenuGroup, Product, ProductType
 
 
-class ProductViewSet(SnippetViewSet):
+class ProductViewSet(SourceLocaleListingMixin, SnippetViewSet):
     model = Product
     icon = "doc-full-inverse"
     menu_label = _("Sản phẩm")
@@ -18,6 +20,7 @@ class ProductViewSet(SnippetViewSet):
         Column("code", label=_("Mã mẫu")),
         Column("product_type", label=_("Loại")),
         LiveStatusTagColumn(),
+        TranslationStatusColumn(),
         UpdatedAtColumn(),
     ]
     list_filter = ["product_type__category", "product_type", "materials", "live"]

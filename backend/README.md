@@ -78,6 +78,7 @@ cập nhật, sao lưu, xử lý sự cố: [../deploy/README.md](../deploy/READ
 | `sync_taxonomy` | Tạo nhóm / loại / chất liệu / tính năng từ dữ liệu frontend (lần đầu, không ghi đè) |
 | `import_mock` | 50 sản phẩm mẫu + ảnh (lần đầu) |
 | `import_pages` | Tạo trang nội dung còn thiếu, không ghi đè trang đã sửa (mỗi lần deploy) |
+| `import_news` | 10 bài tin tức mẫu + chèn section tin tức vào Trang chủ nếu chưa có (lần đầu; không ghi đè bài đã có) |
 | `publish_scheduled` | Xuất bản / gỡ nội dung hẹn giờ (cron 5 phút) |
 | `scan_attachments` | Quét virus lại tệp đính kèm chưa quét được (cron 15 phút) |
 

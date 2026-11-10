@@ -39,6 +39,8 @@ if [[ $FIRST == 1 ]]; then
   # Chỉ lần đầu: phân loại do CMS quản lý, chạy lại sẽ tạo lại mục admin đã cố ý xoá
   manage sync_taxonomy
   manage import_mock
+  # 10 bài tin tức mẫu (Trang chủ do import_pages tạo ở bước sau đã có section tin tức)
+  manage import_news
 fi
 
 echo "==> Trang nội dung còn thiếu (không ghi đè phần đã sửa trong admin)"

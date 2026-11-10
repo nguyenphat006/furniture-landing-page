@@ -1,5 +1,8 @@
 import type { CategoryEntry, MaterialSummary } from "@/data/catalog";
+import type { NewsPost } from "@/data/news/types";
 import type { PageBlock } from "@/data/pages/types";
+import { FaqSection } from "@/features/capabilities/components/faq-section";
+import { NewsSection } from "@/features/news/components/news-section";
 import type { CodedSection } from "../page-content";
 import { CtaSection } from "./cta-section";
 import { ExportSection } from "./export-section";
@@ -18,6 +21,7 @@ import type { SectionAnchor } from "./section-dots";
 type CatalogData = {
   categories: CategoryEntry[];
   materials: MaterialSummary[];
+  news: NewsPost[];
 };
 
 function Coded({
@@ -32,6 +36,8 @@ function Coded({
       return <ProductsSection categories={data.categories} />;
     case "materials":
       return <MaterialsShowcaseSection materials={data.materials} />;
+    case "news":
+      return <NewsSection posts={data.news} />;
   }
 }
 
@@ -57,6 +63,8 @@ export function HomeBlocks({
         return <FactorySection key={block.id} content={block.value} />;
       case "cta":
         return <CtaSection key={block.id} content={block.value} />;
+      case "faq":
+        return <FaqSection key={block.id} content={block.value} />;
       case "section":
         return (
           <Coded key={block.id} section={block.value.section} data={data} />

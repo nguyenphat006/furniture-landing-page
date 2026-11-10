@@ -1,17 +1,18 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Search } from "lucide-react";
 import { useSite } from "@/components/providers/site-provider";
 import { BrandLogo } from "@/components/shared/brand-logo";
 import { Container } from "@/components/shared/section";
 import { navHref, type NavKey } from "@/config/navigation";
 import type { NavEntry } from "@/data/site/types";
 import { Link, usePathname } from "@/i18n/navigation";
-import { routing } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
+import { SearchTrigger } from "@/features/search";
+import { LanguageSwitcher } from "./language-switcher";
 // Menu modal fullscreen tạm ẩn (2026-11-04), thay bằng dropdown. Giữ file, không xoá:
 // import { MenuDialog } from "./menu-dialog";
 import {
@@ -24,7 +25,9 @@ import {
 /*
  * Header (chốt 2026-11-04): logo trái, dải menu ở giữa, gắn cứng khi cuộn (không tự ẩn).
  * Luôn nền trắng chữ tối, kể cả trên hero; cao cố định 72px (xl 80px), logo cỡ thường.
- * Từ xl (1280px): logo | Năng lực · Vật liệu ▾ · Sản phẩm ▾ · Về chúng tôi | VI/EN · Báo giá.
+ * Từ xl (1280px): logo | menu (theo CMS) | cờ + mã ngôn ngữ ▾ · 🔍 · Báo giá.
+ * Kính lúp (2026-11-09, B7) mở ô tìm nhanh SearchDialog; ẩn dưới sm (360px không đủ chỗ cạnh logo +
+ * Báo giá + hamburger), ở đó thanh nút nổi dưới đáy đã có nút Tìm kiếm.
  * Vật liệu và Sản phẩm mở mega dropdown full-width khi hover, hoặc bấm nút ▾ (bàn phím, cảm ứng).
  * Dưới xl: logo trái; Báo giá + hamburger sát phải; hamburger thả panel menu xuống dưới header.
  * Mục menu, thứ tự, tên sửa ở CMS (Cài đặt → Thông tin chung → Menu); mặc định ở data/site.
@@ -36,7 +39,6 @@ const CLOSE_DELAY = 140;
 export function SiteHeader() {
   const t = useTranslations("Common");
   const { nav } = useSite();
-  const locale = useLocale();
   const pathname = usePathname();
   const reduce = useReducedMotion();
   const [openMenu, setOpenMenu] = useState<DropdownKey | null>(null);
@@ -208,11 +210,13 @@ export function SiteHeader() {
         ref={headerRef}
         onMouseLeave={scheduleClose}
         onMouseEnter={cancelClose}
-        // Focus rời khỏi header (Tab ra ngoài) thì đóng dropdown
+        // Focus rời khỏi header (Tab ra ngoài) thì đóng dropdown. Menu mobile cũng đóng khi Tab sang
+        // nội dung trang nằm dưới panel (QC 09/11); relatedTarget null (đổi cửa sổ) thì giữ menu mở
         onBlur={(e) => {
-          if (!headerRef.current?.contains(e.relatedTarget as Node | null)) {
-            setOpenMenu(null);
-          }
+          const next = e.relatedTarget as Node | null;
+          if (headerRef.current?.contains(next)) return;
+          setOpenMenu(null);
+          if (next) setMobileOpen(false);
         }}
         className="border-line fixed inset-x-0 top-0 z-[60] border-b bg-white"
       >
@@ -246,36 +250,22 @@ export function SiteHeader() {
             className="flex items-center justify-end gap-3 xl:gap-8"
             onMouseEnter={scheduleClose}
           >
-            <div
-              className={cn(
-                "text-ink hidden items-center gap-2 xl:flex",
-                navText,
-              )}
+            {/* Đổi ngôn ngữ (xl+): dropdown cờ + tên, danh sách theo CMS */}
+            <LanguageSwitcher
+              className="hidden xl:flex"
+              onOpen={() => {
+                cancelClose();
+                setOpenMenu(null);
+              }}
+            />
+
+            {/* Tìm kiếm (B7): mở ô tìm nhanh, không JS thì sang trang /search */}
+            <SearchTrigger
+              label={t("search")}
+              className="text-ink hover:text-forest -mx-1 flex size-11 items-center justify-center transition-colors max-sm:hidden"
             >
-              {routing.locales.map((l, i) => (
-                <span key={l} className="flex items-center gap-2">
-                  {i > 0 ? (
-                    <span aria-hidden="true" className="opacity-40">
-                      /
-                    </span>
-                  ) : null}
-                  {l === locale ? (
-                    <span aria-current="true" className="font-semibold">
-                      {l.toUpperCase()}
-                    </span>
-                  ) : (
-                    <Link
-                      href={pathname}
-                      locale={l}
-                      aria-label={t(`languages.${l}`)}
-                      className="opacity-60 transition-opacity hover:no-underline hover:opacity-100"
-                    >
-                      {l.toUpperCase()}
-                    </Link>
-                  )}
-                </span>
-              ))}
-            </div>
+              <Search aria-hidden="true" className="size-5" strokeWidth={2} />
+            </SearchTrigger>
 
             <Link
               href={navHref.contact}

@@ -21,18 +21,31 @@ export function localePath(path: string, locale: string): string {
   return `/${locale}${clean}`;
 }
 
+/** Đường dẫn chung, hoặc riêng từng ngôn ngữ (tin tức: mỗi ngôn ngữ một slug) */
+export type LocalizedPath = string | Record<string, string>;
+
+/** Đường dẫn (chưa gắn tiền tố ngôn ngữ) của trang ở ngôn ngữ `locale` */
+export function pathFor(path: LocalizedPath, locale: string): string {
+  return typeof path === "string"
+    ? path
+    : (path[locale] ?? path[routing.defaultLocale]);
+}
+
 /** canonical của trang đang xem + hreflang vi / en / x-default */
 export function pageAlternates(
-  path: string,
+  path: LocalizedPath,
   locale: string,
 ): NonNullable<Metadata["alternates"]> {
   return {
-    canonical: localePath(path, locale),
+    canonical: localePath(pathFor(path, locale), locale),
     languages: {
       ...Object.fromEntries(
-        routing.locales.map((l) => [l, localePath(path, l)]),
+        routing.locales.map((l) => [l, localePath(pathFor(path, l), l)]),
       ),
-      "x-default": localePath(path, routing.defaultLocale),
+      "x-default": localePath(
+        pathFor(path, routing.defaultLocale),
+        routing.defaultLocale,
+      ),
     },
   };
 }
@@ -83,7 +96,7 @@ function usableImage(url: string | null | undefined): url is string {
  * rồi ảnh mặc định ở Cài đặt CMS, rồi ảnh tĩnh của site.
  */
 export async function pageLinks(
-  path: string,
+  path: LocalizedPath,
   locale: string,
   image?: string | null,
 ): Promise<Pick<Metadata, "alternates" | "openGraph">> {
@@ -95,7 +108,7 @@ export async function pageLinks(
     openGraph: {
       type: "website",
       siteName: site.name,
-      url: localePath(path, locale),
+      url: localePath(pathFor(path, locale), locale),
       locale: OG_LOCALE[locale] ?? locale,
       alternateLocale: routing.locales
         .filter((l) => l !== locale)

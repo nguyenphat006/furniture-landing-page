@@ -36,6 +36,10 @@ const nextConfig: NextConfig = {
   output: "standalone",
   // Không quảng cáo framework qua header X-Powered-By (QC 07/11)
   poweredByHeader: false,
+  // sharp (nén ảnh /_next/image) nạp thư viện libvips nằm cạnh file .node; trace chỉ chép file .node
+  // nên bản standalone không nạp được sharp và trả nguyên ảnh gốc (QC 09/11: PNG 477 KB thay vì
+  // WebP 31 KB). Chép cả thư mục @img (Linux trong Docker là sharp-linux-x64 + sharp-libvips-linux-x64)
+  outputFileTracingIncludes: { "/*": ["./node_modules/@img/**/*"] },
   images: {
     // Chất lượng nén được phép: 75 mặc định, 60 cho ảnh hero, 50 cho ảnh nền mờ (QC 07/11)
     qualities: [50, 60, 75],

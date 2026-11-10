@@ -185,3 +185,52 @@ def test_body_over_upload_limit_is_413(api_client: APIClient, settings: Any) -> 
 
     assert res.status_code == 413
     assert not Inquiry.objects.exists()
+
+
+def _objstm_pdf(body: bytes) -> bytes:
+    import zlib
+
+    packed = zlib.compress(body)
+    return (
+        b"%PDF-1.7\n1 0 obj << /Type /ObjStm /N 1 /First 4 /Filter /FlateDecode /Length "
+        + str(len(packed)).encode()
+        + b" >>\nstream\n"
+        + packed
+        + b"\nendstream\nendobj\n%%EOF"
+    )
+
+
+@pytest.mark.parametrize(
+    "content",
+    [
+        # Tên viết bằng mã #xx (QC 09/11)
+        b"%PDF-1.7\n1 0 obj << /Open#41ction << /S /J#61vaScript /J#53 (app.alert(1)) >> >> endobj",
+        # /JavaScript giấu trong object stream nén
+        _objstm_pdf(b"2 0 << /S /JavaScript /JS (app.alert(1)) >>"),
+        # Object stream hỏng: không kiểm được bên trong
+        b"%PDF-1.7\n1 0 obj << /Type /ObjStm /N 1 >>\nstream\nkhong-phai-zlib\nendstream",
+    ],
+)
+def test_evasive_active_pdf_is_rejected(api_client: APIClient, content: bytes) -> None:
+    res = post(api_client, payload(file=SimpleUploadedFile("ban-ve.pdf", content)))
+
+    assert res.status_code == 400
+    assert not Inquiry.objects.exists()
+
+
+def test_clean_object_stream_pdf_is_accepted(api_client: APIClient) -> None:
+    content = _objstm_pdf(b"2 0 << /Type /Page /MediaBox [0 0 612 792] >>")
+    res = post(api_client, payload(file=SimpleUploadedFile("ban-ve.pdf", content)))
+
+    assert res.status_code == 201, res.content
+
+
+def test_staff_subject_keeps_acronyms(api_client: APIClient) -> None:
+    post(api_client, payload(purpose="oem"))
+    post(api_client, payload(purpose="quote", email="joe@example.com", message="Other text"))
+
+    subjects = sorted(m.subject for m in mail.outbox if m.to == ["office@example.com"])
+    assert subjects == [
+        "[Website] Yêu cầu OEM / ODM: Jane Buyer",
+        "[Website] Yêu cầu báo giá: Jane Buyer",
+    ]

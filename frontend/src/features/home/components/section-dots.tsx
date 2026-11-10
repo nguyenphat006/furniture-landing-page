@@ -38,19 +38,25 @@ export function SectionDots({
   return (
     <nav
       aria-label={t("aria")}
-      className="fixed top-1/2 right-5 z-50 grid -translate-y-1/2 gap-3.5 max-lg:hidden"
+      className="fixed top-1/2 right-[11px] z-50 grid -translate-y-1/2 max-lg:hidden"
     >
+      {/* Vùng bấm 24px (WCAG 2.5.8, QC 09/11), chấm vẫn 6px; right/khoảng cách giữ như cũ */}
       {anchors.map((anchor) => (
         <a
           key={anchor}
           href={`#${anchor}`}
           aria-label={t(anchor)}
-          className="h-1.5 w-1.5 rounded-full transition-colors duration-240"
-          style={{
-            background:
-              active === anchor ? "var(--color-forest)" : "var(--color-line)",
-          }}
-        />
+          className="flex size-6 items-center justify-center"
+        >
+          <span
+            aria-hidden="true"
+            className="h-1.5 w-1.5 rounded-full transition-colors duration-240"
+            style={{
+              background:
+                active === anchor ? "var(--color-forest)" : "var(--color-line)",
+            }}
+          />
+        </a>
       ))}
     </nav>
   );

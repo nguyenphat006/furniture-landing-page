@@ -19,6 +19,8 @@ from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.blocks import SnippetChooserBlock
 
+from apps.core.blocks import LineTextBlock
+
 BUTTON_HELP = _("Trống thì dùng chữ mặc định của web.")
 
 
@@ -30,11 +32,11 @@ class HeroBlock(blocks.StructBlock):
         label=_("Ảnh trình chiếu"),
         help_text=_("Ảnh ngang, rộng từ 2000px. Ảnh đầu tiên hiện trước."),
     )
-    title = blocks.TextBlock(
+    title = LineTextBlock(
         label=_("Tiêu đề"),
         help_text=_("Xuống dòng để ngắt dòng ở màn hình lớn (điện thoại tự xuống dòng)."),
     )
-    lede = blocks.TextBlock(label=_("Mô tả"), required=False)
+    lede = LineTextBlock(label=_("Mô tả"), required=False)
     button_label = blocks.CharBlock(
         label=_("Chữ trên nút báo giá"), required=False, help_text=BUTTON_HELP
     )
@@ -49,8 +51,8 @@ class IntroBlock(blocks.StructBlock):
         label=_("Tiêu đề ẩn"),
         help_text=_("Không hiện trên trang; dùng cho trình đọc màn hình và Google."),
     )
-    quote = blocks.TextBlock(label=_("Câu trích dẫn"))
-    body = blocks.TextBlock(label=_("Đoạn giới thiệu"))
+    quote = LineTextBlock(label=_("Câu trích dẫn"))
+    body = LineTextBlock(label=_("Đoạn giới thiệu"))
     button_label = blocks.CharBlock(
         label=_("Chữ trên nút (dẫn tới Về chúng tôi)"), required=False, help_text=BUTTON_HELP
     )
@@ -177,7 +179,7 @@ class ExportBlock(blocks.StructBlock):
 class FactoryBlock(blocks.StructBlock):
     kicker = blocks.CharBlock(label=_("Dòng nhỏ phía trên"))
     title = blocks.CharBlock(label=_("Tiêu đề"))
-    lede = blocks.TextBlock(label=_("Mô tả"), required=False)
+    lede = LineTextBlock(label=_("Mô tả"), required=False)
     image = ImageChooserBlock(label=_("Ảnh lớn"), help_text=_("Ảnh ngang, tràn mép trái."))
     detail_image = ImageChooserBlock(
         label=_("Ảnh chi tiết"), help_text=_("Ảnh dọc nhỏ, đè góc dưới ảnh lớn.")
@@ -190,6 +192,35 @@ class FactoryBlock(blocks.StructBlock):
     class Meta:
         icon = "home"
         label = _("Nhà máy")
+
+
+class FaqItemBlock(blocks.StructBlock):
+    question = blocks.CharBlock(label=_("Câu hỏi"), max_length=200)
+    answer = LineTextBlock(label=_("Trả lời"))
+
+    class Meta:
+        icon = "help"
+        label = _("Câu hỏi")
+
+
+class FaqBlock(blocks.StructBlock):
+    """Câu hỏi thường gặp (2026-11-09): trái tiêu đề + nút liên hệ, phải các câu hỏi mở ra được."""
+
+    kicker = blocks.CharBlock(label=_("Dòng nhỏ phía trên"))
+    title = blocks.CharBlock(label=_("Tiêu đề"))
+    note = blocks.CharBlock(
+        label=_("Dòng dưới tiêu đề"),
+        required=False,
+        help_text=_("Ví dụ: Chưa thấy câu trả lời bạn cần?"),
+    )
+    button_label = blocks.CharBlock(
+        label=_("Chữ trên nút (dẫn tới Liên hệ)"), required=False, help_text=BUTTON_HELP
+    )
+    items = blocks.ListBlock(FaqItemBlock(), min_num=1, label=_("Câu hỏi"))
+
+    class Meta:
+        icon = "help"
+        label = _("Câu hỏi thường gặp")
 
 
 class LegalSectionBlock(blocks.StructBlock):
@@ -214,6 +245,7 @@ def legal_blocks() -> list[tuple[str, blocks.Block]]:
 CODED_SECTIONS = [
     ("products", _("Nhóm sản phẩm (lấy từ Sản phẩm → Nhóm)")),
     ("materials", _("Vật liệu, dạng carousel (lấy từ Sản phẩm → Chất liệu)")),
+    ("news", _("Cuộc sống tại BFC: 4 tin mới nhất (lấy từ Tin tức)")),
 ]
 
 
@@ -222,8 +254,8 @@ class CodedSectionBlock(blocks.StructBlock):
 
     class Meta:
         icon = "code"
-        label = _("Section lấy từ catalog")
-        help_text = _("Nội dung lấy từ Sản phẩm; ở đây chỉ chọn vị trí trên trang.")
+        label = _("Section lấy từ Sản phẩm / Tin tức")
+        help_text = _("Nội dung lấy từ Sản phẩm hoặc Tin tức; ở đây chỉ chọn vị trí trên trang.")
 
 
 def section_blocks() -> list[tuple[str, blocks.Block]]:
@@ -233,6 +265,7 @@ def section_blocks() -> list[tuple[str, blocks.Block]]:
         ("export", ExportBlock()),
         ("factory", FactoryBlock()),
         ("cta", CtaBlock()),
+        ("faq", FaqBlock()),
         ("section", CodedSectionBlock()),
     ]
 

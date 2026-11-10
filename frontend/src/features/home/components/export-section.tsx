@@ -11,6 +11,8 @@ import {
 import { colorOf, type ExportCountry } from "../export-markets";
 import type { ExportContent } from "@/data/pages/types";
 import { ExportInteractive } from "./export-interactive";
+import { reveal } from "@/components/shared/reveal";
+import { CountUpText } from "@/components/shared/count-up";
 
 /*
  * Xuất khẩu (2026-11-06), trang chủ, giữa carousel Vật liệu và Nhà máy (nền xanh xen giữa 2 khối trắng).
@@ -233,7 +235,10 @@ export function ExportSection({ content }: { content: ExportContent }) {
         />
 
         {stats.length ? (
-          <dl className="mt-16 grid gap-y-10 border-t border-white/20 pt-10 sm:grid-cols-3 lg:mt-20">
+          <dl
+            {...reveal("stagger")}
+            className="mt-16 grid gap-y-10 border-t border-white/20 pt-10 sm:grid-cols-3 lg:mt-20"
+          >
             {stats.map((s) => (
               <div
                 key={s.label}
@@ -241,8 +246,8 @@ export function ExportSection({ content }: { content: ExportContent }) {
               >
                 <dt className="sr-only">{s.label}</dt>
                 <dd>
-                  <span className="text-gold block text-[clamp(3rem,5vw,4.5rem)] leading-none font-bold tracking-[-0.02em] tabular-nums [text-shadow:0_8px_24px_rgb(0_0_0/0.28)]">
-                    {s.value}
+                  <span className="text-gold block text-[clamp(3rem,5vw,4.5rem)] leading-none font-bold tracking-[-0.03em] tabular-nums [text-shadow:0_8px_24px_rgb(0_0_0/0.28)]">
+                    <CountUpText text={s.value} />
                   </span>
                   <span className="mt-3 block text-sm font-semibold tracking-[.14em] text-white/85 uppercase">
                     {s.label}

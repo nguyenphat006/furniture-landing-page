@@ -1,11 +1,12 @@
 {
   "Metadata": {
-    "title": "BINH BFC - Outdoor Furniture Manufacturer in Vietnam | Wood, Aluminum, Rope & Wicker",
-    "description": "OEM/ODM outdoor furniture manufacturer since 2010. 370 employees, 28,000 m² factory in Dong Nai, Vietnam. FSC-certified teak, in-house aluminum fabrication, rope and resin wicker weaving."
+    "title": "BINH BFC | Outdoor Furniture Manufacturer in Vietnam",
+    "description": "OEM/ODM outdoor furniture manufacturer since 2010, 28,000 m² factory in Dong Nai, Vietnam. FSC teak, in-house aluminum, rope and resin wicker weaving."
   },
   "Common": {
     "tagline": "Outdoor Furniture Manufacturer · Dong Nai, Vietnam",
     "breadcrumbHome": "Home",
+    "skipToContent": "Skip to main content",
     "requestQuote": "Request a Quote",
     "requestQuoteShort": "Request a quote",
     "homeAria": "BINH BFC, home",
@@ -25,6 +26,7 @@
       "materials": "Materials",
       "products": "Products",
       "projects": "Projects",
+      "news": "News",
       "contact": "Contact"
     },
     "products": {
@@ -90,7 +92,8 @@
       "toggleSubmenu": "Open {label} submenu",
       "productsByCategory": "By product family",
       "materialsIntro": "Frame, top and weave materials BFC works in house."
-    }
+    },
+    "search": "Search"
   },
   "Footer": {
     "blurb": "Outdoor furniture manufacturer since 2010.",
@@ -110,7 +113,8 @@
       "contact": "Talk to us about your program"
     },
     "certsLabel": "Certified",
-    "certsAria": "View the {name} certificate on the Capabilities page"
+    "certsAria": "View the {name} certificate on the Capabilities page",
+    "crossLabel": "Explore more"
   },
   "HomePage": {
     "hero": {
@@ -300,9 +304,9 @@
       "viewAll": "View all materials",
       "prev": "Previous material",
       "next": "Next material",
-      "cardAria": "{name}, material {current} of {total}",
       "discover": "Discover",
-      "lede": "Wood, metal, rope, resin wicker, fabric, glass and ceramic. Each one is treated and cared for in its own way."
+      "lede": "Wood, metal, rope, resin wicker, fabric, glass and ceramic. Each one is treated and cared for in its own way.",
+      "cardPosition": ", material {current} of {total}"
     },
     "certifications": {
       "title": "Verified materials and processes",
@@ -323,6 +327,7 @@
       "process": "How we work",
       "projects": "Projects",
       "factory": "Factory",
+      "news": "News",
       "contact": "Contact"
     },
     "factory": {
@@ -380,6 +385,11 @@
         "KOR": "South Korea",
         "AUS": "Australia"
       }
+    },
+    "news": {
+      "kicker": "News",
+      "title": "Life at BFC",
+      "viewAll": "View all news"
     }
   },
   "CapabilitiesPage": {
@@ -537,7 +547,10 @@
           "handoverTo": "The shipping line",
           "handoverState": "Container sealed at the factory"
         }
-      }
+      },
+      "galleryLabel": "{name} workshop photos",
+      "galleryGoTo": "Show photo {n}",
+      "galleryOpen": "Enlarge {name} workshop photos"
     },
     "surface": {
       "kicker": "Surface treatment",
@@ -1151,6 +1164,7 @@
     "reference": "Error reference: {digest}"
   },
   "ProductsPage": {
+    "categoryMetaSuffix": "Made at the BFC factory in Dong Nai, Vietnam; OEM/ODM to your drawings.",
     "metaTitle": "Outdoor furniture products",
     "metaDescription": "Six outdoor furniture ranges BFC makes to OEM orders in Dong Nai, Vietnam: sunloungers, sofas, dining, lounge chairs, tables and accessories.",
     "hero": {
@@ -1172,7 +1186,8 @@
       "prev": "Previous page",
       "next": "Next page",
       "page": "Page {page}",
-      "viewDetail": "View details"
+      "viewDetail": "View details",
+      "resultsHeading": "Product list"
     },
     "detail": {
       "metaTitle": "{name} | {type}",
@@ -1186,6 +1201,7 @@
       "setItem": "{qty} × {type}",
       "none": "To be updated",
       "oem": "Size, materials, weave colour and cushions can all be adjusted to your order.",
+      "metaDescription": "{name}{hasCode, select, yes { (model {code})} other {}}. Outdoor {type}{hasMaterials, select, yes { in {materials}} other {}}. Size, materials, weave colour and cushions can all be adjusted to your order.",
       "quote": "Request a quote",
       "relatedEyebrow": "Same range",
       "related": "Other models",
@@ -1214,20 +1230,6 @@
       "galleryThumb": "Show image {n}",
       "viewAll": "View all",
       "zoom": "Enlarge image",
-      "lightbox": {
-        "previous": "Previous image",
-        "next": "Next image",
-        "close": "Close",
-        "zoomIn": "Zoom in",
-        "zoomOut": "Zoom out",
-        "enterFullscreen": "Enter fullscreen",
-        "exitFullscreen": "Exit fullscreen",
-        "lightbox": "Product image viewer",
-        "carousel": "Image carousel",
-        "slide": "Image",
-        "thumbnails": "Thumbnails",
-        "slideOf": "{index} of {total}"
-      },
       "tabs": {
         "description": "Description",
         "specifications": "Specifications"
@@ -1275,5 +1277,80 @@
     "messenger": "Messenger",
     "quote": "Request a quote",
     "link": "Open link"
+  },
+  "Lightbox": {
+    "previous": "Previous image",
+    "next": "Next image",
+    "close": "Close",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "enterFullscreen": "Enter fullscreen",
+    "exitFullscreen": "Exit fullscreen",
+    "lightbox": "Image viewer",
+    "carousel": "Image carousel",
+    "slide": "Image",
+    "thumbnails": "Thumbnails",
+    "slideOf": "{index} of {total}"
+  },
+  "Search": {
+    "metaTitle": "Search | BINH BFC",
+    "title": "Search",
+    "resultsTitle": "Results for “{q}”",
+    "label": "Search the website",
+    "placeholder": "Product name, model code, material...",
+    "submit": "Search",
+    "clear": "Clear search",
+    "count": "{count, plural, =0 {No results} one {# result} other {# results}}",
+    "tooShort": "Type at least 2 characters to search.",
+    "intro": "Search products by name or model code, product groups, materials, news and the pages of this website.",
+    "empty": "No results for “{q}”. Try another word or a model code, or browse the product groups:",
+    "products": "Products",
+    "categories": "Product groups and types",
+    "materials": "Materials",
+    "news": "News",
+    "pages": "Pages",
+    "viewAll": "See all results",
+    "open": "Search",
+    "close": "Close search",
+    "dialog": "Search the website",
+    "suggestions": "Suggestions",
+    "loading": "Searching...",
+    "hint": "Type a product name, model code or material. Press Enter to see all results.",
+    "error": "Search is unavailable right now, please try again later.",
+    "noSuggestions": "No suggestions for “{q}”. Press Enter to search the whole website."
+  },
+  "News": {
+    "metaTitle": "News",
+    "metaDescription": "News, events and announcements from the BFC furniture factory: new designs, trade fairs, customer visits and life at the factory.",
+    "title": "Life at BFC",
+    "lede": "News, events and announcements from the factory: new designs, trade fairs, customer visits and the people behind BFC.",
+    "filterLabel": "Filter by type",
+    "all": "All",
+    "kinds": {
+      "news": "News",
+      "notice": "Announcement"
+    },
+    "readMore": "Read more",
+    "count": "{count, plural, one {# article} other {# articles}}",
+    "empty": "No articles yet.",
+    "pagination": "Pagination",
+    "prev": "Previous page",
+    "next": "Next page",
+    "pageN": "Page {page}",
+    "more": "More news",
+    "back": "All news",
+    "published": "Published",
+    "gallery": {
+      "galleryLabel": "{name} photos",
+      "galleryGoTo": "Show photo {n}",
+      "galleryOpen": "Enlarge {name} photos"
+    },
+    "blocks": {
+      "enlarge": "Enlarge photo: {name}",
+      "play": "Play video: {name}",
+      "video": "Video",
+      "download": "Download",
+      "table": "Table"
+    }
   }
 }

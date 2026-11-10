@@ -4,9 +4,11 @@ Mọi giá trị có thể khác giữa các máy đọc từ biến môi trư�
 Không đặt giá trị mặc định nguy hiểm ở đây: prod.py bắt buộc các biến quan trọng.
 """
 
+import unicodedata
 from pathlib import Path
 
 import environ
+from django.conf.locale import LANG_INFO
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -27,6 +29,7 @@ INSTALLED_APPS = [
     "apps.inquiries",
     "apps.sitesettings",
     "apps.pages",
+    "apps.news",
     # Wagtail
     "wagtail_localize",
     "wagtail_localize.locales",  # thay cho wagtail.locales
@@ -38,6 +41,7 @@ INSTALLED_APPS = [
     "wagtail.users",
     "wagtail.snippets",
     "wagtail.documents",
+    "wagtail.contrib.typed_table_block",
     "wagtail.images",
     "wagtail.search",
     "wagtail.admin",
@@ -73,6 +77,7 @@ MIDDLEWARE = [
     # Ghi người thực hiện (actor) cho django-auditlog
     "auditlog.middleware.AuditlogMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
+    "apps.core.machine_translation.MachineTranslationErrorMiddleware",
     # django-axes phải đứng cuối
     "axes.middleware.AxesMiddleware",
 ]
@@ -139,19 +144,24 @@ TIME_ZONE = "Asia/Ho_Chi_Minh"
 USE_I18N = True
 USE_TZ = True
 
-LANGUAGES = [("vi", "Tiếng Việt"), ("en", "English")]
+# Ngôn ngữ của web (10/11): tiếng Việt mặc định luôn có. Thêm ngôn ngữ (vd tiếng Đức): thêm mã vào
+# CMS_LANGUAGES (vi,en,de), thêm messages/de.json và mã vào i18n/routing.ts của frontend, chạy
+# bootstrap để tạo Locale, rồi bật và chọn cờ ở Cài đặt → Thông tin chung → Ngôn ngữ.
+LANGUAGES = [
+    # Tên gốc của Django để dạng tách dấu (NFD), chuẩn về NFC như mọi chữ khác
+    (code, unicodedata.normalize("NFC", LANG_INFO[code]["name_local"]))
+    for code in dict.fromkeys([LANGUAGE_CODE, *env.list("CMS_LANGUAGES", default=["vi", "en"])])
+]
 WAGTAIL_I18N_ENABLED = True
 WAGTAIL_CONTENT_LANGUAGES = LANGUAGES
 LOCALE_PATHS = [BASE_DIR / "locale"]
 
-# Dịch máy (wagtail-localize): chỉ bật khi có khoá Google Cloud, xem docs/adr/0003.
-if env.str("GOOGLE_CLOUD_PROJECT_ID", default=""):
+# Dịch máy (wagtail-localize): nút "Dịch bằng Google Translate" ở màn Dịch, chỉ bật khi có API key
+# Google Cloud Translation, xem docs/adr/0003 và apps/core/machine_translation.py.
+if GOOGLE_TRANSLATE_API_KEY := env.str("GOOGLE_TRANSLATE_API_KEY", default=""):
     WAGTAILLOCALIZE_MACHINE_TRANSLATOR = {
-        "CLASS": "wagtail_localize.machine_translators.google.GoogleCloudTranslator",
-        "OPTIONS": {
-            "CREDENTIALS_PATH": env.str("GOOGLE_APPLICATION_CREDENTIALS"),
-            "PROJECT_ID": env.str("GOOGLE_CLOUD_PROJECT_ID"),
-        },
+        "CLASS": "apps.core.machine_translation.GoogleTranslateV2",
+        "OPTIONS": {"API_KEY": GOOGLE_TRANSLATE_API_KEY},
     }
 
 # ------------------------------------------------------------------ file tĩnh và media
@@ -185,9 +195,11 @@ WAGTAILADMIN_BASE_URL = env.str("WAGTAILADMIN_BASE_URL", default="http://127.0.0
 CMS_PUBLIC_URL = env.str("CMS_PUBLIC_URL", default="")
 WAGTAILSEARCH_BACKENDS = {"default": {"BACKEND": "wagtail.search.backends.database"}}
 WAGTAIL_ENABLE_UPDATE_CHECK = False
-# Một vai trò, xuất bản trực tiếp (ADR 0004): tắt quy trình duyệt, bỏ nút "gửi duyệt" thừa (QC 07/11)
+# Một vai trò, xuất bản trực tiếp (ADR 0004): tắt quy trình duyệt, bỏ nút "gửi duyệt" (QC 07/11)
 WAGTAIL_WORKFLOW_ENABLED = False
 WAGTAILIMAGES_FORMAT_CONVERSIONS = {"bmp": "png", "tiff": "png"}
+# Thư viện tệp (Documents): tệp đính kèm bài tin tức và video ngắn (khối Video giới hạn 50 MB)
+WAGTAILDOCS_EXTENSIONS = ["pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "zip", "mp4", "webm"]
 
 # ------------------------------------------------------------------ API
 REST_FRAMEWORK = {
@@ -220,6 +232,11 @@ SPECTACULAR_SETTINGS = {
     "COMPONENT_SPLIT_REQUEST": True,
     "SCHEMA_PATH_PREFIX": "/api/v1",
     "PREPROCESSING_HOOKS": ["apps.core.api.schema.only_public_api"],
+    # Hai trường cùng tên "kind" (loại bản xem trước, loại bài tin tức): đặt tên enum rõ ràng
+    "ENUM_NAME_OVERRIDES": {
+        "NewsKindEnum": "apps.news.models.NewsPost.Kind",
+        "PreviewKindEnum": ["page", "product", "news"],
+    },
 }
 
 # ------------------------------------------------------------------ email
@@ -232,6 +249,10 @@ LOG_JSON = False  # prod.py bật JSON
 # ------------------------------------------------------------------ bảo mật chung
 SESSION_COOKIE_HTTPONLY = True
 CSRF_COOKIE_HTTPONLY = True
+# Tên cookie riêng: cookie không tách theo cổng, nên trên máy dev (localhost) app Django khác như
+# ERP ở :8000 dùng chung tên mặc định sessionid / csrftoken sẽ ghi đè phiên đăng nhập admin (10/11)
+SESSION_COOKIE_NAME = "bfc_cms_session"
+CSRF_COOKIE_NAME = "bfc_cms_csrftoken"
 X_FRAME_OPTIONS = "SAMEORIGIN"  # Wagtail preview cần nhúng iframe cùng nguồn
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_REFERRER_POLICY = "same-origin"

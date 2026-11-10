@@ -10,4 +10,5 @@ urlpatterns = [
     path("", include("apps.inquiries.api.urls")),
     path("", include("apps.sitesettings.api.urls")),
     path("", include("apps.pages.api.urls")),
+    path("", include("apps.news.api.urls")),
 ]

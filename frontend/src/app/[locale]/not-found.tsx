@@ -22,7 +22,7 @@ export default function NotFound() {
   return (
     <>
       <SiteHeader />
-      <main className="flex-1">
+      <main id="main" tabIndex={-1} className="flex-1 outline-none">
         {/* Không dùng PageHeader chung vì trang này không nằm trong cây điều hướng.
             Tiêu đề theo pattern SectionHeading (subtitle có vạch + title in hoa). */}
         <header className="flex min-h-[min(80svh,720px)] items-center bg-white pt-[calc(72px+4rem)] pb-20 xl:pt-[calc(80px+4rem)]">

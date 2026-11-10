@@ -27,7 +27,7 @@ ENV CMS_API_URL=$CMS_API_URL \
     SITE_URL=$SITE_URL
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN npm run build
+RUN npm run build && mkdir -p .cms-fallback
 
 # ---------------------------------------------------------------- chạy: chỉ bản standalone, user thường
 FROM node:20.20.2-bookworm-slim AS runtime
@@ -39,6 +39,9 @@ ENV NODE_ENV=production \
 COPY --from=build --chown=node:node /app/.next/standalone ./
 COPY --from=build --chown=node:node /app/.next/static ./.next/static
 COPY --from=build --chown=node:node /app/public ./public
+# Bản dự phòng dữ liệu CMS ghi lúc build (lib/cms/client.ts): CMS sập ngay sau một lần xuất bản thì
+# trang vẫn dựng được bằng nội dung trước đó. Lúc chạy server ghi tiếp vào đây (user node có quyền).
+COPY --from=build --chown=node:node /app/.cms-fallback ./.cms-fallback
 USER node
 EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \

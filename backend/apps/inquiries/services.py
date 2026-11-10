@@ -152,7 +152,11 @@ def notify_staff(inquiry: Inquiry) -> bool:
         "",
         f"Xem và xử lý: {admin_url}",
     ]
-    subject = f"[Website] Yêu cầu {inquiry.get_purpose_display().lower()}: {inquiry.name}"
+    purpose = str(inquiry.get_purpose_display())
+    # Hạ chữ cái đầu ("Báo giá" → "báo giá") nhưng giữ từ viết tắt ("OEM / ODM")
+    if not purpose[:2].isupper():
+        purpose = purpose[:1].lower() + purpose[1:]
+    subject = f"[Website] Yêu cầu {purpose}: {inquiry.name}"
     message = EmailMessage(
         subject=subject[:200],
         body="\n".join(lines),

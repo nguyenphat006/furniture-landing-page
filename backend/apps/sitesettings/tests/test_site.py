@@ -9,11 +9,17 @@ from unittest import mock
 import pytest
 from django.core.exceptions import ValidationError
 from django.core.management import call_command
-from django.test import Client
+from django.test import Client, override_settings
 from PIL import Image as PILImage
 from rest_framework.test import APIClient
 
-from apps.sitesettings.models import FooterLink, NavItem, SiteSettings, SocialLink
+from apps.sitesettings.models import (
+    FooterLink,
+    NavItem,
+    SiteLanguage,
+    SiteSettings,
+    SocialLink,
+)
 from apps.sitesettings.services import import_site
 
 pytestmark = pytest.mark.django_db
@@ -163,7 +169,7 @@ def test_site_verification_accepts_meta_tag_or_token(api_client: APIClient) -> N
         site.full_clean()
 
 
-def test_floating_actions_resolve_links_and_hide_empty(api_client: APIClient) -> None:
+def test_floating_actions_follow_visible_toggle_only(api_client: APIClient) -> None:
     from apps.sitesettings.models import FloatingAction
     from apps.sitesettings.services import ensure_default_floating
 
@@ -184,13 +190,20 @@ def test_floating_actions_resolve_links_and_hide_empty(api_client: APIClient) ->
     FloatingAction.objects.create(settings=site, kind="quote", visible=False, sort_order=11)
 
     en = _get(api_client, locale="en")["floating"]
-    # WhatsApp, Zalo chưa có link ở tab Liên hệ: ẩn; nút ẩn không trả về
+    # Chỉ theo ô Hiện: WhatsApp, Zalo mặc định tắt; quote tắt; search chưa có link vẫn trả về
     assert en == [
-        {"kind": "search", "label": "", "url": ""},
-        {"kind": "phone", "label": "", "url": "tel:+84914642008"},
-        {"kind": "email", "label": "", "url": "mailto:office@example.com"},
-        {"kind": "link", "label": "Catalogue", "url": "/catalog"},
+        {"kind": "search", "label": "", "url": "", "icon": ""},
+        {"kind": "phone", "label": "", "url": "tel:+84914642008", "icon": ""},
+        {"kind": "email", "label": "", "url": "mailto:office@example.com", "icon": ""},
+        {"kind": "link", "label": "Catalogue", "url": "/catalog", "icon": ""},
     ]
+    # Icon chọn trong CMS đi kèm
+    site.floating_actions.filter(kind="link").update(icon="book-open")
+    assert _get(api_client)["floating"][-1]["icon"] == "book-open"
+    # Bật lại WhatsApp: hiện dù chưa có số (không bấm được)
+    site.floating_actions.filter(kind="whatsapp").update(visible=True)
+    kinds = [f["kind"] for f in _get(api_client, locale="en")["floating"]]
+    assert "whatsapp" in kinds
     # Chạy lại không thêm trùng
     ensure_default_floating(site)
     assert site.floating_actions.count() == 7
@@ -199,10 +212,13 @@ def test_floating_actions_resolve_links_and_hide_empty(api_client: APIClient) ->
 @pytest.mark.parametrize(
     ("fields", "error_field"),
     [
-        ({"kind": "messenger"}, "url"),
         ({"kind": "link", "url": "/x"}, "label"),
+        ({"kind": "link", "url": "/x", "label": "Catalog"}, "label_en"),
         ({"kind": "search", "url": "/search"}, "url"),
         ({"kind": "link", "url": "javascript:alert(1)", "label": "x"}, "url"),
+        # Trình duyệt hiểu /\host là //host: link sang web khác (QC 09/11)
+        ({"kind": "link", "url": "/\\evil.example", "label": "x", "label_en": "x"}, "url"),
+        ({"kind": "link", "url": "/ x", "label": "x", "label_en": "x"}, "url"),
     ],
 )
 def test_floating_action_validation(fields: dict[str, str], error_field: str) -> None:
@@ -212,6 +228,12 @@ def test_floating_action_validation(fields: dict[str, str], error_field: str) ->
     with pytest.raises(ValidationError) as exc:
         action.full_clean()
     assert error_field in exc.value.message_dict
+
+
+def test_floating_action_without_link_is_allowed() -> None:
+    from apps.sitesettings.models import FloatingAction
+
+    FloatingAction(settings=SiteSettings.load(), kind="messenger").full_clean()
 
 
 def test_nav_item_validation() -> None:
@@ -229,10 +251,29 @@ def test_footer_link_accepts_path_or_https(url: str) -> None:
     FooterLink(label="x", url=url).clean()
 
 
-@pytest.mark.parametrize("url", ["javascript:alert(1)", "//evil.example", "privacy"])
+@pytest.mark.parametrize(
+    "url", ["javascript:alert(1)", "//evil.example", "/\\evil.example", "/\tx", "privacy"]
+)
 def test_footer_link_rejects_other_urls(url: str) -> None:
     with pytest.raises(ValidationError):
         FooterLink(label="x", url=url).clean()
+
+
+def test_inline_settings_rows_are_audited() -> None:
+    """Menu, nút nổi, link footer, mạng xã hội là bản ghi con: phải có log riêng (QC 09/11)."""
+    from auditlog.models import LogEntry
+
+    from apps.sitesettings.models import FloatingAction
+
+    site = SiteSettings.load()
+    action = FloatingAction.objects.create(
+        settings=site, kind="link", url="/catalog", label="Catalog", label_en="Catalogue"
+    )
+    link = FooterLink.objects.create(settings=site, label="Bảo mật", url="/privacy")
+    action.label_en = "Catalog EN"
+    action.save()
+    assert LogEntry.objects.get_for_object(action).count() == 2
+    assert LogEntry.objects.get_for_object(link).count() == 1
 
 
 def test_saving_settings_revalidates_frontend() -> None:
@@ -259,5 +300,67 @@ def test_settings_admin_page_renders_and_saves(admin_client: Client, assets: Pat
     res = admin_client.get(url, follow=True)
     assert res.status_code == 200
     html = res.content.decode()
-    for tab in ("Công ty", "Liên hệ", "Thương hiệu", "Menu", "Footer", "SEO"):
+    for tab in ("Công ty", "Liên hệ", "Thương hiệu", "Menu", "Ngôn ngữ", "Footer", "SEO"):
         assert tab in html
+    # Cờ, icon chọn bằng ô thả xuống có hình (core/widgets.py), không phải dropdown chữ
+    assert "data-visual-picker" in html
+    assert "core/js/visual-picker.js" in html
+    assert "sitesettings/flags/VN.svg" in html
+    # Icon nút nổi: SVG nhúng thẳng, có lựa chọn "Theo loại"
+    assert "lucide-phone" in html
+    assert "Theo loại" in html
+
+
+VI = {"code": "vi", "label": "Tiếng Việt", "flag": "VN"}
+EN = {"code": "en", "label": "English", "flag": "GB"}
+
+
+def test_languages_default_to_installed_languages(api_client: APIClient) -> None:
+    """Chưa đặt ngôn ngữ trong CMS: mọi ngôn ngữ đã cài, cờ mặc định."""
+    SiteSettings.load().languages.all().delete()
+    assert _get(api_client)["languages"] == [VI, EN]
+
+
+def test_languages_follow_cms_order_flag_label_and_visible(api_client: APIClient) -> None:
+    site = SiteSettings.load()
+    site.languages.all().delete()
+    SiteLanguage.objects.create(settings=site, code="en", flag="US", label="EN (US)", sort_order=0)
+    SiteLanguage.objects.create(settings=site, code="vi", flag="VN", sort_order=1)
+    assert _get(api_client)["languages"] == [
+        {"code": "en", "label": "EN (US)", "flag": "US"},
+        VI,
+    ]
+    # Ẩn tiếng Anh thì bỏ; tiếng Việt (mặc định) ẩn vẫn hiện
+    SiteLanguage.objects.filter(code="en").update(visible=False)
+    SiteLanguage.objects.filter(code="vi").update(visible=False)
+    assert _get(api_client)["languages"] == [VI]
+
+
+def test_languages_skip_uninstalled_and_keep_default(api_client: APIClient) -> None:
+    site = SiteSettings.load()
+    site.languages.all().delete()
+    # "de" còn trong CMS nhưng đã bỏ khỏi CMS_LANGUAGES: không hiện; thiếu vi thì tự thêm đầu
+    SiteLanguage.objects.create(settings=site, code="de", flag="DE", sort_order=0)
+    SiteLanguage.objects.create(settings=site, code="en", flag="GB", sort_order=1)
+    assert _get(api_client)["languages"] == [VI, EN]
+    assert str(SiteLanguage.objects.get(code="de")) == "de"
+
+
+@override_settings(LANGUAGES=[("vi", "Tiếng Việt"), ("en", "English"), ("de", "Deutsch")])
+def test_languages_third_language(api_client: APIClient) -> None:
+    site = SiteSettings.load()
+    site.languages.all().delete()
+    for order, (code, flag) in enumerate([("vi", "VN"), ("en", "GB"), ("de", "DE")]):
+        SiteLanguage.objects.create(settings=site, code=code, flag=flag, sort_order=order)
+    assert _get(api_client)["languages"][-1] == {"code": "de", "label": "Deutsch", "flag": "DE"}
+    assert str(SiteLanguage.objects.get(code="de")) == "Deutsch"
+
+
+def test_every_action_icon_has_admin_svg() -> None:
+    """Mỗi icon chọn được trong CMS có SVG cho ô chọn (chạy scripts/export_admin_icons.mjs)."""
+    from apps.sitesettings.models import ACTION_ICONS, _icon_svg
+
+    missing = [name for name, _label in ACTION_ICONS if not _icon_svg(name).startswith("<svg")]
+    assert missing == []
+    assert _icon_svg("") == ""
+    assert _icon_svg("khong-co") == ""

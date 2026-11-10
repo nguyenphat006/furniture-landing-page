@@ -8,6 +8,7 @@ export const navKeys = [
   "materials",
   "products",
   "projects",
+  "news",
   "contact",
 ] as const;
 
@@ -19,6 +20,7 @@ export const navHref: Record<NavKey, string> = {
   materials: "/materials",
   products: "/products",
   projects: "/projects",
+  news: "/news",
   contact: "/contact",
 };
 

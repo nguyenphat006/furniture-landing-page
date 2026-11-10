@@ -1,6 +1,7 @@
 import "server-only";
 import { cache } from "react";
 import { getTranslations } from "next-intl/server";
+import { defaultLanguages } from "@/config/languages";
 import { navHref, type NavKey } from "@/config/navigation";
 import { siteConfig } from "@/config/site";
 import { cmsEnabled } from "@/lib/cms/client";
@@ -26,12 +27,14 @@ export type {
 /** Logo có sẵn trong public, dùng khi CMS chưa đặt logo */
 const DEFAULT_LOGO = "/bfc_logo_color.png";
 
-/** Menu header mặc định (thứ tự chốt 2026-11-06; Liên hệ là nút Báo giá riêng) */
+/** Menu header mặc định (thứ tự chốt 2026-11-06, thêm Tin tức 2026-11-10; Liên hệ là nút Báo giá riêng) */
 const DEFAULT_NAV: NavKey[] = [
   "capabilities",
   "materials",
   "products",
   "about",
+  // Tin tức cuối menu (2026-11-10)
+  "news",
 ];
 
 const defaultNav = () =>
@@ -73,17 +76,16 @@ async function mockSite(locale: string): Promise<Site> {
     seo: { title: tm("title"), description: tm("description") },
     gaMeasurementId: null,
     verification: { google: "", bing: "" },
-    // Chưa có CMS: gọi điện, WhatsApp, Zalo, email theo siteConfig (mục trống thì bỏ)
+    languages: defaultLanguages(),
+    // Chưa có CMS: giống các nút bật Hiện mặc định của CMS (Tìm kiếm, Gọi điện, Email); chưa có link thì
+    // vẫn hiện nhưng không bấm được
     floating: (
       [
+        ["search", ""],
         ["phone", siteConfig.phoneHref],
-        ["whatsapp", siteConfig.whatsappUrl],
-        ["zalo", siteConfig.zaloUrl],
         ["email", siteConfig.emailHref],
       ] as const
-    )
-      .filter(([, href]) => Boolean(href))
-      .map(([kind, href]) => ({ kind, label: "", href: href ?? "" })),
+    ).map(([kind, href]) => ({ kind, label: "", href: href ?? "", icon: "" })),
   };
 }
 

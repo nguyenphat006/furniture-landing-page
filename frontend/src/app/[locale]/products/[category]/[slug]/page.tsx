@@ -61,10 +61,20 @@ export async function generateMetadata({
       name: product.name,
       type: tc(`productTypes.${product.type}`),
     }),
-    // Tự tạo từ mô tả sản phẩm; chưa có mô tả thì dùng đoạn giới thiệu OEM chung
+    // Tự tạo từ mô tả sản phẩm; chưa có mô tả thì ghép tên, mã, loại, chất liệu với câu OEM chung
+    // (trước đây chỉ câu OEM: 50 trang trùng mô tả, QC 09/11)
     description: product.descriptionHtml
       ? metaText(product.descriptionHtml)
-      : t("oem"),
+      : t("metaDescription", {
+          name: product.name,
+          hasCode: product.code ? "yes" : "no",
+          code: product.code ?? "",
+          type: tc(`productTypes.${product.type}`).toLocaleLowerCase(locale),
+          hasMaterials: product.materials.length ? "yes" : "no",
+          materials: product.materials
+            .map((m) => tc(`materials.${m}`).toLocaleLowerCase(locale))
+            .join(", "),
+        }),
   };
   // SEO riêng của bản gốc không dùng cho trang tiếng khác (chưa dịch)
   const seo = product.isFallback ? undefined : product.seo;
@@ -101,7 +111,7 @@ export default async function ProductDetailPage({
   return (
     <>
       <SiteHeader />
-      <main className="flex-1">
+      <main id="main" tabIndex={-1} className="flex-1 outline-none">
         <ProductHero product={product} />
         <ProductDetail
           product={product}

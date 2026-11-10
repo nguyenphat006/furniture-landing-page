@@ -100,8 +100,9 @@ export function HeroSection({
         Tiêu đề h1 in hoa, semibold như tiêu đề section, một đoạn mô tả, CTA nút khung viền chung (ButtonLink, đồng nhất 2026-11-05; LineLink giữ trong code).
         Kicker "Nhà sản xuất nội thất ngoài trời" tạm không hiện để giữ bố cục 3 tầng của Gloster (key vẫn giữ trong messages).
       */}
-      <Container className="relative pb-28 xl:pb-24">
-        <h1 className="text-h1 mb-5 font-semibold tracking-[-0.015em] text-balance text-white uppercase">
+      {/* Chữ hero trượt lên lần lượt khi tải trang (CSS .hero-in, chạy cả trước khi hydrate; 2026-11-09) */}
+      <Container className="hero-in relative pb-28 xl:pb-24">
+        <h1 className="text-h1 mb-5 font-bold tracking-[-0.01em] text-balance text-white uppercase">
           {/* Ngắt dòng cố định sau dấu phẩy ở sm+, mobile tự xuống dòng */}
           {titleLines.map((line, i) => (
             <Fragment key={i}>
@@ -127,7 +128,7 @@ export function HeroSection({
         <a
           href={`#${nextId}`}
           aria-label={t("scrollNext")}
-          className="group absolute bottom-8 left-1/2 z-10 flex h-14 w-14 -translate-x-1/2 items-center justify-center text-white hover:no-underline"
+          className="group absolute bottom-8 left-1/2 z-10 flex h-14 w-14 -translate-x-1/2 items-center justify-center text-white hover:no-underline max-sm:hidden"
         >
           {/* Viền nét đứt xoay chậm quanh mũi tên */}
           <span

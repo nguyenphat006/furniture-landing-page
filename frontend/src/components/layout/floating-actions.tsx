@@ -8,19 +8,23 @@ import {
   Search,
 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import { ActionIcon } from "@/components/shared/action-icons";
 import { navHref } from "@/config/navigation";
 import type { FloatingAction, FloatingKind } from "@/data/site/types";
+import { SearchTrigger } from "@/features/search";
 import { Link } from "@/i18n/navigation";
+import { cn } from "@/lib/utils";
 
 /*
  * Cụm nút nổi (2026-11-07): dính sát mép phải màn hình, ngay dưới header, giống nhau ở mọi trang
- * (tách riêng nút lên đầu trang ở góc dưới). Danh sách, thứ tự, chữ do CMS quản lý: Cài đặt → Thông tin
+ * (tách riêng nút lên đầu trang ở góc dưới). Danh sách, thứ tự, chữ, icon (10/11, trống = icon theo loại) do CMS quản lý: Cài đặt → Thông tin
  * chung → Nút nổi; link gọi điện / WhatsApp / Zalo / email lấy từ tab Liên hệ. Rê chuột hoặc focus bàn
  * phím thì chữ hiện bên trái nút.
- * Tìm kiếm chưa có trang (plan B7) nên chưa hiện; làm xong B7 thì bỏ khỏi HIDDEN_UNTIL_READY.
+ * Ẩn / hiện chỉ theo ô Hiện trong CMS (user 09/11): nút chưa có link (chưa nhập số WhatsApp...) vẫn
+ * hiện nhưng không bấm được. Tìm kiếm mở ô tìm nhanh (SearchDialog, B7).
+ * Mọi khổ màn hình (user 09/11): cột nút dính mép phải dưới header như desktop. (QC 09/11 từng đổi
+ * dưới lg thành thanh dính đáy vì cột che một phần nội dung ở lề hẹp; user chọn giữ vị trí như desktop.)
  */
-const HIDDEN_UNTIL_READY: FloatingKind[] = ["search"];
-
 function WhatsAppIcon() {
   return (
     <svg
@@ -58,58 +62,81 @@ const ICONS: Record<FloatingKind, ReactNode> = {
 
 // Vàng thương hiệu, chữ tối. Rê chuột / focus: chữ trượt ra bên trái, cùng một khối với ô icon.
 const ITEM =
-  "group bg-gold text-ink flex h-9 items-center rounded-l-md shadow-[0_6px_18px_rgb(20_20_20/0.16)] outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-inset sm:h-10";
+  "group bg-gold text-ink flex h-10 items-center rounded-l-md shadow-[0_6px_18px_rgb(20_20_20/0.16)] outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-inset";
 const LABEL =
-  "max-w-0 overflow-hidden text-xs font-semibold whitespace-nowrap opacity-0 transition-[max-width,opacity] duration-300 ease-out group-hover:max-w-56 group-hover:opacity-100 group-focus-visible:max-w-56 group-focus-visible:opacity-100 motion-reduce:transition-none sm:text-[13px]";
+  "max-w-0 overflow-hidden text-[13px] font-semibold whitespace-nowrap opacity-0 transition-[max-width,opacity] duration-300 ease-out group-hover:max-w-56 group-hover:opacity-100 group-focus-visible:max-w-56 group-focus-visible:opacity-100 motion-reduce:transition-none";
 
 export async function FloatingActions({ items }: { items: FloatingAction[] }) {
-  const visible = items.filter((i) => !HIDDEN_UNTIL_READY.includes(i.kind));
-  if (!visible.length) return null;
+  if (!items.length) return null;
   const t = await getTranslations("FloatingActions");
 
   return (
-    <nav
-      aria-label={t("label")}
-      className="fixed top-[calc(72px+4.5rem)] right-0 z-50 flex flex-col items-end gap-px xl:top-[calc(80px+4.5rem)]"
-    >
-      {visible.map((item, i) => {
-        const label = item.label || t(item.kind);
-        const content = (
-          <>
-            <span className={LABEL}>
-              <span className="block pl-3.5">{label}</span>
-            </span>
-            <span className="flex size-9 shrink-0 items-center justify-center sm:size-10">
-              {ICONS[item.kind]}
-            </span>
-          </>
-        );
-        const href =
-          item.kind === "quote"
-            ? `${navHref.contact}?purpose=quote#contact-form`
-            : item.href;
-        if (href.startsWith("/")) {
-          return (
-            <Link key={i} href={href} aria-label={label} className={ITEM}>
-              {content}
-            </Link>
+    <>
+      <nav
+        aria-label={t("label")}
+        className="fixed top-[calc(72px+4.5rem)] right-0 z-50 flex flex-col items-end gap-px xl:top-[calc(80px+4.5rem)]"
+      >
+        {items.map((item, i) => {
+          const label = item.label || t(item.kind);
+          const content = (
+            <>
+              <span className={LABEL}>
+                <span className="block pl-3.5">{label}</span>
+              </span>
+              <span className="flex size-10 shrink-0 items-center justify-center">
+                {item.icon ? <ActionIcon name={item.icon} /> : ICONS[item.kind]}
+              </span>
+            </>
           );
-        }
-        const external = href.startsWith("http");
-        return (
-          <a
-            key={i}
-            href={href}
-            aria-label={label}
-            className={ITEM}
-            {...(external
-              ? { target: "_blank", rel: "noopener noreferrer" }
-              : {})}
-          >
-            {content}
-          </a>
-        );
-      })}
-    </nav>
+          if (item.kind === "search") {
+            // Tìm kiếm: mở ô tìm nhanh (không JS thì sang trang /search)
+            return (
+              <SearchTrigger key={i} label={label} className={ITEM}>
+                {content}
+              </SearchTrigger>
+            );
+          }
+          const href =
+            item.kind === "quote"
+              ? `${navHref.contact}?purpose=quote#contact-form`
+              : item.href;
+          if (!href) {
+            // Chưa có link: vẫn hiện, không bấm được (không vào thứ tự Tab)
+            return (
+              <span
+                key={i}
+                aria-label={label}
+                aria-disabled="true"
+                role="link"
+                className={cn(ITEM, "cursor-default")}
+              >
+                {content}
+              </span>
+            );
+          }
+          if (href.startsWith("/")) {
+            return (
+              <Link key={i} href={href} aria-label={label} className={ITEM}>
+                {content}
+              </Link>
+            );
+          }
+          const external = href.startsWith("http");
+          return (
+            <a
+              key={i}
+              href={href}
+              aria-label={label}
+              className={ITEM}
+              {...(external
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
+            >
+              {content}
+            </a>
+          );
+        })}
+      </nav>
+    </>
   );
 }

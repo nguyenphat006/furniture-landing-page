@@ -58,6 +58,8 @@ def _raw_value(block_type: str, value: Any, image: ImageRef, shared: dict[str, i
             "detail_image": image(value.get("detail_image")),
             "points": _list(value.get("points", [])),
         }
+    if block_type == "faq":
+        return {**value, "items": _list(value.get("items", []))}
     if block_type == "shared":
         return shared[value]
     if block_type == "legal":
@@ -175,10 +177,32 @@ def import_pages(
         shared[key] = section.pk
         result.created.append(f"shared:{key}")
 
+    _assign_slots(data.get("slots", {}), shared, force, result)
     home = _import_home(data["home"], image, shared, vi, en, force, result)
     for key, item in data.get("legal", {}).items():
         _import_legal(key, item, home, en, force, result)
     return result
+
+
+def _assign_slots(
+    slots: dict[str, str], shared: dict[str, int], force: bool, result: PagesImportResult
+) -> None:
+    """Gắn Section dùng chung vào ô ở Cài đặt (vd FAQ trang Năng lực) nếu ô còn trống."""
+    from apps.sitesettings.models import SiteSettings
+
+    settings_obj = SiteSettings.load()
+    changed = False
+    for field_name, key in slots.items():
+        if key not in shared:
+            continue
+        if getattr(settings_obj, f"{field_name}_id") is not None and not force:
+            result.skipped.append(f"slot:{field_name}")
+            continue
+        setattr(settings_obj, f"{field_name}_id", shared[key])
+        changed = True
+        result.created.append(f"slot:{field_name}")
+    if changed:
+        settings_obj.save()
 
 
 def _import_legal(

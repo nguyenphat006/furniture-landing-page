@@ -10,6 +10,7 @@ import {
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { catalogHref, type CategoryEntry } from "@/data/catalog";
+import { reveal } from "@/components/shared/reveal";
 
 /*
  * Section Sản phẩm (2026-11-04): mỗi ô là một nhóm sản phẩm, chỉ hiện tên nhóm và "Xem thêm".
@@ -34,7 +35,10 @@ export function ProductsSection({
           action={<ButtonLink href="/products">{t("viewAll")}</ButtonLink>}
         />
 
-        <ul className="grid gap-3 sm:grid-cols-2 lg:h-[clamp(720px,60vw,960px)] lg:grid-cols-3 lg:grid-rows-3">
+        <ul
+          {...reveal("stagger")}
+          className="grid gap-3 sm:grid-cols-2 lg:h-[clamp(720px,60vw,960px)] lg:grid-cols-3 lg:grid-rows-3"
+        >
           {categories.map((category, i) => (
             <BentoTile
               key={category.slug}
@@ -79,7 +83,7 @@ function BentoTile({
           "lg:aspect-auto",
         )}
       >
-        <div className="ease-out-soft absolute inset-0 transition-transform duration-(--duration-slow) group-hover:scale-[1.04]">
+        <div className="absolute inset-0">
           <ImagePlaceholder
             label={category.cover}
             sizes={
@@ -105,7 +109,7 @@ function BentoTile({
           <div className="grid min-w-0 gap-1.5">
             <h3
               className={cn(
-                "leading-[1.2] font-semibold tracking-[-0.01em] text-balance",
+                "leading-[1.2] font-bold tracking-[-0.01em] text-balance",
                 featured
                   ? "text-[clamp(1.5rem,2.4vw,2.25rem)]"
                   : "text-[clamp(1.125rem,1.4vw,1.375rem)]",

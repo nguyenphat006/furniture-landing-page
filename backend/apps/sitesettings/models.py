@@ -1,13 +1,14 @@
 """Thông tin chung và khung site, sửa trong admin: Cài đặt → Thông tin chung (docs/adr/0011).
 
 Một bản ghi duy nhất (BaseGenericSetting), chia tab: Công ty, Liên hệ, Thương hiệu, Menu,
-Footer, Nút nổi, SEO (gồm mã Google Analytics).
+Ngôn ngữ, Footer, Nút nổi, SEO (gồm mã Google Analytics).
 Chữ song ngữ theo cột `_en` như phân loại (docs/adr/0007); bản tiếng Anh trống thì dùng tiếng Việt.
 Admin chỉ đổi nội dung; bố cục header, footer vẫn do frontend quyết định và giống nhau ở mọi trang.
 """
 
 from __future__ import annotations
 
+import functools
 import re
 from typing import TYPE_CHECKING, Any
 from urllib.parse import urlsplit
@@ -15,6 +16,9 @@ from urllib.parse import urlsplit
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
+from django.templatetags.static import static
+from django.utils.html import format_html
+from django.utils.safestring import SafeString, mark_safe
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
@@ -28,6 +32,8 @@ from wagtail.admin.panels import (
 )
 from wagtail.contrib.settings.models import BaseGenericSetting, register_setting
 from wagtail.models import Orderable
+
+from apps.core.widgets import VisualRadioSelect
 
 if TYPE_CHECKING:
     from django_stubs_ext import StrOrPromise
@@ -166,6 +172,21 @@ class SiteSettings(ClusterableModel, BaseGenericSetting):
         help_text=_("Thẻ meta msvalidate.01 của Bing Webmaster Tools (tuỳ chọn)."),
     )
 
+    # ------------------------------------------------ section trên trang chưa có trong CMS
+    # Trang Năng lực còn cứng ở frontend (docs/adr/0013, G5.2); riêng FAQ lấy từ Section dùng chung.
+    capabilities_faq = models.ForeignKey(
+        "pages.SharedSection",
+        verbose_name=_("câu hỏi thường gặp trang Năng lực"),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        help_text=_(
+            "Chọn Section dùng chung loại Câu hỏi thường gặp (sửa ở Nội dung → Section dùng "
+            "chung). Bản tiếng Anh tự lấy bản dịch. Trống thì web dùng câu hỏi mặc định."
+        ),
+    )
+
     # ---------------------------------------------------------------- đo lường
     ga_measurement_id = models.CharField(
         _("mã Google Analytics"),
@@ -215,6 +236,20 @@ class SiteSettings(ClusterableModel, BaseGenericSetting):
             ),
             ObjectList(
                 [
+                    InlinePanel(
+                        "languages",
+                        heading=_("Nút đổi ngôn ngữ ở header"),
+                        label=_("ngôn ngữ"),
+                        help_text=_(
+                            "Thứ tự, cờ, tên hiện trong danh sách ngôn ngữ. Chỉ chọn được ngôn ngữ "
+                            "web đã cài; cần thêm ngôn ngữ mới thì báo bộ phận kỹ thuật."
+                        ),
+                    )
+                ],
+                heading=_("Ngôn ngữ"),
+            ),
+            ObjectList(
+                [
                     _pair("footer_blurb"),
                     InlinePanel(
                         "footer_links", heading=_("Link cuối trang"), label=_("link cuối trang")
@@ -235,6 +270,10 @@ class SiteSettings(ClusterableModel, BaseGenericSetting):
                     )
                 ],
                 heading=_("Nút nổi"),
+            ),
+            ObjectList(
+                [FieldPanel("capabilities_faq")],
+                heading=_("Section trên trang"),
             ),
             ObjectList(
                 [
@@ -267,6 +306,14 @@ class SiteSettings(ClusterableModel, BaseGenericSetting):
         self.bing_site_verification = verification_token(self.bing_site_verification)
         super().clean_fields(exclude=exclude)
 
+    def clean(self) -> None:
+        super().clean()
+        faq = self.capabilities_faq
+        if faq is not None and not any(b.block_type == "faq" for b in faq.body):
+            raise ValidationError(
+                {"capabilities_faq": _("Section này không phải loại Câu hỏi thường gặp.")}
+            )
+
     def phone_href(self) -> str:
         digits = re.sub(r"[^\d+]", "", self.phone)
         return f"tel:{digits}" if digits else ""
@@ -281,6 +328,7 @@ class NavItem(Orderable):
         PRODUCTS = "products", _("Sản phẩm (có menu con)")
         ABOUT = "about", _("Về chúng tôi")
         PROJECTS = "projects", _("Dự án")
+        NEWS = "news", _("Tin tức")
         CONTACT = "contact", _("Liên hệ")
         LINK = "link", _("Link khác")
 
@@ -318,13 +366,204 @@ class NavItem(Orderable):
             raise ValidationError({"url": _("Trang có sẵn không cần link, để trống ô này.")})
 
 
+# Cờ chọn được cho ngôn ngữ (mã quốc gia ISO 3166). Frontend có SVG đúng các mã này
+# (components/shared/flag-icon.tsx): thêm cờ thì thêm cả hai nơi
+FLAGS: list[tuple[str, StrOrPromise]] = [
+    ("VN", _("Việt Nam")),
+    ("GB", _("Anh")),
+    ("US", _("Mỹ")),
+    ("AU", _("Úc")),
+    ("CA", _("Canada")),
+    ("DE", _("Đức")),
+    ("FR", _("Pháp")),
+    ("ES", _("Tây Ban Nha")),
+    ("IT", _("Ý")),
+    ("NL", _("Hà Lan")),
+    ("BE", _("Bỉ")),
+    ("PT", _("Bồ Đào Nha")),
+    ("BR", _("Brazil")),
+    ("MX", _("Mexico")),
+    ("SE", _("Thuỵ Điển")),
+    ("DK", _("Đan Mạch")),
+    ("NO", _("Na Uy")),
+    ("FI", _("Phần Lan")),
+    ("PL", _("Ba Lan")),
+    ("RU", _("Nga")),
+    ("TR", _("Thổ Nhĩ Kỳ")),
+    ("SA", _("Ả Rập Xê Út")),
+    ("AE", _("UAE")),
+    ("IN", _("Ấn Độ")),
+    ("CN", _("Trung Quốc")),
+    ("TW", _("Đài Loan")),
+    ("JP", _("Nhật Bản")),
+    ("KR", _("Hàn Quốc")),
+    ("TH", _("Thái Lan")),
+    ("ID", _("Indonesia")),
+    ("MY", _("Malaysia")),
+]
+
+# Cờ mặc định khi chưa đặt trong CMS
+DEFAULT_FLAGS = {
+    "vi": "VN",
+    "en": "GB",
+    "de": "DE",
+    "fr": "FR",
+    "es": "ES",
+    "it": "IT",
+    "nl": "NL",
+    "pt": "PT",
+    "ja": "JP",
+    "ko": "KR",
+    "zh-hans": "CN",
+    "ru": "RU",
+}
+
+
+def language_choices() -> list[tuple[str, str]]:
+    """Ngôn ngữ đã cài (settings.LANGUAGES, theo CMS_LANGUAGES); gọi lúc chạy để đổi env không sinh
+    migration."""
+    from django.conf import settings
+
+    return list(settings.LANGUAGES)
+
+
+class FlagSelect(VisualRadioSelect):
+    """Chọn cờ: ô thả xuống có hình cờ SVG (static/sitesettings/flags)."""
+
+    def visual(self, value: str) -> SafeString:
+        return format_html(
+            '<img src="{}" alt="" width="30" height="20">',
+            static(f"sitesettings/flags/{value}.svg"),
+        )
+
+
+class SiteLanguage(Orderable):
+    """Một ngôn ngữ trong nút đổi ngôn ngữ ở header (10/11): thứ tự, cờ, tên, ẩn/hiện."""
+
+    settings = ParentalKey(SiteSettings, on_delete=models.CASCADE, related_name="languages")
+    code = models.CharField(_("ngôn ngữ"), max_length=10, choices=language_choices)
+    flag = models.CharField(
+        _("cờ"),
+        max_length=2,
+        choices=FLAGS,
+        help_text=_("Cờ quốc gia hiện cạnh tên, vd tiếng Anh chọn Anh hoặc Mỹ."),
+    )
+    label = models.CharField(
+        _("tên hiển thị"),
+        max_length=40,
+        blank=True,
+        help_text=_("Trống thì dùng tên gốc của ngôn ngữ, vd English, Deutsch."),
+    )
+    visible = models.BooleanField(
+        _("hiện"),
+        default=True,
+        help_text=_("Tắt thì bỏ khỏi nút đổi ngôn ngữ. Tiếng Việt (mặc định) luôn hiện."),
+    )
+
+    panels = [
+        FieldRowPanel([FieldPanel("code"), FieldPanel("visible")]),
+        FieldPanel("flag", widget=FlagSelect),
+        FieldPanel("label"),
+    ]
+
+    class Meta(Orderable.Meta):
+        verbose_name = _("ngôn ngữ")
+        constraints = [
+            models.UniqueConstraint(fields=["settings", "code"], name="site_language_unique_code")
+        ]
+
+    def __str__(self) -> str:
+        return self.display_name()
+
+    def display_name(self) -> str:
+        return self.label or dict(language_choices()).get(self.code, self.code)
+
+
+def is_internal_path(value: str) -> bool:
+    """Đường dẫn trong web (/contact). Chặn //host và /\\host: trình duyệt hiểu là link sang web
+    khác (QC 09/11); chặn cả khoảng trắng, ký tự điều khiển."""
+    return (
+        value.startswith("/")
+        and not value.startswith("//")
+        and "\\" not in value
+        and not re.search(r"[\s\x00-\x1f\x7f]", value)
+    )
+
+
 def validate_action_url(value: str) -> None:
     """Link nút nổi: https://, tel:, mailto: hoặc đường dẫn trong web."""
-    if value.startswith("/") and not value.startswith("//"):
+    if is_internal_path(value):
         return
     if re.match(r"(https?://|tel:|mailto:)", value):
         return
     raise ValidationError(_("Dùng https://..., tel:..., mailto:... hoặc đường dẫn bắt đầu bằng /."))
+
+
+# Icon chọn được cho nút nổi (10/11). Trùng tên với frontend config/action-icons.ts; hình SVG cho ô
+# chọn trong admin ở static/sitesettings/icons (sinh bằng backend/scripts/export_admin_icons.mjs)
+ACTION_ICONS: list[tuple[str, StrOrPromise]] = [
+    ("search", _("Kính lúp")),
+    ("phone", _("Điện thoại")),
+    ("phone-call", _("Đang gọi")),
+    ("smartphone", _("Di động")),
+    ("mail", _("Thư")),
+    ("message-circle", _("Tin nhắn tròn")),
+    ("message-square", _("Tin nhắn vuông")),
+    ("messages-square", _("Trò chuyện")),
+    ("send", _("Gửi")),
+    ("headphones", _("Tai nghe hỗ trợ")),
+    ("file-text", _("Tài liệu")),
+    ("clipboard-list", _("Danh sách")),
+    ("book-open", _("Catalogue")),
+    ("download", _("Tải về")),
+    ("link", _("Link")),
+    ("external-link", _("Link ngoài")),
+    ("map-pin", _("Bản đồ")),
+    ("calendar", _("Lịch hẹn")),
+    ("clock", _("Đồng hồ")),
+    ("circle-help", _("Hỏi đáp")),
+    ("globe", _("Quả địa cầu")),
+    ("users", _("Nhóm người")),
+    ("building", _("Toà nhà")),
+    ("package", _("Thùng hàng")),
+    ("sofa", _("Sofa")),
+    ("armchair", _("Ghế bành")),
+    ("video", _("Video")),
+    ("star", _("Ngôi sao")),
+    ("whatsapp", _("WhatsApp")),
+    ("zalo", _("Zalo")),
+    ("messenger", _("Messenger")),
+    ("facebook", _("Facebook")),
+    ("instagram", _("Instagram")),
+    ("youtube", _("YouTube")),
+    ("tiktok", _("TikTok")),
+    ("telegram", _("Telegram")),
+    ("viber", _("Viber")),
+    ("wechat", _("WeChat")),
+    ("line", _("LINE")),
+]
+
+
+class IconSelect(VisualRadioSelect):
+    """Chọn icon: ô thả xuống có hình (SVG nhúng thẳng để theo màu chữ admin, cả nền tối)."""
+
+    empty_label = "Theo loại"
+
+    def visual(self, value: str) -> SafeString | str:
+        return _icon_svg(value)
+
+
+@functools.cache
+def _icon_svg(name: str) -> str:
+    """SVG của icon trong static/sitesettings/icons; chưa có file thì rỗng (chỉ hiện tên)."""
+    from django.contrib.staticfiles import finders
+
+    path = finders.find(f"sitesettings/icons/{name}.svg") if name else None
+    if not path:
+        return ""
+    with open(path, encoding="utf-8") as fh:
+        # File do script trong repo sinh ra từ thư viện icon, không phải nội dung người dùng nhập
+        return mark_safe(fh.read())  # noqa: S308
 
 
 class FloatingAction(Orderable):
@@ -360,14 +599,24 @@ class FloatingAction(Orderable):
         blank=True,
         validators=[validate_action_url],
         help_text=_(
-            "Messenger và Link khác bắt buộc. Gọi điện, WhatsApp, Zalo, Email: trống thì lấy ở tab "
-            "Liên hệ. Tìm kiếm, Báo giá không cần link."
+            "Gọi điện, WhatsApp, Zalo, Email: trống thì lấy ở tab Liên hệ. Tìm kiếm, Báo giá không "
+            "cần link. Nút đang bật Hiện mà chưa có link vẫn hiện trên web nhưng không bấm được."
         ),
     )
-    visible = models.BooleanField(_("hiện"), default=True)
+    visible = models.BooleanField(
+        _("hiện"), default=True, help_text=_("Ẩn hay hiện trên web chỉ theo ô này.")
+    )
+    icon = models.CharField(
+        _("icon"),
+        max_length=40,
+        blank=True,
+        choices=ACTION_ICONS,
+        help_text=_('Bấm để chọn icon; "Theo loại" dùng icon có sẵn của loại nút.'),
+    )
 
     panels = [
         FieldRowPanel([FieldPanel("kind"), FieldPanel("visible")]),
+        FieldPanel("icon", widget=IconSelect),
         FieldPanel("url"),
         _pair("label"),
     ]
@@ -378,14 +627,18 @@ class FloatingAction(Orderable):
     def clean(self) -> None:
         if self.kind in self.BUILT_IN and self.url:
             raise ValidationError({"url": _("Loại này không cần link, để trống ô này.")})
-        needs_url = self.kind not in self.BUILT_IN and self.kind not in self.FROM_CONTACT
-        if needs_url and not self.url:
-            raise ValidationError({"url": _("Loại này cần có link.")})
-        if self.kind == self.Kind.LINK and not self.label:
-            raise ValidationError({"label": _("Link khác cần có chữ hiện khi rê chuột.")})
+        if self.kind == self.Kind.LINK:
+            # Bản tiếng Anh không có tên mặc định: trống thì web tiếng Anh hiện chữ tiếng Việt
+            errors = {}
+            if not self.label:
+                errors["label"] = _("Link khác cần có chữ hiện khi rê chuột.")
+            if not self.label_en:
+                errors["label_en"] = _("Link khác cần có chữ tiếng Anh cho trang tiếng Anh.")
+            if errors:
+                raise ValidationError(errors)
 
     def resolved_url(self, site: SiteSettings) -> str:
-        """Link thật của nút; rỗng = ẩn (vd chưa nhập số điện thoại)."""
+        """Link thật của nút; rỗng = nút vẫn hiện nhưng không bấm được (chưa nhập số...)."""
         if self.url or self.kind in self.BUILT_IN:
             return self.url
         links: dict[str, str] = {
@@ -415,9 +668,7 @@ class FooterLink(Orderable):
         verbose_name = _("link cuối trang")
 
     def clean(self) -> None:
-        if not (self.url.startswith("/") and not self.url.startswith("//")) and not re.match(
-            r"https?://", self.url
-        ):
+        if not is_internal_path(self.url) and not re.match(r"https?://", self.url):
             raise ValidationError({"url": _("Dùng https://... hoặc đường dẫn bắt đầu bằng /.")})
 
 

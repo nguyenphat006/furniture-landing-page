@@ -1,4 +1,4 @@
-"""Hook Wagtail của app core: CSS màu BFC cho admin, màn Rà soát SEO (seo_audit.py)."""
+"""Hook Wagtail của app core: CSS màu BFC, slug tự điền, màn Rà soát SEO (seo_audit.py)."""
 
 import os
 from typing import Any
@@ -29,6 +29,25 @@ def _versioned(path: str) -> str:
 @hooks.register("insert_global_admin_css")
 def bfc_admin_theme() -> SafeString:
     return format_html('<link rel="stylesheet" href="{}">', _versioned("core/css/admin-theme.css"))
+
+
+@hooks.register("insert_global_admin_css")
+def visual_picker_css() -> SafeString:
+    """Ô chọn có hình: cờ, icon (core/widgets.py)."""
+    return format_html(
+        '<link rel="stylesheet" href="{}">', _versioned("core/css/visual-picker.css")
+    )
+
+
+@hooks.register("insert_global_admin_js")
+def visual_picker_js() -> SafeString:
+    return format_html('<script src="{}" defer></script>', _versioned("core/js/visual-picker.js"))
+
+
+@hooks.register("insert_global_admin_js")
+def slug_from_title() -> SafeString:
+    """Ô slug có data-slug-from tự điền từ tiêu đề (static/core/js/slug-from-title.js)."""
+    return format_html('<script src="{}" defer></script>', _versioned("core/js/slug-from-title.js"))
 
 
 LEVELS = [

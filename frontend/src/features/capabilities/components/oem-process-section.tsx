@@ -8,6 +8,7 @@ import {
 } from "@/components/shared/section";
 import { navHref } from "@/config/navigation";
 import { cn } from "@/lib/utils";
+import { reveal } from "@/components/shared/reveal";
 
 /*
  * Quy trình hợp tác OEM (2026-11-05). Gộp OemSection + ProcessDetailSection cũ (giữ file, không render).
@@ -76,7 +77,10 @@ export function OemProcessSection() {
           }
         />
 
-        <ol className="grid gap-5 lg:gap-6 xl:grid-cols-3">
+        <ol
+          {...reveal("stagger")}
+          className="grid gap-5 lg:gap-6 xl:grid-cols-3"
+        >
           {PHASES.map((phase, i) => (
             <li
               key={phase.key}
@@ -91,10 +95,10 @@ export function OemProcessSection() {
               </div>
 
               <div className="flex flex-1 flex-col p-6 lg:p-8">
-                <p className="text-gold-ink text-eyebrow font-semibold uppercase">
+                <p className="text-gold-ink text-eyebrow font-bold uppercase">
                   {t("phaseLabel")} 0{i + 1}
                 </p>
-                <h3 className="text-h3 mt-2 font-semibold">
+                <h3 className="text-h3 mt-2 font-bold">
                   {t(`phases.${phase.key}`)}
                 </h3>
 
@@ -104,12 +108,12 @@ export function OemProcessSection() {
                       key={key}
                       className="border-line grid grid-cols-[2.25rem_minmax(0,1fr)] gap-x-3 border-t py-5 last:pb-0"
                     >
-                      <span className="text-gold pt-0.5 text-sm font-semibold tabular-nums">
+                      <span className="text-gold-ink pt-0.5 text-sm font-semibold tabular-nums">
                         0{key}
                       </span>
                       <div>
                         <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5">
-                          <h4 className="font-semibold">
+                          <h4 className="font-bold">
                             {t(`steps.${key}.name`)}
                           </h4>
                           <span

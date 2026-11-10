@@ -47,6 +47,15 @@ cho nhiều trang (sửa một lần, mọi trang đổi theo).
 - Frontend: `getHomePage` (CMS, hoặc mock từ `features/home/page-content.ts` + messages khi chưa
   có CMS), `HomeBlocks` vẽ block, chấm điều hướng và nút cuộn của hero tính theo thứ tự block.
 
+- FAQ (09/11/2026): block `faq` (nhãn, tiêu đề, dòng ghi chú, chữ nút, danh sách hỏi / đáp) dùng được
+  trong trang và Section dùng chung. Trang Năng lực chưa là trang Wagtail nên lấy FAQ qua **vị trí cố
+  định**: Cài đặt → Thông tin chung → Section trên trang (`SiteSettings.capabilities_faq`, chỉ nhận section
+  có block `faq`), API `GET /api/v1/sections/capabilities-faq?locale=` trả `{is_fallback, body}`. Chọn bản
+  nào cũng được, API tự lấy bản dịch cùng `translation_key`. Chưa chọn / chưa xuất bản: 404, frontend dùng
+  câu hỏi trong messages. `import_pages` tạo Section "Câu hỏi thường gặp" và gắn vào ô nếu ô còn trống
+  (`slots` trong `fixtures/pages.json`). Khi làm G5.2 (Năng lực thành trang Wagtail) thì chuyển sang block
+  "Section dùng chung" trong trang và bỏ ô này.
+
 ## Chưa làm
 - Xem trước bản nháp (draft mode của Next): tạm tắt nút xem trước trong admin.
 - Thao tác "Tách thành bản riêng" / "Lưu vào thư viện" giữa section riêng và section dùng chung.

@@ -281,6 +281,12 @@ class ProductBaseSerializer(serializers.Serializer[Product]):
         help_text="True: chưa có bản dịch ở ngôn ngữ được hỏi, đây là bản gốc."
     )
     noindex = serializers.BooleanField(help_text="Quản trị viên ẩn trang khỏi Google")
+    updated = serializers.DateTimeField(
+        source="last_published_at",
+        allow_null=True,
+        read_only=True,
+        help_text="Lần xuất bản gần nhất, dùng cho lastmod trong sitemap (QC 09/11)",
+    )
 
     @extend_schema_field(serializers.ListField(child=serializers.CharField()))
     def get_materials(self, obj: Product) -> list[str]:

@@ -26,7 +26,7 @@ export function IntroSection({ content }: { content: IntroContent }) {
         {/* Nhãn không hiển thị (2026-11-04), giữ h2 cho trình đọc màn hình và cấu trúc tiêu đề SEO */}
         <h2 className="sr-only">{content.heading}</h2>
         <QuoteMark className="text-gold mb-6 h-7 lg:mb-8 lg:h-9" />
-        <blockquote className="text-section text-ink mb-8 max-w-[28ch] font-semibold tracking-[-0.015em] text-balance lg:mb-10">
+        <blockquote className="text-section text-ink mb-8 max-w-[28ch] font-bold tracking-[-0.03em] text-balance lg:mb-10">
           {content.quote}
         </blockquote>
         <p className="text-ink-soft mb-12 max-w-[62ch] text-base leading-[1.8] lg:text-[17px]">

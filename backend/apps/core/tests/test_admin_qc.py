@@ -37,7 +37,12 @@ def test_translation_editor_saves_multipart_string(client: Client) -> None:
         kwargs={"translation_id": translation.id, "string_segment_id": segment.id},
     )
     boundary = "qcboundary"
-    body = f'--{boundary}\r\nContent-Disposition: form-data; name="value"\r\n\r\nAbout\r\n--{boundary}--\r\n'
+    crlf = "\r\n"
+    body = (
+        f"--{boundary}{crlf}"
+        f'Content-Disposition: form-data; name="value"{crlf}{crlf}About{crlf}'
+        f"--{boundary}--{crlf}"
+    )
     res = client.put(url, data=body, content_type=f"multipart/form-data; boundary={boundary}")
 
     assert res.status_code in (200, 201), res.content

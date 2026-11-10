@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import datetime
 from typing import Any
 
 import pytest
@@ -64,6 +65,10 @@ def test_product_list_and_filters(api_client: APIClient) -> None:
     assert first["image"]["url"].endswith(".webp")
     assert first["image"]["alt"] == "Atlas Sunlounger"
     assert first["is_fallback"] is False
+    # Ngày xuất bản cho lastmod trong sitemap: ISO 8601 hoặc null khi chưa xuất bản lần nào
+    assert "updated" in first
+    if first["updated"] is not None:
+        datetime.fromisoformat(first["updated"])
 
     assert _slugs(_get(api_client, url, category="dining")) == ["stack-chair", "dining-set-1551"]
     assert _slugs(_get(api_client, url, type="dining-sets")) == ["dining-set-1551"]

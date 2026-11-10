@@ -8,6 +8,7 @@ import { useTaxonomy } from "@/components/providers/site-provider";
 import type { MaterialSlug, Product } from "@/data/catalog";
 import { cn } from "@/lib/utils";
 import { ProductCard, ProductRow } from "./product-card";
+import { reveal } from "@/components/shared/reveal";
 
 /*
  * Danh sách sản phẩm có lọc + phân trang + đổi kiểu xem (2026-11-06), dùng ở:
@@ -35,7 +36,10 @@ const facetOf = (facet: Facet, p: Product): string =>
 
 export function ProductGrid({ products }: { products: Product[] }) {
   return (
-    <ul className="grid grid-cols-2 gap-x-3 gap-y-8 sm:grid-cols-3 lg:grid-cols-4 lg:gap-y-10 xl:grid-cols-6">
+    <ul
+      {...reveal("stagger")}
+      className="grid grid-cols-2 gap-x-3 gap-y-8 sm:grid-cols-3 lg:grid-cols-4 lg:gap-y-10 xl:grid-cols-6"
+    >
       {products.map((p) => (
         <li key={p.slug}>
           <ProductCard
@@ -248,6 +252,7 @@ export function ProductBrowser({
           </div>
         </div>
 
+        <h2 className="sr-only">{t("resultsHeading")}</h2>
         {shown.length === 0 ? (
           <div className="py-16 text-center">
             <p className="text-ink-soft">{t("empty")}</p>

@@ -1,4 +1,5 @@
 import { useTranslations } from "next-intl";
+import { CountUpText } from "@/components/shared/count-up";
 import { ButtonLink } from "@/components/shared/button-link";
 import { ImagePlaceholder } from "@/components/shared/image-placeholder";
 import {
@@ -8,6 +9,7 @@ import {
 } from "@/components/shared/section";
 import { navHref } from "@/config/navigation";
 import { HistoryTimeline } from "./history-timeline";
+import { reveal } from "@/components/shared/reveal";
 
 /*
  * Nội dung trang Về chúng tôi (2026-11-05), bám trang About của Gloster:
@@ -51,7 +53,10 @@ export function AboutContent() {
       {/* 2. Câu chuyện */}
       <Section id="story">
         <Container>
-          <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
+          <div
+            {...reveal("fade-up")}
+            className="grid gap-12 lg:grid-cols-12 lg:gap-8"
+          >
             <div className="lg:col-span-7">
               <SectionHeading
                 eyebrow={t("story.kicker")}
@@ -80,8 +85,8 @@ export function AboutContent() {
                     <dt className="text-ink-mute text-xs font-semibold tracking-[.14em] uppercase">
                       {t(`story.facts.${f}.label`)}
                     </dt>
-                    <dd className="text-ink text-right text-xl font-semibold tracking-[-0.01em] tabular-nums">
-                      {t(`story.facts.${f}.value`)}
+                    <dd className="text-ink text-right text-xl font-bold tracking-[-0.03em] tabular-nums">
+                      <CountUpText text={t(`story.facts.${f}.value`)} />
                     </dd>
                   </div>
                 ))}
@@ -98,7 +103,10 @@ export function AboutContent() {
       {/* 4. Con người tại xưởng */}
       <Section id="people">
         <Container>
-          <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-8">
+          <div
+            {...reveal("fade-up")}
+            className="grid items-center gap-8 lg:grid-cols-12 lg:gap-8"
+          >
             <div className="bg-surface-stone relative aspect-[3/2] overflow-hidden lg:col-span-7">
               <ImagePlaceholder
                 label="Slideshow_1_3.jpg"
@@ -124,7 +132,10 @@ export function AboutContent() {
       {/* 5. Xuất khẩu */}
       <Section id="export" className="pt-0 lg:pt-0">
         <Container>
-          <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-8">
+          <div
+            {...reveal("fade-up")}
+            className="grid items-center gap-8 lg:grid-cols-12 lg:gap-8"
+          >
             <div className="lg:col-span-4 lg:row-start-1">
               <SectionHeading
                 eyebrow={t("export.kicker")}

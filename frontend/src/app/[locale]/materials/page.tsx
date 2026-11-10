@@ -39,7 +39,7 @@ export default async function MaterialsPage({
   return (
     <>
       <SiteHeader />
-      <main className="flex-1">
+      <main id="main" tabIndex={-1} className="flex-1 outline-none">
         <PageHeader
           current={tc("nav.materials")}
           title={t("title")}

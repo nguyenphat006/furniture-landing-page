@@ -1,11 +1,12 @@
 {
   "Metadata": {
-    "title": "BINH BFC - Nhà sản xuất nội thất ngoài trời tại Việt Nam | Gỗ, Nhôm, Dây đan & Mây nhựa",
-    "description": "Nhà sản xuất nội thất ngoài trời OEM/ODM từ năm 2010. 370 nhân sự, nhà máy 28.000 m² tại Đồng Nai, Việt Nam. Gỗ teak đạt chứng nhận FSC, gia công nhôm tại chỗ, đan dây và mây nhựa thủ công."
+    "title": "BINH BFC | Nhà sản xuất nội thất ngoài trời tại Việt Nam",
+    "description": "Nhà sản xuất nội thất ngoài trời OEM/ODM từ năm 2010, nhà máy 28.000 m² tại Đồng Nai. Gỗ teak FSC, gia công nhôm, đan dây và mây nhựa thủ công."
   },
   "Common": {
     "tagline": "Nhà sản xuất nội thất ngoài trời · Đồng Nai, Việt Nam",
     "breadcrumbHome": "Trang chủ",
+    "skipToContent": "Bỏ qua, tới nội dung chính",
     "requestQuote": "Yêu cầu báo giá",
     "requestQuoteShort": "Yêu cầu báo giá",
     "homeAria": "BINH BFC, về trang chủ",
@@ -25,6 +26,7 @@
       "materials": "Vật liệu",
       "products": "Sản phẩm",
       "projects": "Dự án",
+      "news": "Tin tức",
       "contact": "Liên hệ"
     },
     "products": {
@@ -90,7 +92,8 @@
       "toggleSubmenu": "Mở danh mục {label}",
       "productsByCategory": "Theo nhóm sản phẩm",
       "materialsIntro": "Chất liệu khung, mặt và đan mà BFC tự gia công tại xưởng."
-    }
+    },
+    "search": "Tìm kiếm"
   },
   "Footer": {
     "blurb": "Nhà sản xuất nội thất ngoài trời từ năm 2010.",
@@ -110,7 +113,8 @@
       "contact": "Trao đổi với chúng tôi về dự án của bạn"
     },
     "certsLabel": "Chứng nhận",
-    "certsAria": "Xem chứng nhận {name} trên trang Năng lực"
+    "certsAria": "Xem chứng nhận {name} trên trang Năng lực",
+    "crossLabel": "Xem tiếp"
   },
   "HomePage": {
     "hero": {
@@ -300,9 +304,9 @@
       "viewAll": "Xem tất cả vật liệu",
       "prev": "Vật liệu trước",
       "next": "Vật liệu tiếp theo",
-      "cardAria": "{name}, vật liệu {current} / {total}",
       "discover": "Khám phá",
-      "lede": "Gỗ, kim loại, dây đan, mây nhựa, vải, kính và gốm. Mỗi vật liệu có cách xử lý và bảo quản riêng."
+      "lede": "Gỗ, kim loại, dây đan, mây nhựa, vải, kính và gốm. Mỗi vật liệu có cách xử lý và bảo quản riêng.",
+      "cardPosition": ", vật liệu {current} / {total}"
     },
     "certifications": {
       "title": "Vật liệu và quy trình được kiểm chứng",
@@ -323,6 +327,7 @@
       "process": "Cách chúng tôi làm việc",
       "projects": "Dự án",
       "factory": "Nhà máy",
+      "news": "Tin tức",
       "contact": "Liên hệ"
     },
     "factory": {
@@ -380,6 +385,11 @@
         "KOR": "Hàn Quốc",
         "AUS": "Úc"
       }
+    },
+    "news": {
+      "kicker": "Tin tức",
+      "title": "Cuộc sống tại BFC",
+      "viewAll": "Xem tất cả tin tức"
     }
   },
   "CapabilitiesPage": {
@@ -537,7 +547,10 @@
           "handoverTo": "Hãng tàu",
           "handoverState": "Container niêm phong tại nhà máy"
         }
-      }
+      },
+      "galleryLabel": "Ảnh xưởng {name}",
+      "galleryGoTo": "Xem ảnh {n}",
+      "galleryOpen": "Phóng to ảnh xưởng {name}"
     },
     "surface": {
       "kicker": "Xử lý bề mặt",
@@ -1151,6 +1164,7 @@
     "reference": "Mã lỗi: {digest}"
   },
   "ProductsPage": {
+    "categoryMetaSuffix": "Sản xuất tại nhà máy BFC ở Đồng Nai, Việt Nam; nhận làm OEM/ODM theo bản vẽ.",
     "metaTitle": "Sản phẩm nội thất ngoài trời",
     "metaDescription": "Sáu nhóm sản phẩm nội thất ngoài trời BFC sản xuất theo đơn OEM tại Đồng Nai: ghế tắm nắng, sofa, bàn ghế ăn, ghế thư giãn, bàn và phụ kiện.",
     "hero": {
@@ -1172,7 +1186,8 @@
       "prev": "Trang trước",
       "next": "Trang sau",
       "page": "Trang {page}",
-      "viewDetail": "Xem chi tiết"
+      "viewDetail": "Xem chi tiết",
+      "resultsHeading": "Danh sách sản phẩm"
     },
     "detail": {
       "metaTitle": "{name} | {type}",
@@ -1186,6 +1201,7 @@
       "setItem": "{qty} × {type}",
       "none": "Đang cập nhật",
       "oem": "Kích thước, chất liệu, màu đan và nệm đều chỉnh được theo đơn hàng.",
+      "metaDescription": "{name}{hasCode, select, yes { (mã {code})} other {}}. Mẫu {type} ngoài trời{hasMaterials, select, yes {, chất liệu {materials}} other {}}. Kích thước, chất liệu, màu đan và nệm đều chỉnh được theo đơn hàng.",
       "quote": "Yêu cầu báo giá",
       "relatedEyebrow": "Cùng nhóm",
       "related": "Mẫu khác",
@@ -1214,20 +1230,6 @@
       "galleryThumb": "Xem ảnh {n}",
       "viewAll": "Xem tất cả",
       "zoom": "Phóng to ảnh",
-      "lightbox": {
-        "previous": "Ảnh trước",
-        "next": "Ảnh sau",
-        "close": "Đóng",
-        "zoomIn": "Phóng to",
-        "zoomOut": "Thu nhỏ",
-        "enterFullscreen": "Toàn màn hình",
-        "exitFullscreen": "Thoát toàn màn hình",
-        "lightbox": "Xem ảnh sản phẩm",
-        "carousel": "Bộ ảnh",
-        "slide": "Ảnh",
-        "thumbnails": "Ảnh thu nhỏ",
-        "slideOf": "{index} / {total}"
-      },
       "tabs": {
         "description": "Mô tả",
         "specifications": "Thông số kỹ thuật"
@@ -1275,5 +1277,80 @@
     "messenger": "Messenger",
     "quote": "Yêu cầu báo giá",
     "link": "Mở link"
+  },
+  "Lightbox": {
+    "previous": "Ảnh trước",
+    "next": "Ảnh sau",
+    "close": "Đóng",
+    "zoomIn": "Phóng to",
+    "zoomOut": "Thu nhỏ",
+    "enterFullscreen": "Toàn màn hình",
+    "exitFullscreen": "Thoát toàn màn hình",
+    "lightbox": "Xem ảnh",
+    "carousel": "Bộ ảnh",
+    "slide": "Ảnh",
+    "thumbnails": "Ảnh thu nhỏ",
+    "slideOf": "{index} / {total}"
+  },
+  "Search": {
+    "metaTitle": "Tìm kiếm | BINH BFC",
+    "title": "Tìm kiếm",
+    "resultsTitle": "Kết quả cho “{q}”",
+    "label": "Tìm trên website",
+    "placeholder": "Tên sản phẩm, mã mẫu, vật liệu...",
+    "submit": "Tìm",
+    "clear": "Xoá từ khoá",
+    "count": "{count, plural, =0 {Không có kết quả} other {# kết quả}}",
+    "tooShort": "Gõ ít nhất 2 ký tự để tìm.",
+    "intro": "Tìm sản phẩm theo tên hoặc mã mẫu, nhóm sản phẩm, vật liệu, tin tức và các trang của website. Gõ không dấu cũng được.",
+    "empty": "Chưa có kết quả cho “{q}”. Thử từ khoá khác, mã mẫu, hoặc xem các nhóm sản phẩm:",
+    "products": "Sản phẩm",
+    "categories": "Nhóm và loại sản phẩm",
+    "materials": "Vật liệu",
+    "news": "Tin tức",
+    "pages": "Trang trên website",
+    "viewAll": "Xem tất cả kết quả",
+    "open": "Tìm kiếm",
+    "close": "Đóng tìm kiếm",
+    "dialog": "Tìm kiếm trên website",
+    "suggestions": "Gợi ý",
+    "loading": "Đang tìm...",
+    "hint": "Nhập tên sản phẩm, mã mẫu hoặc vật liệu. Enter để xem tất cả kết quả.",
+    "error": "Chưa tìm được lúc này, thử lại sau.",
+    "noSuggestions": "Không có gợi ý cho “{q}”. Enter để tìm trên toàn website."
+  },
+  "News": {
+    "metaTitle": "Tin tức",
+    "metaDescription": "Tin tức, hoạt động và thông báo từ nhà máy nội thất BFC: sản phẩm mới, hội chợ, đón khách, đời sống người lao động.",
+    "title": "Cuộc sống tại BFC",
+    "lede": "Tin tức, hoạt động và thông báo từ nhà máy: mẫu mới, hội chợ, đón khách hàng và đời sống của người lao động BFC.",
+    "filterLabel": "Lọc theo loại tin",
+    "all": "Tất cả",
+    "kinds": {
+      "news": "Tin tức",
+      "notice": "Thông báo"
+    },
+    "readMore": "Đọc tiếp",
+    "count": "{count} bài viết",
+    "empty": "Chưa có bài viết nào.",
+    "pagination": "Phân trang",
+    "prev": "Trang trước",
+    "next": "Trang sau",
+    "pageN": "Trang {page}",
+    "more": "Tin khác",
+    "back": "Tất cả tin tức",
+    "published": "Đăng ngày",
+    "gallery": {
+      "galleryLabel": "Bộ ảnh {name}",
+      "galleryGoTo": "Xem ảnh {n}",
+      "galleryOpen": "Phóng to ảnh {name}"
+    },
+    "blocks": {
+      "enlarge": "Phóng to ảnh: {name}",
+      "play": "Phát video: {name}",
+      "video": "Video",
+      "download": "Tải về",
+      "table": "Bảng"
+    }
   }
 }

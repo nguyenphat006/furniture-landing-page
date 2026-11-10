@@ -91,11 +91,6 @@ export function MaterialsShowcaseSection({
           >
             <Link
               href={`${navHref.materials}/${m.slug}`}
-              aria-label={t("cardAria", {
-                name: m.name,
-                current: i + 1,
-                total: materials.length,
-              })}
               className="group/card block hover:no-underline"
             >
               <div className="bg-surface-stone relative aspect-[16/10] overflow-hidden">
@@ -108,8 +103,15 @@ export function MaterialsShowcaseSection({
 
               {/* Tên vật liệu | vạch dọc | Khám phá → */}
               <div className="mt-6 flex items-center gap-8">
-                <h3 className="text-h3 text-ink min-w-0 font-normal tracking-[.02em] uppercase">
+                <h3 className="text-h3 text-ink relative min-w-0 font-normal tracking-[.02em] uppercase">
                   {m.name}
+                  {/* Vị trí trong carousel cho trình đọc màn hình; tên link vẫn khớp chữ hiển thị */}
+                  <span className="sr-only">
+                    {t("cardPosition", {
+                      current: i + 1,
+                      total: materials.length,
+                    })}
+                  </span>
                 </h3>
                 <span className="border-line text-ink group-hover/card:text-forest flex shrink-0 items-center gap-2 self-stretch border-l py-1 pl-6 text-[13px] font-semibold tracking-[.14em] uppercase transition-colors">
                   {t("discover")}

@@ -6,6 +6,7 @@ import {
   SectionHeading,
 } from "@/components/shared/section";
 import { stageKeys } from "../data";
+import { reveal } from "@/components/shared/reveal";
 
 /*
  * Xử lý bề mặt (2026-11-05), thay SurfaceSection (file cũ giữ nguyên, không render).
@@ -23,13 +24,19 @@ export function SurfaceFinishSection() {
         <div className="lg:col-span-7">
           <SectionHeading eyebrow={t("kicker")} title={t("title")} />
 
-          <ol className="grid grid-cols-2 gap-x-5 sm:gap-x-8 xl:grid-cols-3">
+          <ol
+            {...reveal("stagger")}
+            className="grid grid-cols-2 gap-x-5 sm:gap-x-8 xl:grid-cols-3"
+          >
             {stageKeys.map((key) => (
               <li key={key} className="border-line border-t pt-5 pb-8">
-                <span className="text-gold block text-[28px] leading-none font-semibold tabular-nums">
+                <span
+                  aria-hidden="true"
+                  className="text-gold block text-[28px] leading-none font-bold tracking-[-0.03em] tabular-nums"
+                >
                   {key.padStart(2, "0")}
                 </span>
-                <h3 className="text-ink mt-4 font-semibold">
+                <h3 className="text-ink mt-4 font-bold">
                   {t(`stages.${key}.name`)}
                 </h3>
                 <p className="text-ink-soft mt-1.5 text-sm leading-relaxed">

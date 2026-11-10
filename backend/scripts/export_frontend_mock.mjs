@@ -174,8 +174,26 @@ const ctaBlock = (all) => ({
     visit_label: "",
   },
 });
+// FAQ trang Năng lực (2026-11-09): Section dùng chung, gắn vào Cài đặt → Section trên trang
+const faqBlock = (all) => {
+  const f = all.CapabilitiesPage.faq;
+  return {
+    type: "faq",
+    value: {
+      kicker: f.kicker,
+      title: f.title,
+      note: f.more,
+      button_label: "",
+      items: ["moq", "sample", "drawing", "inspection"].map((k) => ({ question: f.items[k].q, answer: f.items[k].a })),
+    },
+  };
+};
 const pages = {
-  shared: { cta: { name: "CTA cuối trang (báo giá, thăm nhà máy)", vi: ctaBlock(viAll), en: ctaBlock(enAll) } },
+  shared: {
+    cta: { name: "CTA cuối trang (báo giá, thăm nhà máy)", vi: ctaBlock(viAll), en: ctaBlock(enAll) },
+    faq: { name: "Câu hỏi thường gặp", vi: faqBlock(viAll), en: faqBlock(enAll) },
+  },
+  slots: { capabilities_faq: "faq" },
   home: {
     title: "Trang chủ",
     title_en: "Home",
@@ -186,3 +204,24 @@ const pages = {
 const pagesFile = join(root, "backend/apps/pages/fixtures/pages.json");
 writeFileSync(pagesFile, JSON.stringify(pages, null, 2) + "\n");
 console.log(`Đã ghi nội dung trang vào ${pagesFile}`);
+
+// Tin tức "Cuộc sống tại BFC" (apps/news, `manage.py import_news`, 2026-11-09): 10 bài mẫu song ngữ
+// ở frontend/src/data/news/posts.mock.ts. Nội dung bài là danh sách khối song ngữ (mockBlocks).
+const news = await import(pathToFileURL(join(fe, "src/data/news/posts.mock.ts")).href);
+const newsFile = join(root, "backend/apps/news/fixtures/news.json");
+writeFileSync(newsFile, JSON.stringify(
+    {
+      posts: news.mockPosts.map((p) => ({
+        slug: p.slug,
+        kind: p.kind,
+        date: p.date,
+        cover: p.cover,
+        vi: { title: p.vi.title, excerpt: p.vi.excerpt },
+        en: { title: p.en.title, excerpt: p.en.excerpt },
+        blocks: news.mockBlocks(p),
+      })),
+    },
+    null,
+    2,
+  ) + "\n");
+console.log(`Đã ghi tin tức vào ${newsFile}`);

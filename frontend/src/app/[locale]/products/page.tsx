@@ -48,7 +48,7 @@ export default async function ProductsPage({
   return (
     <>
       <SiteHeader />
-      <main className="flex-1">
+      <main id="main" tabIndex={-1} className="flex-1 outline-none">
         <PageHeader
           current={tc("nav.products")}
           title={t("hero.title")}

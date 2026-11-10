@@ -15,6 +15,7 @@
  * hoặc serverless cần chuyển sang Redis / Upstash).
  */
 
+import { inflateSync } from "node:zlib";
 import { FILE_EXTENSIONS, MAX_FILE_BYTES } from "./inquiry";
 
 type Ext = (typeof FILE_EXTENSIONS)[number];
@@ -52,12 +53,43 @@ function matchesSignature(ext: Ext, bytes: Uint8Array) {
   }
 }
 
-/** PDF có hành động tự chạy / tệp nhúng: từ chối */
+const PDF_ACTIVE =
+  /\/(JavaScript|JS|Launch|EmbeddedFile|OpenAction|AA|RichMedia|XFA)\b/;
+/** Object stream (PDF 1.5+): các đối tượng nằm ở dạng nén, giải nén mới thấy bên trong */
+const PDF_OBJSTM = /\/Type\s*\/ObjStm\b[^>]*?>>\s*stream\r?\n/g;
+const PDF_INFLATE_LIMIT = 20 * 1024 * 1024;
+
+/** Tên PDF viết bằng mã #xx (/J#61vaScript = /JavaScript): giải mã trước khi so */
+function unhex(text: string) {
+  return text.replace(/#([0-9A-Fa-f]{2})/g, (_, h: string) =>
+    String.fromCharCode(parseInt(h, 16)),
+  );
+}
+
+/**
+ * PDF có hành động tự chạy / tệp nhúng: từ chối. Kể cả tên viết bằng #xx hay nằm trong object
+ * stream nén (QC 09/11); cùng cách với backend/apps/inquiries/files.py. Chỉ giải nén object
+ * stream, không giải nén ảnh (điểm ảnh có thể tình cờ chứa "/JS").
+ */
 function pdfHasActiveContent(bytes: Uint8Array) {
   const text = new TextDecoder("latin1").decode(bytes);
-  return /\/(JavaScript|JS|Launch|EmbeddedFile|OpenAction|AA|RichMedia|XFA)\b/.test(
-    text,
-  );
+  if (PDF_ACTIVE.test(unhex(text))) return true;
+  let budget = PDF_INFLATE_LIMIT;
+  for (const match of text.matchAll(PDF_OBJSTM)) {
+    const start = (match.index ?? 0) + match[0].length;
+    const end = text.indexOf("endstream", start);
+    const raw = bytes.subarray(start, end === -1 ? bytes.length : end);
+    let out: Buffer;
+    try {
+      // Vượt giới hạn (bom nén) hay không giải nén được thì không kiểm được: từ chối
+      out = inflateSync(raw, { maxOutputLength: budget, finishFlush: 2 });
+    } catch {
+      return true;
+    }
+    budget -= out.length;
+    if (PDF_ACTIVE.test(unhex(out.toString("latin1")))) return true;
+  }
+  return false;
 }
 
 export type FileCheck =

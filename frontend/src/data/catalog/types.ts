@@ -58,6 +58,8 @@ export type Product = {
   isFallback?: boolean;
   /** Quản trị viên ẩn trang khỏi Google (sitemap bỏ qua) */
   noindex?: boolean;
+  /** Lần xuất bản gần nhất (ISO 8601), lastmod trong sitemap */
+  updated?: string;
   /** SEO riêng nhập trong CMS (chỉ có ở trang chi tiết) */
   seo?: PageSeo;
   /** Kiểu đóng gói theo ERP: kd = tháo rời (knock-down), fa = lắp sẵn (fully assembled) */

@@ -6,6 +6,8 @@ import { notFound } from "next/navigation";
 import { SiteProvider } from "@/components/providers/site-provider";
 import { FloatingActions } from "@/components/layout/floating-actions";
 import { GoogleAnalytics } from "@/components/shared/google-analytics";
+import { RevealScript } from "@/components/shared/reveal-script";
+import { SearchDialog } from "@/features/search";
 import { ScrollToTop } from "@/components/shared/scroll-to-top";
 import { PreviewBanner } from "@/features/preview/preview-banner";
 import { getSite } from "@/data/site";
@@ -70,17 +72,32 @@ export default async function LocaleLayout({
   // Cho phép static rendering với generateStaticParams
   setRequestLocale(locale);
   const site = await getSite(locale);
+  const tCommon = await getTranslations({ locale, namespace: "Common" });
 
   return (
     <html
       lang={locale}
+      // Script reveal gắn class "js" trước khi hydrate
+      suppressHydrationWarning
+      // html có scroll-smooth (globals.css): báo Next tắt cuộn mượt lúc chuyển trang, khỏi cảnh báo console
+      data-scroll-behavior="smooth"
       className={`${inter.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        <RevealScript />
+        {/* Link đầu tiên khi bấm Tab: bỏ qua header tới nội dung (WCAG 2.4.1, QC 09/11). Mọi trang có
+            <main id="main" tabIndex={-1}> để focus chuyển vào đúng nội dung */}
+        <a
+          href="#main"
+          className="bg-forest sr-only z-[100] px-5 py-3 text-sm font-medium text-white focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+        >
+          {tCommon("skipToContent")}
+        </a>
         <NextIntlClientProvider>
           <SiteProvider site={site}>
             {children}
             <FloatingActions items={site.floating} />
+            <SearchDialog />
             <ScrollToTop />
             <PreviewBanner />
           </SiteProvider>

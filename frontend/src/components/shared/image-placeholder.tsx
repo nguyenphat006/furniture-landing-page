@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { resolveAsset } from "@/config/assets";
+import { reveal } from "@/components/shared/reveal";
 import { cn } from "@/lib/utils";
 
 export type HatchTone = {
@@ -49,7 +50,11 @@ export function ImagePlaceholder({
 
   if (src) {
     return (
-      <div className={cn("absolute inset-0 overflow-hidden", className)}>
+      // Ảnh thu từ 1,06 về 1 khi cuộn tới (trừ ảnh LCP); hover thẻ có link (group) phóng nhẹ 1,04 (2026-11-09)
+      <div
+        {...(priority ? {} : reveal("image"))}
+        className={cn("absolute inset-0 overflow-hidden", className)}
+      >
         <Image
           src={src}
           alt=""
@@ -57,7 +62,7 @@ export function ImagePlaceholder({
           sizes={sizes}
           quality={quality}
           {...(priority ? { loading: "eager", fetchPriority: "high" } : {})}
-          className="object-cover"
+          className="ease-out-soft object-cover transition-transform duration-700 group-hover:scale-[1.04] group-hover/card:scale-[1.04]"
         />
       </div>
     );

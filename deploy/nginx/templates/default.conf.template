@@ -85,4 +85,19 @@ server {
         proxy_set_header X-Real-IP $remote_addr;
         proxy_read_timeout 120s;
     }
+
+    # Trang quản trị: tải video ngắn cho bài tin tức (khối Video tối đa 50 MB) lên thư viện tệp.
+    # Chỉ nới ở /admin/ (cần đăng nhập); API công khai giữ 12 MB.
+    location /admin/ {
+        client_max_body_size 60m;
+        set $cms_upstream http://cms:8000;
+        proxy_pass $cms_upstream;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_read_timeout 300s;
+        proxy_request_buffering on;
+    }
 }

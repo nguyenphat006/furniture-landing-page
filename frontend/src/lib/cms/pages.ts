@@ -2,6 +2,7 @@ import "server-only";
 import type { LegalKey } from "@/config/navigation";
 import type {
   ContentPage,
+  FaqContent,
   LegalPage,
   LegalSection,
   PageBlock,
@@ -89,6 +90,8 @@ function block(b: ApiBlock): PageBlock | null {
           visitLabel: b.value.visit_label,
         },
       };
+    case "faq":
+      return { id: b.id, type: "faq", value: faqOf(b.value) };
     case "section":
       return isCoded(b.value.section)
         ? { id: b.id, type: "section", value: { section: b.value.section } }
@@ -96,6 +99,31 @@ function block(b: ApiBlock): PageBlock | null {
     default:
       return null;
   }
+}
+
+function faqOf(v: Schemas["FaqValue"]): FaqContent {
+  return {
+    kicker: v.kicker,
+    title: v.title,
+    note: v.note,
+    buttonLabel: v.button_label,
+    items: v.items.map((i) => ({ question: i.question, answer: i.answer })),
+  };
+}
+
+/**
+ * Section dùng chung ở vị trí cố định của trang chưa có trong CMS (GET /sections/<slot>), chọn ở
+ * Cài đặt → Section trên trang. Chưa chọn / chưa xuất bản: null.
+ */
+export async function fetchFaqSlot(
+  slot: "capabilities-faq",
+  locale: string,
+): Promise<FaqContent | null> {
+  const data = await cmsGet<Schemas["SectionSlot"]>(`sections/${slot}`, {
+    locale,
+  });
+  const faq = data?.body.find((b) => b.type === "faq");
+  return faq && faq.type === "faq" ? faqOf(faq.value) : null;
 }
 
 export async function fetchPage(

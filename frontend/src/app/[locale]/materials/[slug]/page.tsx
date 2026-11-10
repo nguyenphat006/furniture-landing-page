@@ -66,7 +66,7 @@ export default async function MaterialDetailPage({
   return (
     <>
       <SiteHeader />
-      <main className="flex-1">
+      <main id="main" tabIndex={-1} className="flex-1 outline-none">
         <PageHeader
           parents={[{ label: tc("nav.materials"), href: navHref.materials }]}
           current={name}

@@ -44,3 +44,32 @@ def live_section(section: SharedSection | None) -> SharedSection | None:
     return SharedSection.objects.filter(
         translation_key=section.translation_key, locale=Locale.get_default(), live=True
     ).first()
+
+
+# Vị trí trên trang còn cứng ở frontend, lấy nội dung từ Section dùng chung chọn ở Cài đặt:
+# khoá trong URL /api/v1/sections/<slot> → trường của SiteSettings
+SECTION_SLOTS: dict[str, str] = {"capabilities-faq": "capabilities_faq"}
+
+
+@dataclass(frozen=True)
+class FoundSection:
+    section: SharedSection
+    is_fallback: bool
+
+
+def slot_section(slot: str, language: str) -> FoundSection | None:
+    """Section đang xuất bản ở vị trí slot theo ngôn ngữ; chưa có bản dịch thì bản gốc."""
+    from apps.sitesettings.models import SiteSettings
+
+    field = SECTION_SLOTS.get(slot)
+    if field is None:
+        return None
+    chosen: SharedSection | None = getattr(SiteSettings.load(), field)
+    if chosen is None:
+        return None
+    live = SharedSection.objects.filter(translation_key=chosen.translation_key, live=True)
+    section = live.filter(locale__language_code=language).first()
+    if section is not None:
+        return FoundSection(section, is_fallback=False)
+    section = live.filter(locale=Locale.get_default()).first()
+    return FoundSection(section, is_fallback=True) if section is not None else None

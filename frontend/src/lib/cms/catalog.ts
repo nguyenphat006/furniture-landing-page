@@ -62,6 +62,7 @@ function base(p: ApiProductBase, images: string[]): Product {
     features: p.features,
     isFallback: p.is_fallback,
     noindex: p.noindex,
+    updated: p.updated ?? undefined,
     images,
   };
 }

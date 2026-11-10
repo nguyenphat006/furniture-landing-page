@@ -15,7 +15,7 @@ from apps.core.api.permissions import SignedByFrontend
 
 from .. import selectors
 from ..models import Preview
-from .serializers import ContentPageSerializer, PreviewSerializer
+from .serializers import ContentPageSerializer, PreviewSerializer, SectionSlotSerializer
 
 
 class ContentPageView(APIView):
@@ -41,6 +41,33 @@ class ContentPageView(APIView):
             raise NotFound
         context = {"request": request, "is_fallback": found.is_fallback}
         return Response(ContentPageSerializer(found.page, context=context).data)
+
+
+class SectionSlotView(APIView):
+    """Section dùng chung ở vị trí cố định (capabilities-faq...), chọn ở Cài đặt.
+
+    Chưa chọn hoặc chưa xuất bản thì 404 (frontend dùng chữ mặc định).
+    """
+
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                "slot", str, OpenApiParameter.PATH, enum=list(selectors.SECTION_SLOTS)
+            ),
+            LOCALE_PARAM,
+        ],
+        responses=SectionSlotSerializer,
+        operation_id="sections_retrieve",
+    )
+    def get(self, request: Request, slot: str) -> Response:
+        params = LocaleQuerySerializer(data=request.query_params)
+        params.is_valid(raise_exception=True)
+        language = params.validated_data.get("locale") or settings.LANGUAGE_CODE
+        found = selectors.slot_section(slot, language)
+        if found is None:
+            raise NotFound
+        context = {"request": request, "is_fallback": found.is_fallback}
+        return Response(SectionSlotSerializer(found.section, context=context).data)
 
 
 class PreviewView(APIView):

@@ -24,6 +24,7 @@ import {
 import { Link } from "@/i18n/navigation";
 import { ProductCarousel } from "./product-carousel";
 import { ProductGallery } from "./product-gallery";
+import { reveal } from "@/components/shared/reveal";
 
 /*
  * Trang chi tiết sản phẩm /products/<nhóm>/<slug> (làm lại 2026-11-06), bố cục học Gloster + Nghĩa Sơn
@@ -201,10 +202,10 @@ export function ProductHero({ product }: { product: Product }) {
           <ProductGallery images={product.images} name={product.name} />
 
           <div className="lg:sticky lg:top-[calc(80px+1.5rem)] lg:self-start">
-            <p className="text-eyebrow text-forest mb-3 font-semibold uppercase">
+            <p className="text-eyebrow text-forest mb-3 font-bold uppercase">
               {tc(`productTypes.${product.type}`)}
             </p>
-            <h1 className="text-ink text-[clamp(1.875rem,3vw,2.75rem)] leading-[1.1] font-semibold tracking-[-0.015em] text-balance">
+            <h1 className="text-ink text-[clamp(1.875rem,3vw,2.75rem)] leading-[1.1] font-bold tracking-[-0.03em] text-balance">
               {product.name}
             </h1>
             {product.code && (
@@ -301,7 +302,7 @@ function SetItemCard({ item }: { item: SetItem }) {
         </div>
       )}
       <div className="flex items-baseline justify-between gap-4 px-5 pt-5 pb-3">
-        <h3 className="text-ink text-lg font-medium">
+        <h3 className="text-ink text-lg font-bold">
           {tc(`productTypes.${item.type}`)}
         </h3>
         <span className="text-forest text-sm font-semibold tabular-nums">
@@ -372,7 +373,10 @@ export function ProductDetail({
             <TabsContent value="specifications">
               {isSet && (
                 <Accordion title={t("setSection")} defaultOpen>
-                  <ul className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+                  <ul
+                    {...reveal("stagger")}
+                    className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3"
+                  >
                     {product.setItems!.map((s) => (
                       <SetItemCard key={s.type} item={s} />
                     ))}
@@ -392,7 +396,7 @@ export function ProductDetail({
                         <dt className="text-ink-mute text-xs font-semibold tracking-[.14em] uppercase">
                           {t(`dims.${k}`)}
                         </dt>
-                        <dd className="text-ink mt-2 text-2xl font-semibold tabular-nums">
+                        <dd className="text-ink mt-2 text-2xl font-bold tracking-[-0.03em] tabular-nums">
                           {d?.[k]}
                           <span className="text-ink-mute ml-1 text-sm font-normal">
                             {t("unit")}
@@ -418,7 +422,10 @@ export function ProductDetail({
 
               {mats.length > 0 && (
                 <Accordion title={t("materialsSection")}>
-                  <ul className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+                  <ul
+                    {...reveal("stagger")}
+                    className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4"
+                  >
                     {mats.map((m) => {
                       return (
                         <li key={m.slug}>
@@ -433,7 +440,7 @@ export function ProductDetail({
                                 className="ease-out-soft transition-transform duration-(--duration-slow) group-hover/mat:scale-[1.04]"
                               />
                             </div>
-                            <p className="text-ink group-hover/mat:text-forest mt-4 font-medium tracking-[.06em] uppercase transition-colors">
+                            <p className="text-ink group-hover/mat:text-forest mt-4 font-semibold tracking-[.06em] uppercase transition-colors">
                               {tc(`materials.${m.slug}`)}
                             </p>
                             <p className="text-ink-soft mt-2 line-clamp-3 text-sm leading-relaxed">

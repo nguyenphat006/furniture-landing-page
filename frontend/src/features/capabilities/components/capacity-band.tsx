@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { CountUp } from "@/components/shared/count-up";
 import { Container, Section } from "@/components/shared/section";
 import { cn } from "@/lib/utils";
+import { reveal } from "@/components/shared/reveal";
 
 /*
  * Dải 4 con số năng lực (2026-11-04), anchor #capacity, ngay dưới đầu trang Năng lực.
@@ -31,7 +32,10 @@ export function CapacityBand() {
   return (
     <Section id="capacity" tone="brand" spacing="band" aria-label={t("aria")}>
       <Container>
-        <dl className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
+        <dl
+          {...reveal("stagger")}
+          className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4"
+        >
           {STATS.map((s, i) => (
             <div
               key={s.key}
@@ -49,7 +53,7 @@ export function CapacityBand() {
               <dt className="text-eyebrow order-2 mt-4 font-semibold text-white/90 uppercase">
                 {t(`items.${s.key}.label`)}
               </dt>
-              <dd className="order-1 text-[clamp(2.5rem,3.5vw,3.5rem)] leading-none font-semibold tracking-[-0.02em] tabular-nums">
+              <dd className="order-1 text-[clamp(2.5rem,3.5vw,3.5rem)] leading-none font-bold tracking-[-0.03em] tabular-nums">
                 {s.value === null ? (
                   <span className="text-white/35">NULL</span>
                 ) : (
@@ -60,7 +64,7 @@ export function CapacityBand() {
                   </>
                 )}
               </dd>
-              <dd className="order-3 mt-2 max-w-[32ch] text-sm leading-relaxed text-white/85">
+              <dd className="order-3 mt-2 max-w-[32ch] text-sm leading-relaxed text-white/90">
                 {t(`items.${s.key}.desc`)}
               </dd>
             </div>

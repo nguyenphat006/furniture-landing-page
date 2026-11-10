@@ -64,12 +64,15 @@ export function QualitySection() {
               key={key}
               className="group/qc border-line grid grid-cols-[auto_minmax(0,1fr)] gap-x-6 gap-y-6 border-t py-8 sm:grid-cols-[auto_minmax(0,1fr)_minmax(0,16rem)] sm:items-center sm:gap-x-8 lg:py-10 xl:grid-cols-[auto_minmax(0,1fr)_minmax(0,18rem)]"
             >
-              <span className="text-gold w-[2ch] text-[clamp(2.5rem,3.5vw,3.25rem)] leading-none font-semibold tabular-nums">
+              <span
+                aria-hidden="true"
+                className="text-gold w-[2ch] text-[clamp(2.5rem,3.5vw,3.25rem)] leading-none font-bold tracking-[-0.03em] tabular-nums"
+              >
                 0{i + 1}
               </span>
 
               <div>
-                <h3 className="text-h3 text-ink font-semibold">
+                <h3 className="text-h3 text-ink font-bold">
                   {t(`items.${key}.name`)}
                 </h3>
                 <p className="text-ink-soft mt-2.5 max-w-[46ch] leading-relaxed">

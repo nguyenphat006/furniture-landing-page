@@ -4,12 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { PageHeader } from "@/components/shared/page-header";
-import {
-  ContactSection,
-  VisitSection,
-  isPurpose,
-  sanitizeModel,
-} from "@/features/contact";
+import { ContactSection, isPurpose, sanitizeModel } from "@/features/contact";
 
 /*
  * Trang Liên hệ (2026-11-05): đầu trang (tên trang + mô tả) → form dọc (stone)
@@ -46,7 +41,7 @@ export default async function ContactPage({
   return (
     <>
       <SiteHeader />
-      <main className="flex-1">
+      <main id="main" tabIndex={-1} className="flex-1 outline-none">
         <PageHeader
           current={tc("nav.contact")}
           title={t("title")}
@@ -56,7 +51,6 @@ export default async function ContactPage({
           defaultPurpose={isPurpose(purpose) ? purpose : "quote"}
           defaultModel={sanitizeModel(model)}
         />
-        <VisitSection />
       </main>
       <SiteFooter crossKeys={["capabilities", "products", "materials"]} />
     </>

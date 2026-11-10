@@ -51,12 +51,23 @@ export type CtaContent = {
   visitLabel: string;
 };
 
+/** Câu hỏi thường gặp (Section dùng chung trong CMS, 2026-11-09) */
+export type FaqContent = {
+  kicker: string;
+  title: string;
+  /** Dòng dưới tiêu đề, rỗng = ẩn */
+  note: string;
+  buttonLabel: string;
+  items: { question: string; answer: string }[];
+};
+
 export type PageBlock =
   | { id: string; type: "hero"; value: HeroContent }
   | { id: string; type: "intro"; value: IntroContent }
   | { id: string; type: "export"; value: ExportContent }
   | { id: string; type: "factory"; value: FactoryContent }
   | { id: string; type: "cta"; value: CtaContent }
+  | { id: string; type: "faq"; value: FaqContent }
   | { id: string; type: "section"; value: { section: CodedSection } };
 
 /** Một mục của trang pháp lý: html là rich text từ CMS, text là bản chữ thuần (mô tả SEO) */

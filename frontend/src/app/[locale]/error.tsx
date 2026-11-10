@@ -35,7 +35,7 @@ export default function LocaleError({
   return (
     <>
       <SiteHeader />
-      <main className="flex-1">
+      <main id="main" tabIndex={-1} className="flex-1 outline-none">
         <header className="flex min-h-[min(80svh,720px)] items-center bg-white pt-[calc(72px+4rem)] pb-20 xl:pt-[calc(80px+4rem)]">
           <Container>
             <SectionHeading
